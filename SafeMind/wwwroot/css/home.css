@@ -1,0 +1,159 @@
+:root {
+    --primary: #F6D186;
+    --secondary: #FF8A65;
+    --accent: #6C5B7B;
+    --neutral-light: #FFF9F4;
+    --neutral-dark: #4E4E50;
+}
+
+body {
+    margin: 0;
+    background: var(--neutral-light);
+    color: var(--neutral-dark);
+    font-family: "Segoe UI", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------------- NAVBAR ---------------- */
+
+.navbar {
+    width: 92%;
+    margin: 20px auto;
+        padding: 6px 18px;
+
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border: 1px solid #e8e2dc;
+}
+
+/* Logo section */
+.nav-logo {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo img {
+    width: 150px;        /* Adjust size to make navbar shorter */
+    height: 100px;
+
+    display: block;
+    background: none;   /* Make sure no background is applied */
+    border: none;       /* Remove borders */
+    padding: 0;
+    margin: 0;
+    box-shadow: none;   /* In case any shadow was inherited */
+}
+
+/* Nav links container */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Individual links */
+.nav-links a {
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+
+    color: var(--neutral-dark);
+    transition: 0.25s ease;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+    color: var(--accent);
+    text-shadow: 0 0 6px rgba(108, 91, 123, 0.25);
+    transform: translateY(-1px);
+}
+
+/* ---------------- HERO ---------------- */
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    padding: 70px 80px 0 80px;
+}
+
+.hero-text h1 {
+    font-size: 2.8rem;
+    margin: 0;
+}
+
+.cta-btn {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--secondary);
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+}
+
+.hero-images {
+    position: relative;
+}
+
+.img-box {
+    border-radius: 16px;
+    border: 2px solid var(--accent);
+    background: #ffffff70;
+}
+
+.large {
+    width: 240px;
+    height: 200px;
+}
+
+.small {
+    width: 150px;
+    height: 150px;
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+
+
+/* Make sure ABOUT section isn't hidden */
+.about {
+    padding-top: 80px;
+    background: var(--neutral-light);
+}
+
+/* ---------------- ABOUT ---------------- */
+
+.about {
+    padding: 40px 80px 120px 80px;
+}
+
+/* ---------------- FOOTER ---------------- */
+
+.footer {
+    margin-top: auto;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+    background: var(--accent);
+    color: white;
+    bottom: 0;
+    left: 0;
+}
