@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "QcK8dPAfDzzaZc89DEcU9y+S06izs5SF/Pk3nFlF9ys=",
+  "Hash": "oxsuOb++s4HenQh8UdZFjIcbjigCqL+ZOJORapnthNI=",
   "Source": "SafeMind",
   "BasePath": "_content/SafeMind",
   "Mode": "Default",
@@ -1844,12 +1844,12 @@
       "OriginalItemSpec": "C:\\Users\\gajok\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\9.0.2\\staticwebassets\\V5\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\8jo2d3x03b-wahwzkampo.gz",
+      "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\8jo2d3x03b-fc80cnrduo.gz",
       "SourceId": "SafeMind",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/SafeMind",
-      "RelativePath": "css/home#[.{fingerprint=wahwzkampo}]?.css.gz",
+      "RelativePath": "css/home#[.{fingerprint=fc80cnrduo}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1858,8 +1858,8 @@
       "RelatedAsset": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\home.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "c86f5bgzp0",
-      "Integrity": "tEETu0G6hHqnpaI2YH3Qg0LeMx6hwX4FMuklzlKbHtA=",
+      "Fingerprint": "gin0d8eytc",
+      "Integrity": "CCS3vEUfWb1j6f8W624XnTlFzxF6j5lv+W+XUCIU/O0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\home.css"
@@ -2894,12 +2894,12 @@
       "OriginalItemSpec": "C:\\Users\\gajok\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\9.0.2\\staticwebassets\\V5\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\ntz3wkj7bn-06jz8p6fmt.gz",
+      "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\ntz3wkj7bn-5ipweew5fc.gz",
       "SourceId": "SafeMind",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/SafeMind",
-      "RelativePath": "css/site#[.{fingerprint=06jz8p6fmt}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=5ipweew5fc}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -2908,8 +2908,8 @@
       "RelatedAsset": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "v5qj84udk6",
-      "Integrity": "zTxxKZPg4CvpMw5k0TUqa7VPu7KRawh7XL1kIZXoOvg=",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\site.css"
@@ -3186,6 +3186,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\gajok\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\9.0.2\\staticwebassets\\V5\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\q6xfvrrxeq-hjjt07cq7p.gz",
+      "SourceId": "SafeMind",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/SafeMind",
+      "RelativePath": "css/footer#[.{fingerprint=hjjt07cq7p}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\footer.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "w3iv1oqzbl",
+      "Integrity": "lDHny1f7I2ethflxAVhgjrWlIpWtQFUeN73dCj/TAKY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\footer.css"
     },
     {
       "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\qaw68jksmq-b7pk76d08c.gz",
@@ -4070,6 +4091,27 @@
       "OriginalItemSpec": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\SafeMind.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\footer.css",
+      "SourceId": "SafeMind",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\",
+      "BasePath": "_content/SafeMind",
+      "RelativePath": "css/footer#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hjjt07cq7p",
+      "Integrity": "0zs+rUOXduGRMdmZtnhPzeokM14In8uSGzqfKWe3v9s=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\footer.css"
+    },
+    {
       "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\home.css",
       "SourceId": "SafeMind",
       "SourceType": "Discovered",
@@ -4084,8 +4126,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "wahwzkampo",
-      "Integrity": "aO1ptO8/AWyWZKX64c+Do/uzct/gIo5jghZBQWZMv3g=",
+      "Fingerprint": "fc80cnrduo",
+      "Integrity": "wZ1p7J+ny/r30q0hUpjdBksRQ0YNcO2galhmDKyD2+M=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\home.css"
@@ -4126,8 +4168,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "06jz8p6fmt",
-      "Integrity": "yHfKajbbUfUuIV0MYSVGrf8yBBwUsj2vS7TCrU3dzsk=",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -5437,13 +5479,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/home.css",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\8jo2d3x03b-wahwzkampo.gz",
+      "Route": "css/footer.css",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\q6xfvrrxeq-hjjt07cq7p.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000438020149"
+          "Quality": "0.000729927007"
         }
       ],
       "ResponseHeaders": [
@@ -5453,15 +5495,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2282"
+          "Value": "1369"
         },
         {
           "Name": "ETag",
-          "Value": "\"tEETu0G6hHqnpaI2YH3Qg0LeMx6hwX4FMuklzlKbHtA=\""
+          "Value": "\"lDHny1f7I2ethflxAVhgjrWlIpWtQFUeN73dCj/TAKY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:01:47 GMT"
+          "Value": "Tue, 09 Dec 2025 18:16:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5481,13 +5523,311 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"aO1ptO8/AWyWZKX64c+Do/uzct/gIo5jghZBQWZMv3g=\""
+          "Value": "W/\"0zs+rUOXduGRMdmZtnhPzeokM14In8uSGzqfKWe3v9s=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-aO1ptO8/AWyWZKX64c+Do/uzct/gIo5jghZBQWZMv3g="
+          "Value": "sha256-0zs+rUOXduGRMdmZtnhPzeokM14In8uSGzqfKWe3v9s="
+        }
+      ]
+    },
+    {
+      "Route": "css/footer.css",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\footer.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5322"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0zs+rUOXduGRMdmZtnhPzeokM14In8uSGzqfKWe3v9s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 18:16:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-0zs+rUOXduGRMdmZtnhPzeokM14In8uSGzqfKWe3v9s="
+        }
+      ]
+    },
+    {
+      "Route": "css/footer.css.gz",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\q6xfvrrxeq-hjjt07cq7p.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1369"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lDHny1f7I2ethflxAVhgjrWlIpWtQFUeN73dCj/TAKY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 18:16:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-lDHny1f7I2ethflxAVhgjrWlIpWtQFUeN73dCj/TAKY="
+        }
+      ]
+    },
+    {
+      "Route": "css/footer.hjjt07cq7p.css",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\q6xfvrrxeq-hjjt07cq7p.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000729927007"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1369"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lDHny1f7I2ethflxAVhgjrWlIpWtQFUeN73dCj/TAKY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 18:16:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"0zs+rUOXduGRMdmZtnhPzeokM14In8uSGzqfKWe3v9s=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hjjt07cq7p"
+        },
+        {
+          "Name": "label",
+          "Value": "css/footer.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0zs+rUOXduGRMdmZtnhPzeokM14In8uSGzqfKWe3v9s="
+        }
+      ]
+    },
+    {
+      "Route": "css/footer.hjjt07cq7p.css",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\footer.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5322"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0zs+rUOXduGRMdmZtnhPzeokM14In8uSGzqfKWe3v9s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 18:16:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hjjt07cq7p"
+        },
+        {
+          "Name": "label",
+          "Value": "css/footer.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0zs+rUOXduGRMdmZtnhPzeokM14In8uSGzqfKWe3v9s="
+        }
+      ]
+    },
+    {
+      "Route": "css/footer.hjjt07cq7p.css.gz",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\q6xfvrrxeq-hjjt07cq7p.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1369"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lDHny1f7I2ethflxAVhgjrWlIpWtQFUeN73dCj/TAKY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 18:16:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hjjt07cq7p"
+        },
+        {
+          "Name": "label",
+          "Value": "css/footer.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-lDHny1f7I2ethflxAVhgjrWlIpWtQFUeN73dCj/TAKY="
+        }
+      ]
+    },
+    {
+      "Route": "css/home.css",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\8jo2d3x03b-fc80cnrduo.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000515995872"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1937"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"CCS3vEUfWb1j6f8W624XnTlFzxF6j5lv+W+XUCIU/O0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 18:10:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"wZ1p7J+ny/r30q0hUpjdBksRQ0YNcO2galhmDKyD2+M=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wZ1p7J+ny/r30q0hUpjdBksRQ0YNcO2galhmDKyD2+M="
         }
       ]
     },
@@ -5502,7 +5842,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "11675"
+          "Value": "9166"
         },
         {
           "Name": "Content-Type",
@@ -5510,11 +5850,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"aO1ptO8/AWyWZKX64c+Do/uzct/gIo5jghZBQWZMv3g=\""
+          "Value": "\"wZ1p7J+ny/r30q0hUpjdBksRQ0YNcO2galhmDKyD2+M=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:01:47 GMT"
+          "Value": "Tue, 09 Dec 2025 18:10:48 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5524,13 +5864,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-aO1ptO8/AWyWZKX64c+Do/uzct/gIo5jghZBQWZMv3g="
+          "Value": "sha256-wZ1p7J+ny/r30q0hUpjdBksRQ0YNcO2galhmDKyD2+M="
         }
       ]
     },
     {
       "Route": "css/home.css.gz",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\8jo2d3x03b-wahwzkampo.gz",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\8jo2d3x03b-fc80cnrduo.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5539,7 +5879,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2282"
+          "Value": "1937"
         },
         {
           "Name": "Content-Type",
@@ -5547,11 +5887,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"tEETu0G6hHqnpaI2YH3Qg0LeMx6hwX4FMuklzlKbHtA=\""
+          "Value": "\"CCS3vEUfWb1j6f8W624XnTlFzxF6j5lv+W+XUCIU/O0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:01:47 GMT"
+          "Value": "Tue, 09 Dec 2025 18:10:48 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5569,18 +5909,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-tEETu0G6hHqnpaI2YH3Qg0LeMx6hwX4FMuklzlKbHtA="
+          "Value": "sha256-CCS3vEUfWb1j6f8W624XnTlFzxF6j5lv+W+XUCIU/O0="
         }
       ]
     },
     {
-      "Route": "css/home.wahwzkampo.css",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\8jo2d3x03b-wahwzkampo.gz",
+      "Route": "css/home.fc80cnrduo.css",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\8jo2d3x03b-fc80cnrduo.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000438020149"
+          "Quality": "0.000515995872"
         }
       ],
       "ResponseHeaders": [
@@ -5590,15 +5930,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2282"
+          "Value": "1937"
         },
         {
           "Name": "ETag",
-          "Value": "\"tEETu0G6hHqnpaI2YH3Qg0LeMx6hwX4FMuklzlKbHtA=\""
+          "Value": "\"CCS3vEUfWb1j6f8W624XnTlFzxF6j5lv+W+XUCIU/O0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:01:47 GMT"
+          "Value": "Tue, 09 Dec 2025 18:10:48 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5618,13 +5958,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"aO1ptO8/AWyWZKX64c+Do/uzct/gIo5jghZBQWZMv3g=\""
+          "Value": "W/\"wZ1p7J+ny/r30q0hUpjdBksRQ0YNcO2galhmDKyD2+M=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "wahwzkampo"
+          "Value": "fc80cnrduo"
         },
         {
           "Name": "label",
@@ -5632,12 +5972,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-aO1ptO8/AWyWZKX64c+Do/uzct/gIo5jghZBQWZMv3g="
+          "Value": "sha256-wZ1p7J+ny/r30q0hUpjdBksRQ0YNcO2galhmDKyD2+M="
         }
       ]
     },
     {
-      "Route": "css/home.wahwzkampo.css",
+      "Route": "css/home.fc80cnrduo.css",
       "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\home.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -5647,7 +5987,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "11675"
+          "Value": "9166"
         },
         {
           "Name": "Content-Type",
@@ -5655,11 +5995,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"aO1ptO8/AWyWZKX64c+Do/uzct/gIo5jghZBQWZMv3g=\""
+          "Value": "\"wZ1p7J+ny/r30q0hUpjdBksRQ0YNcO2galhmDKyD2+M=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:01:47 GMT"
+          "Value": "Tue, 09 Dec 2025 18:10:48 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5669,7 +6009,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "wahwzkampo"
+          "Value": "fc80cnrduo"
         },
         {
           "Name": "label",
@@ -5677,13 +6017,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-aO1ptO8/AWyWZKX64c+Do/uzct/gIo5jghZBQWZMv3g="
+          "Value": "sha256-wZ1p7J+ny/r30q0hUpjdBksRQ0YNcO2galhmDKyD2+M="
         }
       ]
     },
     {
-      "Route": "css/home.wahwzkampo.css.gz",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\8jo2d3x03b-wahwzkampo.gz",
+      "Route": "css/home.fc80cnrduo.css.gz",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\8jo2d3x03b-fc80cnrduo.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5692,7 +6032,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2282"
+          "Value": "1937"
         },
         {
           "Name": "Content-Type",
@@ -5700,11 +6040,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"tEETu0G6hHqnpaI2YH3Qg0LeMx6hwX4FMuklzlKbHtA=\""
+          "Value": "\"CCS3vEUfWb1j6f8W624XnTlFzxF6j5lv+W+XUCIU/O0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:01:47 GMT"
+          "Value": "Tue, 09 Dec 2025 18:10:48 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5722,7 +6062,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "wahwzkampo"
+          "Value": "fc80cnrduo"
         },
         {
           "Name": "label",
@@ -5730,7 +6070,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-tEETu0G6hHqnpaI2YH3Qg0LeMx6hwX4FMuklzlKbHtA="
+          "Value": "sha256-CCS3vEUfWb1j6f8W624XnTlFzxF6j5lv+W+XUCIU/O0="
         }
       ]
     },
@@ -6033,13 +6373,13 @@
       ]
     },
     {
-      "Route": "css/site.06jz8p6fmt.css",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\ntz3wkj7bn-06jz8p6fmt.gz",
+      "Route": "css/site.5ipweew5fc.css",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\ntz3wkj7bn-5ipweew5fc.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.008474576271"
+          "Quality": "1.000000000000"
         }
       ],
       "ResponseHeaders": [
@@ -6049,15 +6389,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "117"
+          "Value": "0"
         },
         {
           "Name": "ETag",
-          "Value": "\"zTxxKZPg4CvpMw5k0TUqa7VPu7KRawh7XL1kIZXoOvg=\""
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:03:59 GMT"
+          "Value": "Tue, 09 Dec 2025 18:13:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6077,13 +6417,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"yHfKajbbUfUuIV0MYSVGrf8yBBwUsj2vS7TCrU3dzsk=\""
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "06jz8p6fmt"
+          "Value": "5ipweew5fc"
         },
         {
           "Name": "label",
@@ -6091,12 +6431,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-yHfKajbbUfUuIV0MYSVGrf8yBBwUsj2vS7TCrU3dzsk="
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
         }
       ]
     },
     {
-      "Route": "css/site.06jz8p6fmt.css",
+      "Route": "css/site.5ipweew5fc.css",
       "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -6106,7 +6446,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "133"
+          "Value": "0"
         },
         {
           "Name": "Content-Type",
@@ -6114,11 +6454,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"yHfKajbbUfUuIV0MYSVGrf8yBBwUsj2vS7TCrU3dzsk=\""
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:03:59 GMT"
+          "Value": "Tue, 09 Dec 2025 18:13:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6128,7 +6468,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "06jz8p6fmt"
+          "Value": "5ipweew5fc"
         },
         {
           "Name": "label",
@@ -6136,13 +6476,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-yHfKajbbUfUuIV0MYSVGrf8yBBwUsj2vS7TCrU3dzsk="
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
         }
       ]
     },
     {
-      "Route": "css/site.06jz8p6fmt.css.gz",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\ntz3wkj7bn-06jz8p6fmt.gz",
+      "Route": "css/site.5ipweew5fc.css.gz",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\ntz3wkj7bn-5ipweew5fc.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6151,7 +6491,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "117"
+          "Value": "0"
         },
         {
           "Name": "Content-Type",
@@ -6159,11 +6499,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"zTxxKZPg4CvpMw5k0TUqa7VPu7KRawh7XL1kIZXoOvg=\""
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:03:59 GMT"
+          "Value": "Tue, 09 Dec 2025 18:13:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6181,7 +6521,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "06jz8p6fmt"
+          "Value": "5ipweew5fc"
         },
         {
           "Name": "label",
@@ -6189,7 +6529,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-zTxxKZPg4CvpMw5k0TUqa7VPu7KRawh7XL1kIZXoOvg="
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
         }
       ]
     },
@@ -6232,12 +6572,12 @@
     },
     {
       "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\ntz3wkj7bn-06jz8p6fmt.gz",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\ntz3wkj7bn-5ipweew5fc.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.008474576271"
+          "Quality": "1.000000000000"
         }
       ],
       "ResponseHeaders": [
@@ -6247,15 +6587,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "117"
+          "Value": "0"
         },
         {
           "Name": "ETag",
-          "Value": "\"zTxxKZPg4CvpMw5k0TUqa7VPu7KRawh7XL1kIZXoOvg=\""
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:03:59 GMT"
+          "Value": "Tue, 09 Dec 2025 18:13:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6275,13 +6615,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"yHfKajbbUfUuIV0MYSVGrf8yBBwUsj2vS7TCrU3dzsk=\""
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-yHfKajbbUfUuIV0MYSVGrf8yBBwUsj2vS7TCrU3dzsk="
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
         }
       ]
     },
@@ -6296,7 +6636,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "133"
+          "Value": "0"
         },
         {
           "Name": "Content-Type",
@@ -6304,11 +6644,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"yHfKajbbUfUuIV0MYSVGrf8yBBwUsj2vS7TCrU3dzsk=\""
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:03:59 GMT"
+          "Value": "Tue, 09 Dec 2025 18:13:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6318,13 +6658,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-yHfKajbbUfUuIV0MYSVGrf8yBBwUsj2vS7TCrU3dzsk="
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
         }
       ]
     },
     {
       "Route": "css/site.css.gz",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\ntz3wkj7bn-06jz8p6fmt.gz",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\ntz3wkj7bn-5ipweew5fc.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6333,7 +6673,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "117"
+          "Value": "0"
         },
         {
           "Name": "Content-Type",
@@ -6341,11 +6681,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"zTxxKZPg4CvpMw5k0TUqa7VPu7KRawh7XL1kIZXoOvg=\""
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 09 Dec 2025 18:03:59 GMT"
+          "Value": "Tue, 09 Dec 2025 18:13:23 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6363,7 +6703,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-zTxxKZPg4CvpMw5k0TUqa7VPu7KRawh7XL1kIZXoOvg="
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
         }
       ]
     },

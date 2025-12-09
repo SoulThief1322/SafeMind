@@ -367,45 +367,19 @@ body {
 /* ============ SUPPORT SECTION ============ */
 
 .support-section {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #1f4d38 100%);
-    color: white;
+    color: var(--color-text);
     padding: 80px 60px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    margin-bottom: 0px;
-    width: 100vw;
-    max-width: 100vw;
-    margin: 0;
-    left: 50%;
-    right: 50%;
-    transform: translateX(-50%);
-
-    margin-bottom: 0;
 }
 
 .support-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 500px;
-    height: 500px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
-    z-index: 0;
+    display: none;
 }
 
 .support-section::after {
-    content: '';
-    position: absolute;
-    bottom: -30%;
-    left: -5%;
-    width: 400px;
-    height: 400px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 50%;
-    z-index: 0;
+    display: none;
 }
 
 .support-section > * {
@@ -417,14 +391,62 @@ body {
     font-size: 2.8rem;
     margin-bottom: 15px;
     font-weight: 700;
+    color: var(--color-primary);
 }
 
 .support-subtitle {
     font-size: 1.1rem;
     margin-bottom: 60px;
-    opacity: 0.95;
+    opacity: 0.85;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
     line-height: 1.8;
+    color: var(--color-text-muted);
 }
+
+/* ===========================
+   HOTLINE CARDS
+   =========================== */
+
+.hotline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 60px;
+}
+
+.hotline-card {
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    border: 2px solid var(--color-primary-light);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.hotline-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 24px rgba(46, 111, 84, 0.15);
+}
+
+.hotline-card h4 {
+    font-size: 1.15rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--color-primary);
+}
+
+.hotline-number {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    font-family: 'Courier New', monospace;
+    color: var(--color-primary);
+}
+
+
