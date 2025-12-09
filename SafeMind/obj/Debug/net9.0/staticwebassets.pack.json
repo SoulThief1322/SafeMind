@@ -2,11 +2,15 @@
   "Files": [
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\SafeMind.bundle.scp.css",
-      "PackagePath": "staticwebassets\\SafeMind.6ztcfnr413.bundle.scp.css"
+      "PackagePath": "staticwebassets\\SafeMind.v9az9fwgy7.bundle.scp.css"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\home.css",
       "PackagePath": "staticwebassets\\css\\home.css"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\navbar.css",
+      "PackagePath": "staticwebassets\\css\\navbar.css"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\site.css",

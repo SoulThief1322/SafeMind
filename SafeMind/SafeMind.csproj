@@ -4,7 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-SafeMind-5b1a512f-0aaa-476e-a85a-4d1cbc40d8c9</UserSecretsId>
+    <UserSecretsId>aspnet-SafeMind-f0d3cb8e-bc5d-45fe-ad2c-c56e355a0b1b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

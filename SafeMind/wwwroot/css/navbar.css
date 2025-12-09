@@ -1,0 +1,99 @@
+:root {
+    --color-primary: #2E6F54;
+    --color-primary-light: #B7E4C7;
+    --color-bg: #FAFAF7;
+    --color-surface: #F4EDE4;
+    --color-muted: #CBD5C0;
+    --color-text: #1E1E1E;
+    --color-text-muted: #4A4A4A;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+.navbar-custom {
+    background-color: white;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 16px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary) !important;
+    margin-right: 80px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    flex: 1;
+}
+
+.nav-links a {
+    color: var(--color-text) !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--color-primary) !important;
+}
+
+.nav-links .dropdown-toggle::after {
+    content: '';
+}
+
+.nav-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-left: auto;
+}
+
+.btn-sign-in {
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary) !important;
+    padding: 8px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-sign-in:hover {
+    background-color: var(--color-primary);
+    color: white !important;
+}
+
+.btn-cta {
+    background-color: var(--color-primary);
+    color: white !important;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-cta:hover {
+    background-color: #1f4d38;
+    transform: translateY(-1px);
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+    outline: 2px solid var(--color-primary);
+}
