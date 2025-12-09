@@ -133,7 +133,7 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\SafeMind.MvcApplicati
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\SafeMind.RazorAssemblyInfo.cache
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\SafeMind.RazorAssemblyInfo.cs
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\SafeMind.sourcelink.json
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\scopedcss\bundle\SafeMind.styles.css
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\scopedcss\projectbundle\SafeMind.bundle.scp.css
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\ofa40bqe71-b9sayid5wm.gz
@@ -259,8 +259,8 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\xu335ut6wf
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\p12eem29am-muycvpuwrr.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\5f13cejeym-87fc7y1x7t.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\p8wofqnbse-mlv21k5csn.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\9v8aglb6hx-6ztcfnr413.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\p7nmdcodk9-6ztcfnr413.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\9v8aglb6hx-v9az9fwgy7.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\p7nmdcodk9-v9az9fwgy7.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\staticwebassets.build.endpoints.json
@@ -276,5 +276,7 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\refint\SafeMind.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\SafeMind.pdb
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\SafeMind.genruntimeconfig.cache
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\ref\SafeMind.dll
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\ntz3wkj7bn-b9sayid5wm.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\8jo2d3x03b-gunb4ufti4.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\wihxj0565r-5c4r6vvp6g.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\8jo2d3x03b-fc80cnrduo.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\ntz3wkj7bn-5ipweew5fc.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\q6xfvrrxeq-hjjt07cq7p.gz

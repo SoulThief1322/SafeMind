@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SafeMind</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/footer.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-custom navbar-expand-md">
+            <div class="container-fluid px-4">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SafeMind</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <div class="nav-links">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Book">Book Session</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Articles">Articles</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Community">Community</a>
+                    </div>
+
+                    <div class="nav-actions">
+                        <a href="/Identity/Account/Login" class="btn-sign-in">Sign In</a>
+                        <a href="#" class="btn-cta">Get in touch</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section logo-section">
+                <div class="logo-box">
+                    <span class="logo-text">SM</span>
+                </div>
+                <div class="site-name">SafeMind</div>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/safemind" target="_blank" rel="noreferrer">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/company/safemind" target="_blank" rel="noreferrer">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.instagram.com/safemind" target="_blank" rel="noreferrer">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>App & Resources</h4>
+                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                <a href="#">About Us</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="#">Mental Health Tips</a>
+                <a href="#">Articles</a>
+                <a href="#">Community</a>
+                <a href="#">FAQs</a>
+            </div>
+
+            <div class="footer-section">
+                <h4>Site Map</h4>
+                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <a href="#">Articles</a>
+                <a href="#">Community</a>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2025 SafeMind. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/navbar.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

@@ -3571,11 +3571,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gajok\\safemind\\safemind\\SafeMind\\SafeMind.csproj",
+      "projectUniqueName": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\SafeMind.csproj",
       "projectName": "SafeMind",
-      "projectPath": "C:\\Users\\gajok\\safemind\\safemind\\SafeMind\\SafeMind.csproj",
+      "projectPath": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\SafeMind.csproj",
       "packagesPath": "C:\\Users\\gajok\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gajok\\safemind\\safemind\\SafeMind\\obj\\",
+      "outputPath": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
