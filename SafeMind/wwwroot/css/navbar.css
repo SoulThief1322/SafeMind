@@ -97,3 +97,45 @@ body {
     box-shadow: none;
     outline: 2px solid var(--color-primary);
 }
+@media (max-width: 992px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        background-color: white;
+        padding: 16px 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-actions {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 16px;
+        gap: 12px;
+    }
+
+    .navbar-toggler {
+        display: block;
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-left: auto;
+    }
+
+    .navbar-custom {
+        position: relative;
+        padding: 12px 16px;
+    }
+
+    .navbar-brand {
+        margin-right: 0;
+    }
+}

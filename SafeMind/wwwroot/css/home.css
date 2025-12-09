@@ -450,3 +450,156 @@ body {
 }
 
 
+
+
+
+@media (max-width: 1024px) {
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 60px 40px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-images {
+        height: 300px;
+    }
+}
+@media (max-width: 768px) {
+    .hero {
+        padding: 40px 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .mental-health-section,
+    .articles-section {
+        padding: 60px 20px;
+    }
+
+    .section-content h2,
+    .articles-section h2,
+    .mood-section h2,
+    .support-section h2 {
+        font-size: 2rem;
+    }
+
+    .mood-options {
+        gap: 20px;
+    }
+
+    .content-card,
+    .mood-btn,
+    .hotline-card {
+        padding: 25px;
+    }
+
+    .image-large {
+        width: 200px;
+        height: 160px;
+    }
+
+    .image-small {
+        width: 120px;
+        height: 120px;
+    }
+
+    .articles-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .article-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .article-content {
+        padding: 20px;
+    }
+
+    .support-section {
+        padding: 60px 20px;
+    }
+
+    .support-section h2 {
+        font-size: 2.2rem;
+    }
+
+    .support-subtitle {
+        font-size: 1rem;
+        margin-bottom: 40px;
+    }
+
+    .hotline-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .hotline-card {
+        padding: 25px;
+    }
+
+    .hotline-card h4 {
+        font-size: 1rem;
+    }
+
+    .hotline-number {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .mood-options {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mood-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .section-divider {
+        margin: 60px 0;
+    }
+
+    .support-section {
+        padding: 50px 15px;
+    }
+
+    .support-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .hotline-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hotline-card {
+        padding: 20px;
+    }
+
+    .hotline-number {
+        font-size: 1.1rem;
+    }
+}
+
+
+
+
+
+
+
+
+
