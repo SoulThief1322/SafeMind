@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\SafeMind.v9az9fwgy7.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\articles.css",
+      "PackagePath": "staticwebassets\\css\\articles.css"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\book.css",
+      "PackagePath": "staticwebassets\\css\\book.css"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\footer.css",
       "PackagePath": "staticwebassets\\css\\footer.css"
     },
@@ -17,12 +25,12 @@
       "PackagePath": "staticwebassets\\css\\navbar.css"
     },
     {
-      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\site.css",
-      "PackagePath": "staticwebassets\\css\\site.css"
-    },
-    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\navbar.js",
+      "PackagePath": "staticwebassets\\js\\navbar.js"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\site.js",

@@ -1,0 +1,159 @@
+@{
+    ViewData["Title"] = "Book a Session";
+}
+
+    <link rel="stylesheet" href="~/css/book.css" asp-append-version="true" />
+
+<div class="booking-page">
+    <div class="booking-grid">
+
+        <!-- LEFT -->
+        <section class="booking-left">
+            <h1 class="booking-title">
+                Find a professional and book an online appointment
+            </h1>
+            <p class="muted">
+                Search by specialty or name, then pick a time that works for you.
+            </p>
+
+            <div class="booking-form">
+                <div class="form-group">
+                    <label>Find professional</label>
+                    <div class="field-row">
+                        <select class="select">
+                            <option value="">Choose specialty</option>
+                            <option>CBT (Cognitive Behavioral Therapy)</option>
+                            <option>EMDR</option>
+                            <option>Child & Adolescent</option>
+                            <option>Couples Therapy</option>
+                            <option>Trauma</option>
+                        </select>
+
+                        <input class="input"
+                               type="search"
+                               placeholder="Name (optional)" />
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="primary-btn">Search</button>
+                    <button class="secondary-btn">Browse all</button>
+                </div>
+
+                <div class="filters">
+                    <small class="muted">Quick filters</small>
+                    <div class="chip-row">
+                        <button class="chip">Insurance accepted</button>
+                        <button class="chip">Online</button>
+                        <button class="chip">In-person</button>
+                        <button class="chip">Available today</button>
+                        <button class="chip">New clients</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popular">
+                <small class="muted">Popular specialties</small>
+                <div class="popular-row">
+                    <button class="popular-chip">PTSD</button>
+                    <button class="popular-chip">Depression</button>
+                    <button class="popular-chip">Panic attacks</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- RIGHT -->
+        <section class="booking-right">
+            <div class="results-header">
+                <div>
+                    <h5>Results</h5>
+                    <small class="muted">
+                        Design-only results to show layout and hierarchy.
+                    </small>
+                </div>
+
+                <div class="sort-row">
+                    <small class="muted">Sort</small>
+                    <select class="select select-small">
+                        <option>Most relevant</option>
+                        <option>Earliest availability</option>
+                        <option>Highest rated</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="results-list">
+
+                <div class="provider-card">
+                    <div class="provider-inner">
+                        <div class="avatar">AB</div>
+
+                        <div class="provider-info">
+                            <h6>
+                                Dr. Alex Brown
+                                <span class="verified">Verified</span>
+                            </h6>
+                            <p class="muted small">
+                                CBT, Anxiety, Depression • English, Spanish
+                            </p>
+                            <p class="muted small">
+                                Next available: <strong>Tomorrow, 10:30 AM</strong>
+                            </p>
+                        </div>
+
+                        <div class="provider-actions">
+                            <div class="price">$90</div>
+                            <div class="muted small">Insurance accepted</div>
+                            <button class="book-btn">Book</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-inner">
+                        <div class="avatar">ME</div>
+
+                        <div class="provider-info">
+                            <h6>Maya Edwards</h6>
+                            <p class="muted small">
+                                EMDR, Trauma • English
+                            </p>
+                            <p class="muted small">
+                                Next available: <strong>In 3 days</strong>
+                            </p>
+                        </div>
+
+                        <div class="provider-actions">
+                            <div class="price">$120</div>
+                            <div class="muted small">Sliding scale</div>
+                            <button class="book-btn">Book</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="end-note">
+                    No more sample results — this is purely visual.
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+</div>
+
+@section Scripts {
+<script>
+(function () {
+    document.querySelectorAll('.chip, .popular-chip').forEach(btn => {
+        btn.addEventListener('click', () => btn.classList.toggle('active'));
+    });
+
+    document.querySelectorAll('.book-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.classList.add('active');
+            setTimeout(() => btn.classList.remove('active'), 300);
+        });
+    });
+})();
+</script>
+}
