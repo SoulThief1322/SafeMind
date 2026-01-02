@@ -10,36 +10,37 @@
     <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/footer.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-custom navbar-expand-md">
-            <div class="container-fluid px-4">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SafeMind</a>
+  <div class="container-fluid px-4">
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SafeMind</a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-                <div class="collapse navbar-collapse" id="navbarContent">
-                    <div class="nav-links">
-                        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        <a asp-area="" asp-controller="Book" asp-action="Index">Book Session</a>
-                        <a asp-area="" asp-controller="Articles" asp-action="Index">Articles</a>
-                        <a asp-area="" asp-controller="Home" asp-action="Community">Community</a>
-                    </div>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="nav-links">
+        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        <a asp-area="" asp-controller="Book" asp-action="Index">Book Session</a>
+        <a asp-area="" asp-controller="Articles" asp-action="Index">Articles</a>
+        <a asp-area="" asp-controller="Home" asp-action="Community">Community</a>
+      </div>
 
-                    <div class="nav-actions">
-                        <a href="/Identity/Account/Login" class="btn-sign-in">Sign In</a>
-                        <a href="#" class="btn-cta">Get in touch</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+      <div class="nav-actions">
+        <!-- Changed to button for accessibility and modal trigger -->
+        <button id="signInBtn" class="btn-sign-in">Sign In</button>
+        <a href="#" class="btn-cta">Get in touch</a>
+      </div>
+    </div>
+  </div>
+</nav>
 
     <main role="main">
         @RenderBody()
@@ -100,6 +101,11 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/navbar.js"></script>
+    @* Render the modal on non-Identity pages to avoid duplicate IDs when visiting Identity pages directly *@
+    @if (!Context.Request.Path.StartsWithSegments("/Identity", StringComparison.OrdinalIgnoreCase)) {
+        @await Html.PartialAsync("_LoginModal")
+    }
+    <script src="~/js/login.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
