@@ -9,9 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let index = 0;
 
-  track.addEventListener("click" , (e) => {
+  track.addEventListener("click", () => {
     window.location.href = "http://localhost:5019/Articles/#";
   });
+
   function updateCarousel() {
     slides.forEach((slide, i) => {
       slide.classList.remove("is-active", "is-prev", "is-next");

@@ -1,51 +1,18 @@
 @{
     ViewData["Title"] = "Articles";
 }
+
 <link rel="stylesheet" href="~/css/articles.css" />
 
-<section class="hero-editorial">
-    <aside class="hero-side-nav">
-        <a class="side-link active" href="#">Mind</a>
-        <a class="side-link" href="#">Wellness</a>
-        <a class="side-link" href="#">Sleep</a>
-        <a class="side-link" href="#">Therapy</a>
-        <a class="side-link" href="#">Insights</a>
-    </aside>
-
-
-    <div class="hero-bg" style="background-image:url('/images/hero.jpg')">
-        <div class="hero-overlay"></div>
-
-
-        <div class="hero-inner container">
-            <span class="hero-eyebrow">Expansive Exploration</span>
-
-            <h1 class="hero-title">
-                Where Land and<br />
-                Water Lead Us
-            </h1>
-
-            <a href="#" class="hero-cta-text">Learn More</a>
-        </div>
-        <div class="hero-notice">
-            <div class="container hero-notice-inner">
-                <p class="hero-notice-text">
-                    <strong>New:</strong> Guided grounding exercises now available.
-                    <a href="#">Learn more</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CAROUSEL -->
 <section class="container">
+
+    <!-- CAROUSEL -->
     <div class="carousel carousel-editorial">
-        <button class="carousel-btn prev" aria-label="Previous">‹</button>
+        <button class="carousel-btn prev">‹</button>
 
         <div class="carousel-track">
             <div class="carousel-slide">
-                <img src="/images/feat1.jpg" alt="Mindfulness">
+                <img src="/images/feat1.jpg">
                 <div class="meta">
                     <span class="article-tag">Mindfulness</span>
                     <h4>Quick Breathing Reset</h4>
@@ -53,7 +20,7 @@
             </div>
 
             <div class="carousel-slide">
-                <img src="/images/feat2.jpg" alt="Sleep">
+                <img src="/images/feat2.jpg">
                 <div class="meta">
                     <span class="article-tag">Sleep</span>
                     <h4>Better Night Routines</h4>
@@ -61,21 +28,23 @@
             </div>
 
             <div class="carousel-slide">
-                <img src="/images/feat3.jpg" alt="Wellness">
+                <img src="/images/feat3.jpg">
                 <div class="meta">
                     <span class="article-tag">Wellness</span>
                     <h4>Tiny Steps, Big Calm</h4>
                 </div>
             </div>
+
             <div class="carousel-slide">
-                <img src="/images/feat3.jpg" alt="Wellness">
+                <img src="/images/feat3.jpg">
                 <div class="meta">
                     <span class="article-tag">Wellness</span>
                     <h4>Tiny Steps, Big Calm</h4>
                 </div>
             </div>
+
             <div class="carousel-slide">
-                <img src="/images/feat3.jpg" alt="Wellness">
+                <img src="/images/feat3.jpg">
                 <div class="meta">
                     <span class="article-tag">Wellness</span>
                     <h4>Tiny Steps, Big Calm</h4>
@@ -83,57 +52,93 @@
             </div>
         </div>
 
-        <button class="carousel-btn next" aria-label="Next">›</button>
+        <button class="carousel-btn next">›</button>
     </div>
 
+    <!-- EDITORIAL BODY -->
+    <section class="editorial-layout">
 
-    <!-- FILTER PILLS -->
-    <div class="filters" role="tablist" aria-label="Article categories">
-        <button class="pill active" data-cat="All">All</button>
-        <button class="pill" data-cat="Anxiety">Anxiety</button>
-        <button class="pill" data-cat="Mindfulness">Mindfulness</button>
-        <button class="pill" data-cat="Sleep">Sleep</button>
-        <button class="pill" data-cat="Therapy">Therapy</button>
-    </div>
+        <!-- LEFT -->
+        <div>
+            <h2 class="section-title">Latest Posts</h2>
 
-    <!-- ARTICLES GRID + METRICS SIDEBAR -->
-    <div class="articles-grid layout-two">
-        <div class="grid-main">
-            <article class="article-card" data-category="Anxiety">
-                <div class="article-image"><img src="/images/a1.jpg" alt=""></div>
-                <div class="article-content">
-                    <span class="article-tag">Anxiety</span>
-                    <h3>Calming Techniques That Actually Work</h3>
-                    <p class="excerpt">Practical steps you can try today to reduce immediate stress.</p>
-                </div>
-            </article>
+            <div class="latest-posts">
+                <a class="story-card">
+                    <img src="/images/a1.jpg">
+                    <div class="story-content">
+                        <span class="story-tag">Mind</span>
+                        <h3>Calming Techniques That Actually Work</h3>
+                        <p>Practical steps you can try today.</p>
+                    </div>
+                </a>
 
-            <article class="article-card" data-category="Mindfulness">
-                <div class="article-image"><img src="/images/a3.jpg" alt=""></div>
-                <div class="article-content">
-                    <span class="article-tag">Mindfulness</span>
-                    <h3>Daily Mindfulness in 10 Minutes</h3>
-                    <p class="excerpt">Short practices to build sustained presence and focus.</p>
-                </div>
-            </article>
-            <!-- more article-cards -->
+                <a class="story-card">
+                    <img src="/images/a2.jpg">
+                    <div class="story-content">
+                        <span class="story-tag">Sleep</span>
+                        <h3>Why Night Routines Matter</h3>
+                        <p>Build habits that support rest.</p>
+                    </div>
+                </a>
+            </div>
         </div>
 
-        <aside class="grid-side">
-            <div class="metric-card">
-                <div class="metric-value">#1</div>
-                <div class="metric-desc">Relevant Metric Title</div>
+        <!-- RIGHT -->
+        <aside class="editorial-sidebar">
+
+            <div class="sidebar-block">
+                <h4>Follow Us</h4>
+                <div class="social-grid">
+                    <a>Facebook</a>
+                    <a>Instagram</a>
+                    <a>Twitter</a>
+                    <a>YouTube</a>
+                </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-value">99%</div>
-                <div class="metric-desc">Relevant Metric Title</div>
+
+            <div class="sidebar-block">
+                <h4>Categories</h4>
+                <div class="category-grid">
+                    <a class="category-tile" style="background-image:url('/images/cat1.jpg')">
+                        <span>Mind</span><em>20</em>
+                    </a>
+                    <a class="category-tile" style="background-image:url('/images/cat2.jpg')">
+                        <span>Sleep</span><em>12</em>
+                    </a>
+                </div>
             </div>
-            <div class="metric-card">
-                <div class="metric-value">1.2k</div>
-                <div class="metric-desc">Relevant Metric Title</div>
+
+            <div class="sidebar-block">
+                <h4>Most viewed posts</h4>
+
+                <div class="most-viewed-post">
+                    <img src="/images/p1.jpg">
+                    <div>
+                        <h5>Evening Wind-Down Rituals</h5>
+                        <span>1.2k views</span>
+                    </div>
+                </div>
+
+                <div class="most-viewed-post">
+                    <img src="/images/p2.jpg">
+                    <div>
+                        <h5>Small Steps Toward Calm</h5>
+                        <span>980 views</span>
+                    </div>
+                </div>
+
+                <div class="most-viewed-post">
+                    <img src="/images/p3.jpg">
+                    <div>
+                        <h5>Breathing for Busy Minds</h5>
+                        <span>860 views</span>
+                    </div>
+                </div>
+
             </div>
+
         </aside>
-    </div>
+    </section>
 </section>
 
 <script src="~/js/articles.js"></script>
