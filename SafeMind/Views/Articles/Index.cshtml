@@ -1,0 +1,115 @@
+@{
+    ViewData["Title"] = "Articles";
+}
+<link rel="stylesheet" href="~/css/articles.css" />
+
+<section class="hero-editorial">
+    <aside class="hero-side-nav">
+        <a class="side-link active" href="#">Mind</a>
+        <a class="side-link" href="#">Wellness</a>
+        <a class="side-link" href="#">Sleep</a>
+        <a class="side-link" href="#">Therapy</a>
+        <a class="side-link" href="#">Insights</a>
+    </aside>
+
+
+    <div class="hero-bg" style="background-image:url('/images/hero.jpg')">
+        <div class="hero-overlay"></div>
+
+
+        <div class="hero-inner container">
+            <span class="hero-eyebrow">Expansive Exploration</span>
+
+            <h1 class="hero-title">
+                Where Land and<br />
+                Water Lead Us
+            </h1>
+
+            <a href="#" class="hero-cta-text">Learn More</a>
+        </div>
+        <div class="hero-notice">
+            <div class="container hero-notice-inner">
+                <p class="hero-notice-text">
+                    <strong>New:</strong> Guided grounding exercises now available.
+                    <a href="#">Learn more</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CAROUSEL -->
+<section class="container">
+    <div class="carousel">
+        <button class="carousel-btn prev" aria-label="Previous">‹</button>
+        <div class="carousel-track">
+            <div class="carousel-slide"><img src="/images/feat1.jpg" alt="">
+                <div class="meta"><span class="article-tag">Mindfulness</span>
+                    <h4>Quick breathing</h4>
+                </div>
+            </div>
+            <div class="carousel-slide"><img src="/images/feat2.jpg" alt="">
+                <div class="meta"><span class="article-tag">Sleep</span>
+                    <h4>Night routines</h4>
+                </div>
+            </div>
+            <div class="carousel-slide"><img src="/images/feat3.jpg" alt="">
+                <div class="meta"><span class="article-tag">Wellness</span>
+                    <h4>Tiny steps</h4>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-btn next" aria-label="Next">›</button>
+        <div class="carousel-dots" aria-hidden="false"></div>
+    </div>
+
+    <!-- FILTER PILLS -->
+    <div class="filters" role="tablist" aria-label="Article categories">
+        <button class="pill active" data-cat="All">All</button>
+        <button class="pill" data-cat="Anxiety">Anxiety</button>
+        <button class="pill" data-cat="Mindfulness">Mindfulness</button>
+        <button class="pill" data-cat="Sleep">Sleep</button>
+        <button class="pill" data-cat="Therapy">Therapy</button>
+    </div>
+
+    <!-- ARTICLES GRID + METRICS SIDEBAR -->
+    <div class="articles-grid layout-two">
+        <div class="grid-main">
+            <article class="article-card" data-category="Anxiety">
+                <div class="article-image"><img src="/images/a1.jpg" alt=""></div>
+                <div class="article-content">
+                    <span class="article-tag">Anxiety</span>
+                    <h3>Calming Techniques That Actually Work</h3>
+                    <p class="excerpt">Practical steps you can try today to reduce immediate stress.</p>
+                </div>
+            </article>
+
+            <article class="article-card" data-category="Mindfulness">
+                <div class="article-image"><img src="/images/a3.jpg" alt=""></div>
+                <div class="article-content">
+                    <span class="article-tag">Mindfulness</span>
+                    <h3>Daily Mindfulness in 10 Minutes</h3>
+                    <p class="excerpt">Short practices to build sustained presence and focus.</p>
+                </div>
+            </article>
+            <!-- more article-cards -->
+        </div>
+
+        <aside class="grid-side">
+            <div class="metric-card">
+                <div class="metric-value">#1</div>
+                <div class="metric-desc">Relevant Metric Title</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">99%</div>
+                <div class="metric-desc">Relevant Metric Title</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">1.2k</div>
+                <div class="metric-desc">Relevant Metric Title</div>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<script src="~/js/articles.js"></script>
