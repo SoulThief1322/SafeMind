@@ -418,4 +418,5 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\runtimes\win-x64\nati
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\er2gbkr48h-fpqnnp3kd6.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\8nwhd3a6xc-qnzk18kjgb.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\8nwhd3a6xc-12pbuscowm.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\c6l2srpgns-bxn0zjc4gh.gz

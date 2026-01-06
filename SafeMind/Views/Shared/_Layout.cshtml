@@ -30,20 +30,24 @@
                         <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         <a asp-area="" asp-controller="Book" asp-action="Index">Book Session</a>
                         <a asp-area="" asp-controller="Articles" asp-action="Index">Articles</a>
-                        <a asp-area="" asp-controller="Home" asp-action="Community">Community</a>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <a asp-area="" asp-controller="MySessions" asp-action="Index">MySessions</a>
+                            <a asp-area="" asp-controller="MyDiary" asp-action="Index">MyDiary</a>
+                        }
+
+
                     </div>
 
                     <div class="nav-actions">
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
-                            <!-- Sign Out button using default Identity logout page -->
                             <form asp-area="Identity" asp-page="/Account/Logout" method="post" class="d-inline">
                                 <button type="submit" class="btn-sign-in">Sign Out</button>
                             </form>
                         }
                         else
                         {
-                            <!-- Sign In button triggers modal or redirects to login page -->
                             <button id="signInBtn" class="btn-sign-in">Sign In</button>
                         }
 
@@ -114,7 +118,6 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/js/navbar.js"></script>
-        @* Render the modal on non-Identity pages to avoid duplicate IDs when visiting Identity pages directly *@
         @if (!Context.Request.Path.StartsWithSegments("/Identity", StringComparison.OrdinalIgnoreCase))
         {
             @await Html.PartialAsync("_LoginModal")

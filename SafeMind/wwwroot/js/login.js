@@ -10,7 +10,6 @@ function openLogin() {
   loginModal.setAttribute('aria-hidden', 'false');
   loginOverlay.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = "hidden";
-  // focus first input for accessibility
   const firstInput = loginModal.querySelector('input, button, [tabindex]:not([tabindex="-1"])');
   if (firstInput) firstInput.focus();
 }
@@ -22,15 +21,12 @@ function closeLogin() {
   loginModal.setAttribute('aria-hidden', 'true');
   loginOverlay.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = "";
-  // return focus to Sign In button
   if (signInBtn) signInBtn.focus();
 }
 
-// Open modal when Sign In button is clicked (if available)
 if (signInBtn) {
   signInBtn.addEventListener("click", e => {
     e.preventDefault();
-    // If modal isn't present (unexpected), fall back to full-page login
     if (!loginModal) {
       window.location.href = '/Identity/Account/Login';
       return;
@@ -39,11 +35,9 @@ if (signInBtn) {
   });
 }
 
-// Close handlers (guarded)
 loginOverlay?.addEventListener("click", closeLogin);
 loginCloseBtn?.addEventListener("click", closeLogin);
 
-// Intercept form submit in modal to perform AJAX login
 const loginForm = loginModal ? loginModal.querySelector('form.login-form') : null;
 const loginErrors = loginModal ? loginModal.querySelector('.login-errors') : null;
 
@@ -81,7 +75,6 @@ if (loginForm) {
       if (resp.ok && contentType.includes('application/json')) {
         const data = await resp.json();
         if (data.succeeded) {
-          // close modal and refresh / redirect
           closeLogin();
           if (data.redirect) {
             window.location.href = data.redirect;
@@ -99,7 +92,6 @@ if (loginForm) {
           }
         }
       } else {
-        // Try to parse JSON errors from 400 responses
         if (resp.status === 400 && contentType.includes('application/json')) {
           const data = await resp.json();
           if (data.errors && data.errors.length) {
@@ -110,7 +102,6 @@ if (loginForm) {
             showLoginErrors(['Invalid login attempt.']);
           }
         } else {
-          // Non-JSON fallback: navigate to full-page login (server may have redirected)
           window.location.href = '/Identity/Account/Login';
         }
       }
@@ -123,7 +114,6 @@ if (loginForm) {
   });
 }
 
-// ESC to close (guarded)
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && loginModal && !loginModal.classList.contains("hidden")) {
     closeLogin();

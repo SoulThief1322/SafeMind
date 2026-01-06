@@ -86,7 +86,6 @@ body {
 
 .btn-cta:hover {
     background-color: #1f4d38;
-    transform: translateY(-1px);
 }
 
 .navbar-toggler {
