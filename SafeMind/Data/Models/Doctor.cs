@@ -24,9 +24,10 @@ namespace Data.Models
         [Comment("Session duration in minutes")]
         public int SessionDuration { get; set; }
         [Required]
-        [Range(DoctorConstants.RatingMinNumber, DoctorConstants.RatingMaxNumber)]
+        [Range(GeneralConstants.RatingMinNumber, GeneralConstants.RatingMaxNumber)]
         public decimal Rating { get; set; }
-        
+        public ICollection<DoctorSpecialty> DoctorSpecialties { get; set; } = new HashSet<DoctorSpecialty>();
+        public ICollection<DoctorLanguages> DoctorLanguages { get; set; } = new HashSet<DoctorLanguages>();
         
     }
 }

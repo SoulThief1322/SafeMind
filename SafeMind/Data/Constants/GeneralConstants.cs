@@ -7,5 +7,8 @@ namespace Data.Constants
 
         public const int DescriptionMaxLength = 1000;
         public const int DescriptionMinLength = 10;
+        
+        public const double RatingMaxNumber = 5;
+        public const double RatingMinNumber = 1;
     }
 }

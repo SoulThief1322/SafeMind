@@ -1,70 +1,121 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Data.Models;
-using Microsoft.AspNetCore.Identity;
-namespace SafeMind.Data;
+using Data.Enums;
 
-public class SafeMindDbContext : IdentityDbContext
+namespace SafeMind.Data
 {
-    public SafeMindDbContext(DbContextOptions<SafeMindDbContext> options)
-        : base(options)
+    public class SafeMindDbContext : IdentityDbContext<IdentityUser>
     {
-    }
-    public DbSet<Specialty> Specialties { get; set; }
-    public DbSet<Doctor> Doctors { get; set; }
-    public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
-    public DbSet<Language> Languages { get; set; }
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        base.OnModelCreating(builder);
-        builder.Entity<Specialty>(entity =>
-    {
-        entity.ToTable("Specialties");
+        public SafeMindDbContext(DbContextOptions<SafeMindDbContext> options)
+            : base(options)
+        {
+        }
 
-        entity.HasKey(e => e.Id);
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Specialty> Specialties { get; set; }
+        public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<DoctorLanguages> DoctorLanguages { get; set; }
 
-        entity.Property(e => e.Name)
-              .IsRequired()
-              .HasMaxLength(200);
-    });
-        builder.Entity<Doctor>(entity =>
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+
+            builder.Entity<Doctor>(entity =>
             {
                 entity.ToTable("Doctors");
 
-                entity.HasKey(e => e.Id);
+                entity.HasKey(d => d.Id);
 
-                entity.HasOne<IdentityUser>()
+                entity.Property(d => d.Name)
+                      .IsRequired()
+                      .HasMaxLength(50);
+
+                entity.Property(d => d.Rating)
+                      .HasColumnType("decimal(3,2)");
+
+                entity.HasOne(d => d.User)
                       .WithOne()
                       .HasForeignKey<Doctor>(d => d.UserId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+
+            builder.Entity<Specialty>(entity =>
+            {
+                entity.ToTable("Specialties");
+
+                entity.HasKey(s => s.Id);
+
+                entity.Property(s => s.Name)
+                      .IsRequired()
+                      .HasMaxLength(200);
+            });
+
+
+            builder.Entity<DoctorSpecialty>(entity =>
+            {
+                entity.ToTable("DoctorSpecialties");
+
+                entity.HasKey(ds => new { ds.DoctorId, ds.SpecialtyId });
+
+                entity.HasOne(ds => ds.Doctor)
+                      .WithMany(d => d.DoctorSpecialties)
+                      .HasForeignKey(ds => ds.DoctorId)
                       .OnDelete(DeleteBehavior.Cascade);
 
-                entity.Property(e => e.Rating)
-                      .HasColumnType("decimal(3,2)");
+                entity.HasOne(ds => ds.Specialty)
+                      .WithMany(s => s.DoctorSpecialties)
+                      .HasForeignKey(ds => ds.SpecialtyId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
-        builder.Entity<DoctorSpecialty>(entity =>
+
+
+            builder.Entity<Language>(entity =>
+            {
+                entity.ToTable("Languages");
+
+                entity.HasKey(l => l.Id);
+
+                entity.Property(l => l.Name)
+                      .IsRequired()
+                      .HasMaxLength(50);
+            });
+
+            builder.Entity<DoctorLanguages>(entity =>
 {
-    entity.ToTable("DoctorSpecialties");
+    entity.ToTable("DoctorLanguages");
 
-    entity.HasKey(e => new { e.DoctorId, e.SpecialtyId });
+    entity.HasKey(dl => new { dl.DoctorId, dl.LanguageId });
 
-    entity.HasOne<Doctor>()
-          .WithMany()
-          .HasForeignKey(e => e.DoctorId);
+    entity.HasOne(dl => dl.Doctor)
+          .WithMany(d => d.DoctorLanguages)
+          .HasForeignKey(dl => dl.DoctorId)
+          .OnDelete(DeleteBehavior.Cascade);
 
-    entity.HasOne<Specialty>()
-          .WithMany()
-          .HasForeignKey(e => e.SpecialtyId);
+    entity.HasOne(dl => dl.Language)
+          .WithMany(l => l.DoctorLanguages)
+          .HasForeignKey(dl => dl.LanguageId)
+          .OnDelete(DeleteBehavior.Cascade);
 });
-        builder.Entity<Language>(entity =>
-        {
-            entity.ToTable("Languages");
+            builder.Entity<Session>(entity =>
+            {
+                entity.Property(s => s.SessionStatus)
+                      .HasConversion<int>()
+                      .HasDefaultValue(SessionStatus.Scheduled);
 
-            entity.HasKey(e => e.Id);
+                entity.Property(s => s.PaymentStatus)
+                      .HasConversion<int>()
+                      .HasDefaultValue(PaymentStatus.Pending);
 
-            entity.Property(e => e.Name)
-                  .IsRequired()
-                  .HasMaxLength(100);
-        });
+                entity.Property(s => s.Price)
+                      .HasColumnType("decimal(8,2)");
+            });
+        }
 
     }
+
 }
