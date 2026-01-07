@@ -16,6 +16,7 @@
 
 <body>
     <header>
+        <div class="page-wrapper">
         <nav class="navbar navbar-custom navbar-expand-md">
             <div class="container-fluid px-4">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SafeMind</a>
@@ -63,31 +64,27 @@
 
         <footer class="footer">
             <div class="footer-container">
+
                 <div class="footer-section logo-section">
                     <div class="logo-box">
                         <img src="~/images/SafeMindLogo.png" alt="SafeMind logo" class="footer-logo-img"
-                            onerror="this.style.display='none'; this.nextElementSibling && (this.nextElementSibling.style.display='block');"
-                            onload="this.nextElementSibling && (this.nextElementSibling.style.display='none');" />
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
                         <span class="logo-text fallback-logo-text" style="display:none">SM</span>
                     </div>
+
                     <div class="site-name">SafeMind</div>
+
                     <div class="social-icons">
-                        <a href="https://www.facebook.com/safemind" target="_blank" rel="noreferrer">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/company/safemind" target="_blank" rel="noreferrer">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://www.instagram.com/safemind" target="_blank" rel="noreferrer">
-                            <i class="fab fa-instagram"></i>
-                        </a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
 
                 <div class="footer-section">
                     <h4>App & Resources</h4>
-                    <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    <a href="#">Home</a>
+                    <a href="#">Privacy</a>
                     <a href="#">About Us</a>
                     <a href="#">Contact</a>
                 </div>
@@ -102,10 +99,10 @@
 
                 <div class="footer-section">
                     <h4>Site Map</h4>
-                    <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    <a href="#">Home</a>
                     <a href="#">Articles</a>
                     <a href="#">Community</a>
-                    <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                    <a href="#">Privacy Policy</a>
                 </div>
             </div>
 
@@ -113,6 +110,7 @@
                 &copy; 2025 SafeMind. All rights reserved.
             </div>
         </footer>
+        </div>
 
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

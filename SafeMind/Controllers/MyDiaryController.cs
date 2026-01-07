@@ -4,11 +4,11 @@ using SafeMind.Models;
 
 namespace SafeMind.Controllers;
 
-public class BookController : Controller
+public class MyDiaryController : Controller
 {
-    private readonly ILogger<BookController> _logger;
+    private readonly ILogger<MyDiaryController> _logger;
 
-    public BookController(ILogger<BookController> logger)
+    public MyDiaryController(ILogger<MyDiaryController> logger)
     {
         _logger = logger;
     }

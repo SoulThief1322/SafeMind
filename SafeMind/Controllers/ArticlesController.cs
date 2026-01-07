@@ -18,11 +18,6 @@ public class ArticlesController : Controller
         return View();
     }
 
-    public async Task<IActionResult> Privacy()
-    {
-        return View();
-    }
-
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public async Task<IActionResult> Error()
     {
