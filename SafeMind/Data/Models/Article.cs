@@ -21,5 +21,7 @@ namespace Data.Models
         public int ViewsInLastWeek { get; set; } = 0;
         public int Likes { get; set; } = 0;
         public string? ImagePath { get; set; }
+        public ICollection<ArticleCategories> ArticleCategories { get; set; }
+            = new List<ArticleCategories>();
     }
 }

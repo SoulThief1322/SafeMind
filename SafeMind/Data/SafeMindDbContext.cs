@@ -148,6 +148,38 @@ namespace SafeMind.Data
                       .HasForeignKey(a => a.AuthorId)
                       .OnDelete(DeleteBehavior.Restrict);
             });
+            // -------- Category --------
+            builder.Entity<Category>(entity =>
+            {
+                entity.ToTable("Categories");
+
+                entity.HasKey(c => c.Id);
+
+                entity.Property(c => c.Name)
+                      .IsRequired()
+                      .HasMaxLength(100);
+
+                entity.HasIndex(c => c.Name)
+                      .IsUnique();
+            });
+
+            // -------- ArticleCategories --------
+            builder.Entity<ArticleCategories>(entity =>
+            {
+                entity.ToTable("ArticleCategories");
+
+                entity.HasKey(ac => new { ac.ArticleId, ac.CategoryId });
+
+                entity.HasOne(ac => ac.Article)
+                      .WithMany(a => a.ArticleCategories)
+                      .HasForeignKey(ac => ac.ArticleId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(ac => ac.Category)
+                      .WithMany(c => c.ArticleCategories)
+                      .HasForeignKey(ac => ac.CategoryId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
         }
     }
 }
