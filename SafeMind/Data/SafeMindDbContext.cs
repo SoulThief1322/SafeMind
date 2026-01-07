@@ -12,6 +12,7 @@ public class SafeMindDbContext : IdentityDbContext
     }
     public DbSet<Specialty> Specialties { get; set; }
     public DbSet<Doctor> Doctors { get; set; }
+    public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -39,6 +40,21 @@ public class SafeMindDbContext : IdentityDbContext
                 entity.Property(e => e.Rating)
                       .HasColumnType("decimal(3,2)");
             });
-        
+            builder.Entity<DoctorSpecialty>(entity =>
+    {
+        entity.ToTable("DoctorSpecialties");
+
+        entity.HasKey(e => new { e.DoctorId, e.SpecialtyId });
+
+        entity.HasOne<Doctor>()
+              .WithMany()
+              .HasForeignKey(e => e.DoctorId);
+
+        entity.HasOne<Specialty>()
+              .WithMany()
+              .HasForeignKey(e => e.SpecialtyId);
+    });
+
+
     }
 }
