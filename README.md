@@ -8,3 +8,8 @@
     --color-text: #1E1E1E;         /* Almost Black */
     --color-text-muted: #4A4A4A;   /* Dark Gray */
 }
+
+
+
+
+chat sistema mejdu potrebitel i doktor s web socket

@@ -10,11 +10,13 @@
     <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/footer.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
     <header>
+        <div class="page-wrapper">
         <nav class="navbar navbar-custom navbar-expand-md">
             <div class="container-fluid px-4">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SafeMind</a>
@@ -27,79 +29,99 @@
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <div class="nav-links">
                         <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        <a asp-area="" asp-controller="Home" asp-action="Book">Book Session</a>
-                        <a asp-area="" asp-controller="Home" asp-action="Articles">Articles</a>
-                        <a asp-area="" asp-controller="Home" asp-action="Community">Community</a>
+                        <a asp-area="" asp-controller="Book" asp-action="Index">Book Session</a>
+                        <a asp-area="" asp-controller="Articles" asp-action="Index">Articles</a>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <a asp-area="" asp-controller="MySessions" asp-action="Index">MySessions</a>
+                            <a asp-area="" asp-controller="MyDiary" asp-action="Index">MyDiary</a>
+                        }
+
+
                     </div>
 
                     <div class="nav-actions">
-                        <a href="/Identity/Account/Login" class="btn-sign-in">Sign In</a>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <form asp-area="Identity" asp-page="/Account/Logout" method="post" class="d-inline">
+                                <button type="submit" class="btn-sign-in">Sign Out</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <button id="signInBtn" class="btn-sign-in">Sign In</button>
+                        }
+
                         <a href="#" class="btn-cta">Get in touch</a>
                     </div>
                 </div>
             </div>
         </nav>
-    </header>
 
-    <main role="main">
-        @RenderBody()
-    </main>
+        <main role="main">
+            @RenderBody()
+        </main>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section logo-section">
-                <div class="logo-box">
-                    <span class="logo-text">SM</span>
+        <footer class="footer">
+            <div class="footer-container">
+
+                <div class="footer-section logo-section">
+                    <div class="logo-box">
+                        <img src="~/images/SafeMindLogo.png" alt="SafeMind logo" class="footer-logo-img"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                        <span class="logo-text fallback-logo-text" style="display:none">SM</span>
+                    </div>
+
+                    <div class="site-name">SafeMind</div>
+
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
-                <div class="site-name">SafeMind</div>
-                <div class="social-icons">
-                    <a href="https://www.facebook.com/safemind" target="_blank" rel="noreferrer">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/company/safemind" target="_blank" rel="noreferrer">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://www.instagram.com/safemind" target="_blank" rel="noreferrer">
-                        <i class="fab fa-instagram"></i>
-                    </a>
+
+                <div class="footer-section">
+                    <h4>App & Resources</h4>
+                    <a href="#">Home</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">About Us</a>
+                    <a href="#">Contact</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#">Mental Health Tips</a>
+                    <a href="#">Articles</a>
+                    <a href="#">Community</a>
+                    <a href="#">FAQs</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Site Map</h4>
+                    <a href="#">Home</a>
+                    <a href="#">Articles</a>
+                    <a href="#">Community</a>
+                    <a href="#">Privacy Policy</a>
                 </div>
             </div>
 
-            <div class="footer-section">
-                <h4>App & Resources</h4>
-                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                <a href="#">About Us</a>
-                <a href="#">Contact</a>
+            <div class="footer-bottom">
+                &copy; 2025 SafeMind. All rights reserved.
             </div>
-
-            <div class="footer-section">
-                <h4>Support</h4>
-                <a href="#">Mental Health Tips</a>
-                <a href="#">Articles</a>
-                <a href="#">Community</a>
-                <a href="#">FAQs</a>
-            </div>
-
-            <div class="footer-section">
-                <h4>Site Map</h4>
-                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                <a href="#">Articles</a>
-                <a href="#">Community</a>
-                <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
-            </div>
+        </footer>
         </div>
 
-        <div class="footer-bottom">
-            &copy; 2025 SafeMind. All rights reserved.
-        </div>
-    </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/navbar.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/navbar.js"></script>
+        @if (!Context.Request.Path.StartsWithSegments("/Identity", StringComparison.OrdinalIgnoreCase))
+        {
+            @await Html.PartialAsync("_LoginModal")
+        }
+        <script src="~/js/login.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

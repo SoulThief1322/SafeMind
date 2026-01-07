@@ -1,0 +1,319 @@
+/* Overlay - full screen blurred background */
+:root {
+  /* Slightly darker variant of --color-primary for subtle hover */
+  --color-primary-dark: #265c47;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  background: rgba(255 255 255 / 0.25);
+  z-index: 9998;
+  transition: opacity 0.3s ease;
+} 
+
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Modal container */
+.login-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 360px;
+  max-width: 90vw;
+  background: var(--color-surface);
+  border-radius: 12px;
+  padding: 24px 32px;
+  box-shadow: 0 20px 40px rgba(46, 111, 84, 0.15);
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.login-modal.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Close button top-right */
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* Logo circle */
+.login-logo {
+  margin: 0 auto 12px;
+  width: 56px;
+  height: 56px;
+  background: var(--color-primary-light);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(46, 111, 84, 0.25);
+}
+
+/* Header text */
+.login-header h2 {
+  color: var(--color-primary);
+  text-align: center;
+  margin: 0 0 6px;
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+
+.login-header p {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: 0 0 24px;
+}
+
+.login-header .signup-link {
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.login-header .signup-link:hover {
+  border-color: var(--color-primary-light);
+}
+
+/* Form inputs + floating labels */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-field {
+  position: relative;
+}
+
+/* Inputs: keep original padding; labels move outside above the field when active */
+.form-field input[type="email"],
+.form-field input[type="password"] {
+  width: 100%;
+  
+  border: 1.5px solid var(--color-muted);
+  border-radius: 8px;
+  padding: 12px 14px; /* keep fields visually the same */
+  font-size: 1rem;
+  color: var(--color-text);
+  transition: border-color 0.25s cubic-bezier(.2,.9,.2,1), background 0.25s cubic-bezier(.2,.9,.2,1), box-shadow 0.18s ease;
+}
+
+.form-field input::placeholder { color: transparent; }
+
+/* Floating label starts overlapping the input vertically centered */
+.form-field label {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: top 0.25s cubic-bezier(.2,.9,.2,1), font-size 0.25s cubic-bezier(.2,.9,.2,1), color 0.25s cubic-bezier(.2,.9,.2,1), opacity 0.18s ease;
+  padding: 0 6px;
+  border-radius: 6px;
+}
+
+/* On focus or when input has value: move label outside above the field */
+.form-field input:focus,
+.form-field input:not(:placeholder-shown) {
+  border-color: var(--color-primary);
+  background: white;
+  box-shadow: 0 6px 14px rgba(46, 111, 84, 0.06);
+}
+
+.form-field input:focus + label,
+.form-field input:not(:placeholder-shown) + label {
+  top: -10px;
+  transform: none;
+  font-size: 0.78rem;
+  color: var(--color-primary);
+  opacity: 1;
+  background: var(--color-surface);
+  padding: 0 6px;
+}
+
+/* Keep transitions subtle on hover too */
+.form-field input:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+/* Error area for AJAX responses */
+.login-errors {
+  display: none;
+  margin-bottom: 6px;
+  background: rgba(255, 60, 60, 0.06);
+  border: 1px solid rgba(255, 60, 60, 0.12);
+  color: #9a1e1e;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+.login-errors.visible {
+  display: block;
+}
+/* Login button */
+.btn-login {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(46, 111, 84, 0.25);
+  transition: background 0.3s ease;
+}
+
+.btn-login:hover {
+  background: var(--color-primary-dark);
+  color: white;
+}
+
+/* Separator OR */
+.login-separator {
+  position: relative;
+  text-align: center;
+  margin: 24px 0 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.login-separator span {
+  background: var(--color-surface);
+  padding: 0 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.login-separator::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: var(--color-muted);
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+/* Social login buttons */
+.login-socials {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.social-btn {
+  flex: 1;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+
+
+/* Using placeholder icons (replace with your SVGs or fonts) */
+.social-btn.apple {
+  background-color: #000;
+}
+
+.social-btn.google {
+  background-color: #fff;
+  border: 1.5px solid var(--color-muted);
+  color: #202124;
+}
+
+.social-btn.twitter {
+  background-color: #1DA1F2;
+}
+
+/* Icon inside button */
+.social-icon {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  object-fit: contain;
+  filter: invert(1) sepia(0) saturate(0) hue-rotate(0deg) brightness(2); /* make white icons for dark backgrounds */
+}
+
+/* For Google, keep original colored logo by removing filter */
+.social-btn.google .social-icon {
+  filter: none;
+}
+
+.social-btn:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Compact small-brand badges (larger, more spaced for touch) */
+.login-logos {
+  display: flex;
+  gap: 14px; /* increased spacing */
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.logo-btn {
+  display: inline-flex;
+  width: 52px; /* larger hit area */
+  height: 44px; /* larger hit area */
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+/* Brand colors for small badges */
+.logo-btn.apple { background: #111111; }
+.logo-btn.google { background: #ffffff; color: #202124; border: 1px solid rgba(0,0,0,0.06); }
+.logo-btn.facebook { background: #1877f2; }
+
+.logo-btn i { font-size: 18px; }
+
+.logo-btn.google i { color: #db4437; }
+
+.logo-btn:hover { transform: translateY(-4px); box-shadow: 0 12px 26px rgba(0,0,0,0.10); }
+
+/* Screen-reader only for label hiding */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  border: 0;
+  padding: 0;
+}
