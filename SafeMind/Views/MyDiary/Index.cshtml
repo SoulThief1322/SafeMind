@@ -1,0 +1,326 @@
+@{
+	ViewData["Title"] = "My Diary";
+}
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/mydiary.css" asp-append-version="true" />
+}
+
+<div class="diary-page">
+	<div class="container diary-container">
+
+		<header class="diary-header">
+			<div class="diary-title">
+				<h1>My Diary</h1>
+				<p class="diary-subtitle">A private space to track your day, feelings, and small wins.</p>
+			</div>
+
+			<div class="diary-header-actions">
+				<button type="button" class="diary-btn diary-btn-primary" id="newEntryBtn">New entry</button>
+				<button type="button" class="diary-btn diary-btn-secondary" id="viewWeekBtn">View week</button>
+			</div>
+		</header>
+
+		<section class="diary-week" aria-label="This week">
+			<div class="diary-week-label">This week</div>
+			<div class="diary-week-row" role="list">
+				<button type="button" class="day-pill" role="listitem" data-date="2026-01-05"><span class="dow">Mon</span><span class="dom">08</span></button>
+				<button type="button" class="day-pill" role="listitem" data-date="2026-01-06"><span class="dow">Tue</span><span class="dom">09</span></button>
+				<button type="button" class="day-pill active" role="listitem" data-date="2026-01-07"><span class="dow">Wed</span><span class="dom">10</span></button>
+				<button type="button" class="day-pill" role="listitem" data-date="2026-01-08"><span class="dow">Thu</span><span class="dom">11</span></button>
+				<button type="button" class="day-pill" role="listitem" data-date="2026-01-09"><span class="dow">Fri</span><span class="dom">12</span></button>
+				<button type="button" class="day-pill" role="listitem" data-date="2026-01-10"><span class="dow">Sat</span><span class="dom">13</span></button>
+				<button type="button" class="day-pill" role="listitem" data-date="2026-01-11"><span class="dow">Sun</span><span class="dom">14</span></button>
+			</div>
+		</section>
+
+		<div class="diary-grid">
+			<!-- LEFT: Today's check-in + prompts -->
+			<section class="diary-main" aria-label="Today's check-in">
+
+				<div class="card card-hero">
+					<div class="card-head">
+						<div>
+							<h2>Today’s check-in</h2>
+							<p class="muted">Quick tap options for how you’re feeling right now.</p>
+						</div>
+					</div>
+
+					<div class="checkin-block">
+						<div class="checkin-label">Mood</div>
+						<div class="chip-row" role="list" data-chip-group="mood">
+							<button type="button" class="chip" role="listitem" data-value="Happy">Happy</button>
+							<button type="button" class="chip" role="listitem" data-value="Calm">Calm</button>
+							<button type="button" class="chip" role="listitem" data-value="Okay">Okay</button>
+							<button type="button" class="chip chip-active" role="listitem" data-value="Anxious">Anxious</button>
+							<button type="button" class="chip" role="listitem" data-value="Stressed">Stressed</button>
+							<button type="button" class="chip" role="listitem" data-value="Sad">Sad</button>
+						</div>
+					</div>
+
+					<div class="checkin-split">
+						<div class="checkin-block">
+							<div class="checkin-label">Energy</div>
+							<div class="chip-row" role="list" data-chip-group="energy">
+								<button type="button" class="chip" role="listitem" data-value="Low">Low</button>
+								<button type="button" class="chip chip-active" role="listitem" data-value="Medium">Medium</button>
+								<button type="button" class="chip" role="listitem" data-value="High">High</button>
+							</div>
+						</div>
+
+						<div class="checkin-block">
+							<div class="checkin-label">Sleep</div>
+							<div class="chip-row" role="list" data-chip-group="sleep">
+								<button type="button" class="chip" role="listitem" data-value="Rested">Rested</button>
+								<button type="button" class="chip chip-active" role="listitem" data-value="Normal">Normal</button>
+								<button type="button" class="chip" role="listitem" data-value="Tired">Tired</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="checkin-block">
+						<div class="checkin-label">One sentence</div>
+						<textarea class="diary-textarea" id="diaryText" rows="3" maxlength="500" placeholder="What’s on your mind today?"></textarea>
+						<div class="helper-row">
+							<span class="muted small">Examples: “I felt anxious before class.” “I’m proud I went for a walk.”</span>
+							<span class="muted small" id="diaryCount">0/500</span>
+						</div>
+					</div>
+
+					<div class="hero-actions">
+						<button type="button" class="diary-btn diary-btn-primary" id="saveCheckinBtn">Save check-in</button>
+						<button type="button" class="diary-btn diary-btn-ghost" id="addDetailsBtn">Add details</button>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-head compact">
+						<div>
+							<h3>Guided prompts</h3>
+							<p class="muted">Pick one to help you start writing.</p>
+						</div>
+					</div>
+
+					<div class="prompt-grid">
+						<button type="button" class="prompt-tile" data-prompt="Morning intention: What’s one thing I want to do with care today?">
+							<div class="prompt-title">Morning intention</div>
+							<div class="prompt-sub">Start your day with focus.</div>
+						</button>
+						<button type="button" class="prompt-tile" data-prompt="Evening reflection: What helped me feel even 1% better today?">
+							<div class="prompt-title">Evening reflection</div>
+							<div class="prompt-sub">Wind down and reset.</div>
+						</button>
+						<button type="button" class="prompt-tile" data-prompt="Gratitude: List 3 small things I’m grateful for today.">
+							<div class="prompt-title">Gratitude</div>
+							<div class="prompt-sub">Name 3 small things.</div>
+						</button>
+						<button type="button" class="prompt-tile" data-prompt="What challenged me? What did I need in that moment?">
+							<div class="prompt-title">What challenged me?</div>
+							<div class="prompt-sub">Notice patterns without judgment.</div>
+						</button>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-head compact">
+						<div>
+							<h3>Today’s focus</h3>
+							<p class="muted">A simple goal and a tiny step.</p>
+						</div>
+					</div>
+
+					<div class="focus-row">
+						<div class="focus-item">
+							<div class="focus-label">Goal</div>
+							<div class="focus-value">Take a 10-minute walk</div>
+						</div>
+						<div class="focus-item">
+							<div class="focus-label">Tiny step</div>
+							<div class="focus-value">Put shoes by the door</div>
+						</div>
+					</div>
+
+					<div class="hero-actions">
+						<button type="button" class="diary-btn diary-btn-secondary" id="editFocusBtn">Edit</button>
+						<button type="button" class="diary-btn diary-btn-ghost" id="markDoneBtn">Mark done</button>
+					</div>
+				</div>
+			</section>
+
+			<!-- RIGHT: Calendar + recent entries -->
+			<aside class="diary-side" aria-label="Overview">
+				<div class="card">
+					<div class="card-head compact">
+						<div>
+							<h3>Calendar</h3>
+							<p class="muted">Tap a date to view entries (later).</p>
+						</div>
+					</div>
+
+					<div class="mini-calendar" role="grid" aria-label="Mini calendar">
+						<div class="mc-row mc-head" role="row">
+							<span role="columnheader">M</span><span role="columnheader">T</span><span role="columnheader">W</span><span role="columnheader">T</span><span role="columnheader">F</span><span role="columnheader">S</span><span role="columnheader">S</span>
+						</div>
+						<div class="mc-row" role="row">
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-06">6</button>
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-07">7</button>
+							<button type="button" class="mc-day mc-today" role="gridcell" data-date="2026-01-08">8</button>
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-09">9</button>
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-10">10</button>
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-11">11</button>
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-12">12</button>
+						</div>
+						<div class="mc-row" role="row">
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-13">13</button>
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-14">14</button>
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-15">15</button>
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-16">16</button>
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-17">17</button>
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-18">18</button>
+							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-19">19</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-head compact">
+						<div>
+							<h3>Recent entries</h3>
+							<p class="muted">A quick list of what you wrote.</p>
+						</div>
+					</div>
+
+					<div class="entry-list" id="entryList">
+						<article class="entry-item">
+							<div class="entry-meta">
+								<span class="entry-date">Today</span>
+								<span class="entry-tag">Anxious</span>
+							</div>
+							<div class="entry-title">Before the meeting</div>
+							<div class="entry-preview">Heart racing, but I used a breathing exercise and it helped…</div>
+						</article>
+
+						<article class="entry-item">
+							<div class="entry-meta">
+								<span class="entry-date">Yesterday</span>
+								<span class="entry-tag">Calm</span>
+							</div>
+							<div class="entry-title">Small win</div>
+							<div class="entry-preview">I took a short walk and felt more grounded afterwards.</div>
+						</article>
+
+						<article class="entry-item">
+							<div class="entry-meta">
+								<span class="entry-date">2 days ago</span>
+								<span class="entry-tag">Tired</span>
+							</div>
+							<div class="entry-title">Sleep notes</div>
+							<div class="entry-preview">Stayed up late scrolling. Next time: charger away from bed.</div>
+						</article>
+					</div>
+
+					<div class="side-actions">
+						<button type="button" class="diary-btn diary-btn-secondary w-100" id="seeAllEntriesBtn">See all entries</button>
+					</div>
+				</div>
+
+				<div class="card card-soft">
+					<div class="card-head compact">
+						<div>
+							<h3>Insights</h3>
+							<p class="muted">Static preview of your mood mix.</p>
+						</div>
+					</div>
+
+					<div class="insight-visual">
+						<div class="donut-wrap">
+							<div class="donut donut-static">
+								<div class="donut-center">
+									<div class="donut-total">18</div>
+									<div class="donut-label">Total entries</div>
+								</div>
+							</div>
+						</div>
+						<div class="donut-legend">
+							<div class="legend-item">
+								<span class="legend-dot" style="background:#F9C74F"></span>
+								<div>
+									<div>Happy</div>
+									<div class="legend-meta">42% • 8 entries</div>
+								</div>
+							</div>
+							<div class="legend-item">
+								<span class="legend-dot" style="background:#90BE6D"></span>
+								<div>
+									<div>Calm</div>
+									<div class="legend-meta">28% • 5 entries</div>
+								</div>
+							</div>
+							<div class="legend-item">
+								<span class="legend-dot" style="background:#F3722C"></span>
+								<div>
+									<div>Stressed</div>
+									<div class="legend-meta">17% • 3 entries</div>
+								</div>
+							</div>
+							<div class="legend-item">
+								<span class="legend-dot" style="background:#4D908E"></span>
+								<div>
+									<div>Sad</div>
+									<div class="legend-meta">8% • 1 entry</div>
+								</div>
+							</div>
+							<div class="legend-item">
+								<span class="legend-dot" style="background:#CBD5C0"></span>
+								<div>
+									<div>Other</div>
+									<div class="legend-meta">5% • 1 entry</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="insight-bars">
+						<div class="bar-row">
+							<span class="bar-label">Happy</span>
+							<div class="bar-track"><div class="bar-fill" style="width:42%; background:#F9C74F"></div></div>
+							<span class="bar-value">42%</span>
+						</div>
+						<div class="bar-row">
+							<span class="bar-label">Calm</span>
+							<div class="bar-track"><div class="bar-fill" style="width:28%; background:#90BE6D"></div></div>
+							<span class="bar-value">28%</span>
+						</div>
+						<div class="bar-row">
+							<span class="bar-label">Stressed</span>
+							<div class="bar-track"><div class="bar-fill" style="width:17%; background:#F3722C"></div></div>
+							<span class="bar-value">17%</span>
+						</div>
+						<div class="bar-row">
+							<span class="bar-label">Sad</span>
+							<div class="bar-track"><div class="bar-fill" style="width:8%; background:#4D908E"></div></div>
+							<span class="bar-value">8%</span>
+						</div>
+					</div>
+
+					<div class="insight-mini">
+						<div class="mini-card">
+							<div class="mini-label">Streak preview</div>
+							<div class="mini-value">5 days</div>
+							<div class="mini-sub">Consistent check-ins this week</div>
+						</div>
+						<div class="mini-bars" aria-hidden="true">
+							<div class="mini-bar" style="height: 34px;"></div>
+							<div class="mini-bar" style="height: 48px;"></div>
+							<div class="mini-bar" style="height: 62px;"></div>
+							<div class="mini-bar mini-bar-active" style="height: 70px;"></div>
+							<div class="mini-bar" style="height: 40px;"></div>
+							<div class="mini-bar" style="height: 28px;"></div>
+							<div class="mini-bar" style="height: 20px;"></div>
+						</div>
+					</div>
+				</div>
+			</aside>
+		</div>
+	</div>
+</div>
