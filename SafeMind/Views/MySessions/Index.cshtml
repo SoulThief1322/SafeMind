@@ -1,0 +1,89 @@
+@{
+	ViewData["Title"] = "My Sessions";
+}
+<link rel="stylesheet" href="~/css/mysessions.css" asp-append-version="true" />
+<section class="my-sessions container py-4">
+	<div class="sessions-header">
+		<div>
+			<p class="eyebrow">Overview</p>
+			<h1 class="sessions-title">My Sessions</h1>
+			<p class="sessions-sub">Quick snapshot of what’s booked.</p>
+		</div>
+		<div class="pill-switch">
+			<button class="pill active" type="button">Upcoming</button>
+			<button class="pill" type="button">Past</button>
+		</div>
+	</div>
+
+	<div class="credits-card">
+		<div class="credits-header">
+			<div>
+				<p class="eyebrow">Schedule status</p>
+				<h2 class="h5 mb-0">2 sessions upcoming</h2>
+			</div>
+		</div>
+		<div class="progress">
+			<div class="progress-fill" style="width: 55%"></div>
+		</div>
+	</div>
+
+	<div class="month-label">January 2026</div>
+
+	<div class="session-list">
+		<article class="session-card">
+			<div class="date-bar date-primary"></div>
+			<div class="session-content">
+				<div class="session-main">
+					<div>
+						<p class="eyebrow">Tue, Jan 13 · 3:40 PM PT</p>
+						<h3 class="session-title">Individual Therapy (50m)</h3>
+						<p class="session-with">With Dr. Alicia Moreno • Clinical Psychologist</p>
+					</div>
+					<div class="session-actions">
+						<span class="chip chip-paid">Paid</span>
+						<button class="btn-ghost" type="button">Postpone</button>
+						<button class="btn-primary-ghost" type="button">Join session</button>
+					</div>
+				</div>
+			</div>
+		</article>
+
+		<article class="session-card">
+			<div class="date-bar date-accent"></div>
+			<div class="session-content">
+				<div class="session-main">
+					<div>
+						<p class="eyebrow">Wed, Jan 21 · 5:00 PM PT</p>
+						<h3 class="session-title">Couples Therapy (4 of 8)</h3>
+						<p class="session-with">With Dr. Mathew Spector • LMFT</p>
+					</div>
+					<div class="session-actions">
+						<span class="chip chip-due">Payment due</span>
+						<button class="btn-ghost" type="button">Postpone</button>
+						<button class="btn-primary-solid" type="button">Pay now</button>
+					</div>
+				</div>
+			</div>
+		</article>
+
+		<article class="session-card">
+			<div class="date-bar date-primary"></div>
+			<div class="session-content">
+				<div class="session-main">
+					<div>
+						<p class="eyebrow">Fri, Feb 2 · 9:15 AM PT</p>
+						<h3 class="session-title">Anxiety Skills Coaching (30m)</h3>
+						<p class="session-with">With Dr. Lina Patel • Psychologist</p>
+					</div>
+					<div class="session-actions">
+						<span class="chip chip-paid">Paid</span>
+						<button class="btn-ghost" type="button">Postpone</button>
+						<button class="btn-primary-ghost" type="button">Join session</button>
+					</div>
+				</div>
+			</div>
+		</article>
+	</div>
+</section>
+
+
