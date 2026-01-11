@@ -5,23 +5,49 @@
 <!-- HERO SECTION -->
 <section class="hero">
     <div class="hero-content">
-        <h1>Healing starts with a single step.</h1>
-        <p class="hero-subtitle">Take the first step toward feeling better. Connect with someone who truly understands.</p>
-        <a href="#" class="cta-button">Get Help Now</a>
+        <p class="eyebrow">SafeMind · Mental Health Care</p>
+        <h1>Book therapy, track your mood, and learn coping skills.</h1>
+        <p class="hero-subtitle">Evidence-based support from licensed professionals, guided tools you can use anytime, and a calm space to check in with yourself.</p>
+        <div class="hero-actions">
+            <a href="/Book" class="cta-button">Book a session</a>
+            <a href="/Articles" class="secondary-link">Browse resources</a>
+        </div>
     </div>
     <div class="hero-images">
         <div class="image-large">
-            <img src="https://via.placeholder.com/300x250/B7E4C7/2E6F54?text=Mental+Health" alt="Mental health support">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=640&h=520&fit=crop" alt="Therapist supporting a client">
         </div>
         <div class="image-extra-1">
-            <img src="https://via.placeholder.com/160x160/CBD5C0/2E6F54?text=Support" alt="Support">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=320&h=320&fit=crop" alt="Notebook and a calming desk scene">
         </div>
         <div class="image-small">
-            <img src="https://via.placeholder.com/180x180/CBD5C0/2E6F54?text=Wellness" alt="Wellness">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=360&h=360&fit=crop" alt="Person enjoying fresh air in nature">
         </div>
         <div class="image-extra-2">
-            <img src="https://via.placeholder.com/140x140/B7E4C7/2E6F54?text=Care" alt="Care">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=300&h=300&fit=crop" alt="Calm workspace with coffee">
         </div>
+    </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="features-section">
+    <div class="section-content">
+        <h2>Why SafeMind</h2>
+        <p class="section-description">A guided place to get professional help, understand your feelings, and build habits that keep you grounded.</p>
+    </div>
+    <div class="features-grid">
+        <article class="feature-card">
+            <h3>Therapy that fits you</h3>
+            <p>Match with licensed clinicians across CBT, EMDR, family, and couples therapy. Sessions are online and private.</p>
+        </article>
+        <article class="feature-card">
+            <h3>Daily check-ins</h3>
+            <p>Lightweight mood and energy check-ins to spot patterns and share context with your therapist.</p>
+        </article>
+        <article class="feature-card">
+            <h3>Actionable tools</h3>
+            <p>Short exercises, breathing guides, and evidence-based tips you can use between sessions.</p>
+        </article>
     </div>
 </section>
 
@@ -55,7 +81,8 @@
 <!-- MOOD CHECK SECTION -->
 <section class="mood-section">
     <h2>How are you feeling today?</h2>
-    <div class="mood-options">
+    <p class="mood-sub">Pick a mood to save it for today and unlock a gentle kit.</p>
+    <div class="mood-options" id="moodOptions">
         <button class="mood-btn mood-great">
             <span class="mood-emoji">😊</span>
             <span class="mood-label">Great</span>
@@ -68,6 +95,21 @@
             <span class="mood-emoji">😟</span>
             <span class="mood-label">Not great</span>
         </button>
+    </div>
+    <div class="mood-feedback" id="moodFeedback" aria-live="polite">Tap a mood to save how you feel for today.</div>
+    <div class="mood-result hidden" id="moodResult">
+        <div>
+            <p class="eyebrow" id="moodResultLabel">Today's kit</p>
+            <h3 id="moodHeadline">We'll tailor quick support for you.</h3>
+            <p class="mood-note" id="moodNote">Your check-in is saved for the next 24 hours.</p>
+            <p class="mood-support" id="moodSupport"></p>
+            <p class="mood-help" id="moodHelp">Want something small to help right now?</p>
+        </div>
+        <div class="mood-actions">
+            <button class="btn-primary" type="button">Take a 3-min breath</button>
+            <button class="btn-secondary" type="button">Jot a few words</button>
+            <a class="btn-link" href="/Book">Reach out or book</a>
+        </div>
     </div>
 </section>
 
@@ -148,6 +190,88 @@
         </article>
     </div>
 </section>
+
+@section Scripts {
+<script>
+// Store mood for 24 hours and swap UI into a mini support kit
+(function () {
+    const feedback = document.getElementById('moodFeedback');
+    const options = document.getElementById('moodOptions');
+    const result = document.getElementById('moodResult');
+    const headline = document.getElementById('moodHeadline');
+    const note = document.getElementById('moodNote');
+    const label = document.getElementById('moodResultLabel');
+    const support = document.getElementById('moodSupport');
+
+    function setCookie(name, value, hours) {
+        const expires = new Date(Date.now() + hours * 60 * 60 * 1000).toUTCString();
+        document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+    }
+
+    function getCookie(name) {
+        return document.cookie.split(';').map(c => c.trim()).filter(c => c.startsWith(name + '='))
+            .map(c => decodeURIComponent(c.split('=')[1]))[0];
+    }
+
+    const prompts = {
+        'Great': {
+            headline: 'Bottle this feeling for later.',
+            note: 'Drop a quick gratitude note to revisit on tough days.',
+            label: 'Saved as “Great”',
+            support: 'You’re doing well—keep a small memory of this moment.'
+        },
+        'Okay': {
+            headline: 'Small reset, big impact.',
+            note: 'Try a 3-minute breathing break or stretch to recharge.',
+            label: 'Saved as “Okay”',
+            support: 'A neutral day still deserves care—take one kind pause.'
+        },
+        'Not great': {
+            headline: 'We’ve got you—one small step.',
+            note: 'Do a 3-minute grounding exercise and consider messaging a therapist.',
+            label: 'Saved as “Not great”',
+            support: 'It’s okay to feel this way—slow is enough right now.'
+        }
+    };
+
+    function activateMood(mood, skipSave) {
+        const data = prompts[mood] || prompts['Okay'];
+        if (!skipSave) {
+            setCookie('safemindMood', mood, 24);
+        }
+        if (feedback) {
+            feedback.textContent = 'Saved how you feel today. Your kit is just below.';
+        }
+        if (options) options.classList.add('hidden');
+        if (result) result.classList.remove('hidden');
+        if (headline) {
+            headline.textContent = data.headline;
+        }
+        if (note) {
+            note.textContent = data.note + ' Saved for 24 hours.';
+        }
+        if (label) {
+            label.textContent = data.label;
+        }
+        if (support) {
+            support.textContent = data.support;
+        }
+    }
+
+    const saved = getCookie('safemindMood');
+    if (saved) {
+        activateMood(saved, true);
+    }
+
+    document.querySelectorAll('.mood-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const mood = btn.querySelector('.mood-label')?.textContent || 'Okay';
+            activateMood(mood, false);
+        });
+    });
+})();
+</script>
+}
 <!-- YOU ARE NOT ALONE SECTION -->
 <section class="support-section">
     <h2>You Are Not Alone</h2>
