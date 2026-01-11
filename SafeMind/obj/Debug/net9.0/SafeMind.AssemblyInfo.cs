@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SafeMind")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c587bf36ddf428fe2b21d14e5c7df9513a6095c7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d8920e10a83c2e94333db3f15f04b8fb810310ea")]
 [assembly: System.Reflection.AssemblyProductAttribute("SafeMind")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SafeMind")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
