@@ -23,6 +23,8 @@ namespace SafeMind.Data
             public DbSet<Category> Categories { get; set; }
             public DbSet<ArticleCategories> ArticleCategories { get; set; }
             public DbSet<Journal> Journals { get; set; }
+            public DbSet<DailyCheck> DailyChecks { get; set; }
+            public DbSet<Goal> Goals { get; set; }
 
             protected override void OnModelCreating(ModelBuilder builder)
             {
@@ -187,7 +189,6 @@ namespace SafeMind.Data
                   builder.Entity<Journal>(entity =>
                   {
                         entity.ToTable("Journals");
-
                         entity.HasKey(j => j.Id);
 
                         entity.Property(j => j.Title)
@@ -201,12 +202,75 @@ namespace SafeMind.Data
                         .IsRequired();
 
                         entity.Property(j => j.Mood)
-                        .HasConversion<int>();
+                        .HasConversion<int>()
+                        .IsRequired();
 
                         entity.Property(j => j.Category)
-                        .HasConversion<int>();
+                        .HasConversion<int>()
+                        .IsRequired();
+
+                        entity.HasOne(j => j.User)
+                        .WithMany()
+                        .HasForeignKey(j => j.UserId)
+                        .OnDelete(DeleteBehavior.Restrict);
                   });
-                  
+                  // -------- DailyCheck --------
+                  builder.Entity<DailyCheck>(entity =>
+                  {
+                        entity.ToTable("DailyChecks");
+                        entity.HasKey(dc => dc.Id);
+
+                        entity.Property(dc => dc.CreatedOn)
+                        .IsRequired();
+
+                        entity.Property(dc => dc.Mood)
+                        .HasConversion<int>()
+                        .IsRequired();
+
+                        entity.Property(dc => dc.Energy)
+                        .HasConversion<int>()
+                        .IsRequired();
+
+                        entity.Property(dc => dc.Stress)
+                        .HasConversion<int>()
+                        .IsRequired();
+
+                        entity.Property(dc => dc.Sleep)
+                        .HasConversion<int>()
+                        .IsRequired();
+
+                        entity.Property(dc => dc.Notes)
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                        entity.HasOne(dc => dc.User)
+                        .WithMany()
+                        .HasForeignKey(dc => dc.UserId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                  });
+                  // -------- Goal --------
+                  builder.Entity<Goal>(entity =>
+                  {
+                        entity.ToTable("Goals");
+                        entity.HasKey(g => g.Id);
+
+                        entity.Property(g => g.Description)
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                        entity.Property(g => g.TargetDate)
+                        .IsRequired();
+
+                        entity.Property(g => g.IsCompleted)
+                        .IsRequired()
+                        .HasDefaultValue(false);
+
+                        entity.HasOne(g => g.User)
+                        .WithMany()
+                        .HasForeignKey(g => g.UserId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                  });
+
             }
       }
 }
