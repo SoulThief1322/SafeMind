@@ -1,14 +1,13 @@
-@* Shared login modal partial - included site-wide so sign-in button can open it from any page *@
 <div id="loginOverlay" class="overlay hidden" aria-hidden="true"></div>
-
-<!-- Modal -->
 <div id="loginModal" class="login-modal hidden" role="dialog" aria-modal="true" aria-labelledby="loginTitle" aria-hidden="true">
 
   <div class="login-content">
     <div class="login-header">
-      <div class="login-logo" aria-hidden="true"></div>
+      <div class="login-logo" aria-hidden="true">
+        <i class="fas fa-user"></i>
+      </div>
       <h2 id="loginTitle">Welcome Back</h2>
-      <p>Don't have an account yet? <a href="/Identity/Account/Register" class="signup-link">Sign up</a></p>
+      <p>Don't have an account yet? <a href="#" id="switchToRegister" class="signup-link">Sign up</a></p>
     </div>
 
     <form method="post" asp-area="Identity" asp-page="/Account/Login" class="login-form" aria-label="Login form">
@@ -32,7 +31,6 @@
 
     <div class="login-separator"><span>OR</span></div>
 
-    <!-- Compact brand badges (small) -->
     <div class="login-logos" aria-hidden="true">
       <a class="logo-btn apple" href="#" title="Apple" aria-label="Apple"><i class="fab fa-apple" aria-hidden="true"></i><span class="sr-only">Apple</span></a>
       <a class="logo-btn google" href="#" title="Google" aria-label="Google"><i class="fab fa-google" aria-hidden="true"></i><span class="sr-only">Google</span></a>

@@ -6,180 +6,271 @@ using Data.Enums;
 
 namespace SafeMind.Data
 {
-    public class SafeMindDbContext : IdentityDbContext<IdentityUser>
-    {
-        public SafeMindDbContext(DbContextOptions<SafeMindDbContext> options)
-            : base(options)
-        {
-        }
-
-        public DbSet<Doctor> Doctors { get; set; }
-        public DbSet<Specialty> Specialties { get; set; }
-        public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
-        public DbSet<Language> Languages { get; set; }
-        public DbSet<DoctorLanguages> DoctorLanguages { get; set; }
-        public DbSet<Session> Sessions { get; set; }
-        public DbSet<Article> Articles { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-            // -------- Doctor --------
-            builder.Entity<Doctor>(entity =>
+      public class SafeMindDbContext : IdentityDbContext<IdentityUser>
+      {
+            public SafeMindDbContext(DbContextOptions<SafeMindDbContext> options)
+                : base(options)
             {
-                entity.ToTable("Doctors");
-                entity.HasKey(d => d.Id);
+            }
 
-                entity.Property(d => d.Name)
-                      .IsRequired()
-                      .HasMaxLength(50);
+            public DbSet<Doctor> Doctors { get; set; }
+            public DbSet<Specialty> Specialties { get; set; }
+            public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
+            public DbSet<Language> Languages { get; set; }
+            public DbSet<DoctorLanguages> DoctorLanguages { get; set; }
+            public DbSet<Session> Sessions { get; set; }
+            public DbSet<Article> Articles { get; set; }
+            public DbSet<Category> Categories { get; set; }
+            public DbSet<ArticleCategories> ArticleCategories { get; set; }
+            public DbSet<Journal> Journals { get; set; }
+            public DbSet<DailyCheck> DailyChecks { get; set; }
+            public DbSet<Goal> Goals { get; set; }
 
-                entity.Property(d => d.Rating)
-                      .HasColumnType("decimal(3,2)");
-
-                entity.HasOne(d => d.User)
-                      .WithOne()
-                      .HasForeignKey<Doctor>(d => d.UserId)
-                      .OnDelete(DeleteBehavior.Restrict);
-            });
-
-            // -------- Specialty --------
-            builder.Entity<Specialty>(entity =>
+            protected override void OnModelCreating(ModelBuilder builder)
             {
-                entity.ToTable("Specialties");
-                entity.HasKey(s => s.Id);
+                  base.OnModelCreating(builder);
 
-                entity.Property(s => s.Name)
-                      .IsRequired()
-                      .HasMaxLength(200);
-            });
+                  // -------- Doctor --------
+                  builder.Entity<Doctor>(entity =>
+                  {
+                        entity.ToTable("Doctors");
+                        entity.HasKey(d => d.Id);
 
-            // -------- DoctorSpecialty --------
-            builder.Entity<DoctorSpecialty>(entity =>
-            {
-                entity.ToTable("DoctorSpecialties");
-                entity.HasKey(ds => new { ds.DoctorId, ds.SpecialtyId });
+                        entity.Property(d => d.Name)
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                entity.HasOne(ds => ds.Doctor)
-                      .WithMany(d => d.DoctorSpecialties)
-                      .HasForeignKey(ds => ds.DoctorId)
-                      .OnDelete(DeleteBehavior.Cascade);
+                        entity.Property(d => d.Rating)
+                        .HasColumnType("decimal(3,2)");
 
-                entity.HasOne(ds => ds.Specialty)
-                      .WithMany(s => s.DoctorSpecialties)
-                      .HasForeignKey(ds => ds.SpecialtyId)
-                      .OnDelete(DeleteBehavior.Cascade);
-            });
+                        entity.HasOne(d => d.User)
+                        .WithOne()
+                        .HasForeignKey<Doctor>(d => d.UserId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                  });
 
-            // -------- Language --------
-            builder.Entity<Language>(entity =>
-            {
-                entity.ToTable("Languages");
-                entity.HasKey(l => l.Id);
+                  // -------- Specialty --------
+                  builder.Entity<Specialty>(entity =>
+                  {
+                        entity.ToTable("Specialties");
+                        entity.HasKey(s => s.Id);
 
-                entity.Property(l => l.Name)
-                      .IsRequired()
-                      .HasMaxLength(50);
-            });
+                        entity.Property(s => s.Name)
+                        .IsRequired()
+                        .HasMaxLength(200);
+                  });
 
-            // -------- DoctorLanguages --------
-            builder.Entity<DoctorLanguages>(entity =>
-            {
-                entity.ToTable("DoctorLanguages");
-                entity.HasKey(dl => new { dl.DoctorId, dl.LanguageId });
+                  // -------- DoctorSpecialty --------
+                  builder.Entity<DoctorSpecialty>(entity =>
+                  {
+                        entity.ToTable("DoctorSpecialties");
+                        entity.HasKey(ds => new { ds.DoctorId, ds.SpecialtyId });
 
-                entity.HasOne(dl => dl.Doctor)
-                      .WithMany(d => d.DoctorLanguages)
-                      .HasForeignKey(dl => dl.DoctorId)
-                      .OnDelete(DeleteBehavior.Cascade);
+                        entity.HasOne(ds => ds.Doctor)
+                        .WithMany(d => d.DoctorSpecialties)
+                        .HasForeignKey(ds => ds.DoctorId)
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasOne(dl => dl.Language)
-                      .WithMany(l => l.DoctorLanguages)
-                      .HasForeignKey(dl => dl.LanguageId)
-                      .OnDelete(DeleteBehavior.Cascade);
-            });
+                        entity.HasOne(ds => ds.Specialty)
+                        .WithMany(s => s.DoctorSpecialties)
+                        .HasForeignKey(ds => ds.SpecialtyId)
+                        .OnDelete(DeleteBehavior.Cascade);
+                  });
 
-            // -------- Session --------
-            builder.Entity<Session>(entity =>
-            {
-                entity.Property(s => s.SessionStatus)
-                      .HasConversion<int>()
-                      .HasDefaultValue(SessionStatus.Scheduled);
+                  // -------- Language --------
+                  builder.Entity<Language>(entity =>
+                  {
+                        entity.ToTable("Languages");
+                        entity.HasKey(l => l.Id);
 
-                entity.Property(s => s.PaymentStatus)
-                      .HasConversion<int>()
-                      .HasDefaultValue(PaymentStatus.Pending);
+                        entity.Property(l => l.Name)
+                        .IsRequired()
+                        .HasMaxLength(50);
+                  });
 
-                entity.Property(s => s.Price)
-                      .HasColumnType("decimal(8,2)");
-            });
+                  // -------- DoctorLanguages --------
+                  builder.Entity<DoctorLanguages>(entity =>
+                  {
+                        entity.ToTable("DoctorLanguages");
+                        entity.HasKey(dl => new { dl.DoctorId, dl.LanguageId });
 
-            // -------- Article --------
-            builder.Entity<Article>(entity =>
-            {
-                entity.ToTable("Articles");
-                entity.HasKey(a => a.Id);
+                        entity.HasOne(dl => dl.Doctor)
+                        .WithMany(d => d.DoctorLanguages)
+                        .HasForeignKey(dl => dl.DoctorId)
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                entity.Property(a => a.Headline)
-                      .IsRequired()
-                      .HasMaxLength(200);
+                        entity.HasOne(dl => dl.Language)
+                        .WithMany(l => l.DoctorLanguages)
+                        .HasForeignKey(dl => dl.LanguageId)
+                        .OnDelete(DeleteBehavior.Cascade);
+                  });
 
-                entity.Property(a => a.Content)
-                      .IsRequired();
+                  // -------- Session --------
+                  builder.Entity<Session>(entity =>
+                  {
+                        entity.Property(s => s.SessionStatus)
+                        .HasConversion<int>()
+                        .HasDefaultValue(SessionStatus.Scheduled);
 
-                entity.Property(a => a.ImagePath)
-                      .HasMaxLength(500);
+                        entity.Property(s => s.PaymentStatus)
+                        .HasConversion<int>()
+                        .HasDefaultValue(PaymentStatus.Pending);
 
-                entity.Property(a => a.PublishedOn)
-                      .IsRequired();
+                        entity.Property(s => s.Price)
+                        .HasColumnType("decimal(8,2)");
+                  });
 
-                entity.Property(a => a.ViewCount)
-                      .HasDefaultValue(0);
+                  // -------- Article --------
+                  builder.Entity<Article>(entity =>
+                  {
+                        entity.ToTable("Articles");
+                        entity.HasKey(a => a.Id);
 
-                entity.Property(a => a.ViewsInLastWeek)
-                      .HasDefaultValue(0);
+                        entity.Property(a => a.Headline)
+                        .IsRequired()
+                        .HasMaxLength(200);
 
-                entity.Property(a => a.Likes)
-                      .HasDefaultValue(0);
+                        entity.Property(a => a.Content)
+                        .IsRequired();
 
-                entity.HasOne(a => a.Author)
-                      .WithMany()
-                      .HasForeignKey(a => a.AuthorId)
-                      .OnDelete(DeleteBehavior.Restrict);
-            });
-            // -------- Category --------
-            builder.Entity<Category>(entity =>
-            {
-                entity.ToTable("Categories");
+                        entity.Property(a => a.ImagePath)
+                        .HasMaxLength(500);
 
-                entity.HasKey(c => c.Id);
+                        entity.Property(a => a.PublishedOn)
+                        .IsRequired();
 
-                entity.Property(c => c.Name)
-                      .IsRequired()
-                      .HasMaxLength(100);
+                        entity.Property(a => a.ViewCount)
+                        .HasDefaultValue(0);
 
-                entity.HasIndex(c => c.Name)
-                      .IsUnique();
-            });
+                        entity.Property(a => a.ViewsInLastWeek)
+                        .HasDefaultValue(0);
 
-            // -------- ArticleCategories --------
-            builder.Entity<ArticleCategories>(entity =>
-            {
-                entity.ToTable("ArticleCategories");
+                        entity.Property(a => a.Likes)
+                        .HasDefaultValue(0);
 
-                entity.HasKey(ac => new { ac.ArticleId, ac.CategoryId });
+                        entity.HasOne(a => a.Author)
+                        .WithMany()
+                        .HasForeignKey(a => a.AuthorId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                  });
+                  // -------- Category --------
+                  builder.Entity<Category>(entity =>
+                  {
+                        entity.ToTable("Categories");
 
-                entity.HasOne(ac => ac.Article)
-                      .WithMany(a => a.ArticleCategories)
-                      .HasForeignKey(ac => ac.ArticleId)
-                      .OnDelete(DeleteBehavior.Cascade);
+                        entity.HasKey(c => c.Id);
 
-                entity.HasOne(ac => ac.Category)
-                      .WithMany(c => c.ArticleCategories)
-                      .HasForeignKey(ac => ac.CategoryId)
-                      .OnDelete(DeleteBehavior.Cascade);
-            });
-        }
-    }
+                        entity.Property(c => c.Name)
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                        entity.HasIndex(c => c.Name)
+                        .IsUnique();
+                  });
+
+                  // -------- ArticleCategories --------
+                  builder.Entity<ArticleCategories>(entity =>
+                  {
+                        entity.ToTable("ArticleCategories");
+
+                        entity.HasKey(ac => new { ac.ArticleId, ac.CategoryId });
+
+                        entity.HasOne(ac => ac.Article)
+                        .WithMany(a => a.ArticleCategories)
+                        .HasForeignKey(ac => ac.ArticleId)
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                        entity.HasOne(ac => ac.Category)
+                        .WithMany(c => c.ArticleCategories)
+                        .HasForeignKey(ac => ac.CategoryId)
+                        .OnDelete(DeleteBehavior.Cascade);
+                  });
+                  // -------- Journal --------
+                  builder.Entity<Journal>(entity =>
+                  {
+                        entity.ToTable("Journals");
+                        entity.HasKey(j => j.Id);
+
+                        entity.Property(j => j.Title)
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                        entity.Property(j => j.Content)
+                        .IsRequired();
+
+                        entity.Property(j => j.CreatedAt)
+                        .IsRequired();
+
+                        entity.Property(j => j.Mood)
+                        .HasConversion<int>()
+                        .IsRequired();
+
+                        entity.Property(j => j.Category)
+                        .HasConversion<int>()
+                        .IsRequired();
+
+                        entity.HasOne(j => j.User)
+                        .WithMany()
+                        .HasForeignKey(j => j.UserId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                  });
+                  // -------- DailyCheck --------
+                  builder.Entity<DailyCheck>(entity =>
+                  {
+                        entity.ToTable("DailyChecks");
+                        entity.HasKey(dc => dc.Id);
+
+                        entity.Property(dc => dc.CreatedOn)
+                        .IsRequired();
+
+                        entity.Property(dc => dc.Mood)
+                        .HasConversion<int>()
+                        .IsRequired();
+
+                        entity.Property(dc => dc.Energy)
+                        .HasConversion<int>()
+                        .IsRequired();
+
+                        entity.Property(dc => dc.Stress)
+                        .HasConversion<int>()
+                        .IsRequired();
+
+                        entity.Property(dc => dc.Sleep)
+                        .HasConversion<int>()
+                        .IsRequired();
+
+                        entity.Property(dc => dc.Notes)
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                        entity.HasOne(dc => dc.User)
+                        .WithMany()
+                        .HasForeignKey(dc => dc.UserId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                  });
+                  // -------- Goal --------
+                  builder.Entity<Goal>(entity =>
+                  {
+                        entity.ToTable("Goals");
+                        entity.HasKey(g => g.Id);
+
+                        entity.Property(g => g.Description)
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                        entity.Property(g => g.TargetDate)
+                        .IsRequired();
+
+                        entity.Property(g => g.IsCompleted)
+                        .IsRequired()
+                        .HasDefaultValue(false);
+
+                        entity.HasOne(g => g.User)
+                        .WithMany()
+                        .HasForeignKey(g => g.UserId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                  });
+
+            }
+      }
 }

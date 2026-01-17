@@ -8,9 +8,17 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<SafeMindDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<DoctorLicensingDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DoctorLicensingConnection")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+})
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<SafeMindDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -42,5 +50,7 @@ app.MapControllerRoute(
 
 app.MapRazorPages()
    .WithStaticAssets();
+
+await SafeMind.Services.DbInitializer.SeedAsync(app.Services);
 
 app.Run();

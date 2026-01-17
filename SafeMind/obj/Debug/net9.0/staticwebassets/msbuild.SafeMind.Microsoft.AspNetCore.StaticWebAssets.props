@@ -48,8 +48,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>fsrjpxxyct</Fingerprint>
-      <Integrity>b4BzvQ07kSUlB+BKD3Pimi1dNhfkOpWK+4TLsXI0xvc=</Integrity>
+      <Fingerprint>0asnpv32p2</Fingerprint>
+      <Integrity>6DM2BmTaBXdqnCGIOQag6W+yMViF83vIpTG/LFx8XLs=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\footer.css'))</OriginalItemSpec>
@@ -66,8 +66,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>ldl2nfq0v6</Fingerprint>
-      <Integrity>uYtNYaQFe8xQp5Bgp1kG7RwTPB+BUAl4tL4qT5ZJzoE=</Integrity>
+      <Fingerprint>4rbccdmkry</Fingerprint>
+      <Integrity>gAaSVzRchYVb+T8rbXPF6+TDI9T1NdLsfYy3+30aodc=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\home.css'))</OriginalItemSpec>
@@ -84,11 +84,47 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>fpqnnp3kd6</Fingerprint>
-      <Integrity>85EHdSfrDNwdpgcx+dxGhx7T1LVQXqprxngLBpt9KCE=</Integrity>
+      <Fingerprint>x81xsigfcf</Fingerprint>
+      <Integrity>b5fcp1498biJkPrJqjxXwTi3vTG8WGAb01RC9NDcF88=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\login.css'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\mydiary.css'))">
+      <SourceType>Package</SourceType>
+      <SourceId>SafeMind</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/SafeMind</BasePath>
+      <RelativePath>css/mydiary.css</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>db7re637jd</Fingerprint>
+      <Integrity>NwxupuXMgWqTG73IaYGkz24Gw+KxXFPaOx4jAsSPy/Q=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\mydiary.css'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\mysessions.css'))">
+      <SourceType>Package</SourceType>
+      <SourceId>SafeMind</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/SafeMind</BasePath>
+      <RelativePath>css/mysessions.css</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>762s9zd41r</Fingerprint>
+      <Integrity>ASEXQglUci7UFO/ti6cSYwwEJJfNb8LPfDQqfemIdlk=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\mysessions.css'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\navbar.css'))">
       <SourceType>Package</SourceType>
@@ -174,11 +210,29 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>12pbuscowm</Fingerprint>
-      <Integrity>meE1DpP078QL6mAobKqopErHrZUlxLXVzAYYHB4gmek=</Integrity>
+      <Fingerprint>oq1quog8xy</Fingerprint>
+      <Integrity>UMk+loOUARIxEOorhUtBQfo5jIowVykRcJsLOQHHxOE=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\login.js'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\mydiary.js'))">
+      <SourceType>Package</SourceType>
+      <SourceId>SafeMind</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/SafeMind</BasePath>
+      <RelativePath>js/mydiary.js</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>5ipweew5fc</Fingerprint>
+      <Integrity>47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\mydiary.js'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\navbar.js'))">
       <SourceType>Package</SourceType>
@@ -210,8 +264,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>bxn0zjc4gh</Fingerprint>
-      <Integrity>H2itMGFG8j5XR1H+HLPxZxm8UYGU/qTzV3xSwp6ewNw=</Integrity>
+      <Fingerprint>tj3dgccjx8</Fingerprint>
+      <Integrity>OZPnDrzAV0IHzikWOhOl24vD0mQVuRcc4QHEBxboeyc=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\register.js'))</OriginalItemSpec>
@@ -1314,23 +1368,23 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery\LICENSE.txt'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\SafeMind.v9az9fwgy7.bundle.scp.css'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\SafeMind.68tz8rlebm.bundle.scp.css'))">
       <SourceType>Package</SourceType>
       <SourceId>SafeMind</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/SafeMind</BasePath>
-      <RelativePath>SafeMind.v9az9fwgy7.bundle.scp.css</RelativePath>
+      <RelativePath>SafeMind.68tz8rlebm.bundle.scp.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>Reference</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName>ScopedCss</AssetTraitName>
       <AssetTraitValue>ProjectBundle</AssetTraitValue>
-      <Fingerprint>v9az9fwgy7</Fingerprint>
-      <Integrity>w2OTBx+SidkzYntog4Q7qGQWn8sVt3KpRiBkOyQZ3Cs=</Integrity>
+      <Fingerprint>68tz8rlebm</Fingerprint>
+      <Integrity>tqIc82dNKYQc0GhcvM+Z6hSbU7DhxwA/dVZmR8ye6DY=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\SafeMind.v9az9fwgy7.bundle.scp.css'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\SafeMind.68tz8rlebm.bundle.scp.css'))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

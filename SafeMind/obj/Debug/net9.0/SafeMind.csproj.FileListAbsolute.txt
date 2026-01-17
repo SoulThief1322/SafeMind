@@ -188,8 +188,6 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\5hx23160m7
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\cd6tvn6qz6-ttgo8qnofa.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\5f13cejeym-87fc7y1x7t.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\p8wofqnbse-mlv21k5csn.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\9v8aglb6hx-v9az9fwgy7.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\p7nmdcodk9-v9az9fwgy7.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\staticwebassets.build.endpoints.json
@@ -205,7 +203,6 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\refint\SafeMind.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\SafeMind.pdb
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\SafeMind.genruntimeconfig.cache
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\ref\SafeMind.dll
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\8jo2d3x03b-ldl2nfq0v6.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\95ik48ex86-jh3p38bm3z.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\kigzd3geap-t1cqhe9u97.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\n2mxoyyn3g-sejl45xvog.gz
@@ -390,7 +387,6 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\zh-Hans\Microsoft.Cod
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\gkc4wadbam-ql2w2vlq7w.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\q6xfvrrxeq-fsrjpxxyct.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\Azure.Core.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\Azure.Identity.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -416,7 +412,14 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\runtimes\win-arm64\na
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\er2gbkr48h-fpqnnp3kd6.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\8nwhd3a6xc-12pbuscowm.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\c6l2srpgns-bxn0zjc4gh.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\wihxj0565r-pwpqyo8w2m.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\q6xfvrrxeq-0asnpv32p2.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\yoce53a7m5-db7re637jd.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\b3h172iimf-5ipweew5fc.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\8jo2d3x03b-4rbccdmkry.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\ab7pg0y39c-762s9zd41r.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\er2gbkr48h-x81xsigfcf.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\9v8aglb6hx-68tz8rlebm.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\p7nmdcodk9-68tz8rlebm.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\8nwhd3a6xc-oq1quog8xy.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\c6l2srpgns-tj3dgccjx8.gz

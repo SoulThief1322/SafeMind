@@ -1,0 +1,48 @@
+<div id="registerOverlay" class="overlay hidden" aria-hidden="true"></div>
+<div id="registerModal" class="login-modal hidden" role="dialog" aria-modal="true" aria-labelledby="registerTitle" aria-hidden="true">
+
+  <div class="login-content">
+    <div class="login-header">
+      <div class="login-logo" aria-hidden="true">
+        <i class="fas fa-user-plus"></i>
+      </div>
+      <h2 id="registerTitle">Create an account</h2>
+      <p>Already have an account? <a href="#" id="switchToLogin" class="signup-link">Sign in</a></p>
+    </div>
+
+    <form method="post" asp-area="Identity" asp-page="/Account/Register" class="register-form" aria-label="Register form">
+      @Html.AntiForgeryToken()
+      <input type="hidden" name="ReturnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+
+      <div class="register-errors" role="alert" aria-live="polite"></div>
+
+      <div class="form-field">
+        <input id="Input_Email" name="Input.Email" type="email" placeholder=" " required autocomplete="email" />
+        <label for="Input_Email">Email address</label>
+      </div>
+
+      <div class="form-field">
+        <input id="Input_Password" name="Input.Password" type="password" placeholder=" " required autocomplete="new-password" />
+        <label for="Input_Password">Password</label>
+      </div>
+
+      <div class="form-field">
+        <input id="Input_ConfirmPassword" name="Input.ConfirmPassword" type="password" placeholder=" " required autocomplete="new-password" />
+        <label for="Input_ConfirmPassword">Confirm password</label>
+      </div>
+
+      <button type="submit" class="btn-login">Create account</button>
+    </form>
+
+    <div class="login-separator"><span>OR</span></div>
+
+    <div class="login-logos" aria-hidden="true">
+      <a class="logo-btn apple" href="#" title="Apple" aria-label="Apple"><i class="fab fa-apple" aria-hidden="true"></i><span class="sr-only">Apple</span></a>
+      <a class="logo-btn google" href="#" title="Google" aria-label="Google"><i class="fab fa-google" aria-hidden="true"></i><span class="sr-only">Google</span></a>
+      <a class="logo-btn facebook" href="#" title="Facebook" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i><span class="sr-only">Facebook</span></a>
+    </div>
+
+  </div>
+
+  <button id="registerCloseBtn" class="close-btn" aria-label="Close register modal">&times;</button>
+</div>

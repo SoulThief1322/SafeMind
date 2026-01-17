@@ -1,121 +1,103 @@
-const signInBtn = document.getElementById("signInBtn");
-const loginModal = document.getElementById("loginModal");
-const loginOverlay = document.getElementById("loginOverlay");
-const loginCloseBtn = document.getElementById("loginCloseBtn");
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("loginModal");
+  const overlay = document.getElementById("loginOverlay");
 
-function openLogin() {
-  if (!loginModal || !loginOverlay) return;
-  loginModal.classList.remove("hidden");
-  loginOverlay.classList.remove("hidden");
-  loginModal.setAttribute('aria-hidden', 'false');
-  loginOverlay.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = "hidden";
-  const firstInput = loginModal.querySelector('input, button, [tabindex]:not([tabindex="-1"])');
-  if (firstInput) firstInput.focus();
-}
+  window.openLogin = () => {
+    modal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  };
 
-function closeLogin() {
-  if (!loginModal || !loginOverlay) return;
-  loginModal.classList.add("hidden");
-  loginOverlay.classList.add("hidden");
-  loginModal.setAttribute('aria-hidden', 'true');
-  loginOverlay.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = "";
-  if (signInBtn) signInBtn.focus();
-}
+  window.closeLogin = () => {
+    modal.classList.add("hidden");
+    overlay.classList.add("hidden");
+    document.body.style.overflow = "";
+  };
 
-if (signInBtn) {
-  signInBtn.addEventListener("click", e => {
+  document.getElementById("loginCloseBtn")?.addEventListener("click", closeLogin);
+  overlay?.addEventListener("click", closeLogin);
+
+  document.getElementById("switchToRegister")?.addEventListener("click", e => {
     e.preventDefault();
-    if (!loginModal) {
-      window.location.href = '/Identity/Account/Login';
-      return;
+    closeLogin();
+    window.openRegister();
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+      closeLogin();
     }
+  });
+
+  document.getElementById("signInBtn")?.addEventListener("click", e => {
+    e.preventDefault();
     openLogin();
   });
-}
 
-loginOverlay?.addEventListener("click", closeLogin);
-loginCloseBtn?.addEventListener("click", closeLogin);
+  const form = modal?.querySelector('form.login-form');
+  const errors = modal?.querySelector('.login-errors');
 
-const loginForm = loginModal ? loginModal.querySelector('form.login-form') : null;
-const loginErrors = loginModal ? loginModal.querySelector('.login-errors') : null;
+  const showErrors = msgs => {
+    if (!errors) return;
+    if (!msgs || msgs.length === 0) {
+      errors.innerHTML = '';
+      errors.classList.remove('visible');
+      return;
+    }
+    errors.innerHTML = '<ul>' + msgs.map(m => `<li>${m}</li>`).join('') + '</ul>';
+    errors.classList.add('visible');
+  };
 
-function showLoginErrors(messages) {
-  if (!loginErrors) return;
-  if (!messages || messages.length === 0) {
-    loginErrors.innerHTML = '';
-    loginErrors.classList.remove('visible');
-    return;
-  }
-  loginErrors.innerHTML = '<ul>' + messages.map(m => '<li>' + m + '</li>').join('') + '</ul>';
-  loginErrors.classList.add('visible');
-}
-
-if (loginForm) {
-  loginForm.addEventListener('submit', async (e) => {
+  form?.addEventListener('submit', async e => {
     e.preventDefault();
-    showLoginErrors([]);
-
-    const submitBtn = loginForm.querySelector('button[type="submit"]');
+    showErrors([]);
+    const submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) submitBtn.disabled = true;
-
     try {
-      const formData = new FormData(loginForm);
-      const resp = await fetch(loginForm.action, {
+      const formData = new FormData(form);
+      const resp = await fetch(form.action, {
         method: 'POST',
         body: formData,
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        credentials: 'same-origin'
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        credentials: 'same-origin',
+        redirect: 'manual'
       });
 
-      const contentType = resp.headers.get('content-type') || '';
-      if (resp.ok && contentType.includes('application/json')) {
+      const ct = resp.headers.get('content-type') || '';
+      const isRedirect = resp.type === 'opaqueredirect' || resp.redirected || (resp.status >= 300 && resp.status < 400);
+
+      if (isRedirect) {
+        const loc = resp.headers.get('Location');
+        if (loc) {
+          window.location.href = loc;
+        } else {
+          window.location.reload();
+        }
+      } else if (resp.ok && ct.includes('application/json')) {
         const data = await resp.json();
         if (data.succeeded) {
           closeLogin();
-          if (data.redirect) {
-            window.location.href = data.redirect;
-          } else {
-            window.location.reload();
-          }
-          return;
+          if (data.redirect) window.location.href = data.redirect; else window.location.reload();
+        } else if (data.errors?.length) {
+          showErrors(data.errors);
+        } else if (data.reason) {
+          showErrors([data.reason]);
         } else {
-          if (data.errors && data.errors.length) {
-            showLoginErrors(data.errors);
-          } else if (data.reason) {
-            showLoginErrors([data.reason]);
-          } else {
-            showLoginErrors(['Login failed.']);
-          }
+          showErrors(['Login failed.']);
         }
+      } else if (resp.ok && ct.includes('text/html')) {
+        showErrors(['Invalid login attempt.']);
+      } else if (resp.status === 400 && ct.includes('application/json')) {
+        const data = await resp.json();
+        if (data.errors?.length) showErrors(data.errors); else if (data.reason) showErrors([data.reason]); else showErrors(['Invalid login attempt.']);
       } else {
-        if (resp.status === 400 && contentType.includes('application/json')) {
-          const data = await resp.json();
-          if (data.errors && data.errors.length) {
-            showLoginErrors(data.errors);
-          } else if (data.reason) {
-            showLoginErrors([data.reason]);
-          } else {
-            showLoginErrors(['Invalid login attempt.']);
-          }
-        } else {
-          window.location.href = '/Identity/Account/Login';
-        }
+        showErrors(['Invalid login attempt.']);
       }
     } catch (err) {
       console.error('Login request failed', err);
-      showLoginErrors(['Network error - please try again.']);
+      showErrors(['Network error - please try again.']);
     } finally {
       if (submitBtn) submitBtn.disabled = false;
     }
   });
-}
-
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape" && loginModal && !loginModal.classList.contains("hidden")) {
-    closeLogin();
-  }
 });
