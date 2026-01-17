@@ -22,12 +22,18 @@ namespace Data.Models
         public TimeOnly WorkEnd { get; set; }
         [Required]
         [Comment("Session duration in minutes")]
+        [Range(DoctorConstants.MinSessionDuration, DoctorConstants.MaxSessionDuration)]
         public int SessionDuration { get; set; }
         [Required]
         [Range(GeneralConstants.RatingMinNumber, GeneralConstants.RatingMaxNumber)]
         public decimal Rating { get; set; }
         public ICollection<DoctorSpecialty> DoctorSpecialties { get; set; } = new HashSet<DoctorSpecialty>();
         public ICollection<DoctorLanguages> DoctorLanguages { get; set; } = new HashSet<DoctorLanguages>();
+        [Required]
+        [MaxLength(DoctorConstants.BiographyMaxLength)]
+        [MinLength(DoctorConstants.BiographyMinLength)]
+
+        public string Biography { get; set; } = string.Empty;
         
     }
 }
