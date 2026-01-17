@@ -63,6 +63,14 @@
   background: var(--color-primary-light);
   border-radius: 50%;
   box-shadow: 0 0 8px rgba(46, 111, 84, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-logo i {
+  font-size: 24px;
+  color: var(--color-primary);
 }
 
 /* Header text */
@@ -94,7 +102,8 @@
 }
 
 /* Form inputs + floating labels */
-.login-form {
+.login-form,
+.register-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -158,7 +167,8 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 /* Error area for AJAX responses */
-.login-errors {
+.login-errors,
+.register-errors {
   display: none;
   margin-bottom: 6px;
   background: rgba(255, 60, 60, 0.06);
@@ -168,7 +178,8 @@
   border-radius: 8px;
   font-size: 0.95rem;
 }
-.login-errors.visible {
+.login-errors.visible,
+.register-errors.visible {
   display: block;
 }
 /* Login button */

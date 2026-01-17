@@ -2,7 +2,7 @@
   "Files": [
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\SafeMind.bundle.scp.css",
-      "PackagePath": "staticwebassets\\SafeMind.v9az9fwgy7.bundle.scp.css"
+      "PackagePath": "staticwebassets\\SafeMind.68tz8rlebm.bundle.scp.css"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\articles.css",
@@ -27,6 +27,10 @@
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\mydiary.css",
       "PackagePath": "staticwebassets\\css\\mydiary.css"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\mysessions.css",
+      "PackagePath": "staticwebassets\\css\\mysessions.css"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\navbar.css",
