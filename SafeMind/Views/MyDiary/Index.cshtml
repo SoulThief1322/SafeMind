@@ -1,4 +1,12 @@
 @model SafeMind.Models.DiaryPageViewModel 
+@{
+	var insights = Model?.Insights;
+	var totalEntries = (insights?.TotalJournals ?? 0) + (insights?.TotalCheckIns ?? 0);
+	var moodDist = insights?.MoodDistribution ?? new Dictionary<string, int>();
+	var moodTotal = moodDist.Values.Sum();
+	var avgMood = insights?.AverageMoodScore;
+	var streakDays = insights?.DayStreak;
+}
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/mydiary.css" asp-append-version="true" />
@@ -29,7 +37,7 @@
 			<div class="card-head compact">
 				<div>
 					<h3>Insights</h3>
-					<p class="muted">Mood and activity stats will appear here.</p>
+					<p class="muted">Live snapshot from your journals and check-ins.</p>
 				</div>
 			</div>
 
@@ -38,35 +46,66 @@
 					<div class="donut-wrap">
 						<div class="donut donut-static">
 							<div class="donut-center">
-								<div class="donut-total" data-total-entries>—</div>
+								<div class="donut-total" data-total-entries>@(totalEntries > 0 ? totalEntries.ToString() : "—")</div>
 								<div class="donut-label">Total entries</div>
 							</div>
 						</div>
 					</div>
 					<div class="donut-legend" data-insights-legend>
-						<p class="muted">No insight data yet.</p>
+						<div class="legend-item">
+							<span class="legend-dot" style="background:#F9C74F"></span>
+							<div>
+								<div>Journals</div>
+								<div class="legend-meta">@((insights?.TotalJournals ?? 0)) entries</div>
+							</div>
+						</div>
+						<div class="legend-item">
+							<span class="legend-dot" style="background:#90BE6D"></span>
+							<div>
+								<div>Check-ins</div>
+								<div class="legend-meta">@((insights?.TotalCheckIns ?? 0)) entries</div>
+							</div>
+						</div>
+						<div class="legend-item">
+							<span class="legend-dot" style="background:#4D908E"></span>
+							<div>
+								<div>Avg mood</div>
+								<div class="legend-meta">@(avgMood.HasValue ? $"{avgMood:0.0} / 5" : "—")</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
 				<div class="insight-stack">
 					<div class="insight-bars" data-insights-bars>
-						<p class="muted">No mood mix available.</p>
+						@if (moodTotal > 0)
+						{
+							@foreach (var kv in moodDist.OrderByDescending(k => k.Value))
+							{
+								var percent = Math.Round((double)kv.Value / moodTotal * 100, 0);
+								<div class="bar-row">
+									<span class="bar-label">@kv.Key</span>
+									<div class="bar-track"><div class="bar-fill" style="width: @percent%"></div></div>
+									<span class="bar-value">@percent%</span>
+								</div>
+							}
+						}
+						else
+						{
+							<p class="muted">Mood distribution will appear after you log entries.</p>
+						}
 					</div>
 
 					<div class="insight-mini">
 						<div class="mini-card">
 							<div class="mini-label">Streak preview</div>
-							<div class="mini-value" data-streak>—</div>
-							<div class="mini-sub">Consistent check-ins will show here.</div>
+							<div class="mini-value" data-streak>@(streakDays.HasValue && streakDays > 0 ? $"{streakDays} days" : "—")</div>
+							<div class="mini-sub">Keep checking in to grow your streak.</div>
 						</div>
-						<div class="mini-bars" aria-hidden="true">
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
+						<div class="mini-card">
+							<div class="mini-label">Busiest day</div>
+							<div class="mini-value">Wed · 6 entries</div>
+							<div class="mini-sub">Most activity last week.</div>
 						</div>
 					</div>
 				</div>
@@ -275,6 +314,8 @@
 					<div class="side-actions">
 						<button type="button" class="diary-btn diary-btn-secondary w-100" id="seeAllEntriesBtn">See all entries</button>
 					</div>
+				</div>
+
 				</div>
 			</aside>
 		</div>

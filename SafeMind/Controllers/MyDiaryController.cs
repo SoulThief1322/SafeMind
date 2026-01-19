@@ -5,6 +5,8 @@ using SafeMind.Data;
 using SafeMind.Models;
 using Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Data.Enums;
+using System.Linq;
 
 namespace SafeMind.Controllers;
 
@@ -35,6 +37,16 @@ public class MyDiaryController : Controller
             .OrderByDescending(x => x.CreatedOn)
             .ToListAsync();
 
+        var moodDistribution = journals.Select(j => j.Mood)
+            .Concat(checks.Select(c => c.Mood))
+            .GroupBy(m => m.ToString())
+            .ToDictionary(g => g.Key, g => g.Count(), StringComparer.OrdinalIgnoreCase);
+
+        var moodScores = journals.Select(j => MapMoodScore(j.Mood))
+            .Concat(checks.Select(c => MapMoodScore(c.Mood)))
+            .ToList();
+        double? avgMood = moodScores.Any() ? moodScores.Average() : null;
+        var streak = CalculateStreak(checks);
         var vm = new DiaryPageViewModel
         {
             Journals = journals.Select(journal => new JournalViewModel
@@ -53,7 +65,16 @@ public class MyDiaryController : Controller
                 Stress = check.Stress,
                 Sleep = check.Sleep,
                 Notes = check.Notes
-            })
+            }),
+            Insights = new InsightsViewModel
+            {
+                TotalJournals = journals.Count,
+                TotalCheckIns = checks.Count,
+                MoodDistribution = moodDistribution,
+                TotalGoals = _context.Goals.Count(g => g.UserId == userId),
+                AverageMoodScore = avgMood,
+                DayStreak = streak
+            }
         };
 
         return View(vm);
@@ -64,4 +85,38 @@ public class MyDiaryController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    private static double MapMoodScore(JournalMood mood) => mood switch
+    {
+        JournalMood.Happy => 5.0,
+        JournalMood.Excited => 4.5,
+        JournalMood.Calm => 4.0,
+        JournalMood.Anxious => 2.0,
+        JournalMood.Sad => 1.5,
+        JournalMood.Angry => 1.0,
+        _ => 3.0
+    };
+
+    private static int CalculateStreak(IEnumerable<DailyCheck> checks)
+    {
+        var distinctDates = checks
+            .Select(c => c.CreatedOn.Date)
+            .Distinct()
+            .OrderBy(d => d)
+            .ToList();
+
+        if (!distinctDates.Any()) return 0;
+
+        var current = distinctDates[^1];
+        var streak = 1;
+
+        while (distinctDates.Contains(current.AddDays(-streak)))
+        {
+            streak++;
+        }
+
+        return streak;
+    }
+
+
 }
