@@ -4,83 +4,38 @@
 
 <link rel="stylesheet" href="~/css/articles.css" />
 
-<section class="hero-editorial">
+<section class="hero-editorial" data-hero-rotator>
     <aside class="hero-side-nav">
-        <a class="side-link active" href="#">Mind</a>
-        <a class="side-link" href="#">Wellness</a>
-        <a class="side-link" href="#">Sleep</a>
-        <a class="side-link" href="#">Therapy</a>
-        <a class="side-link" href="#">Insights</a>
+        <a class="side-link active" href="#" data-hero-topic="Mind">Mind</a>
+        <a class="side-link" href="#" data-hero-topic="Wellness">Wellness</a>
+        <a class="side-link" href="#" data-hero-topic="Sleep">Sleep</a>
+        <a class="side-link" href="#" data-hero-topic="Therapy">Therapy</a>
+        <a class="side-link" href="#" data-hero-topic="Insights">Insights</a>
     </aside>
 
-    <div class="hero-bg" style="background-image:url('/images/hero.jpg')">
+    <div class="hero-bg" style="background-image:url('/images/feat1.jpg')">
         <div class="hero-overlay"></div>
         <div class="hero-inner container">
-            <span class="hero-eyebrow">Expansive Exploration</span>
-            <h1 class="hero-title"> Where Land and<br /> Water Lead Us </h1>
-            <a href="#" class="hero-cta-text">Learn More</a>
+            <span class="hero-eyebrow" data-hero-eyebrow>Expansive Exploration</span>
+            <h1 class="hero-title" data-hero-title>Where Land and<br /> Water Lead Us</h1>
+            <a href="#" class="hero-cta-text" data-hero-cta>Read Article</a>
         </div>
 
         <div class="hero-notice">
             <div class="container hero-notice-inner">
                 <p class="hero-notice-text">
-                    <strong>New:</strong> Guided grounding exercises now available. <a href="#">Learn more</a>
+                    <strong data-hero-category>New</strong>
+                    <span data-hero-summary>Guided grounding exercises now available.</span>
+                    <a href="#" data-hero-link>Learn more</a>
                 </p>
             </div>
         </div>
+
+        <div class="hero-dots" data-hero-dots aria-label="Featured articles" role="tablist"></div>
     </div>
 </section>
 
 <section class="container">
-
-    <!-- CAROUSEL -->
-    <div class="carousel carousel-editorial">
-        <button class="carousel-btn prev">‹</button>
-
-        <div class="carousel-track">
-            <div class="carousel-slide">
-                <img src="/images/feat1.jpg">
-                <div class="meta">
-                    <span class="article-tag">Mindfulness</span>
-                    <h4>Quick Breathing Reset</h4>
-                </div>
-            </div>
-
-            <div class="carousel-slide">
-                <img src="/images/feat2.jpg">
-                <div class="meta">
-                    <span class="article-tag">Sleep</span>
-                    <h4>Better Night Routines</h4>
-                </div>
-            </div>
-
-            <div class="carousel-slide">
-                <img src="/images/feat3.jpg">
-                <div class="meta">
-                    <span class="article-tag">Wellness</span>
-                    <h4>Tiny Steps, Big Calm</h4>
-                </div>
-            </div>
-
-            <div class="carousel-slide">
-                <img src="/images/feat3.jpg">
-                <div class="meta">
-                    <span class="article-tag">Wellness</span>
-                    <h4>Tiny Steps, Big Calm</h4>
-                </div>
-            </div>
-
-            <div class="carousel-slide">
-                <img src="/images/feat3.jpg">
-                <div class="meta">
-                    <span class="article-tag">Wellness</span>
-                    <h4>Tiny Steps, Big Calm</h4>
-                </div>
-            </div>
-        </div>
-
-        <button class="carousel-btn next">›</button>
-    </div>
 
     <!-- EDITORIAL BODY -->
     <section class="editorial-layout">

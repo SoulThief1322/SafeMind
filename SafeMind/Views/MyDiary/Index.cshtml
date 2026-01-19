@@ -1,11 +1,16 @@
+@model SafeMind.Models.DiaryPageViewModel 
 @{
-	ViewData["Title"] = "My Diary";
+	var insights = Model?.Insights;
+	var totalEntries = (insights?.TotalJournals ?? 0) + (insights?.TotalCheckIns ?? 0);
+	var moodDist = insights?.MoodDistribution ?? new Dictionary<string, int>();
+	var moodTotal = moodDist.Values.Sum();
+	var avgMood = insights?.AverageMoodScore;
+	var streakDays = insights?.DayStreak;
 }
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/mydiary.css" asp-append-version="true" />
 }
-
 <div class="diary-page">
 	<div class="container diary-container">
 
@@ -22,15 +27,88 @@
 		</header>
 
 		<section class="diary-week" aria-label="This week">
-			<div class="diary-week-label">This week</div>
-			<div class="diary-week-row" role="list">
-				<button type="button" class="day-pill" role="listitem" data-date="2026-01-05"><span class="dow">Mon</span><span class="dom">08</span></button>
-				<button type="button" class="day-pill" role="listitem" data-date="2026-01-06"><span class="dow">Tue</span><span class="dom">09</span></button>
-				<button type="button" class="day-pill active" role="listitem" data-date="2026-01-07"><span class="dow">Wed</span><span class="dom">10</span></button>
-				<button type="button" class="day-pill" role="listitem" data-date="2026-01-08"><span class="dow">Thu</span><span class="dom">11</span></button>
-				<button type="button" class="day-pill" role="listitem" data-date="2026-01-09"><span class="dow">Fri</span><span class="dom">12</span></button>
-				<button type="button" class="day-pill" role="listitem" data-date="2026-01-10"><span class="dow">Sat</span><span class="dom">13</span></button>
-				<button type="button" class="day-pill" role="listitem" data-date="2026-01-11"><span class="dow">Sun</span><span class="dom">14</span></button>
+			<div class="diary-week-label" data-week-label>This week</div>
+			<div class="diary-week-row" role="list" data-week-row>
+				<!-- Week pills rendered by mydiary.js -->
+			</div>
+		</section>
+
+		<section class="card card-soft diary-insights" aria-label="Insights overview">
+			<div class="card-head compact">
+				<div>
+					<h3>Insights</h3>
+					<p class="muted">Live snapshot from your journals and check-ins.</p>
+				</div>
+			</div>
+
+			<div class="insights-layout">
+				<div class="insight-visual" aria-live="polite">
+					<div class="donut-wrap">
+						<div class="donut donut-static">
+							<div class="donut-center">
+								<div class="donut-total" data-total-entries>@(totalEntries > 0 ? totalEntries.ToString() : "—")</div>
+								<div class="donut-label">Total entries</div>
+							</div>
+						</div>
+					</div>
+					<div class="donut-legend" data-insights-legend>
+						<div class="legend-item">
+							<span class="legend-dot" style="background:#F9C74F"></span>
+							<div>
+								<div>Journals</div>
+								<div class="legend-meta">@((insights?.TotalJournals ?? 0)) entries</div>
+							</div>
+						</div>
+						<div class="legend-item">
+							<span class="legend-dot" style="background:#90BE6D"></span>
+							<div>
+								<div>Check-ins</div>
+								<div class="legend-meta">@((insights?.TotalCheckIns ?? 0)) entries</div>
+							</div>
+						</div>
+						<div class="legend-item">
+							<span class="legend-dot" style="background:#4D908E"></span>
+							<div>
+								<div>Avg mood</div>
+								<div class="legend-meta">@(avgMood.HasValue ? $"{avgMood:0.0} / 5" : "—")</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="insight-stack">
+					<div class="insight-bars" data-insights-bars>
+						@if (moodTotal > 0)
+						{
+							@foreach (var kv in moodDist.OrderByDescending(k => k.Value))
+							{
+								var percent = Math.Round((double)kv.Value / moodTotal * 100, 0);
+								<div class="bar-row">
+									<span class="bar-label">@kv.Key</span>
+									<div class="bar-track"><div class="bar-fill" style="width: @percent%"></div></div>
+									<span class="bar-value">@percent%</span>
+								</div>
+							}
+						}
+						else
+						{
+							<p class="muted">Mood distribution will appear after you log entries.</p>
+						}
+					</div>
+
+					<div class="insight-mini">
+						<div class="mini-card">
+							<div class="mini-label">Streak preview</div>
+							<div class="mini-value" data-streak>@(streakDays.HasValue && streakDays > 0 ? $"{streakDays} days" : "—")</div>
+							<div class="mini-sub">Keep checking in to grow your streak.</div>
+						</div>
+						<div class="mini-card">
+							<div class="mini-label">Busiest day</div>
+							<div class="mini-value">Wed · 6 entries</div>
+							<div class="mini-sub">Most activity last week.</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 
@@ -132,11 +210,11 @@
 					<div class="focus-row">
 						<div class="focus-item">
 							<div class="focus-label">Goal</div>
-							<div class="focus-value">Take a 10-minute walk</div>
+							<div class="focus-value" data-focus-goal>—</div>
 						</div>
 						<div class="focus-item">
 							<div class="focus-label">Tiny step</div>
-							<div class="focus-value">Put shoes by the door</div>
+							<div class="focus-value" data-focus-step>—</div>
 						</div>
 					</div>
 
@@ -158,26 +236,15 @@
 					</div>
 
 					<div class="mini-calendar" role="grid" aria-label="Mini calendar">
+						<div class="mc-header">
+							<button type="button" class="mc-nav" data-cal-prev aria-label="Previous month">‹</button>
+							<div class="mc-month" data-month-label></div>
+							<button type="button" class="mc-nav" data-cal-next aria-label="Next month">›</button>
+						</div>
 						<div class="mc-row mc-head" role="row">
 							<span role="columnheader">M</span><span role="columnheader">T</span><span role="columnheader">W</span><span role="columnheader">T</span><span role="columnheader">F</span><span role="columnheader">S</span><span role="columnheader">S</span>
 						</div>
-						<div class="mc-row" role="row">
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-06">6</button>
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-07">7</button>
-							<button type="button" class="mc-day mc-today" role="gridcell" data-date="2026-01-08">8</button>
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-09">9</button>
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-10">10</button>
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-11">11</button>
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-12">12</button>
-						</div>
-						<div class="mc-row" role="row">
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-13">13</button>
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-14">14</button>
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-15">15</button>
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-16">16</button>
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-17">17</button>
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-18">18</button>
-							<button type="button" class="mc-day" role="gridcell" data-date="2026-01-19">19</button>
+						<div class="mc-body" data-calendar-body>
 						</div>
 					</div>
 				</div>
@@ -185,38 +252,63 @@
 				<div class="card">
 					<div class="card-head compact">
 						<div>
-							<h3>Recent entries</h3>
-							<p class="muted">A quick list of what you wrote.</p>
+							<h3>Recent check-ins</h3>
+							<p class="muted">A quick glance at how things have felt.</p>
+						</div>
+					</div>
+
+					<div class="checkin-list">
+						@if (Model?.CheckIns != null && Model.CheckIns.Any())
+						{
+							@foreach (var check in Model.CheckIns.Take(10))
+							{
+								<div class="checkin-item">
+									<div>
+										<div class="checkin-date">@check.CreatedOn.ToLocalTime().ToString("ddd · h:mm tt")</div>
+										<div class="checkin-note">Mood: @check.Mood · Energy: @check.Energy · Sleep: @check.Sleep · Stress: @check.Stress</div>
+										@if (!string.IsNullOrWhiteSpace(check.Notes))
+										{
+											<div class="checkin-note">@check.Notes</div>
+										}
+									</div>
+									<span class="checkin-pill">Recent</span>
+								</div>
+							}
+						}
+						else
+						{
+							<p class="muted">No check-ins yet.</p>
+						}
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-head compact">
+						<div>
+							<h3>Recent journals</h3>
+							<p class="muted">Your latest writing stays here.</p>
 						</div>
 					</div>
 
 					<div class="entry-list" id="entryList">
-						<article class="entry-item">
-							<div class="entry-meta">
-								<span class="entry-date">Today</span>
-								<span class="entry-tag">Anxious</span>
-							</div>
-							<div class="entry-title">Before the meeting</div>
-							<div class="entry-preview">Heart racing, but I used a breathing exercise and it helped…</div>
-						</article>
-
-						<article class="entry-item">
-							<div class="entry-meta">
-								<span class="entry-date">Yesterday</span>
-								<span class="entry-tag">Calm</span>
-							</div>
-							<div class="entry-title">Small win</div>
-							<div class="entry-preview">I took a short walk and felt more grounded afterwards.</div>
-						</article>
-
-						<article class="entry-item">
-							<div class="entry-meta">
-								<span class="entry-date">2 days ago</span>
-								<span class="entry-tag">Tired</span>
-							</div>
-							<div class="entry-title">Sleep notes</div>
-							<div class="entry-preview">Stayed up late scrolling. Next time: charger away from bed.</div>
-						</article>
+						@if (Model?.Journals != null && Model.Journals.Any())
+						{
+							@foreach (var entry in Model.Journals)
+							{
+								<div class="entry-item">
+									<div class="entry-meta">
+										<span class="entry-date">@entry.CreatedOn.ToLocalTime().ToString("MMM dd")</span>
+										<span class="entry-tag">@entry.Category</span>
+									</div>
+									<div class="entry-title">@entry.Title</div>
+									<div class="entry-preview">@entry.Content</div>
+								</div>
+							}
+						}
+						else
+						{
+							<p class="muted">No entries yet.</p>
+						}
 					</div>
 
 					<div class="side-actions">
@@ -224,103 +316,9 @@
 					</div>
 				</div>
 
-				<div class="card card-soft">
-					<div class="card-head compact">
-						<div>
-							<h3>Insights</h3>
-							<p class="muted">Static preview of your mood mix.</p>
-						</div>
-					</div>
-
-					<div class="insight-visual">
-						<div class="donut-wrap">
-							<div class="donut donut-static">
-								<div class="donut-center">
-									<div class="donut-total">18</div>
-									<div class="donut-label">Total entries</div>
-								</div>
-							</div>
-						</div>
-						<div class="donut-legend">
-							<div class="legend-item">
-								<span class="legend-dot" style="background:#F9C74F"></span>
-								<div>
-									<div>Happy</div>
-									<div class="legend-meta">42% • 8 entries</div>
-								</div>
-							</div>
-							<div class="legend-item">
-								<span class="legend-dot" style="background:#90BE6D"></span>
-								<div>
-									<div>Calm</div>
-									<div class="legend-meta">28% • 5 entries</div>
-								</div>
-							</div>
-							<div class="legend-item">
-								<span class="legend-dot" style="background:#F3722C"></span>
-								<div>
-									<div>Stressed</div>
-									<div class="legend-meta">17% • 3 entries</div>
-								</div>
-							</div>
-							<div class="legend-item">
-								<span class="legend-dot" style="background:#4D908E"></span>
-								<div>
-									<div>Sad</div>
-									<div class="legend-meta">8% • 1 entry</div>
-								</div>
-							</div>
-							<div class="legend-item">
-								<span class="legend-dot" style="background:#CBD5C0"></span>
-								<div>
-									<div>Other</div>
-									<div class="legend-meta">5% • 1 entry</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="insight-bars">
-						<div class="bar-row">
-							<span class="bar-label">Happy</span>
-							<div class="bar-track"><div class="bar-fill" style="width:42%; background:#F9C74F"></div></div>
-							<span class="bar-value">42%</span>
-						</div>
-						<div class="bar-row">
-							<span class="bar-label">Calm</span>
-							<div class="bar-track"><div class="bar-fill" style="width:28%; background:#90BE6D"></div></div>
-							<span class="bar-value">28%</span>
-						</div>
-						<div class="bar-row">
-							<span class="bar-label">Stressed</span>
-							<div class="bar-track"><div class="bar-fill" style="width:17%; background:#F3722C"></div></div>
-							<span class="bar-value">17%</span>
-						</div>
-						<div class="bar-row">
-							<span class="bar-label">Sad</span>
-							<div class="bar-track"><div class="bar-fill" style="width:8%; background:#4D908E"></div></div>
-							<span class="bar-value">8%</span>
-						</div>
-					</div>
-
-					<div class="insight-mini">
-						<div class="mini-card">
-							<div class="mini-label">Streak preview</div>
-							<div class="mini-value">5 days</div>
-							<div class="mini-sub">Consistent check-ins this week</div>
-						</div>
-						<div class="mini-bars" aria-hidden="true">
-							<div class="mini-bar" style="height: 34px;"></div>
-							<div class="mini-bar" style="height: 48px;"></div>
-							<div class="mini-bar" style="height: 62px;"></div>
-							<div class="mini-bar mini-bar-active" style="height: 70px;"></div>
-							<div class="mini-bar" style="height: 40px;"></div>
-							<div class="mini-bar" style="height: 28px;"></div>
-							<div class="mini-bar" style="height: 20px;"></div>
-						</div>
-					</div>
 				</div>
 			</aside>
 		</div>
 	</div>
 </div>
+<script src="~/js/mydiary.js" asp-append-version="true"></script>
