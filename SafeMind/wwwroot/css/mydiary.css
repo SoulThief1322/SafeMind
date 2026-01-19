@@ -158,6 +158,22 @@
 	align-items: start;
 }
 
+.diary-insights {
+	margin-bottom: 22px;
+}
+
+.insights-layout {
+	display: grid;
+	grid-template-columns: minmax(320px, 1.4fr) minmax(240px, 1fr);
+	gap: 18px;
+	align-items: start;
+}
+
+.insight-stack {
+	display: grid;
+	gap: 14px;
+}
+
 .card {
 	background: white;
 	border: 1px solid rgba(0, 0, 0, 0.06);
@@ -418,6 +434,46 @@
 	color: white;
 }
 
+/* Recent check-ins */
+.checkin-list {
+	display: grid;
+	gap: 12px;
+	margin-top: 10px;
+}
+
+.checkin-item {
+	background: white;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-radius: 14px;
+	padding: 12px;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 12px;
+}
+
+.checkin-date {
+	font-weight: 900;
+	color: var(--color-text);
+}
+
+.checkin-note {
+	margin-top: 4px;
+	color: var(--color-text-muted);
+	line-height: 1.4;
+}
+
+.checkin-pill {
+	background: var(--color-primary-light);
+	color: var(--color-primary);
+	border: 1px solid rgba(46, 111, 84, 0.14);
+	border-radius: 999px;
+	padding: 6px 10px;
+	font-weight: 800;
+	font-size: 0.9rem;
+	white-space: nowrap;
+}
+
 /* Entries */
 .entry-list {
 	display: grid;
@@ -662,6 +718,10 @@
 		grid-template-columns: 1fr;
 	}
 
+	.insights-layout {
+		grid-template-columns: 1fr;
+	}
+
 	.diary-header {
 		flex-direction: column;
 		align-items: flex-start;
@@ -682,6 +742,15 @@
 
 	.focus-row {
 		grid-template-columns: 1fr;
+	}
+
+	.checkin-item {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.checkin-pill {
+		align-self: flex-end;
 	}
 }
 

@@ -1,4 +1,4 @@
-@model IEnumerable<Data.Models.Journal> 
+@model SafeMind.Models.DiaryPageViewModel 
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/mydiary.css" asp-append-version="true" />
@@ -22,6 +22,54 @@
 			<div class="diary-week-label" data-week-label>This week</div>
 			<div class="diary-week-row" role="list" data-week-row>
 				<!-- Week pills rendered by mydiary.js -->
+			</div>
+		</section>
+
+		<section class="card card-soft diary-insights" aria-label="Insights overview">
+			<div class="card-head compact">
+				<div>
+					<h3>Insights</h3>
+					<p class="muted">Mood and activity stats will appear here.</p>
+				</div>
+			</div>
+
+			<div class="insights-layout">
+				<div class="insight-visual" aria-live="polite">
+					<div class="donut-wrap">
+						<div class="donut donut-static">
+							<div class="donut-center">
+								<div class="donut-total" data-total-entries>—</div>
+								<div class="donut-label">Total entries</div>
+							</div>
+						</div>
+					</div>
+					<div class="donut-legend" data-insights-legend>
+						<p class="muted">No insight data yet.</p>
+					</div>
+				</div>
+
+				<div class="insight-stack">
+					<div class="insight-bars" data-insights-bars>
+						<p class="muted">No mood mix available.</p>
+					</div>
+
+					<div class="insight-mini">
+						<div class="mini-card">
+							<div class="mini-label">Streak preview</div>
+							<div class="mini-value" data-streak>—</div>
+							<div class="mini-sub">Consistent check-ins will show here.</div>
+						</div>
+						<div class="mini-bars" aria-hidden="true">
+							<div class="mini-bar"></div>
+							<div class="mini-bar"></div>
+							<div class="mini-bar"></div>
+							<div class="mini-bar"></div>
+							<div class="mini-bar"></div>
+							<div class="mini-bar"></div>
+							<div class="mini-bar"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 
@@ -165,19 +213,52 @@
 				<div class="card">
 					<div class="card-head compact">
 						<div>
-							<h3>Recent entries</h3>
-							<p class="muted">A quick list of what you wrote.</p>
+							<h3>Recent check-ins</h3>
+							<p class="muted">A quick glance at how things have felt.</p>
+						</div>
+					</div>
+
+					<div class="checkin-list">
+						@if (Model?.CheckIns != null && Model.CheckIns.Any())
+						{
+							@foreach (var check in Model.CheckIns.Take(10))
+							{
+								<div class="checkin-item">
+									<div>
+										<div class="checkin-date">@check.CreatedOn.ToLocalTime().ToString("ddd · h:mm tt")</div>
+										<div class="checkin-note">Mood: @check.Mood · Energy: @check.Energy · Sleep: @check.Sleep · Stress: @check.Stress</div>
+										@if (!string.IsNullOrWhiteSpace(check.Notes))
+										{
+											<div class="checkin-note">@check.Notes</div>
+										}
+									</div>
+									<span class="checkin-pill">Recent</span>
+								</div>
+							}
+						}
+						else
+						{
+							<p class="muted">No check-ins yet.</p>
+						}
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-head compact">
+						<div>
+							<h3>Recent journals</h3>
+							<p class="muted">Your latest writing stays here.</p>
 						</div>
 					</div>
 
 					<div class="entry-list" id="entryList">
-						@if (Model != null && Model.Any())
+						@if (Model?.Journals != null && Model.Journals.Any())
 						{
-							@foreach (var entry in Model.OrderByDescending(e => e.CreatedAt))
+							@foreach (var entry in Model.Journals)
 							{
 								<div class="entry-item">
 									<div class="entry-meta">
-										<span class="entry-date">@entry.CreatedAt.ToString("MMM dd")</span>
+										<span class="entry-date">@entry.CreatedOn.ToLocalTime().ToString("MMM dd")</span>
 										<span class="entry-tag">@entry.Category</span>
 									</div>
 									<div class="entry-title">@entry.Title</div>
@@ -193,50 +274,6 @@
 
 					<div class="side-actions">
 						<button type="button" class="diary-btn diary-btn-secondary w-100" id="seeAllEntriesBtn">See all entries</button>
-					</div>
-				</div>
-
-				<div class="card card-soft">
-					<div class="card-head compact">
-						<div>
-							<h3>Insights</h3>
-							<p class="muted">Mood and activity stats will appear here.</p>
-						</div>
-					</div>
-
-					<div class="insight-visual" aria-live="polite">
-						<div class="donut-wrap">
-							<div class="donut donut-static">
-								<div class="donut-center">
-									<div class="donut-total" data-total-entries>—</div>
-									<div class="donut-label">Total entries</div>
-								</div>
-							</div>
-						</div>
-						<div class="donut-legend" data-insights-legend>
-							<p class="muted">No insight data yet.</p>
-						</div>
-					</div>
-
-					<div class="insight-bars" data-insights-bars>
-						<p class="muted">No mood mix available.</p>
-					</div>
-
-					<div class="insight-mini">
-						<div class="mini-card">
-							<div class="mini-label">Streak preview</div>
-							<div class="mini-value" data-streak>—</div>
-							<div class="mini-sub">Consistent check-ins will show here.</div>
-						</div>
-						<div class="mini-bars" aria-hidden="true">
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
-							<div class="mini-bar"></div>
-						</div>
 					</div>
 				</div>
 			</aside>

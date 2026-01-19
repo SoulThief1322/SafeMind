@@ -23,18 +23,40 @@ public class MyDiaryController : Controller
 
     public async Task<IActionResult> Index()
     {
+        var userId = _userManager.GetUserId(User);
+
         var journals = await _context.Journals
-            .Where(x => x.UserId == _userManager.GetUserId(User))
+            .Where(x => x.UserId == userId)
+            .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();
-        IEnumerable<JournalViewModel> journalViewModels = journals.Select(journal => new JournalViewModel
+
+        var checks = await _context.DailyChecks
+            .Where(x => x.UserId == userId)
+            .OrderByDescending(x => x.CreatedOn)
+            .ToListAsync();
+
+        var vm = new DiaryPageViewModel
         {
-            CreatedOn = journal.CreatedAt,
-            Mood = journal.Mood,
-            Title = journal.Title,
-            Category = journal.Category,
-            Content = journal.Content
-        });
-        return View(journals);
+            Journals = journals.Select(journal => new JournalViewModel
+            {
+                CreatedOn = journal.CreatedAt,
+                Mood = journal.Mood,
+                Title = journal.Title,
+                Category = journal.Category,
+                Content = journal.Content
+            }),
+            CheckIns = checks.Select(check => new DailyCheckViewModel
+            {
+                CreatedOn = check.CreatedOn,
+                Mood = check.Mood,
+                Energy = check.Energy,
+                Stress = check.Stress,
+                Sleep = check.Sleep,
+                Notes = check.Notes
+            })
+        };
+
+        return View(vm);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
