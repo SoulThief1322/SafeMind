@@ -12,8 +12,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>ql2w2vlq7w</Fingerprint>
-      <Integrity>LsN5fb+n6Royf1fHlWwuRK698krXPlcjIheN7XN17hk=</Integrity>
+      <Fingerprint>slfc62yev6</Fingerprint>
+      <Integrity>AHgp9Dta7o2337DeZjH4gDqR2+IT9i2O02Q8MZ2excM=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\articles.css'))</OriginalItemSpec>
@@ -102,8 +102,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>db7re637jd</Fingerprint>
-      <Integrity>NwxupuXMgWqTG73IaYGkz24Gw+KxXFPaOx4jAsSPy/Q=</Integrity>
+      <Fingerprint>qooz1zzelq</Fingerprint>
+      <Integrity>RtsUA/ZJUZDcYREpxT+eadT4ldZ0JN1NVjHwZ2igfIQ=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\mydiary.css'))</OriginalItemSpec>
@@ -192,8 +192,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>edhyirjzbx</Fingerprint>
-      <Integrity>juUKQ6SGE3jyuVEKNS1rtXBCsWtwlCYeXRga2aZOFoU=</Integrity>
+      <Fingerprint>8w98x46vw3</Fingerprint>
+      <Integrity>6KqRmmy/6MaExeWgClDZj1RjI6w4/eolNKBkcjyR5V8=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\articles.js'))</OriginalItemSpec>
@@ -228,8 +228,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>5ipweew5fc</Fingerprint>
-      <Integrity>47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=</Integrity>
+      <Fingerprint>p16qfl4rk1</Fingerprint>
+      <Integrity>HYRnOMEvURxSk+5oUbkS7DgQF0kpVpnGNIkDu6nYts8=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\mydiary.js'))</OriginalItemSpec>

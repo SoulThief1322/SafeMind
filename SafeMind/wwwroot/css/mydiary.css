@@ -353,6 +353,34 @@
 	margin-top: 10px;
 }
 
+.mc-header {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	gap: 8px;
+}
+
+.mc-month {
+	text-align: center;
+	font-weight: 900;
+	color: var(--color-primary);
+}
+
+.mc-nav {
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	background: white;
+	border-radius: 10px;
+	height: 34px;
+	width: 34px;
+	font-weight: 900;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.mc-nav:hover {
+	box-shadow: 0 8px 14px rgba(0, 0, 0, 0.08);
+}
+
 .mc-row {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
