@@ -6,6 +6,8 @@
 	var moodTotal = moodDist.Values.Sum();
 	var avgMood = insights?.AverageMoodScore;
 	var streakDays = insights?.DayStreak;
+	var hasTodayCheck = Model?.HasTodayCheck ?? false;
+	var todayCheck = Model?.CheckIns?.FirstOrDefault(c => c.CreatedOn.ToLocalTime().Date == DateTime.Now.Date);
 }
 
 @section Styles {
@@ -21,7 +23,7 @@
 			</div>
 
 			<div class="diary-header-actions">
-				<button type="button" class="diary-btn diary-btn-primary" id="newEntryBtn">New entry</button>
+				<button type="button" class="diary-btn diary-btn-primary" onclick="window.location.href = '/MyDiary/NewEntry'" id="newEntryBtn">New entry</button>
 				<button type="button" class="diary-btn diary-btn-secondary" id="viewWeekBtn">View week</button>
 			</div>
 		</header>
@@ -29,7 +31,6 @@
 		<section class="diary-week" aria-label="This week">
 			<div class="diary-week-label" data-week-label>This week</div>
 			<div class="diary-week-row" role="list" data-week-row>
-				<!-- Week pills rendered by mydiary.js -->
 			</div>
 		</section>
 
@@ -112,92 +113,138 @@
 			</div>
 		</section>
 
-		<div class="diary-grid">
-			<!-- LEFT: Today's check-in + prompts -->
-			<section class="diary-main" aria-label="Today's check-in">
+			<div class="diary-grid">
+				<!-- LEFT: Today's check-in + prompts -->
+				<section class="diary-main" aria-label="Today's check-in">
+					<form id="checkinForm" method="post" asp-action="SaveCheck" asp-controller="MyDiary">
+						@Html.AntiForgeryToken()
+					</form>
 
-				<div class="card card-hero">
-					<div class="card-head">
-						<div>
-							<h2>Today’s check-in</h2>
-							<p class="muted">Quick tap options for how you’re feeling right now.</p>
+					@if (hasTodayCheck)
+					{
+						<div class="card card-hero">
+							<div class="card-head">
+								<div>
+									<h2>Today’s check-in</h2>
+									<p class="muted">You already logged a check-in today. Come back tomorrow.</p>
+								</div>
+							</div>
+							<div class="checkin-block">
+								<div class="checkin-label">Last entry</div>
+								@if (todayCheck != null)
+								{
+									<p class="muted">
+										@todayCheck.CreatedOn.ToLocalTime().ToString("h:mm tt") · Mood: @todayCheck.Mood · Energy: @todayCheck.Energy · Sleep: @todayCheck.Sleep · Stress: @todayCheck.Stress
+										@if (!string.IsNullOrWhiteSpace(todayCheck.Notes))
+										{
+											<br />@todayCheck.Notes
+										}
+									</p>
+								}
+								else
+								{
+									<p class="muted">Saved check-in for today.</p>
+								}
+							</div>
 						</div>
-					</div>
+					}
+					else
+					{
+						<div class="card card-hero">
+							<div class="card-head">
+								<div>
+									<h2>Today’s check-in</h2>
+									<p class="muted">Quick tap options for how you’re feeling right now.</p>
+								</div>
+							</div>
 
-					<div class="checkin-block">
-						<div class="checkin-label">Mood</div>
-						<div class="chip-row" role="list" data-chip-group="mood">
-							<button type="button" class="chip" role="listitem" data-value="Happy">Happy</button>
-							<button type="button" class="chip" role="listitem" data-value="Calm">Calm</button>
-							<button type="button" class="chip" role="listitem" data-value="Okay">Okay</button>
-							<button type="button" class="chip chip-active" role="listitem" data-value="Anxious">Anxious</button>
-							<button type="button" class="chip" role="listitem" data-value="Stressed">Stressed</button>
-							<button type="button" class="chip" role="listitem" data-value="Sad">Sad</button>
+							<div class="checkin-block">
+								<div class="checkin-label">Mood</div>
+								<div class="chip-row" role="list" data-chip-group="mood">
+									<button type="button" class="chip" role="listitem" data-value="Happy">Happy</button>
+									<button type="button" class="chip" role="listitem" data-value="Calm">Calm</button>
+									<button type="button" class="chip" role="listitem" data-value="Excited">Excited</button>
+									<button type="button" class="chip chip-active" role="listitem" data-value="Anxious">Anxious</button>
+									<button type="button" class="chip" role="listitem" data-value="Sad">Sad</button>
+									<button type="button" class="chip" role="listitem" data-value="Angry">Angry</button>
+								</div>
+							</div>
+
+							<div class="checkin-split">
+								<div class="checkin-block">
+									<div class="checkin-label">Energy</div>
+									<div class="chip-row" role="list" data-chip-group="energy">
+										<button type="button" class="chip" role="listitem" data-value="Low">Low</button>
+										<button type="button" class="chip chip-active" role="listitem" data-value="Medium">Medium</button>
+										<button type="button" class="chip" role="listitem" data-value="High">High</button>
+									</div>
+								</div>
+
+								<div class="checkin-block">
+									<div class="checkin-label">Sleep</div>
+									<div class="chip-row" role="list" data-chip-group="sleep">
+										<button type="button" class="chip" role="listitem" data-value="Good">Rested</button>
+										<button type="button" class="chip chip-active" role="listitem" data-value="Fair">Normal</button>
+										<button type="button" class="chip" role="listitem" data-value="Poor">Tired</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="checkin-block">
+								<div class="checkin-label">Stress</div>
+								<div class="chip-row" role="list" data-chip-group="stress">
+									<button type="button" class="chip" role="listitem" data-value="Low">Low</button>
+									<button type="button" class="chip chip-active" role="listitem" data-value="Medium">Medium</button>
+									<button type="button" class="chip" role="listitem" data-value="High">High</button>
+								</div>
+							</div>
+
+							<div class="checkin-block">
+								<div class="checkin-label">One sentence</div>
+								<textarea class="diary-textarea" id="diaryText" rows="3" maxlength="500" placeholder="What’s on your mind today?"></textarea>
+								<div class="helper-row">
+									<span class="muted small">Examples: “I felt anxious before class.” “I’m proud I went for a walk.”</span>
+									<span class="muted small" id="diaryCount">0/500</span>
+								</div>
+							</div>
+
+							<div class="hero-actions">
+								<button type="button" class="diary-btn diary-btn-primary" id="saveCheckinBtn">Save check-in</button>
+								<button type="button" class="diary-btn diary-btn-ghost" id="addDetailsBtn">Add details</button>
+							</div>
 						</div>
-					</div>
+					}
 
-					<div class="checkin-split">
-						<div class="checkin-block">
-							<div class="checkin-label">Energy</div>
-							<div class="chip-row" role="list" data-chip-group="energy">
-								<button type="button" class="chip" role="listitem" data-value="Low">Low</button>
-								<button type="button" class="chip chip-active" role="listitem" data-value="Medium">Medium</button>
-								<button type="button" class="chip" role="listitem" data-value="High">High</button>
+				@if (!hasTodayCheck)
+				{
+					<div class="card">
+						<div class="card-head compact">
+							<div>
+								<h3>Guided prompts</h3>
+								<p class="muted">Pick one to help you start writing.</p>
 							</div>
 						</div>
 
-						<div class="checkin-block">
-							<div class="checkin-label">Sleep</div>
-							<div class="chip-row" role="list" data-chip-group="sleep">
-								<button type="button" class="chip" role="listitem" data-value="Rested">Rested</button>
-								<button type="button" class="chip chip-active" role="listitem" data-value="Normal">Normal</button>
-								<button type="button" class="chip" role="listitem" data-value="Tired">Tired</button>
-							</div>
+						<div class="prompt-grid">
+							<button type="button" class="prompt-tile" data-prompt="Morning intention: What’s one thing I want to do with care today?">
+								<div class="prompt-title">Morning intention</div>
+								<div class="prompt-sub">Start your day with focus.</div>
+							</button>
+							<button type="button" class="prompt-tile" data-prompt="Evening reflection: What helped me feel even 1% better today?">
+								<div class="prompt-title">Evening reflection</div>
+								<div class="prompt-sub">Wind down and reset.</div>
+							</button>
+							<button type="button" class="prompt-tile" data-prompt="Gratitude: List 3 small things I’m grateful for today.">
+								<div class="prompt-title">Gratitude</div>
+								<div class="prompt-sub">Name 3 small things.</div>
+							</button>
+							<button type="button" class="prompt-tile" data-prompt="What challenged me? What did I need in that moment?">
+								<div class="prompt-title">What challenged me?</div>
+								<div class="prompt-sub">Notice patterns without judgment.</div>
+							</button>
 						</div>
 					</div>
-
-					<div class="checkin-block">
-						<div class="checkin-label">One sentence</div>
-						<textarea class="diary-textarea" id="diaryText" rows="3" maxlength="500" placeholder="What’s on your mind today?"></textarea>
-						<div class="helper-row">
-							<span class="muted small">Examples: “I felt anxious before class.” “I’m proud I went for a walk.”</span>
-							<span class="muted small" id="diaryCount">0/500</span>
-						</div>
-					</div>
-
-					<div class="hero-actions">
-						<button type="button" class="diary-btn diary-btn-primary" id="saveCheckinBtn">Save check-in</button>
-						<button type="button" class="diary-btn diary-btn-ghost" id="addDetailsBtn">Add details</button>
-					</div>
-				</div>
-
-				<div class="card">
-					<div class="card-head compact">
-						<div>
-							<h3>Guided prompts</h3>
-							<p class="muted">Pick one to help you start writing.</p>
-						</div>
-					</div>
-
-					<div class="prompt-grid">
-						<button type="button" class="prompt-tile" data-prompt="Morning intention: What’s one thing I want to do with care today?">
-							<div class="prompt-title">Morning intention</div>
-							<div class="prompt-sub">Start your day with focus.</div>
-						</button>
-						<button type="button" class="prompt-tile" data-prompt="Evening reflection: What helped me feel even 1% better today?">
-							<div class="prompt-title">Evening reflection</div>
-							<div class="prompt-sub">Wind down and reset.</div>
-						</button>
-						<button type="button" class="prompt-tile" data-prompt="Gratitude: List 3 small things I’m grateful for today.">
-							<div class="prompt-title">Gratitude</div>
-							<div class="prompt-sub">Name 3 small things.</div>
-						</button>
-						<button type="button" class="prompt-tile" data-prompt="What challenged me? What did I need in that moment?">
-							<div class="prompt-title">What challenged me?</div>
-							<div class="prompt-sub">Notice patterns without judgment.</div>
-						</button>
-					</div>
-				</div>
+				}
 
 				<div class="card">
 					<div class="card-head compact">
@@ -209,6 +256,7 @@
 
 					<div class="focus-row">
 						<div class="focus-item">
+							<h1>NOT FUNCTIONAL. TO BE DONE.</h1>
 							<div class="focus-label">Goal</div>
 							<div class="focus-value" data-focus-goal>—</div>
 						</div>
@@ -321,4 +369,4 @@
 		</div>
 	</div>
 </div>
-<script src="~/js/mydiary.js" asp-append-version="true"></script>
+<script src="~/js/myDiary.js" asp-append-version="true"></script>

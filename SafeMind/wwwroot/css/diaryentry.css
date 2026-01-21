@@ -1,0 +1,43 @@
+.entry-page {
+			display: flex;
+			justify-content: center;
+			padding: 60px 16px 90px;
+		}
+		.entry-card {
+			max-width: 860px;
+			width: 100%;
+			margin: 0 auto;
+		}
+		.entry-stack {
+			display: grid;
+			gap: 18px;
+		}
+		.entry-block {
+			display: grid;
+			gap: 10px;
+		}
+		.entry-label {
+			font-weight: 800;
+			color: var(--color-text, #1f2933);
+		}
+		.entry-title-input,
+		.entry-textarea {
+			width: 100%;
+			border-radius: 14px;
+			border: 1px solid rgba(0, 0, 0, 0.12);
+			padding: 12px 12px;
+			outline: none;
+			font-size: 1rem;
+            resize: none;
+		}
+		.entry-title-input:focus,
+		.entry-textarea:focus {
+			border-color: rgba(46, 111, 84, 0.45);
+			box-shadow: 0 0 0 0.2rem rgba(46, 111, 84, 0.12);
+		}
+		.entry-actions {
+			display: flex;
+			gap: 12px;
+			justify-content: flex-end;
+			margin-top: 10px;
+		}

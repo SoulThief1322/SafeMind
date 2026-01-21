@@ -5,58 +5,64 @@ document.addEventListener("DOMContentLoaded", () => {
 	const monthLabel = document.querySelector("[data-month-label]");
 	const prevMonthBtn = document.querySelector("[data-cal-prev]");
 	const nextMonthBtn = document.querySelector("[data-cal-next]");
-	if (!weekRow || !weekLabel) return;
+	const chipGroups = document.querySelectorAll("[data-chip-group]");
+	const saveBtn = document.getElementById("saveCheckinBtn");
+	const noteInput = document.getElementById("diaryText");
+	const checkinForm = document.getElementById("checkinForm");
+	const promptTiles = document.querySelectorAll("[data-prompt]");
+	const noteCounter = document.getElementById("diaryCount");
 
 	const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
 	const today = new Date();
-	const startOfWeek = (() => {
-		const d = new Date(today);
-		const day = d.getDay(); // 0 = Sun, 1 = Mon
-		const offset = day === 0 ? -6 : 1 - day; // shift so Monday is start
-		d.setDate(d.getDate() + offset);
-		d.setHours(0, 0, 0, 0);
-		return d;
-	})();
-
 	const formatISO = (date) => date.toISOString().split("T")[0];
 	const formatDom = (date) => date.toLocaleDateString(undefined, { day: "2-digit" });
 	const formatLabel = (date) => date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 
-	const endOfWeek = new Date(startOfWeek);
-	endOfWeek.setDate(startOfWeek.getDate() + 6);
-	weekLabel.textContent = `This week · ${formatLabel(startOfWeek)} – ${formatLabel(endOfWeek)}`;
+	if (weekRow && weekLabel) {
+		const startOfWeek = (() => {
+			const d = new Date(today);
+			const day = d.getDay();
+			const offset = day === 0 ? -6 : 1 - day;
+			d.setDate(d.getDate() + offset);
+			d.setHours(0, 0, 0, 0);
+			return d;
+		})();
 
-	weekRow.innerHTML = "";
+		const endOfWeek = new Date(startOfWeek);
+		endOfWeek.setDate(startOfWeek.getDate() + 6);
+		weekLabel.textContent = `This week · ${formatLabel(startOfWeek)} – ${formatLabel(endOfWeek)}`;
 
-	for (let i = 0; i < 7; i++) {
-		const current = new Date(startOfWeek);
-		current.setDate(startOfWeek.getDate() + i);
+		weekRow.innerHTML = "";
 
-		const pill = document.createElement("button");
-		pill.type = "button";
-		pill.className = "day-pill";
-		pill.setAttribute("role", "listitem");
-		pill.dataset.date = formatISO(current);
+		for (let i = 0; i < 7; i++) {
+			const current = new Date(startOfWeek);
+			current.setDate(startOfWeek.getDate() + i);
 
-		const dow = document.createElement("span");
-		dow.className = "dow";
-		dow.textContent = dayNames[i];
+			const pill = document.createElement("button");
+			pill.type = "button";
+			pill.className = "day-pill";
+			pill.setAttribute("role", "listitem");
+			pill.dataset.date = formatISO(current);
 
-		const dom = document.createElement("span");
-		dom.className = "dom";
-		dom.textContent = formatDom(current);
+			const dow = document.createElement("span");
+			dow.className = "dow";
+			dow.textContent = dayNames[i];
 
-		pill.appendChild(dow);
-		pill.appendChild(dom);
+			const dom = document.createElement("span");
+			dom.className = "dom";
+			dom.textContent = formatDom(current);
 
-		const isToday = current.toDateString() === today.toDateString();
-		if (isToday) {
-			pill.classList.add("active");
-			pill.setAttribute("aria-current", "date");
+			pill.appendChild(dow);
+			pill.appendChild(dom);
+
+			const isToday = current.toDateString() === today.toDateString();
+			if (isToday) {
+				pill.classList.add("active");
+				pill.setAttribute("aria-current", "date");
+			}
+
+			weekRow.appendChild(pill);
 		}
-
-		weekRow.appendChild(pill);
 	}
 
 	if (calendarBody && monthLabel && prevMonthBtn && nextMonthBtn) {
@@ -75,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			});
 
 			const startDay = base.getDay();
-			const offset = startDay === 0 ? -6 : 1 - startDay; // align to Monday
+			const offset = startDay === 0 ? -6 : 1 - startDay;
 			const gridStart = new Date(base);
 			gridStart.setDate(base.getDate() + offset);
 
@@ -152,5 +158,108 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 
 		renderCalendar();
+	}
+
+	chipGroups.forEach((group) => {
+		const applyActive = (btn) => {
+			group.querySelectorAll(".chip").forEach((c) => {
+				c.classList.remove("chip-active");
+				c.setAttribute("aria-pressed", "false");
+			});
+			btn.classList.add("chip-active");
+			btn.setAttribute("aria-pressed", "true");
+			group.dataset.selected = btn.dataset.value;
+		};
+
+		const preselected = group.querySelector(".chip-active");
+		if (preselected) {
+			preselected.setAttribute("aria-pressed", "true");
+			group.dataset.selected = preselected.dataset.value;
+		}
+
+		group.addEventListener("click", (event) => {
+			const btn = event.target.closest(".chip");
+			if (!btn || !group.contains(btn)) return;
+			applyActive(btn);
+		});
+	});
+
+	const getSelectedValue = (key) => {
+		const group = document.querySelector(`[data-chip-group='${key}']`);
+		return group ? group.dataset.selected : null;
+	};
+
+	const getAntiForgery = () => checkinForm?.querySelector("input[name='__RequestVerificationToken']")?.value;
+
+	if (saveBtn) {
+		saveBtn.addEventListener("click", async () => {
+			const mood = getSelectedValue("mood");
+			const energy = getSelectedValue("energy");
+			const sleep = getSelectedValue("sleep");
+			const stress = getSelectedValue("stress");
+			const notes = noteInput?.value?.trim() ?? "";
+			const token = getAntiForgery();
+
+			if (!mood || !energy || !sleep || !stress) {
+				alert("Please select mood, energy, sleep, and stress.");
+				return;
+			}
+
+			if (!token) {
+				alert("Unable to save right now. Please refresh the page.");
+				return;
+			}
+
+			saveBtn.disabled = true;
+			saveBtn.textContent = "Saving...";
+
+			try {
+				const resp = await fetch("/MyDiary/SaveCheck", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+						"RequestVerificationToken": token
+					},
+					body: new URLSearchParams({ mood, energy, sleep, stress, notes }).toString()
+				});
+
+				if (resp.status === 409) {
+					alert("You already checked in today.");
+					return location.reload();
+				}
+
+				if (!resp.ok) throw new Error("Save failed");
+				const data = await resp.json();
+				if (!data?.success) throw new Error("Save failed");
+
+				alert("Check-in saved.");
+				location.reload();
+			} catch (err) {
+				console.error(err);
+				alert("Could not save your check-in. Please try again.");
+			} finally {
+				saveBtn.disabled = false;
+				saveBtn.textContent = "Save check-in";
+			}
+		});
+	}
+
+	if (noteInput && promptTiles.length > 0) {
+		promptTiles.forEach((tile) => {
+			tile.addEventListener("click", () => {
+				noteInput.value = tile.dataset.prompt || "";
+				noteInput.dispatchEvent(new Event("input"));
+				noteInput.focus();
+			});
+		});
+	}
+
+	if (noteInput && noteCounter) {
+		const max = parseInt(noteInput.getAttribute("maxLength"), 10) || 500;
+		const updateCount = () => {
+			noteCounter.textContent = `${noteInput.value.length}/${max}`;
+		};
+		noteInput.addEventListener("input", updateCount);
+		updateCount();
 	}
 });

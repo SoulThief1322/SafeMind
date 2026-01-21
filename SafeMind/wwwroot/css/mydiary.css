@@ -278,6 +278,7 @@
 	resize: vertical;
 	outline: none;
 	background: white;
+	resize: none;
 }
 
 .diary-textarea:focus {
