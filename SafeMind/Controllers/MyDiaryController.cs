@@ -140,6 +140,39 @@ public class MyDiaryController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
+    [HttpGet]
+    public async Task<IActionResult> NewEntry()
+    {
+        return View();
+    }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> NewEntry([FromForm] NewJournalEntryRequest request)
+    {
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(new { success = false, error = "Invalid data" });
+        }
+
+        var journal = new Journal
+        {
+            UserId = userId,
+            Title = request.Title?.Trim() ?? string.Empty,
+            Category = request.Category,
+            Mood = request.Mood,
+            Content = request.Content?.Trim() ?? string.Empty,
+            CreatedAt = DateTimeOffset.UtcNow
+        };
+
+        _context.Journals.Add(journal);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Index");
+    }
+
     private static double MapMoodScore(JournalMood mood) => mood switch
     {
         JournalMood.Happy => 5.0,

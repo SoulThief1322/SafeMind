@@ -1,0 +1,64 @@
+@{
+	ViewData["Title"] = "New Entry";
+}
+
+	<link rel="stylesheet" href="~/css/mydiary.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/diaryentry.css" asp-append-version="true" />
+
+<div class="entry-page">
+	<div class="card entry-card">
+		<div class="card-head">
+			<div>
+				<h2>New entry to your journal</h2>
+				<p class="muted">Pick your mood and category, then write freely.</p>
+			</div>
+		</div>
+
+		<form method="post" asp-action="NewEntry" asp-controller="MyDiary" class="entry-stack">
+			@Html.AntiForgeryToken()
+			<input type="hidden" name="Mood" id="Mood" value="Happy" />
+			<input type="hidden" name="Category" id="Category" value="Personal" />
+
+			<div class="entry-block">
+				<div class="entry-label">Title</div>
+				<input class="entry-title-input" name="Title" id="Title" type="text" placeholder="Give your entry a name" />
+			</div>
+
+			<div class="entry-block">
+				<div class="entry-label">What is your mood?</div>
+				<div class="chip-row" data-chip-group="mood">
+					<button type="button" class="chip chip-active" data-value="Happy">Happy</button>
+					<button type="button" class="chip" data-value="Calm">Calm</button>
+					<button type="button" class="chip" data-value="Excited">Excited</button>
+					<button type="button" class="chip" data-value="Anxious">Anxious</button>
+					<button type="button" class="chip" data-value="Sad">Sad</button>
+					<button type="button" class="chip" data-value="Angry">Angry</button>
+				</div>
+			</div>
+
+			<div class="entry-block">
+				<div class="entry-label">Category</div>
+				<div class="chip-row" data-chip-group="category">
+					<button type="button" class="chip chip-active" data-value="Personal">Personal</button>
+					<button type="button" class="chip" data-value="Work">Work</button>
+					<button type="button" class="chip" data-value="Health">Health</button>
+					<button type="button" class="chip" data-value="Travel">Travel</button>
+					<button type="button" class="chip" data-value="Ideas">Ideas</button>
+					<button type="button" class="chip" data-value="Others">Others</button>
+				</div>
+			</div>
+
+			<div class="entry-block">
+				<div class="entry-label">Write your story</div>
+				<textarea class="entry-textarea" name="Content" id="Content" rows="8" placeholder="What’s on your mind?"></textarea>
+			</div>
+
+			<div class="entry-actions">
+				<a class="diary-btn diary-btn-ghost" asp-action="Index" asp-controller="MyDiary">Cancel</a>
+				<button type="submit" class="diary-btn diary-btn-primary">Save entry</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="~/js/newEntry.js"></script>
