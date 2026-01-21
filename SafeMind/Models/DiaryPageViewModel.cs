@@ -7,5 +7,6 @@ namespace SafeMind.Models
         public IEnumerable<JournalViewModel> Journals { get; set; } = new List<JournalViewModel>();
         public IEnumerable<DailyCheckViewModel> CheckIns { get; set; } = new List<DailyCheckViewModel>();
         public InsightsViewModel Insights { get; set; } = new InsightsViewModel();
+        public bool HasTodayCheck { get; set; }
     }
 }

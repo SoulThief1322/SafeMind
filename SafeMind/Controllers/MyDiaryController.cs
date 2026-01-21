@@ -7,14 +7,18 @@ using Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Data.Enums;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SafeMind.Controllers;
+
+[Authorize]
 
 public class MyDiaryController : Controller
 {
     private readonly ILogger<MyDiaryController> _logger;
     private readonly SafeMindDbContext _context;
     private readonly UserManager<IdentityUser> _userManager;
+
 
     public MyDiaryController(ILogger<MyDiaryController> logger, SafeMindDbContext context, UserManager<IdentityUser> userManager)
     {
@@ -26,6 +30,7 @@ public class MyDiaryController : Controller
     public async Task<IActionResult> Index()
     {
         var userId = _userManager.GetUserId(User);
+        var today = DateTimeOffset.UtcNow.Date;
 
         var journals = await _context.Journals
             .Where(x => x.UserId == userId)
@@ -36,6 +41,8 @@ public class MyDiaryController : Controller
             .Where(x => x.UserId == userId)
             .OrderByDescending(x => x.CreatedOn)
             .ToListAsync();
+
+        var hasTodayCheck = checks.Any(c => c.CreatedOn.Date == today);
 
         var moodDistribution = journals.Select(j => j.Mood)
             .Concat(checks.Select(c => c.Mood))
@@ -74,10 +81,57 @@ public class MyDiaryController : Controller
                 TotalGoals = _context.Goals.Count(g => g.UserId == userId),
                 AverageMoodScore = avgMood,
                 DayStreak = streak
-            }
+            },
+            HasTodayCheck = hasTodayCheck
         };
 
         return View(vm);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SaveCheck([FromForm] SaveDailyCheckRequest request)
+    {
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
+
+        var today = DateTimeOffset.UtcNow.Date;
+        var alreadyToday = await _context.DailyChecks.AnyAsync(c => c.UserId == userId && c.CreatedOn.Date == today);
+        if (alreadyToday)
+        {
+            return Conflict(new { success = false, error = "You already checked in today." });
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(new { success = false, error = "Invalid data" });
+        }
+
+        var check = new DailyCheck
+        {
+            UserId = userId,
+            Mood = request.Mood,
+            Energy = request.Energy,
+            Stress = request.Stress,
+            Sleep = request.Sleep,
+            Notes = request.Notes?.Trim() ?? string.Empty,
+            CreatedOn = DateTimeOffset.UtcNow
+        };
+
+        _context.DailyChecks.Add(check);
+        await _context.SaveChangesAsync();
+
+        return Json(new
+        {
+            success = true,
+            id = check.Id,
+            createdOn = check.CreatedOn,
+            mood = check.Mood.ToString(),
+            energy = check.Energy.ToString(),
+            stress = check.Stress.ToString(),
+            sleep = check.Sleep.ToString(),
+            notes = check.Notes
+        });
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
