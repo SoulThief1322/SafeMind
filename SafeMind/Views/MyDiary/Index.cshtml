@@ -215,33 +215,36 @@
 						</div>
 					}
 
-				<div class="card">
-					<div class="card-head compact">
-						<div>
-							<h3>Guided prompts</h3>
-							<p class="muted">Pick one to help you start writing.</p>
+				@if (!hasTodayCheck)
+				{
+					<div class="card">
+						<div class="card-head compact">
+							<div>
+								<h3>Guided prompts</h3>
+								<p class="muted">Pick one to help you start writing.</p>
+							</div>
+						</div>
+
+						<div class="prompt-grid">
+							<button type="button" class="prompt-tile" data-prompt="Morning intention: What’s one thing I want to do with care today?">
+								<div class="prompt-title">Morning intention</div>
+								<div class="prompt-sub">Start your day with focus.</div>
+							</button>
+							<button type="button" class="prompt-tile" data-prompt="Evening reflection: What helped me feel even 1% better today?">
+								<div class="prompt-title">Evening reflection</div>
+								<div class="prompt-sub">Wind down and reset.</div>
+							</button>
+							<button type="button" class="prompt-tile" data-prompt="Gratitude: List 3 small things I’m grateful for today.">
+								<div class="prompt-title">Gratitude</div>
+								<div class="prompt-sub">Name 3 small things.</div>
+							</button>
+							<button type="button" class="prompt-tile" data-prompt="What challenged me? What did I need in that moment?">
+								<div class="prompt-title">What challenged me?</div>
+								<div class="prompt-sub">Notice patterns without judgment.</div>
+							</button>
 						</div>
 					</div>
-
-					<div class="prompt-grid">
-						<button type="button" class="prompt-tile" data-prompt="Morning intention: What’s one thing I want to do with care today?">
-							<div class="prompt-title">Morning intention</div>
-							<div class="prompt-sub">Start your day with focus.</div>
-						</button>
-						<button type="button" class="prompt-tile" data-prompt="Evening reflection: What helped me feel even 1% better today?">
-							<div class="prompt-title">Evening reflection</div>
-							<div class="prompt-sub">Wind down and reset.</div>
-						</button>
-						<button type="button" class="prompt-tile" data-prompt="Gratitude: List 3 small things I’m grateful for today.">
-							<div class="prompt-title">Gratitude</div>
-							<div class="prompt-sub">Name 3 small things.</div>
-						</button>
-						<button type="button" class="prompt-tile" data-prompt="What challenged me? What did I need in that moment?">
-							<div class="prompt-title">What challenged me?</div>
-							<div class="prompt-sub">Notice patterns without judgment.</div>
-						</button>
-					</div>
-				</div>
+				}
 
 				<div class="card">
 					<div class="card-head compact">
@@ -253,6 +256,7 @@
 
 					<div class="focus-row">
 						<div class="focus-item">
+							<h1>NOT FUNCTIONAL. TO BE DONE.</h1>
 							<div class="focus-label">Goal</div>
 							<div class="focus-value" data-focus-goal>—</div>
 						</div>

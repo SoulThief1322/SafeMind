@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	const saveBtn = document.getElementById("saveCheckinBtn");
 	const noteInput = document.getElementById("diaryText");
 	const checkinForm = document.getElementById("checkinForm");
+	const promptTiles = document.querySelectorAll("[data-prompt]");
+	const noteCounter = document.getElementById("diaryCount");
 
 	const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 	const today = new Date();
@@ -223,19 +225,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				if (resp.status === 409) {
 					alert("You already checked in today.");
-					return;
+					return location.reload();
 				}
 
 				if (!resp.ok) throw new Error("Save failed");
 				const data = await resp.json();
 				if (!data?.success) throw new Error("Save failed");
 
-				if (confirm("Check-in saved. Refresh now?")) {
-                    location.reload();
-                } else {
-                    noteInput.value = "";
-                    noteInput.dispatchEvent(new Event("input"));
-                }
+				alert("Check-in saved.");
+				location.reload();
 			} catch (err) {
 				console.error(err);
 				alert("Could not save your check-in. Please try again.");
@@ -244,5 +242,24 @@ document.addEventListener("DOMContentLoaded", () => {
 				saveBtn.textContent = "Save check-in";
 			}
 		});
+	}
+
+	if (noteInput && promptTiles.length > 0) {
+		promptTiles.forEach((tile) => {
+			tile.addEventListener("click", () => {
+				noteInput.value = tile.dataset.prompt || "";
+				noteInput.dispatchEvent(new Event("input"));
+				noteInput.focus();
+			});
+		});
+	}
+
+	if (noteInput && noteCounter) {
+		const max = parseInt(noteInput.getAttribute("maxLength"), 10) || 500;
+		const updateCount = () => {
+			noteCounter.textContent = `${noteInput.value.length}/${max}`;
+		};
+		noteInput.addEventListener("input", updateCount);
+		updateCount();
 	}
 });
