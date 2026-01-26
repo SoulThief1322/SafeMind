@@ -25,11 +25,11 @@
                 Search by specialty or name, then pick a time that works for you.
             </p>
 
-            <form class="booking-form" method="get">
+            <form id="searchForm" class="booking-form" method="get">
                 <div class="form-group">
                     <label>Find professional</label>
                     <div class="field-row">
-                        <select class="select" name="specialty">
+                        <select id="specialtySelect" class="select" name="specialty">
                             <option value="">Choose specialty</option>
                             @foreach (var specialty in Model.Specialties)
                             {
@@ -71,9 +71,9 @@
             <div class="popular">
                 <small class="muted">Popular specialties</small>
                 <div class="popular-row">
-                    <button class="popular-chip">PTSD</button>
-                    <button class="popular-chip">Depression</button>
-                    <button class="popular-chip">Panic attacks</button>
+                    <button class="popular-chip" type="button" data-specialty="Addiction Medicine">Addiction Medicine</button>
+                    <button class="popular-chip" type="button" data-specialty="Behavioral Therapy">Behavioral Therapy</button>
+                    <button class="popular-chip" type="button" data-specialty="Neurology">Neurology</button>
                 </div>
             </div>
         </section>
@@ -147,6 +147,9 @@
 @section Scripts {
 <script>
 (function () {
+    const form = document.getElementById('searchForm');
+    const specialtySelect = document.getElementById('specialtySelect');
+
     document.querySelectorAll('.chip, .popular-chip').forEach(btn => {
         btn.addEventListener('click', () => btn.classList.toggle('active'));
     });
@@ -155,6 +158,23 @@
         btn.addEventListener('click', () => {
             btn.classList.add('active');
             setTimeout(() => btn.classList.remove('active'), 300);
+        });
+    });
+
+    document.querySelectorAll('.popular-chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetSpecialty = btn.getAttribute('data-specialty');
+            if (!targetSpecialty || !specialtySelect) return;
+
+            const match = Array.from(specialtySelect.options)
+                .find(opt => opt.text.localeCompare(targetSpecialty, undefined, { sensitivity: 'accent' }) === 0);
+
+            if (match) {
+                match.selected = true;
+                if (form) {
+                    form.submit();
+                }
+            }
         });
     });
 })();
