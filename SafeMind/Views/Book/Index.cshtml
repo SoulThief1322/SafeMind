@@ -107,7 +107,7 @@
                         var languages = string.Join(", ", doctor.Languages ?? Enumerable.Empty<string>());
                         <div class="provider-card">
                             <div class="provider-inner">
-                                <div class="avatar">@doctor.Initials</div>
+                                <div class="avatar" aria-hidden="true"></div>
 
                                 <div class="provider-info">
                                     <h6>
@@ -125,7 +125,7 @@
                                 <div class="provider-actions">
                                     <div class="price">$@doctor.Price</div>
                                     <div class="muted small">@doctor.SessionDuration min session</div>
-                                    <button class="book-btn" type="button">Book</button>
+                                       <a class="book-btn" href="@Url.Action("BookAppointment", "Book", new { id = doctor.Id })">Book</a>
                                 </div>
                             </div>
                         </div>

@@ -6,6 +6,7 @@ namespace SafeMind.Models
 {
     public class DoctorViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public IEnumerable<string> Specialties { get; set; } = Array.Empty<string>();
         public IEnumerable<string> Languages { get; set; } = Array.Empty<string>();

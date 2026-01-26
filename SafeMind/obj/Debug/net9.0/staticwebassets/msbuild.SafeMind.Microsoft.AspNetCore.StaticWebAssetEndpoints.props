@@ -12,6 +12,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"slfc62yev6"},{"Name":"integrity","Value":"sha256-AHgp9Dta7o2337DeZjH4gDqR2\u002BIT9i2O02Q8MZ2excM="},{"Name":"label","Value":"_content/SafeMind/css/articles.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"12944"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022AHgp9Dta7o2337DeZjH4gDqR2\u002BIT9i2O02Q8MZ2excM=\u0022"},{"Name":"Last-Modified","Value":"Mon, 19 Jan 2026 15:30:19 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/SafeMind/css/book-appointment.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\book-appointment.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-yI0YbLgDEaaZ70scCD/d83cQzj5EsCTryBAPF02VkJE="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5479"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022yI0YbLgDEaaZ70scCD/d83cQzj5EsCTryBAPF02VkJE=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Jan 2026 16:15:46 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/SafeMind/css/book-appointment.gu3rea72h7.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\book-appointment.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"gu3rea72h7"},{"Name":"integrity","Value":"sha256-yI0YbLgDEaaZ70scCD/d83cQzj5EsCTryBAPF02VkJE="},{"Name":"label","Value":"_content/SafeMind/css/book-appointment.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5479"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022yI0YbLgDEaaZ70scCD/d83cQzj5EsCTryBAPF02VkJE=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 Jan 2026 16:15:46 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/SafeMind/css/book.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\book.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
