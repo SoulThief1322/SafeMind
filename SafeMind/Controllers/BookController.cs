@@ -22,9 +22,10 @@ public class BookController : Controller
     }
 
     [AllowAnonymous]
-    public async Task<IActionResult> Index(string? specialty, string? name)
+    public async Task<IActionResult> Index(string? specialty, string? name, int page = 1)
     {
         var hasSearched = true;
+        const int pageSize = 5;
 
         var doctorQuery = _context.Doctors
             .Include(doctor => doctor.DoctorSpecialties)
@@ -45,7 +46,27 @@ public class BookController : Controller
             doctorQuery = doctorQuery.Where(doctor => doctor.Name.Contains(name));
         }
 
-        var doctors = await doctorQuery.ToListAsync();
+        var totalDoctors = await doctorQuery.CountAsync();
+        page = Math.Max(1, page);
+
+        var totalPages = totalDoctors == 0
+            ? 0
+            : (int)Math.Ceiling(totalDoctors / (double)pageSize);
+
+        if (totalPages == 0)
+        {
+            page = 1;
+        }
+        else if (page > totalPages)
+        {
+            page = totalPages;
+        }
+
+        var doctors = await doctorQuery
+            .OrderBy(doctor => doctor.Name)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
 
         var specialties = await _context.Specialties
             .AsNoTracking()
@@ -75,7 +96,10 @@ public class BookController : Controller
             Specialties = specialties,
             SelectedSpecialty = specialty ?? string.Empty,
             SearchName = name ?? string.Empty,
-            HasSearched = hasSearched
+            HasSearched = hasSearched,
+            PageNumber = page,
+            TotalPages = totalPages,
+            PageSize = pageSize
         };
         return View(vm);
     }

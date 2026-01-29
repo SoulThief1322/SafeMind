@@ -236,6 +236,7 @@
 
 .session small {
     color: var(--color-text-muted);
+    margin-bottom: 5px;
 }
 
 .session:hover {

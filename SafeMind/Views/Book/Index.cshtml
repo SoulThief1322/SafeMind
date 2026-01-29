@@ -11,6 +11,45 @@
         color: #6b7280;
         background: #fafafa;
     }
+
+    .pagination {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    .page-link {
+        padding: 0.45rem 0.9rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        color: #111827;
+        text-decoration: none;
+        font-size: 0.95rem;
+        background: #fff;
+        transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .page-link:hover {
+        background: #111827;
+        color: #fff;
+        border-color: #111827;
+    }
+
+    .page-link.active {
+        background: #111827;
+        color: #fff;
+        border-color: #111827;
+        pointer-events: none;
+    }
+
+    .page-link.disabled {
+        color: #9ca3af;
+        background: #f9fafb;
+        border-color: #e5e7eb;
+        pointer-events: none;
+    }
 </style>
 
 <div class="booking-page">
@@ -125,7 +164,7 @@
                                 <div class="provider-actions">
                                     <div class="price">$@doctor.Price</div>
                                     <div class="muted small">@doctor.SessionDuration min session</div>
-                                       <a class="book-btn" href="@Url.Action("BookAppointment", "Book", new { id = doctor.Id })">Book</a>
+                                       <a class="book-btn" href="@Url.Action(action: "BookAppointment", "Book", new { id = doctor.Id })">Book</a>
                                 </div>
                             </div>
                         </div>
@@ -139,6 +178,42 @@
                     </div>
                 }
             </div>
+
+            @if (Model.TotalPages > 1)
+            {
+                <nav class="pagination" aria-label="Doctor results pagination">
+                    @if (Model.PageNumber > 1)
+                    {
+                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, specialty = Model.SelectedSpecialty, name = Model.SearchName })">Previous</a>
+                    }
+                    else
+                    {
+                        <span class="page-link disabled">Previous</span>
+                    }
+
+                    @for (var i = 1; i <= Model.TotalPages; i++)
+                    {
+                        var isCurrent = i == Model.PageNumber;
+                        if (isCurrent)
+                        {
+                            <span class="page-link active">@i</span>
+                        }
+                        else
+                        {
+                            <a class="page-link" href="@Url.Action("Index", new { page = i, specialty = Model.SelectedSpecialty, name = Model.SearchName })">@i</a>
+                        }
+                    }
+
+                    @if (Model.PageNumber < Model.TotalPages)
+                    {
+                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, specialty = Model.SelectedSpecialty, name = Model.SearchName })">Next</a>
+                    }
+                    else
+                    {
+                        <span class="page-link disabled">Next</span>
+                    }
+                </nav>
+            }
         </section>
 
     </div>

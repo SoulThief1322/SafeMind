@@ -16,5 +16,12 @@ namespace SafeMind.Models
 
         public bool HasSearched { get; set; }
             = false;
+
+        public int PageNumber { get; set; } = 1;
+
+        public int TotalPages { get; set; }
+            = 0;
+
+        public int PageSize { get; set; } = 5;
     }
 }
