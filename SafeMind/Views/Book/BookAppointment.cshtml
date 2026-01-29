@@ -4,6 +4,32 @@
 }
 
 <link rel="stylesheet" href="~/css/book-appointment.css" asp-append-version="true" />
+<style>
+	.continue-actions {
+		display: none;
+		margin-top: 1rem;
+		justify-content: flex-end;
+	}
+
+	.continue-btn {
+		padding: 0.85rem 1.4rem;
+		border-radius: 12px;
+		border: 1px solid var(--color-primary);
+		background: var(--color-primary);
+		color: #ffffff;
+		font-weight: 600;
+		cursor: pointer;
+		transition: box-shadow 0.15s ease, transform 0.1s ease;
+	}
+
+	.continue-btn:hover {
+		box-shadow: 0 12px 30px rgba(46, 111, 84, 0.25);
+	}
+
+	.continue-btn:active {
+		transform: translateY(1px);
+	}
+</style>
 
 <div class="appointment-page">
 	<div class="header-row">
@@ -68,6 +94,9 @@
 			}
 		</div>
 		<div class="empty-state" id="sessionEmpty" style="display:@(Model.AvailableSlots.Any() ? "none" : "block")">No sessions for this day. Try another date.</div>
+		<div class="continue-actions" id="continueContainer">
+			<button type="button" class="continue-btn" id="continueBtn">Continue to book appointment</button>
+		</div>
 	</div>
 </div>
 
@@ -82,10 +111,14 @@
 	const sessionEmpty = document.getElementById('sessionEmpty');
 	const selectedDateLabel = document.getElementById('selectedDateLabel');
 	const doctorId = @Model.DoctorId;
+	const selectedSlotsByDate = new Map();
+	const continueContainer = document.getElementById('continueContainer');
 
 	const today = new Date();
-	let weekStart = startOfWeek(today);
-	let selectedDate = toIso(new Date(@Model.SelectedDate.ToString("yyyy-MM-dd")));
+	const currentWeekStart = startOfWeek(today);
+	const initialSelectedDate = new Date('@Model.SelectedDate.ToString("yyyy-MM-dd")');
+	let selectedDate = toIso(initialSelectedDate);
+	let weekStart = startOfWeek(initialSelectedDate);
 
 	const baseSlots = ["09:00", "10:30", "12:00", "14:00", "16:00", "18:00"];
 	const sampleFullDays = [1, 2, 3]; // Mon, Tue, Wed richer availability
@@ -104,10 +137,14 @@
 	}
 
 	function formatWeekLabel(start) {
-		const end = new Date(start);
+		const startNormalized = startOfWeek(start);
+		if (startNormalized.getTime() === currentWeekStart.getTime()) {
+			return 'This Week';
+		}
+		const end = new Date(startNormalized);
 		end.setDate(end.getDate() + 6);
 		const opts = { month: 'short', day: 'numeric' };
-		return `${start.toLocaleDateString(undefined, opts)} - ${end.toLocaleDateString(undefined, opts)}`;
+		return `${startNormalized.toLocaleDateString(undefined, opts)} - ${end.toLocaleDateString(undefined, opts)}`;
 	}
 
 	function renderWeek() {
@@ -142,8 +179,9 @@
 			weekGrid.appendChild(dayEl);
 		}
 
-		const minWeek = startOfWeek(today).getTime();
+		const minWeek = currentWeekStart.getTime();
 		prevWeekBtn.disabled = weekStart.getTime() <= minWeek;
+		centerSelectedDay();
 	}
 
 	function fetchSessions(isoDate) {
@@ -161,16 +199,19 @@
 					sessionEmpty.textContent = 'No sessions for this day. Try another date.';
 					return;
 				}
+				const selectedSet = ensureSelectedSet(isoDate);
 				data.slots.forEach(time => {
 					const sessionEl = document.createElement('div');
-					sessionEl.className = 'session';
+					sessionEl.className = 'session' + (selectedSet.has(time) ? ' selected' : '');
 					sessionEl.innerHTML = `
 						<strong>${time}</strong>
 						<small>@Model.SessionDuration min · Online / In-person</small>
 						<span class="cta">Select</span>
 					`;
+					sessionEl.addEventListener('click', () => toggleSelection(sessionEl, isoDate, time));
 					sessionGrid.appendChild(sessionEl);
 				});
+				updateContinueCta();
 			})
 			.catch(() => {
 				sessionEmpty.style.display = 'block';
@@ -198,6 +239,62 @@
 		const copy = new Date(d);
 		copy.setHours(0,0,0,0);
 		return copy.toISOString().slice(0,10);
+	}
+
+	function centerSelectedDay() {
+		const selected = weekGrid.querySelector('.selected');
+		if (!selected) return;
+		selected.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
+	}
+
+	function ensureSelectedSet(isoDate) {
+		let set = selectedSlotsByDate.get(isoDate);
+		if (!set) {
+			set = new Set();
+			selectedSlotsByDate.set(isoDate, set);
+		}
+		return set;
+	}
+
+	function toggleSelection(sessionEl, isoDate, time) {
+		const selectedSet = ensureSelectedSet(isoDate);
+		const isSelected = sessionEl.classList.contains('selected');
+		if (isSelected) {
+			selectedSet.delete(time);
+			sessionEl.classList.remove('selected');
+		} else {
+			selectedSet.add(time);
+			sessionEl.classList.add('selected');
+		}
+		updateContinueCta();
+	}
+
+	(function wireInitialSessions() {
+		const isoDate = selectedDate;
+		const selectedSet = ensureSelectedSet(isoDate);
+		const nodes = Array.from(sessionGrid.querySelectorAll('.session'));
+		nodes.forEach(node => {
+			const timeEl = node.querySelector('strong');
+			if (!timeEl) return;
+			const time = timeEl.textContent?.trim();
+			if (!time) return;
+			if (selectedSet.has(time)) {
+				node.classList.add('selected');
+			}
+			node.addEventListener('click', () => toggleSelection(node, isoDate, time));
+		});
+		updateContinueCta();
+	})();
+
+	function totalSelectedCount() {
+		let total = 0;
+		selectedSlotsByDate.forEach(set => total += set.size);
+		return total;
+	}
+
+	function updateContinueCta() {
+		if (!continueContainer) return;
+		continueContainer.style.display = totalSelectedCount() > 0 ? 'flex' : 'none';
 	}
 })();
 </script>

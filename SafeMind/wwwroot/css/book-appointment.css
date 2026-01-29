@@ -245,6 +245,12 @@
     cursor: pointer;
 }
 
+.session.selected {
+    border-color: var(--color-primary);
+    background: var(--color-primary-contrast);
+    box-shadow: 0 12px 26px rgba(46, 111, 84, 0.16);
+}
+
 .session .cta {
     color: var(--color-primary);
     font-weight: 600;
