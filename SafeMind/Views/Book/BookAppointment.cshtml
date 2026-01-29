@@ -80,7 +80,7 @@
             <div class="sessions-head">
                 <div>
                     <h3>Available sessions</h3>
-                    <small id="selectedDateLabel">@Model.SelectedDate.ToString("dddd, MMM d")</small>
+                    <small id="selectedDateLabel" data-date="@Model.SelectedDate.ToString("yyyy-MM-dd")">@Model.SelectedDate.ToString("dddd, MMM d")</small>
                 </div>
                 <div class="text-muted">Times shown in 24-hour format</div>
             </div>
@@ -112,56 +112,5 @@
 </div>
 
 @section Scripts {
-<script>
-(function () {
-
-    const selectedSlotsByDate = new Map();
-    const continueContainer = document.getElementById('continueContainer');
-    const hiddenInput = document.getElementById('selectedSlotsJson');
-
-    function updateHiddenInput() {
-        const payload = [];
-        selectedSlotsByDate.forEach((times, date) => {
-            times.forEach(time => {
-                payload.push({ date, time });
-            });
-        });
-        hiddenInput.value = JSON.stringify(payload);
-    }
-
-    function totalSelectedCount() {
-        let total = 0;
-        selectedSlotsByDate.forEach(set => total += set.size);
-        return total;
-    }
-
-    function updateContinueCta() {
-        continueContainer.style.display = totalSelectedCount() > 0 ? 'flex' : 'none';
-        updateHiddenInput();
-    }
-
-    document.addEventListener('click', e => {
-        const session = e.target.closest('.session');
-        if (!session) return;
-
-        const time = session.querySelector('strong').textContent.trim();
-        const date = document.getElementById('selectedDateLabel').dataset?.date
-            ?? new Date().toISOString().slice(0, 10);
-
-        let set = selectedSlotsByDate.get(date);
-        if (!set) {
-            set = new Set();
-            selectedSlotsByDate.set(date, set);
-        }
-
-        session.classList.toggle('selected');
-        session.classList.contains('selected')
-            ? set.add(time)
-            : set.delete(time);
-
-        updateContinueCta();
-    });
-
-})();
-</script>
+    <script src="~/js/book-appointment.js" asp-append-version="true"></script>
 }

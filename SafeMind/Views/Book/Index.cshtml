@@ -181,38 +181,5 @@
 </div>
 
 @section Scripts {
-<script>
-(function () {
-    const form = document.getElementById('searchForm');
-    const specialtySelect = document.getElementById('specialtySelect');
-
-    document.querySelectorAll('.chip, .popular-chip').forEach(btn => {
-        btn.addEventListener('click', () => btn.classList.toggle('active'));
-    });
-
-    document.querySelectorAll('.book-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            btn.classList.add('active');
-            setTimeout(() => btn.classList.remove('active'), 300);
-        });
-    });
-
-    document.querySelectorAll('.popular-chip').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetSpecialty = btn.getAttribute('data-specialty');
-            if (!targetSpecialty || !specialtySelect) return;
-
-            const match = Array.from(specialtySelect.options)
-                .find(opt => opt.text.localeCompare(targetSpecialty, undefined, { sensitivity: 'accent' }) === 0);
-
-            if (match) {
-                match.selected = true;
-                if (form) {
-                    form.submit();
-                }
-            }
-        });
-    });
-})();
-</script>
+    <script src="~/js/book-index.js" asp-append-version="true"></script>
 }
