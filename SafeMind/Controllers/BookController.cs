@@ -298,8 +298,16 @@ public class BookController : Controller
             throw;
         }
 
-        return RedirectToAction(nameof(Confirmation),
-            new { doctorId = doctor.Id, count = normalizedSlots.Count });
+        var redirectUrl = Url.Action(nameof(Confirmation),
+            new { doctorId = doctor.Id, count = normalizedSlots.Count })
+            ?? Url.Action(nameof(Index))
+            ?? "/";
+
+        return View("Processing", new PaymentProcessingViewModel
+        {
+            RedirectUrl = redirectUrl,
+            DelayMs = 4000
+        });
     }
 
     [HttpGet]

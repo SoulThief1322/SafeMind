@@ -9726,6 +9726,304 @@
       ]
     },
     {
+      "Route": "css/booking-flow.css",
+      "AssetFile": "css/booking-flow.css.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000570776256"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1751"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8kGK+Hxq1+FINzCpM0C3x0kP2aBs+VfO+F4m8QJ2kQY=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"ybm0jXX6mIA/agU0/ETr0lVFPr0JC2m7SR04wloWq1Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:39:44 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ybm0jXX6mIA/agU0/ETr0lVFPr0JC2m7SR04wloWq1Y="
+        }
+      ]
+    },
+    {
+      "Route": "css/booking-flow.css",
+      "AssetFile": "css/booking-flow.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7563"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ybm0jXX6mIA/agU0/ETr0lVFPr0JC2m7SR04wloWq1Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:39:44 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ybm0jXX6mIA/agU0/ETr0lVFPr0JC2m7SR04wloWq1Y="
+        }
+      ]
+    },
+    {
+      "Route": "css/booking-flow.css.gz",
+      "AssetFile": "css/booking-flow.css.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1751"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8kGK+Hxq1+FINzCpM0C3x0kP2aBs+VfO+F4m8QJ2kQY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:39:44 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8kGK+Hxq1+FINzCpM0C3x0kP2aBs+VfO+F4m8QJ2kQY="
+        }
+      ]
+    },
+    {
+      "Route": "css/booking-flow.dn4lzftps0.css",
+      "AssetFile": "css/booking-flow.css.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000570776256"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1751"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8kGK+Hxq1+FINzCpM0C3x0kP2aBs+VfO+F4m8QJ2kQY=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"ybm0jXX6mIA/agU0/ETr0lVFPr0JC2m7SR04wloWq1Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:39:44 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dn4lzftps0"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ybm0jXX6mIA/agU0/ETr0lVFPr0JC2m7SR04wloWq1Y="
+        },
+        {
+          "Name": "label",
+          "Value": "css/booking-flow.css"
+        }
+      ]
+    },
+    {
+      "Route": "css/booking-flow.dn4lzftps0.css",
+      "AssetFile": "css/booking-flow.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7563"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ybm0jXX6mIA/agU0/ETr0lVFPr0JC2m7SR04wloWq1Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:39:44 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dn4lzftps0"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ybm0jXX6mIA/agU0/ETr0lVFPr0JC2m7SR04wloWq1Y="
+        },
+        {
+          "Name": "label",
+          "Value": "css/booking-flow.css"
+        }
+      ]
+    },
+    {
+      "Route": "css/booking-flow.dn4lzftps0.css.gz",
+      "AssetFile": "css/booking-flow.css.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1751"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8kGK+Hxq1+FINzCpM0C3x0kP2aBs+VfO+F4m8QJ2kQY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:39:44 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dn4lzftps0"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8kGK+Hxq1+FINzCpM0C3x0kP2aBs+VfO+F4m8QJ2kQY="
+        },
+        {
+          "Name": "label",
+          "Value": "css/booking-flow.css.gz"
+        }
+      ]
+    },
+    {
       "Route": "css/diaryentry.77attqy78d.css",
       "AssetFile": "css/diaryentry.css.gz",
       "Selectors": [
@@ -12486,6 +12784,602 @@
         {
           "Name": "integrity",
           "Value": "sha256-P+9Z2HtyAyWdll83xbXSI9j72vcXDdno/4PfGpksbqY="
+        }
+      ]
+    },
+    {
+      "Route": "js/book-appointment.ewrgrgknx3.js",
+      "AssetFile": "js/book-appointment.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000478697942"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2088"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DZzdZyZdFQr0jkAjitY3kKfOXU/vOlL0Jt8oPsbZ22E=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"PiyMptHx0xAOcQuUxp/FR6lV5cg+8W3pZwWmkTLju7k=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:31:32 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ewrgrgknx3"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-PiyMptHx0xAOcQuUxp/FR6lV5cg+8W3pZwWmkTLju7k="
+        },
+        {
+          "Name": "label",
+          "Value": "js/book-appointment.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/book-appointment.ewrgrgknx3.js",
+      "AssetFile": "js/book-appointment.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7488"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PiyMptHx0xAOcQuUxp/FR6lV5cg+8W3pZwWmkTLju7k=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:31:32 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ewrgrgknx3"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-PiyMptHx0xAOcQuUxp/FR6lV5cg+8W3pZwWmkTLju7k="
+        },
+        {
+          "Name": "label",
+          "Value": "js/book-appointment.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/book-appointment.ewrgrgknx3.js.gz",
+      "AssetFile": "js/book-appointment.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2088"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DZzdZyZdFQr0jkAjitY3kKfOXU/vOlL0Jt8oPsbZ22E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:31:32 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ewrgrgknx3"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-DZzdZyZdFQr0jkAjitY3kKfOXU/vOlL0Jt8oPsbZ22E="
+        },
+        {
+          "Name": "label",
+          "Value": "js/book-appointment.js.gz"
+        }
+      ]
+    },
+    {
+      "Route": "js/book-appointment.js",
+      "AssetFile": "js/book-appointment.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000478697942"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2088"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DZzdZyZdFQr0jkAjitY3kKfOXU/vOlL0Jt8oPsbZ22E=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"PiyMptHx0xAOcQuUxp/FR6lV5cg+8W3pZwWmkTLju7k=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:31:32 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-PiyMptHx0xAOcQuUxp/FR6lV5cg+8W3pZwWmkTLju7k="
+        }
+      ]
+    },
+    {
+      "Route": "js/book-appointment.js",
+      "AssetFile": "js/book-appointment.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7488"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PiyMptHx0xAOcQuUxp/FR6lV5cg+8W3pZwWmkTLju7k=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:31:32 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-PiyMptHx0xAOcQuUxp/FR6lV5cg+8W3pZwWmkTLju7k="
+        }
+      ]
+    },
+    {
+      "Route": "js/book-appointment.js.gz",
+      "AssetFile": "js/book-appointment.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2088"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DZzdZyZdFQr0jkAjitY3kKfOXU/vOlL0Jt8oPsbZ22E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:31:32 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-DZzdZyZdFQr0jkAjitY3kKfOXU/vOlL0Jt8oPsbZ22E="
+        }
+      ]
+    },
+    {
+      "Route": "js/book-index.js",
+      "AssetFile": "js/book-index.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.002352941176"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "424"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uFXZenogU0wcsY6PBfE3YyN+EU4QpHOjx+2sBO0iKII=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"/t8WJ2z3Leuch/ZI4sNwpzY0934rsVN5FSo/eAoJ4SI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:28:29 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/t8WJ2z3Leuch/ZI4sNwpzY0934rsVN5FSo/eAoJ4SI="
+        }
+      ]
+    },
+    {
+      "Route": "js/book-index.js",
+      "AssetFile": "js/book-index.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1072"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/t8WJ2z3Leuch/ZI4sNwpzY0934rsVN5FSo/eAoJ4SI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:28:29 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/t8WJ2z3Leuch/ZI4sNwpzY0934rsVN5FSo/eAoJ4SI="
+        }
+      ]
+    },
+    {
+      "Route": "js/book-index.js.gz",
+      "AssetFile": "js/book-index.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "424"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uFXZenogU0wcsY6PBfE3YyN+EU4QpHOjx+2sBO0iKII=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:28:29 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-uFXZenogU0wcsY6PBfE3YyN+EU4QpHOjx+2sBO0iKII="
+        }
+      ]
+    },
+    {
+      "Route": "js/book-index.m3oklpbm3x.js",
+      "AssetFile": "js/book-index.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.002352941176"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "424"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uFXZenogU0wcsY6PBfE3YyN+EU4QpHOjx+2sBO0iKII=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"/t8WJ2z3Leuch/ZI4sNwpzY0934rsVN5FSo/eAoJ4SI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:28:29 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "m3oklpbm3x"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/t8WJ2z3Leuch/ZI4sNwpzY0934rsVN5FSo/eAoJ4SI="
+        },
+        {
+          "Name": "label",
+          "Value": "js/book-index.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/book-index.m3oklpbm3x.js",
+      "AssetFile": "js/book-index.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1072"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/t8WJ2z3Leuch/ZI4sNwpzY0934rsVN5FSo/eAoJ4SI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:28:29 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "m3oklpbm3x"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/t8WJ2z3Leuch/ZI4sNwpzY0934rsVN5FSo/eAoJ4SI="
+        },
+        {
+          "Name": "label",
+          "Value": "js/book-index.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/book-index.m3oklpbm3x.js.gz",
+      "AssetFile": "js/book-index.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "424"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uFXZenogU0wcsY6PBfE3YyN+EU4QpHOjx+2sBO0iKII=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 29 Jan 2026 16:28:29 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "m3oklpbm3x"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-uFXZenogU0wcsY6PBfE3YyN+EU4QpHOjx+2sBO0iKII="
+        },
+        {
+          "Name": "label",
+          "Value": "js/book-index.js.gz"
         }
       ]
     },

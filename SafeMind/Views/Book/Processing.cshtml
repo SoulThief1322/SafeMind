@@ -1,0 +1,42 @@
+@model SafeMind.Models.PaymentProcessingViewModel
+@{
+    var redirectUrl = Model?.RedirectUrl ?? Url.Action("Index", "Book") ?? "/";
+    var delay = Model?.DelayMs ?? 2000;
+}
+
+<link rel="stylesheet" href="~/css/booking-flow.css" asp-append-version="true" />
+
+<div class="processing-page">
+    <div class="card processing-card">
+        <div class="spinner-wrap">
+            <div class="loading-spinner" role="status" aria-live="polite" aria-label="Processing payment"></div>
+        </div>
+
+        <h1>Processing your payment</h1>
+        <p class="lead">This usually takes a couple of seconds while we confirm your booking.</p>
+
+        <div class="processing-dots" aria-hidden="true">
+            <span class="processing-dot"></span>
+            <span class="processing-dot"></span>
+            <span class="processing-dot"></span>
+        </div>
+
+        <div id="processing-meta" data-redirect="@redirectUrl" data-delay="@delay"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            const meta = document.getElementById('processing-meta');
+            if (!meta) return;
+
+            const redirectUrl = meta.dataset.redirect || '/';
+            const delay = Number(meta.dataset.delay || 2000);
+
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, delay);
+        })();
+    </script>
+}
