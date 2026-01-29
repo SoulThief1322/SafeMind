@@ -38,6 +38,11 @@ namespace Data.Models
         public PaymentStatus PaymentStatus { get; set; }
         [Range(GeneralConstants.RatingMinNumber, GeneralConstants.RatingMaxNumber)]
         public decimal? Rating { get; set; }
+
+        [Required]
+        public int ContactId { get; set; }
+        [ForeignKey(nameof(ContactId))]
+        public SessionContact Contact { get; set; } = null!;
         
     }
 }
