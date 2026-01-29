@@ -1,0 +1,130 @@
+@model SafeMind.Models.ConfirmationViewModel
+@{
+    var vm = Model ?? new SafeMind.Models.ConfirmationViewModel
+    {
+        DoctorName = "Doctor",
+        SessionCount = 0
+    };
+}
+
+<link rel="stylesheet" href="~/css/confirmation.css" asp-append-version="true" />
+
+<div class="confirmation-page">
+    <div class="card confirmation-card">
+
+        <div class="icon-wrap">
+            <span class="check-icon">✓</span>
+        </div>
+
+        <h1>Booking confirmed</h1>
+
+        <p class="lead">
+            Your appointment@(vm.SessionCount > 1 ? "s have" : " has") been successfully booked.
+        </p>
+
+        <div class="summary">
+            <div class="summary-row">
+                <span class="label">Doctor</span>
+                <span class="value">Dr. @vm.DoctorName</span>
+            </div>
+
+            <div class="summary-row">
+                <span class="label">Sessions booked</span>
+                <span class="value">@vm.SessionCount</span>
+            </div>
+        </div>
+
+        <div class="info">
+            <p>
+                You’ll receive a confirmation email shortly with all the details.
+            </p>
+            <p>
+                If you need to reschedule or cancel, you can do so from your appointments page.
+            </p>
+        </div>
+
+        <div class="actions">
+            <a asp-controller="Appointments"
+               asp-action="My"
+               class="btn btn-primary">
+                View my appointments
+            </a>
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="btn btn-secondary">
+                Go to homepage
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<style>
+.confirmation-page {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem;
+}
+
+.confirmation-card {
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    padding: 2.5rem;
+}
+
+.icon-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.check-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #2e6f54;
+    color: #fff;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lead {
+    margin-top: 0.5rem;
+    color: #555;
+}
+
+.summary {
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.label {
+    color: #777;
+}
+
+.value {
+    font-weight: 600;
+}
+
+.info {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+</style>

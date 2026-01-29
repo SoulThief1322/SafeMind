@@ -1,0 +1,45 @@
+@model CheckoutViewModel
+
+<h2>Checkout</h2>
+
+<h4>Selected sessions</h4>
+<ul>
+@foreach (var s in Model.Slots)
+{
+    <li>@s.Date.ToString("ddd, MMM d") at @s.Time</li>
+}
+</ul>
+
+<form asp-action="Confirm" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="DoctorId" />
+
+    @for (int i = 0; i < Model.Slots.Count; i++)
+    {
+        <input type="hidden" name="Slots[@i].Date" value="@Model.Slots[i].Date" />
+        <input type="hidden" name="Slots[@i].Time" value="@Model.Slots[i].Time" />
+    }
+
+    <h4>Your details</h4>
+
+    <div>
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" />
+        <span asp-validation-for="FullName"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" />
+        <span asp-validation-for="PhoneNumber"></span>
+    </div>
+
+    <button type="submit">Confirm booking</button>
+</form>

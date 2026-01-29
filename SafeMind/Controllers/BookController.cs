@@ -1,11 +1,14 @@
 using System.Diagnostics;
+using System.Globalization;
+using System.Security.Claims;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SafeMind.Data;
 using SafeMind.Models;
 using Data.Models;
-using System.Globalization;
+using Data.Enums;
 
 namespace SafeMind.Controllers;
 
@@ -13,7 +16,7 @@ namespace SafeMind.Controllers;
 public class BookController : Controller
 {
     private readonly ILogger<BookController> _logger;
-    private SafeMindDbContext _context;
+    private readonly SafeMindDbContext _context;
 
     public BookController(ILogger<BookController> logger, SafeMindDbContext context)
     {
@@ -24,26 +27,23 @@ public class BookController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Index(string? specialty, string? name, int page = 1)
     {
-        var hasSearched = true;
         const int pageSize = 5;
 
         var doctorQuery = _context.Doctors
-            .Include(doctor => doctor.DoctorSpecialties)
-                .ThenInclude(ds => ds.Specialty)
-            .Include(doctor => doctor.DoctorLanguages)
-                .ThenInclude(dl => dl.Language)
+            .Include(d => d.DoctorSpecialties).ThenInclude(ds => ds.Specialty)
+            .Include(d => d.DoctorLanguages).ThenInclude(dl => dl.Language)
             .AsNoTracking()
             .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(specialty))
         {
-            doctorQuery = doctorQuery.Where(doctor => doctor.DoctorSpecialties
-                .Any(ds => ds.Specialty != null && ds.Specialty.Name == specialty));
+            doctorQuery = doctorQuery.Where(d =>
+                d.DoctorSpecialties.Any(ds => ds.Specialty != null && ds.Specialty.Name == specialty));
         }
 
         if (!string.IsNullOrWhiteSpace(name))
         {
-            doctorQuery = doctorQuery.Where(doctor => doctor.Name.Contains(name));
+            doctorQuery = doctorQuery.Where(d => d.Name.Contains(name));
         }
 
         var totalDoctors = await doctorQuery.CountAsync();
@@ -53,17 +53,10 @@ public class BookController : Controller
             ? 0
             : (int)Math.Ceiling(totalDoctors / (double)pageSize);
 
-        if (totalPages == 0)
-        {
-            page = 1;
-        }
-        else if (page > totalPages)
-        {
-            page = totalPages;
-        }
+        page = totalPages == 0 ? 1 : Math.Min(page, totalPages);
 
         var doctors = await doctorQuery
-            .OrderBy(doctor => doctor.Name)
+            .OrderBy(d => d.Name)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
@@ -76,78 +69,75 @@ public class BookController : Controller
 
         var vm = new BookPageViewModel
         {
-            Doctors = doctors.Select(doctor => new DoctorViewModel
+            Doctors = doctors.Select(d => new DoctorViewModel
             {
-                Id = doctor.Id,
-                Name = doctor.Name,
-                Specialties = doctor.DoctorSpecialties
+                Id = d.Id,
+                Name = d.Name,
+                Specialties = d.DoctorSpecialties
                     .Where(ds => ds.Specialty != null)
                     .Select(ds => ds.Specialty!.Name),
-                Languages = doctor.DoctorLanguages
+                Languages = d.DoctorLanguages
                     .Where(dl => dl.Language != null)
                     .Select(dl => dl.Language!.Name),
-                SessionDuration = doctor.SessionDuration,
-                Price = doctor.Price,
-                WorkStart = doctor.WorkStart,
-                WorkEnd = doctor.WorkEnd,
-                Rating = doctor.Rating,
-                Biography = doctor.Biography
+                SessionDuration = d.SessionDuration,
+                Price = d.Price,
+                WorkStart = d.WorkStart,
+                WorkEnd = d.WorkEnd,
+                Rating = d.Rating,
+                Biography = d.Biography
             }).ToList(),
             Specialties = specialties,
             SelectedSpecialty = specialty ?? string.Empty,
             SearchName = name ?? string.Empty,
-            HasSearched = hasSearched,
             PageNumber = page,
             TotalPages = totalPages,
-            PageSize = pageSize
+            PageSize = pageSize,
+            HasSearched = true
         };
+
         return View(vm);
     }
-    [HttpGet("/Book/BookAppointment/{id:int?}")]
+
+    [HttpGet("/Book/BookAppointment/{id:int}")]
     [AllowAnonymous]
-    public async Task<IActionResult> BookAppointment(int? id, DateOnly? date)
+    public async Task<IActionResult> BookAppointment(int id, DateOnly? date)
     {
         if (!User.Identity?.IsAuthenticated ?? false)
-        {
             return Challenge();
-        }
-
-        if (!id.HasValue || id.Value <= 0)
-        {
-            return RedirectToAction(nameof(Index));
-        }
 
         var doctor = await _context.Doctors
             .Include(d => d.DoctorSpecialties).ThenInclude(ds => ds.Specialty)
             .Include(d => d.DoctorLanguages).ThenInclude(dl => dl.Language)
             .AsNoTracking()
-            .FirstOrDefaultAsync(d => d.Id == id.Value);
+            .FirstOrDefaultAsync(d => d.Id == id);
 
         if (doctor == null)
-        {
             return NotFound();
-        }
 
         var selectedDate = date ?? DateOnly.FromDateTime(DateTime.UtcNow);
+
         var dayStart = new DateTimeOffset(selectedDate.ToDateTime(TimeOnly.MinValue), TimeSpan.Zero);
         var dayEnd = dayStart.AddDays(1);
 
-        var sessionsForDay = await _context.Sessions
+        var bookedTimes = await _context.Sessions
             .AsNoTracking()
-            .Where(s => s.DoctorId == id.Value)
-            .Where(s => s.StartTime >= dayStart && s.StartTime < dayEnd)
+            .Where(s =>
+                s.DoctorId == id &&
+                s.StartTime >= dayStart &&
+                s.StartTime < dayEnd &&
+                s.SessionStatus != SessionStatus.Cancelled)
             .Select(s => TimeOnly.FromDateTime(s.StartTime.DateTime))
             .ToListAsync();
 
-        var availableSlots = BuildSlots(doctor, selectedDate, sessionsForDay);
+        var availableSlots = BuildSlots(doctor, selectedDate, bookedTimes);
 
         var vm = new AppointmentViewModel
         {
             DoctorId = doctor.Id,
             DoctorName = doctor.Name,
             Biography = doctor.Biography,
-            Specialties = doctor.DoctorSpecialties.Select(ds => ds.Specialty?.Name ?? string.Empty).Where(n => !string.IsNullOrWhiteSpace(n)),
-            Languages = doctor.DoctorLanguages.Select(dl => dl.Language?.Name ?? string.Empty).Where(n => !string.IsNullOrWhiteSpace(n)),
+            Specialties = doctor.DoctorSpecialties.Select(ds => ds.Specialty?.Name ?? string.Empty),
+            Languages = doctor.DoctorLanguages.Select(dl => dl.Language?.Name ?? string.Empty),
             Price = doctor.Price,
             SessionDuration = doctor.SessionDuration,
             Rating = doctor.Rating,
@@ -165,40 +155,227 @@ public class BookController : Controller
     public async Task<IActionResult> AvailableSessions(int id, DateOnly date)
     {
         if (!User.Identity?.IsAuthenticated ?? false)
-        {
             return Challenge();
-        }
 
         var doctor = await _context.Doctors
             .AsNoTracking()
             .FirstOrDefaultAsync(d => d.Id == id);
 
         if (doctor == null)
-        {
             return NotFound();
-        }
 
         var dayStart = new DateTimeOffset(date.ToDateTime(TimeOnly.MinValue), TimeSpan.Zero);
         var dayEnd = dayStart.AddDays(1);
 
-        var sessionsForDay = await _context.Sessions
+        var bookedTimes = await _context.Sessions
             .AsNoTracking()
-            .Where(s => s.DoctorId == id)
-            .Where(s => s.StartTime >= dayStart && s.StartTime < dayEnd)
+            .Where(s =>
+                s.DoctorId == id &&
+                s.StartTime >= dayStart &&
+                s.StartTime < dayEnd &&
+                s.SessionStatus != SessionStatus.Cancelled)
             .Select(s => TimeOnly.FromDateTime(s.StartTime.DateTime))
             .ToListAsync();
 
-        var slots = BuildSlots(doctor, date, sessionsForDay);
+        var slots = BuildSlots(doctor, date, bookedTimes);
 
         return Json(new
         {
-            date = date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-            label = date.ToString("dddd, MMM d", CultureInfo.InvariantCulture),
+            date = date.ToString("yyyy-MM-dd"),
+            label = date.ToString("dddd, MMM d"),
             slots
         });
     }
 
-    private static IReadOnlyCollection<string> BuildSlots(Doctor doctor, DateOnly date, IEnumerable<TimeOnly> bookedTimes)
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Checkout(int doctorId, string? selectedSlotsJson)
+    {
+        if (!User.Identity?.IsAuthenticated ?? false)
+            return Challenge();
+
+        var doctor = await _context.Doctors
+            .AsNoTracking()
+            .FirstOrDefaultAsync(d => d.Id == doctorId);
+
+        if (doctor == null)
+            return NotFound();
+
+        if (!TryParseSlots(selectedSlotsJson, out var slots, out var error))
+        {
+            TempData["Error"] = error;
+            return RedirectToAction(nameof(BookAppointment), new { id = doctorId });
+        }
+
+        return View(new CheckoutViewModel
+        {
+            DoctorId = doctorId,
+            DoctorName = doctor.Name,
+            SessionPrice = doctor.Price,
+            SessionDuration = doctor.SessionDuration,
+            Slots = slots!
+        });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Confirm(CheckoutViewModel model)
+    {
+        if (!User.Identity?.IsAuthenticated ?? false)
+            return Challenge();
+
+        var doctor = await _context.Doctors
+            .AsNoTracking()
+            .FirstOrDefaultAsync(d => d.Id == model.DoctorId);
+
+        if (doctor == null)
+            return NotFound();
+
+        if (!ModelState.IsValid || model.Slots == null || model.Slots.Count == 0)
+        {
+            model.FullName = doctor.Name;
+            model.SessionPrice = doctor.Price;
+            model.SessionDuration = doctor.SessionDuration;
+            return View("Checkout", model);
+        }
+
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
+        var normalizedSlots = NormalizeSlots(model.Slots, doctor.SessionDuration);
+        var requestedStarts = normalizedSlots.Select(s => s.StartTime).ToList();
+
+        var conflicts = await _context.Sessions
+            .AsNoTracking()
+            .Where(s =>
+                s.DoctorId == doctor.Id &&
+                requestedStarts.Contains(s.StartTime) &&
+                s.SessionStatus != SessionStatus.Cancelled)
+            .AnyAsync();
+
+        if (conflicts)
+        {
+            ModelState.AddModelError(string.Empty, "One or more selected slots were just booked.");
+            model.FullName = doctor.Name;
+            model.SessionPrice = doctor.Price;
+            model.SessionDuration = doctor.SessionDuration;
+            return View("Checkout", model);
+        }
+
+        await using var tx = await _context.Database.BeginTransactionAsync();
+
+        try
+        {
+            var contact = new SessionContact
+            {
+                FullName = model.FullName,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber
+            };
+
+            _context.SessionContacts.Add(contact);
+
+            foreach (var slot in normalizedSlots)
+            {
+                _context.Sessions.Add(new Session
+                {
+                    DoctorId = doctor.Id,
+                    PatientId = userId,
+                    StartTime = slot.StartTime,
+                    EndTime = slot.EndTime,
+                    Price = doctor.Price,
+                    SessionStatus = SessionStatus.Scheduled,
+                    PaymentStatus = PaymentStatus.Pending,
+                    Contact = contact
+                });
+            }
+
+            await _context.SaveChangesAsync();
+            await tx.CommitAsync();
+        }
+        catch
+        {
+            await tx.RollbackAsync();
+            throw;
+        }
+
+        return RedirectToAction(nameof(Confirmation),
+            new { doctorId = doctor.Id, count = normalizedSlots.Count });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Confirmation(int doctorId, int count)
+    {
+        var doctor = await _context.Doctors
+            .AsNoTracking()
+            .FirstOrDefaultAsync(d => d.Id == doctorId);
+
+        var vm = new ConfirmationViewModel
+        {
+            DoctorName = doctor?.Name ?? "Doctor",
+            SessionCount = count
+        };
+
+        return View(vm);
+    }
+
+    // ===================== Helpers =====================
+
+    private static bool TryParseSlots(string? rawJson, out List<SlotVM>? slots, out string error)
+    {
+        slots = null;
+        error = "Please select at least one session.";
+
+        if (string.IsNullOrWhiteSpace(rawJson))
+            return false;
+
+        try
+        {
+            var parsed = JsonSerializer.Deserialize<List<SlotInput>>(rawJson,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            if (parsed == null || parsed.Count == 0)
+                return false;
+
+            slots = parsed
+                .Where(p => DateTime.TryParse(p.Date, out _) && TimeSpan.TryParse(p.Time, out _))
+                .Select(p => new SlotVM
+                {
+                    Date = DateTime.Parse(p.Date!).Date,
+                    Time = TimeSpan.Parse(p.Time!)
+                })
+                .DistinctBy(s => new { s.Date, s.Time })
+                .OrderBy(s => s.Date)
+                .ThenBy(s => s.Time)
+                .ToList();
+
+            return slots.Count > 0;
+        }
+        catch
+        {
+            error = "Invalid slot selection.";
+            return false;
+        }
+    }
+
+    private static List<NormalizedSlot> NormalizeSlots(IEnumerable<SlotVM> slots, int durationMinutes)
+    {
+        return slots.Select(s =>
+        {
+            var startUtc = DateTime.SpecifyKind(s.Date + s.Time, DateTimeKind.Utc);
+            var start = new DateTimeOffset(startUtc);
+
+            return new NormalizedSlot
+            {
+                StartTime = start,
+                EndTime = start.AddMinutes(durationMinutes)
+            };
+        }).ToList();
+    }
+
+    private static IReadOnlyCollection<string> BuildSlots(
+        Doctor doctor,
+        DateOnly date,
+        IEnumerable<TimeOnly> bookedTimes)
     {
         var booked = new HashSet<TimeOnly>(bookedTimes);
         var slots = new List<string>();
@@ -209,27 +386,27 @@ public class BookController : Controller
 
         for (var current = start; current.Add(duration) <= end; current = current.Add(duration))
         {
-            var currentTime = TimeOnly.FromDateTime(current);
-            if (!booked.Contains(currentTime))
-            {
+            var time = TimeOnly.FromDateTime(current);
+            if (!booked.Contains(time))
                 slots.Add(current.ToString("HH:mm"));
-            }
         }
 
         return slots;
     }
 
-    private static string GetInitials(string name)
+    private static string GetInitials(string name) =>
+        string.Join("", name.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(p => char.ToUpperInvariant(p[0])));
+
+    private sealed class SlotInput
     {
-        return string.Join(string.Empty,
-            (name ?? string.Empty)
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                .Select(part => char.ToUpperInvariant(part[0])));
+        public string? Date { get; set; }
+        public string? Time { get; set; }
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public async Task<IActionResult> Error()
+    private sealed class NormalizedSlot
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset EndTime { get; set; }
     }
 }
