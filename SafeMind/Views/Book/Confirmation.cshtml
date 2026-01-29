@@ -1,0 +1,61 @@
+@model SafeMind.Models.ConfirmationViewModel
+@{
+    var vm = Model ?? new SafeMind.Models.ConfirmationViewModel
+    {
+        DoctorName = "Doctor",
+        SessionCount = 0
+    };
+}
+
+<link rel="stylesheet" href="~/css/booking-flow.css" asp-append-version="true" />
+
+<div class="confirmation-page">
+    <div class="card confirmation-card">
+
+        <div class="icon-wrap">
+            <span class="check-icon">✓</span>
+        </div>
+
+        <h1>Booking confirmed</h1>
+
+        <p class="lead">
+            Your appointment@(vm.SessionCount > 1 ? "s have" : " has") been successfully booked.
+        </p>
+
+        <div class="summary">
+            <div class="summary-row">
+                <span class="label">Doctor</span>
+                <span class="value">Dr. @vm.DoctorName</span>
+            </div>
+
+            <div class="summary-row">
+                <span class="label">Sessions booked</span>
+                <span class="value">@vm.SessionCount</span>
+            </div>
+        </div>
+
+        <div class="info">
+            <p>
+                You’ll receive a confirmation email shortly with all the details.
+            </p>
+            <p>
+                If you need to reschedule or cancel, you can do so from your appointments page.
+            </p>
+        </div>
+
+        <div class="actions">
+            <a asp-controller="MySessions"
+               asp-action="Index"
+               class="btn primary">
+                View my appointments
+            </a>
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="btn ghost">
+                Go to homepage
+            </a>
+        </div>
+
+    </div>
+</div>

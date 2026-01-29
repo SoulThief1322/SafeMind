@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SafeMind.Data;
 
@@ -11,9 +12,11 @@ using SafeMind.Data;
 namespace SafeMind.Data.Migrations
 {
     [DbContext(typeof(SafeMindDbContext))]
-    partial class SafeMindDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260126154122_DoctorTableAddedPrice")]
+    partial class DoctorTableAddedPrice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -318,9 +321,6 @@ namespace SafeMind.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ContactId")
-                        .HasColumnType("int");
-
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
@@ -363,39 +363,11 @@ namespace SafeMind.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContactId");
-
                     b.HasIndex("DoctorId");
 
                     b.HasIndex("PatientId");
 
                     b.ToTable("Sessions");
-                });
-
-            modelBuilder.Entity("Data.Models.SessionContact", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SessionContacts");
                 });
 
             modelBuilder.Entity("Data.Models.Specialty", b =>
@@ -732,12 +704,6 @@ namespace SafeMind.Data.Migrations
 
             modelBuilder.Entity("Data.Models.Session", b =>
                 {
-                    b.HasOne("Data.Models.SessionContact", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Data.Models.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId")
@@ -749,8 +715,6 @@ namespace SafeMind.Data.Migrations
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Contact");
 
                     b.Navigation("Doctor");
 

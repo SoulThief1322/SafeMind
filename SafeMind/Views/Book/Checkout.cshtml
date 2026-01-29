@@ -1,0 +1,100 @@
+@model CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<link rel="stylesheet" href="~/css/booking-flow.css" asp-append-version="true" />
+
+<div class="checkout-page">
+    <div class="checkout-header">
+        <p class="eyebrow">Step 2 of 2</p>
+        <h1>Confirm your booking</h1>
+        <p class="subhead">Review the session details and share how we can reach you.</p>
+    </div>
+
+    <div class="checkout-grid">
+        <section class="card summary-card">
+            <div class="card-header">
+                <div>
+                    <p class="eyebrow">Doctor</p>
+                    <h3>Dr. @Model.DoctorName</h3>
+                </div>
+                <div class="pill">@Model.SessionDuration mins</div>
+            </div>
+
+            <div class="price-row">
+                <span>Session price</span>
+                <span class="price">$@Model.SessionPrice.ToString("0.##")</span>
+            </div>
+
+            <div class="slots">
+                <p class="eyebrow">Selected sessions (@Model.Slots.Count)</p>
+                <ul>
+                    @foreach (var s in Model.Slots)
+                    {
+                        <li>
+                            <span class="date">@s.Date.ToString("ddd, MMM d")</span>
+                            <span class="time">@s.Time.ToString("hh\\:mm")</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="total-row">
+                <div>
+                    <p class="label">Total</p>
+                    <p class="hint">Billed after your session is confirmed.</p>
+                </div>
+                <div class="total">$@Model.TotalPrice.ToString("0.##")</div>
+            </div>
+
+            <div class="note">
+                <span class="dot"></span>
+                <p>Rescheduling and cancellations are free up to 12 hours before the session.</p>
+            </div>
+        </section>
+
+        <section class="card form-card">
+            <h3>Your details</h3>
+            <p class="hint">We’ll use this to confirm your booking and send reminders.</p>
+
+            <form asp-action="Confirm" method="post" class="checkout-form">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="DoctorId" />
+
+                @for (int i = 0; i < Model.Slots.Count; i++)
+                {
+                    <input type="hidden" name="Slots[@i].Date" value="@Model.Slots[i].Date" />
+                    <input type="hidden" name="Slots[@i].Time" value="@Model.Slots[i].Time" />
+                }
+
+                <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+                <div class="field">
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" placeholder="Your full name" />
+                    <span asp-validation-for="FullName" class="validation"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" type="email" placeholder="name@email.com" />
+                    <span asp-validation-for="Email" class="validation"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="PhoneNumber"></label>
+                    <input asp-for="PhoneNumber" type="tel" placeholder="Include country code" />
+                    <span asp-validation-for="PhoneNumber" class="validation"></span>
+                </div>
+
+                <div class="actions">
+                    <a asp-controller="Book" asp-action="BookAppointment" asp-route-id="@Model.DoctorId" class="btn ghost">Back</a>
+                    <button type="submit" class="btn primary">Confirm booking</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

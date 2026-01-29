@@ -34,6 +34,8 @@ namespace Data.Models
         [MinLength(DoctorConstants.BiographyMinLength)]
 
         public string Biography { get; set; } = string.Empty;
-        
+        [Required]
+        [Range(DoctorConstants.MinPrice, DoctorConstants.MaxPrice)]
+        public decimal Price { get; set; }
     }
 }

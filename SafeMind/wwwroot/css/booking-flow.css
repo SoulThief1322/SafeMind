@@ -1,0 +1,339 @@
+/* Shared styling for checkout and confirmation pages */
+
+:root {
+    --accent: #2e6f54;
+    --accent-strong: #1f4b3a;
+    --bg: #f7f9f8;
+    --card: #ffffff;
+    --text: #1f2a2e;
+    --muted: #5f6f74;
+    --border: #e4e9e7;
+    --shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+body {
+    background: var(--bg);
+}
+
+h1, h2, h3, h4 {
+    color: var(--text);
+    margin: 0;
+}
+
+p {
+    color: var(--muted);
+    margin: 0;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin: 0 0 0.4rem;
+}
+
+.subhead {
+    margin-top: 0.4rem;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: var(--shadow);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.9rem 1.3rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease, border 120ms ease;
+}
+
+.btn.primary {
+    background: linear-gradient(120deg, var(--accent), var(--accent-strong));
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(46, 111, 84, 0.25);
+    border: 1px solid rgba(46, 111, 84, 0.5);
+}
+
+.btn.primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px rgba(46, 111, 84, 0.28);
+}
+
+.btn.ghost {
+    background: #fff;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.btn.ghost:hover {
+    border-color: #cfd6d3;
+    transform: translateY(-1px);
+}
+
+/* Checkout */
+
+.checkout-page {
+    max-width: 1100px;
+    margin: 2rem auto 3rem;
+    padding: 0 1rem 1rem;
+}
+
+.checkout-header {
+    margin-bottom: 1.25rem;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 1.5rem;
+}
+
+.summary-card .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.pill {
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: #e7f2ec;
+    color: var(--accent-strong);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.price-row,
+.total-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.price {
+    font-weight: 700;
+    color: var(--text);
+}
+
+.total {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.total-row .hint {
+    margin-top: 0.15rem;
+    font-size: 0.9rem;
+}
+
+.slots ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.slots li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f0f6f3;
+    border-radius: 10px;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #e1ebe6;
+    color: var(--text);
+    font-weight: 600;
+}
+
+.slots .date {
+    font-weight: 600;
+}
+
+.slots .time {
+    color: var(--accent-strong);
+    font-weight: 700;
+}
+
+.note {
+    display: grid;
+    grid-template-columns: 10px 1fr;
+    gap: 0.6rem;
+    align-items: center;
+    margin-top: 1rem;
+    background: #fffbe8;
+    border: 1px solid #f1e6b6;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    color: #8a6d1f;
+    font-weight: 600;
+}
+
+.note .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d2b100;
+}
+
+.form-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.checkout-form {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.field label {
+    font-weight: 700;
+    color: var(--text);
+}
+
+.field input {
+    padding: 0.85rem 0.9rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 1rem;
+    transition: border 120ms ease, box-shadow 120ms ease;
+}
+
+.field input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(46, 111, 84, 0.18);
+}
+
+.validation-summary {
+    color: #b42318;
+    background: #fff2f0;
+    border: 1px solid #f1c3be;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.validation {
+    color: #b42318;
+    font-size: 0.95rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    margin-top: 0.4rem;
+}
+
+/* Confirmation */
+
+.confirmation-page {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem;
+}
+
+.confirmation-card {
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    padding: 2.4rem;
+}
+
+.icon-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.check-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    color: #fff;
+    font-size: 2.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 26px rgba(46, 111, 84, 0.25);
+}
+
+.lead {
+    margin-top: 0.5rem;
+    color: var(--muted);
+}
+
+.summary {
+    margin: 1.9rem 0;
+    text-align: left;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.label {
+    color: var(--muted);
+}
+
+.value {
+    font-weight: 700;
+    color: var(--text);
+}
+
+.info {
+    color: var(--muted);
+    margin-bottom: 2rem;
+}
+
+.actions {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+}
+
+@media (max-width: 900px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .actions {
+        justify-content: stretch;
+    }
+
+    .actions .btn {
+        flex: 1;
+    }
+}

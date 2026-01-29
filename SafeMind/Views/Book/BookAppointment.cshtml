@@ -1,0 +1,116 @@
+@model SafeMind.Models.AppointmentViewModel
+@{
+    ViewData["Title"] = "Book Appointment";
+}
+
+<link rel="stylesheet" href="~/css/book-appointment.css" asp-append-version="true" />
+
+<style>
+    .continue-actions {
+        display: none;
+        margin-top: 1rem;
+        justify-content: flex-end;
+    }
+
+    .continue-btn {
+        padding: 0.85rem 1.4rem;
+        border-radius: 12px;
+        border: 1px solid var(--color-primary);
+        background: var(--color-primary);
+        color: #ffffff;
+        font-weight: 600;
+        cursor: pointer;
+    }
+</style>
+
+<div class="appointment-page">
+
+    <!-- 🔽 FORM START -->
+    <form asp-action="Checkout" asp-controller="Book" method="post">
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="doctorId" value="@Model.DoctorId" />
+        <input type="hidden" id="selectedSlotsJson" name="selectedSlotsJson" />
+
+        <div class="header-row">
+            <div class="card">
+                <div class="doc-header">
+                    <div class="avatar"></div>
+                    <div class="doc-meta">
+                        <h1>Dr. @Model.DoctorName</h1>
+
+                        <div class="pill-row">
+                            @foreach (var s in Model.Specialties)
+                            {
+                                <span class="pill">@s</span>
+                            }
+                            @if (Model.Languages.Any())
+                            {
+                                <span class="pill">@string.Join(" / ", Model.Languages)</span>
+                            }
+                        </div>
+
+                        <p class="bio">@Model.Biography</p>
+
+                        <div class="stats">
+                            <span class="stat-pill">Rating @Model.Rating</span>
+                            <span class="stat-pill">$@Model.Price / session</span>
+                            <span class="stat-pill">@Model.SessionDuration min</span>
+                            <span class="stat-pill">@Model.AvailabilityRange</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card calendar-card">
+                <div class="calendar-head">
+                    <p class="calendar-title" id="weekTitle">This Week</p>
+                    <div class="cal-nav">
+                        <button type="button" class="cal-btn" id="prevWeek">Prev</button>
+                        <button type="button" class="cal-btn" id="nextWeek">Next</button>
+                    </div>
+                </div>
+                <div class="calendar-wrap">
+                    <div class="week-grid" id="weekGrid"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card sessions">
+            <div class="sessions-head">
+                <div>
+                    <h3>Available sessions</h3>
+                    <small id="selectedDateLabel" data-date="@Model.SelectedDate.ToString("yyyy-MM-dd")">@Model.SelectedDate.ToString("dddd, MMM d")</small>
+                </div>
+                <div class="text-muted">Times shown in 24-hour format</div>
+            </div>
+
+            <div class="session-grid" id="sessionGrid">
+                @foreach (var slot in Model.AvailableSlots)
+                {
+                    <div class="session">
+                        <strong>@slot</strong>
+                        <small>@Model.SessionDuration min · Online / In-person</small>
+                        <span class="cta">Select</span>
+                    </div>
+                }
+            </div>
+
+            <div class="empty-state" id="sessionEmpty"
+                 style="display:@(Model.AvailableSlots.Any() ? "none" : "block")">
+                No sessions for this day. Try another date.
+            </div>
+
+            <div class="continue-actions" id="continueContainer">
+                <button type="submit" class="continue-btn" id="continueBtn">
+                    Continue to checkout
+                </button>
+            </div>
+        </div>
+    </form>
+    <!-- 🔼 FORM END -->
+</div>
+
+@section Scripts {
+    <script src="~/js/book-appointment.js" asp-append-version="true"></script>
+}

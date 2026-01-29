@@ -1,8 +1,17 @@
-@{
-    ViewData["Title"] = "Book a Session";
-}
+@using System.Linq
+@model SafeMind.Models.BookPageViewModel
 
-    <link rel="stylesheet" href="~/css/book.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/book.css" asp-append-version="true" />
+<style>
+    .results-empty {
+        padding: 1rem;
+        border: 1px dashed #d5d5d5;
+        border-radius: 12px;
+        text-align: center;
+        color: #6b7280;
+        background: #fafafa;
+    }
+</style>
 
 <div class="booking-page">
     <div class="booking-grid">
@@ -16,48 +25,55 @@
                 Search by specialty or name, then pick a time that works for you.
             </p>
 
-            <div class="booking-form">
+            <form id="searchForm" class="booking-form" method="get">
                 <div class="form-group">
                     <label>Find professional</label>
                     <div class="field-row">
-                        <select class="select">
+                        <select id="specialtySelect" class="select" name="specialty">
                             <option value="">Choose specialty</option>
-                            <option>CBT (Cognitive Behavioral Therapy)</option>
-                            <option>EMDR</option>
-                            <option>Child & Adolescent</option>
-                            <option>Couples Therapy</option>
-                            <option>Trauma</option>
+                            @foreach (var specialty in Model.Specialties)
+                            {
+                                if (string.Equals(Model.SelectedSpecialty, specialty, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <option value="@specialty" selected="selected">@specialty</option>
+                                }
+                                else
+                                {
+                                    <option value="@specialty">@specialty</option>
+                                }
+                            }
                         </select>
 
                         <input class="input"
+                               name="name"
+                               value="@Model.SearchName"
                                type="search"
                                placeholder="Name (optional)" />
                     </div>
                 </div>
 
                 <div class="actions">
-                    <button class="primary-btn">Search</button>
-                    <button class="secondary-btn">Browse all</button>
+                    <button class="primary-btn" type="submit">Search</button>
                 </div>
 
                 <div class="filters">
                     <small class="muted">Quick filters</small>
                     <div class="chip-row">
-                        <button class="chip">Insurance accepted</button>
-                        <button class="chip">Online</button>
-                        <button class="chip">In-person</button>
-                        <button class="chip">Available today</button>
-                        <button class="chip">New clients</button>
+                        <button class="chip" type="button">Insurance accepted</button>
+                        <button class="chip" type="button">Online</button>
+                        <button class="chip" type="button">In-person</button>
+                        <button class="chip" type="button">Available today</button>
+                        <button class="chip" type="button">New clients</button>
                     </div>
                 </div>
-            </div>
+            </form>
 
             <div class="popular">
                 <small class="muted">Popular specialties</small>
                 <div class="popular-row">
-                    <button class="popular-chip">PTSD</button>
-                    <button class="popular-chip">Depression</button>
-                    <button class="popular-chip">Panic attacks</button>
+                    <button class="popular-chip" type="button" data-specialty="Addiction Medicine">Addiction Medicine</button>
+                    <button class="popular-chip" type="button" data-specialty="Behavioral Therapy">Behavioral Therapy</button>
+                    <button class="popular-chip" type="button" data-specialty="Neurology">Neurology</button>
                 </div>
             </div>
         </section>
@@ -83,77 +99,87 @@
             </div>
 
             <div class="results-list">
+                @if (Model?.Doctors?.Any() == true)
+                {
+                    foreach (var doctor in Model.Doctors)
+                    {
+                        var specialties = string.Join(", ", doctor.Specialties ?? Enumerable.Empty<string>());
+                        var languages = string.Join(", ", doctor.Languages ?? Enumerable.Empty<string>());
+                        <div class="provider-card">
+                            <div class="provider-inner">
+                                <div class="avatar" aria-hidden="true"></div>
 
-                <div class="provider-card">
-                    <div class="provider-inner">
-                        <div class="avatar">AB</div>
+                                <div class="provider-info">
+                                    <h6>
+                                        Dr. @doctor.Name
+                                        <span class="verified">Verified</span>
+                                    </h6>
+                                    <p class="muted small">
+                                        @specialties@if(!string.IsNullOrWhiteSpace(languages)){ @($" | {languages}") }
+                                    </p>
+                                    <p class="muted small">
+                                        Availability: <strong>@doctor.AvailabilityRange</strong>
+                                    </p>
+                                </div>
 
-                        <div class="provider-info">
-                            <h6>
-                                Dr. Alex Brown
-                                <span class="verified">Verified</span>
-                            </h6>
-                            <p class="muted small">
-                                CBT, Anxiety, Depression • English, Spanish
-                            </p>
-                            <p class="muted small">
-                                Next available: <strong>Tomorrow, 10:30 AM</strong>
-                            </p>
+                                <div class="provider-actions">
+                                    <div class="price">$@doctor.Price</div>
+                                    <div class="muted small">@doctor.SessionDuration min session</div>
+                                       <a class="book-btn" href="@Url.Action(action: "BookAppointment", "Book", new { id = doctor.Id })">Book</a>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="provider-actions">
-                            <div class="price">$90</div>
-                            <div class="muted small">Insurance accepted</div>
-                            <button class="book-btn">Book</button>
-                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="results-empty">
+                        <h6>No professionals found</h6>
+                        <p class="muted small">Adjust filters or add doctors in the admin area.</p>
                     </div>
-                </div>
-
-                <div class="provider-card">
-                    <div class="provider-inner">
-                        <div class="avatar">ME</div>
-
-                        <div class="provider-info">
-                            <h6>Maya Edwards</h6>
-                            <p class="muted small">
-                                EMDR, Trauma • English
-                            </p>
-                            <p class="muted small">
-                                Next available: <strong>In 3 days</strong>
-                            </p>
-                        </div>
-
-                        <div class="provider-actions">
-                            <div class="price">$120</div>
-                            <div class="muted small">Sliding scale</div>
-                            <button class="book-btn">Book</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="end-note">
-                    No more sample results — this is purely visual.
-                </div>
-
+                }
             </div>
+
+            @if (Model.TotalPages > 1)
+            {
+                <nav class="pagination" aria-label="Doctor results pagination">
+                    @if (Model.PageNumber > 1)
+                    {
+                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, specialty = Model.SelectedSpecialty, name = Model.SearchName })">Previous</a>
+                    }
+                    else
+                    {
+                        <span class="page-link disabled">Previous</span>
+                    }
+
+                    @for (var i = 1; i <= Model.TotalPages; i++)
+                    {
+                        var isCurrent = i == Model.PageNumber;
+                        if (isCurrent)
+                        {
+                            <span class="page-link active">@i</span>
+                        }
+                        else
+                        {
+                            <a class="page-link" href="@Url.Action("Index", new { page = i, specialty = Model.SelectedSpecialty, name = Model.SearchName })">@i</a>
+                        }
+                    }
+
+                    @if (Model.PageNumber < Model.TotalPages)
+                    {
+                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, specialty = Model.SelectedSpecialty, name = Model.SearchName })">Next</a>
+                    }
+                    else
+                    {
+                        <span class="page-link disabled">Next</span>
+                    }
+                </nav>
+            }
         </section>
 
     </div>
 </div>
 
 @section Scripts {
-<script>
-(function () {
-    document.querySelectorAll('.chip, .popular-chip').forEach(btn => {
-        btn.addEventListener('click', () => btn.classList.toggle('active'));
-    });
-
-    document.querySelectorAll('.book-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            btn.classList.add('active');
-            setTimeout(() => btn.classList.remove('active'), 300);
-        });
-    });
-})();
-</script>
+    <script src="~/js/book-index.js" asp-append-version="true"></script>
 }
