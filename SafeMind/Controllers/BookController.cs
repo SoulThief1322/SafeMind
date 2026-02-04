@@ -194,22 +194,31 @@ public class BookController : Controller
         if (!User.Identity?.IsAuthenticated ?? false)
             return Challenge();
 
+        if (!TryParseSlots(selectedSlotsJson, out var payloadDoctorId, out var slots, out var error))
+        {
+            var fallbackDoctorId = doctorId != 0 ? doctorId : payloadDoctorId;
+            TempData["Error"] = error;
+            return RedirectToAction(nameof(BookAppointment), new { id = fallbackDoctorId });
+        }
+
+        var effectiveDoctorId = doctorId != 0 ? doctorId : payloadDoctorId;
+
+        if (doctorId != 0 && payloadDoctorId != 0 && doctorId != payloadDoctorId)
+            return BadRequest("Doctor mismatch.");
+
+        if (effectiveDoctorId == 0)
+            return BadRequest("Missing doctor.");
+
         var doctor = await _context.Doctors
             .AsNoTracking()
-            .FirstOrDefaultAsync(d => d.Id == doctorId);
+            .FirstOrDefaultAsync(d => d.Id == effectiveDoctorId);
 
         if (doctor == null)
             return NotFound();
 
-        if (!TryParseSlots(selectedSlotsJson, out var slots, out var error))
-        {
-            TempData["Error"] = error;
-            return RedirectToAction(nameof(BookAppointment), new { id = doctorId });
-        }
-
         return View(new CheckoutViewModel
         {
-            DoctorId = doctorId,
+            DoctorId = doctor.Id,
             DoctorName = doctor.Name,
             SessionPrice = doctor.Price,
             SessionDuration = doctor.SessionDuration,
@@ -224,6 +233,9 @@ public class BookController : Controller
         if (!User.Identity?.IsAuthenticated ?? false)
             return Challenge();
 
+        if (!Enum.IsDefined(typeof(PaymentStatus), model.PaymentStatus))
+            model.PaymentStatus = PaymentStatus.Pending;
+
         var doctor = await _context.Doctors
             .AsNoTracking()
             .FirstOrDefaultAsync(d => d.Id == model.DoctorId);
@@ -233,9 +245,13 @@ public class BookController : Controller
 
         if (!ModelState.IsValid || model.Slots == null || model.Slots.Count == 0)
         {
-            model.FullName = doctor.Name;
+            model.DoctorId = doctor.Id;
+            model.DoctorName = doctor.Name;
             model.SessionPrice = doctor.Price;
             model.SessionDuration = doctor.SessionDuration;
+            if (model.PaymentStatus == default)
+                model.PaymentStatus = PaymentStatus.Pending;
+            model.Slots ??= new List<SlotVM>();
             return View("Checkout", model);
         }
 
@@ -255,9 +271,12 @@ public class BookController : Controller
         if (conflicts)
         {
             ModelState.AddModelError(string.Empty, "One or more selected slots were just booked.");
-            model.FullName = doctor.Name;
+            model.DoctorId = doctor.Id;
+            model.DoctorName = doctor.Name;
             model.SessionPrice = doctor.Price;
             model.SessionDuration = doctor.SessionDuration;
+            if (model.PaymentStatus == default)
+                model.PaymentStatus = PaymentStatus.Pending;
             return View("Checkout", model);
         }
 
@@ -328,8 +347,9 @@ public class BookController : Controller
 
     // ===================== Helpers =====================
 
-    private static bool TryParseSlots(string? rawJson, out List<SlotVM>? slots, out string error)
+    private static bool TryParseSlots(string? rawJson, out int doctorId, out List<SlotVM>? slots, out string error)
     {
+        doctorId = 0;
         slots = null;
         error = "Please select at least one session.";
 
@@ -338,13 +358,26 @@ public class BookController : Controller
 
         try
         {
-            var parsed = JsonSerializer.Deserialize<List<SlotInput>>(rawJson,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var trimmed = rawJson.TrimStart();
 
-            if (parsed == null || parsed.Count == 0)
+            List<SlotInput>? parsedSlots;
+
+            if (trimmed.StartsWith("{"))
+            {
+                var payload = JsonSerializer.Deserialize<SlotPayload>(rawJson, options);
+                doctorId = payload?.DoctorId ?? 0;
+                parsedSlots = payload?.Slots;
+            }
+            else
+            {
+                parsedSlots = JsonSerializer.Deserialize<List<SlotInput>>(rawJson, options);
+            }
+
+            if (parsedSlots == null || parsedSlots.Count == 0)
                 return false;
 
-            slots = parsed
+            slots = parsedSlots
                 .Where(p => DateTime.TryParse(p.Date, out _) && TimeSpan.TryParse(p.Time, out _))
                 .Select(p => new SlotVM
                 {
@@ -415,6 +448,12 @@ public class BookController : Controller
     {
         public string? Date { get; set; }
         public string? Time { get; set; }
+    }
+
+    private sealed class SlotPayload
+    {
+        public int DoctorId { get; set; }
+        public List<SlotInput>? Slots { get; set; }
     }
 
     private sealed class NormalizedSlot

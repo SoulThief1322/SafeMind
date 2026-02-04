@@ -18,8 +18,9 @@ namespace SafeMind.Models
 
         [Required(ErrorMessage = "Please select at least one session.")]
         public List<SlotVM> Slots { get; set; } = new();
-        [Required]
-        [MaxLength(100)]
+        [Required(ErrorMessage = "Full name is required.")]
+        [MaxLength(100, ErrorMessage = "Use 100 characters or fewer for your name.")]
+        [RegularExpression("^[A-Za-z]+(?:[\\s'\\-]+[A-Za-z]+)+$", ErrorMessage = "Please enter a valid full name (first and last name).")]
         public string FullName { get; set; } = string.Empty;
 
         [Required]

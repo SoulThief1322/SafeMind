@@ -33,6 +33,16 @@
         color: var(--muted);
         font-size: 0.95rem;
     }
+
+    .alert-error {
+        border: 1px solid #f1c3be;
+        background: #fff2f0;
+        color: #8a1c1c;
+        padding: 0.9rem 1rem;
+        border-radius: 10px;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+    }
 </style>
 
 <div class="checkout-page">
@@ -99,7 +109,6 @@
                     <input type="hidden" name="Slots[@i].Time" value="@Model.Slots[i].Time" />
                 }
 
-                <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
 
                 <div class="field">
                     <label asp-for="FullName">Full name</label>

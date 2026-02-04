@@ -134,12 +134,18 @@
         selectedDateLabel.dataset.date = toLocalIsoDate(date);
     }
 
-    // Serializes selected slots into the hidden input for form submission.
+    // Serializes selected slots (and doctor) into the hidden input for form submission.
     function updateHiddenInput() {
-        const payload = [];
+        const slotList = [];
         selectedSlotsByDate.forEach((times, dateValue) => {
-            times.forEach(time => payload.push({ date: dateValue, time }));
+            times.forEach(time => slotList.push({ date: dateValue, time }));
         });
+
+        const payload = {
+            doctorId: Number(doctorId) || 0,
+            slots: slotList
+        };
+
         hiddenInput.value = JSON.stringify(payload);
     }
 
