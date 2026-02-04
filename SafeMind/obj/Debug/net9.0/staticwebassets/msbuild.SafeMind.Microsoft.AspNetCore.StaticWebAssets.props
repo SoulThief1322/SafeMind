@@ -174,8 +174,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>762s9zd41r</Fingerprint>
-      <Integrity>ASEXQglUci7UFO/ti6cSYwwEJJfNb8LPfDQqfemIdlk=</Integrity>
+      <Fingerprint>8kxxitgggb</Fingerprint>
+      <Integrity>2PEk7CB7WQ3buR1Rzbq/8rlb3UytvTEqV15MmrKtKiY=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\mysessions.css'))</OriginalItemSpec>
@@ -264,8 +264,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>x4hte9xl9k</Fingerprint>
-      <Integrity>Ad5g8RfA0fwhg677z+PZ011LCfEat30vm4xjRce3E08=</Integrity>
+      <Fingerprint>i0wwipxerb</Fingerprint>
+      <Integrity>ElDuROnG69p9VvZ42RamfpqkBwZlpJotbeNh2l8ctdY=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\book-appointment.js'))</OriginalItemSpec>
