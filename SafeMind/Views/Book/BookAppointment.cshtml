@@ -25,6 +25,12 @@
 
 <div class="appointment-page">
 
+    <div class="flow-header">
+        <p class="eyebrow">Step 1 of 2</p>
+        <h1>Select your sessions</h1>
+        <p class="subhead">Pick times with Dr. @Model.DoctorName before continuing to checkout.</p>
+    </div>
+
     <!-- 🔽 FORM START -->
     <form asp-action="Checkout" asp-controller="Book" method="post">
         @Html.AntiForgeryToken()

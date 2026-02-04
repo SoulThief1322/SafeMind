@@ -388,6 +388,9 @@ public class BookController : Controller
         var booked = new HashSet<TimeOnly>(bookedTimes);
         var slots = new List<string>();
 
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+        var currentTimeUtc = TimeOnly.FromDateTime(DateTime.UtcNow);
+
         var start = date.ToDateTime(doctor.WorkStart);
         var end = date.ToDateTime(doctor.WorkEnd);
         var duration = TimeSpan.FromMinutes(doctor.SessionDuration);
@@ -395,6 +398,8 @@ public class BookController : Controller
         for (var current = start; current.Add(duration) <= end; current = current.Add(duration))
         {
             var time = TimeOnly.FromDateTime(current);
+            if (date == today && time <= currentTimeUtc)
+                continue;
             if (!booked.Contains(time))
                 slots.Add(current.ToString("HH:mm"));
         }

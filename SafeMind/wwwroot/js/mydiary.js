@@ -1,3 +1,4 @@
+// Initializes the diary calendar, mood chips, and check-in submission.
 document.addEventListener("DOMContentLoaded", () => {
 	const weekRow = document.querySelector("[data-week-row]");
 	const weekLabel = document.querySelector("[data-week-label]");
@@ -14,18 +15,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 	const today = new Date();
+	// Formats a Date as an ISO yyyy-MM-dd string.
 	const formatISO = (date) => date.toISOString().split("T")[0];
+	// Formats a Date for day-of-month display.
 	const formatDom = (date) => date.toLocaleDateString(undefined, { day: "2-digit" });
+	// Formats a Date for month and day labels.
 	const formatLabel = (date) => date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 
 	if (weekRow && weekLabel) {
+		// Determines Monday-based week start from today.
 		const startOfWeek = (() => {
-			const d = new Date(today);
-			const day = d.getDay();
-			const offset = day === 0 ? -6 : 1 - day;
-			d.setDate(d.getDate() + offset);
-			d.setHours(0, 0, 0, 0);
-			return d;
+			const startDate = new Date(today);
+			const weekDay = startDate.getDay();
+			const offset = weekDay === 0 ? -6 : 1 - weekDay;
+			startDate.setDate(startDate.getDate() + offset);
+			startDate.setHours(0, 0, 0, 0);
+			return startDate;
 		})();
 
 		const endOfWeek = new Date(startOfWeek);
@@ -34,9 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		weekRow.innerHTML = "";
 
-		for (let i = 0; i < 7; i++) {
+		for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
 			const current = new Date(startOfWeek);
-			current.setDate(startOfWeek.getDate() + i);
+			current.setDate(startOfWeek.getDate() + dayIndex);
 
 			const pill = document.createElement("button");
 			pill.type = "button";
@@ -46,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			const dow = document.createElement("span");
 			dow.className = "dow";
-			dow.textContent = dayNames[i];
+			dow.textContent = dayNames[dayIndex];
 
 			const dom = document.createElement("span");
 			dom.className = "dom";
@@ -68,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (calendarBody && monthLabel && prevMonthBtn && nextMonthBtn) {
 		let monthOffset = 0;
 
+		// Renders the month calendar grid and wires date selection.
 		const renderCalendar = () => {
 			const base = new Date(today);
 			base.setDate(1);
@@ -99,16 +105,16 @@ document.addEventListener("DOMContentLoaded", () => {
 				}
 			};
 
-			let initialSelectable = null;
+			let initialSelectableDate = null;
 
-			for (let week = 0; week < 6; week++) {
+			for (let weekIndex = 0; weekIndex < 6; weekIndex++) {
 				const row = document.createElement("div");
 				row.className = "mc-row";
 				row.setAttribute("role", "row");
 
-				for (let day = 0; day < 7; day++) {
+				for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
 					const current = new Date(gridStart);
-					current.setDate(gridStart.getDate() + week * 7 + day);
+					current.setDate(gridStart.getDate() + weekIndex * 7 + dayIndex);
 
 					const btn = document.createElement("button");
 					btn.type = "button";
@@ -126,11 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
 					const isToday = current.toDateString() === today.toDateString();
 					if (isToday && isCurrentMonth && monthOffset === 0) {
 						btn.classList.add("mc-today");
-						initialSelectable = formatISO(current);
+						initialSelectableDate = formatISO(current);
 					}
 
 					if (isCurrentMonth) {
-						if (!initialSelectable) initialSelectable = formatISO(current);
+						if (!initialSelectableDate) initialSelectableDate = formatISO(current);
 						btn.addEventListener("click", () => {
 							setSelectedDate(btn.dataset.date);
 						});
@@ -142,8 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
 				calendarBody.appendChild(row);
 			}
 
-			if (initialSelectable) {
-				setSelectedDate(initialSelectable);
+			if (initialSelectableDate) {
+				setSelectedDate(initialSelectableDate);
 			}
 		};
 
@@ -161,10 +167,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	chipGroups.forEach((group) => {
+		// Marks a chip as selected within a group and stores its value.
 		const applyActive = (btn) => {
-			group.querySelectorAll(".chip").forEach((c) => {
-				c.classList.remove("chip-active");
-				c.setAttribute("aria-pressed", "false");
+			group.querySelectorAll(".chip").forEach((chipButton) => {
+				chipButton.classList.remove("chip-active");
+				chipButton.setAttribute("aria-pressed", "false");
 			});
 			btn.classList.add("chip-active");
 			btn.setAttribute("aria-pressed", "true");
@@ -184,11 +191,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	});
 
+	// Retrieves the selected chip value for a given key.
 	const getSelectedValue = (key) => {
 		const group = document.querySelector(`[data-chip-group='${key}']`);
 		return group ? group.dataset.selected : null;
 	};
 
+	// Pulls the antiforgery token from the form.
 	const getAntiForgery = () => checkinForm?.querySelector("input[name='__RequestVerificationToken']")?.value;
 
 	if (saveBtn) {
@@ -234,8 +243,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				alert("Check-in saved.");
 				location.reload();
-			} catch (err) {
-				console.error(err);
+			} catch (error) {
+				console.error(error);
 				alert("Could not save your check-in. Please try again.");
 			} finally {
 				saveBtn.disabled = false;
@@ -255,9 +264,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	if (noteInput && noteCounter) {
-		const max = parseInt(noteInput.getAttribute("maxLength"), 10) || 500;
+		const maxLength = parseInt(noteInput.getAttribute("maxLength"), 10) || 500;
+		// Updates the live character counter for the diary note.
 		const updateCount = () => {
-			noteCounter.textContent = `${noteInput.value.length}/${max}`;
+			noteCounter.textContent = `${noteInput.value.length}/${maxLength}`;
 		};
 		noteInput.addEventListener("input", updateCount);
 		updateCount();
