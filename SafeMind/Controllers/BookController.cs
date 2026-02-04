@@ -269,7 +269,7 @@ public class BookController : Controller
             {
                 FullName = model.FullName,
                 Email = model.Email,
-                PhoneNumber = model.PhoneNumber
+                PhoneNumber = model.PhoneNumber,
             };
 
             _context.SessionContacts.Add(contact);
@@ -284,7 +284,7 @@ public class BookController : Controller
                     EndTime = slot.EndTime,
                     Price = doctor.Price,
                     SessionStatus = SessionStatus.Scheduled,
-                    PaymentStatus = PaymentStatus.Pending,
+                    PaymentStatus = model.PaymentStatus,
                     Contact = contact
                 });
             }

@@ -6,6 +6,35 @@
 
 <link rel="stylesheet" href="~/css/booking-flow.css" asp-append-version="true" />
 
+<style>
+    .payment-options {
+        margin: 0.5rem 0 1rem;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: #f8faf9;
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+    }
+
+    .payment-option {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.65rem;
+    }
+
+    .payment-option strong {
+        color: var(--text);
+    }
+
+    .payment-option p {
+        margin: 0.15rem 0 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+    }
+</style>
+
 <div class="checkout-page">
     <div class="checkout-header">
         <p class="eyebrow">Step 2 of 2</p>
@@ -51,7 +80,7 @@
 
             <div class="note">
                 <span class="dot"></span>
-                <p>Rescheduling and cancellations are free up to 12 hours before the session.</p>
+                <p>Rescheduling and cancellations are available up to 48 hours before the session.</p>
             </div>
         </section>
 
@@ -88,6 +117,27 @@
                     <label asp-for="PhoneNumber">Phone Number</label>
                     <input asp-for="PhoneNumber" type="tel" placeholder="Include country code" />
                     <span asp-validation-for="PhoneNumber" class="validation"></span>
+                </div>
+
+                <div class="field">
+                    <label>Payment preference</label>
+                    <div class="payment-options">
+                        <label class="payment-option" for="pay-now">
+                            <input id="pay-now" type="radio" asp-for="PaymentStatus" value="Paid" checked />
+                            <div>
+                                <strong>Pay now</strong>
+                                <p>We’ll process the payment right away and confirm your booking.</p>
+                            </div>
+                        </label>
+                        <label class="payment-option" for="pay-later">
+                            <input id="pay-later" type="radio" asp-for="PaymentStatus" value="Pending" />
+                            <div>
+                                <strong>Pay later</strong>
+                                <p>Your booking is created with payment pending; we’ll collect it later.</p>
+                            </div>
+                        </label>
+                    </div>
+                    <span asp-validation-for="PaymentStatus" class="validation"></span>
                 </div>
 
                 <div class="actions">

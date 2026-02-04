@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+    using Data.Enums;
 
 namespace SafeMind.Models
 {
@@ -30,6 +31,7 @@ namespace SafeMind.Models
         public string PhoneNumber { get; set; } = string.Empty;
 
         public decimal TotalPrice => Slots.Count * SessionPrice;
+        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Paid;
     }
 
     public class SlotVM

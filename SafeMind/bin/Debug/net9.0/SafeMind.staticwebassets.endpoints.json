@@ -9428,13 +9428,13 @@
       ]
     },
     {
-      "Route": "css/book.cmhx42olrg.css",
+      "Route": "css/book.ac0idhk1no.css",
       "AssetFile": "css/book.css.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000604960678"
+          "Quality": "0.000595238095"
         }
       ],
       "ResponseHeaders": [
@@ -9452,7 +9452,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1652"
+          "Value": "1679"
         },
         {
           "Name": "Content-Type",
@@ -9460,15 +9460,15 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2ak0opG4olrDnqUGJ4Tm4DharLsqnXB7GEVJtEGnMw0=\""
+          "Value": "\"4nwY1/M5/tdzQRcW8KWqPCKXBZ4G6fn/vT+ICZ4mMQ4=\""
         },
         {
           "Name": "ETag",
-          "Value": "W/\"jJwsLWnq4zeKnswlWOBZYDL5R9XYNbxLWQF1RsAJLV8=\""
+          "Value": "W/\"xpw+u0pUh6XuOkjrBd61P6QnHWSuKe+7cvLUfn90GEI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 Jan 2026 14:49:52 GMT"
+          "Value": "Wed, 04 Feb 2026 15:00:47 GMT"
         },
         {
           "Name": "Vary",
@@ -9478,11 +9478,11 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "cmhx42olrg"
+          "Value": "ac0idhk1no"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-jJwsLWnq4zeKnswlWOBZYDL5R9XYNbxLWQF1RsAJLV8="
+          "Value": "sha256-xpw+u0pUh6XuOkjrBd61P6QnHWSuKe+7cvLUfn90GEI="
         },
         {
           "Name": "label",
@@ -9491,7 +9491,7 @@
       ]
     },
     {
-      "Route": "css/book.cmhx42olrg.css",
+      "Route": "css/book.ac0idhk1no.css",
       "AssetFile": "css/book.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -9505,7 +9505,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6454"
+          "Value": "6539"
         },
         {
           "Name": "Content-Type",
@@ -9513,21 +9513,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"jJwsLWnq4zeKnswlWOBZYDL5R9XYNbxLWQF1RsAJLV8=\""
+          "Value": "\"xpw+u0pUh6XuOkjrBd61P6QnHWSuKe+7cvLUfn90GEI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 Jan 2026 14:49:52 GMT"
+          "Value": "Wed, 04 Feb 2026 15:00:47 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "cmhx42olrg"
+          "Value": "ac0idhk1no"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-jJwsLWnq4zeKnswlWOBZYDL5R9XYNbxLWQF1RsAJLV8="
+          "Value": "sha256-xpw+u0pUh6XuOkjrBd61P6QnHWSuKe+7cvLUfn90GEI="
         },
         {
           "Name": "label",
@@ -9536,7 +9536,7 @@
       ]
     },
     {
-      "Route": "css/book.cmhx42olrg.css.gz",
+      "Route": "css/book.ac0idhk1no.css.gz",
       "AssetFile": "css/book.css.gz",
       "Selectors": [],
       "ResponseHeaders": [
@@ -9554,7 +9554,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1652"
+          "Value": "1679"
         },
         {
           "Name": "Content-Type",
@@ -9562,11 +9562,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2ak0opG4olrDnqUGJ4Tm4DharLsqnXB7GEVJtEGnMw0=\""
+          "Value": "\"4nwY1/M5/tdzQRcW8KWqPCKXBZ4G6fn/vT+ICZ4mMQ4=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 Jan 2026 14:49:52 GMT"
+          "Value": "Wed, 04 Feb 2026 15:00:47 GMT"
         },
         {
           "Name": "Vary",
@@ -9576,11 +9576,11 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "cmhx42olrg"
+          "Value": "ac0idhk1no"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-2ak0opG4olrDnqUGJ4Tm4DharLsqnXB7GEVJtEGnMw0="
+          "Value": "sha256-4nwY1/M5/tdzQRcW8KWqPCKXBZ4G6fn/vT+ICZ4mMQ4="
         },
         {
           "Name": "label",
@@ -9595,7 +9595,7 @@
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000604960678"
+          "Quality": "0.000595238095"
         }
       ],
       "ResponseHeaders": [
@@ -9613,7 +9613,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1652"
+          "Value": "1679"
         },
         {
           "Name": "Content-Type",
@@ -9621,15 +9621,15 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2ak0opG4olrDnqUGJ4Tm4DharLsqnXB7GEVJtEGnMw0=\""
+          "Value": "\"4nwY1/M5/tdzQRcW8KWqPCKXBZ4G6fn/vT+ICZ4mMQ4=\""
         },
         {
           "Name": "ETag",
-          "Value": "W/\"jJwsLWnq4zeKnswlWOBZYDL5R9XYNbxLWQF1RsAJLV8=\""
+          "Value": "W/\"xpw+u0pUh6XuOkjrBd61P6QnHWSuKe+7cvLUfn90GEI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 Jan 2026 14:49:52 GMT"
+          "Value": "Wed, 04 Feb 2026 15:00:47 GMT"
         },
         {
           "Name": "Vary",
@@ -9639,7 +9639,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-jJwsLWnq4zeKnswlWOBZYDL5R9XYNbxLWQF1RsAJLV8="
+          "Value": "sha256-xpw+u0pUh6XuOkjrBd61P6QnHWSuKe+7cvLUfn90GEI="
         }
       ]
     },
@@ -9658,7 +9658,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6454"
+          "Value": "6539"
         },
         {
           "Name": "Content-Type",
@@ -9666,17 +9666,17 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"jJwsLWnq4zeKnswlWOBZYDL5R9XYNbxLWQF1RsAJLV8=\""
+          "Value": "\"xpw+u0pUh6XuOkjrBd61P6QnHWSuKe+7cvLUfn90GEI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 Jan 2026 14:49:52 GMT"
+          "Value": "Wed, 04 Feb 2026 15:00:47 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-jJwsLWnq4zeKnswlWOBZYDL5R9XYNbxLWQF1RsAJLV8="
+          "Value": "sha256-xpw+u0pUh6XuOkjrBd61P6QnHWSuKe+7cvLUfn90GEI="
         }
       ]
     },
@@ -9699,7 +9699,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1652"
+          "Value": "1679"
         },
         {
           "Name": "Content-Type",
@@ -9707,11 +9707,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2ak0opG4olrDnqUGJ4Tm4DharLsqnXB7GEVJtEGnMw0=\""
+          "Value": "\"4nwY1/M5/tdzQRcW8KWqPCKXBZ4G6fn/vT+ICZ4mMQ4=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 29 Jan 2026 14:49:52 GMT"
+          "Value": "Wed, 04 Feb 2026 15:00:47 GMT"
         },
         {
           "Name": "Vary",
@@ -9721,7 +9721,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-2ak0opG4olrDnqUGJ4Tm4DharLsqnXB7GEVJtEGnMw0="
+          "Value": "sha256-4nwY1/M5/tdzQRcW8KWqPCKXBZ4G6fn/vT+ICZ4mMQ4="
         }
       ]
     },
@@ -12788,174 +12788,13 @@
       ]
     },
     {
-      "Route": "js/book-appointment.bi3ft63fxg.js",
-      "AssetFile": "js/book-appointment.js.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000383729854"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2605"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"SyuchoRXTvqdjG6s2xopUnpXoOfaojjOyXGEQcBcZ0E=\""
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"g8T1kGeKs2p6ABaooSYsrtPCdu8y3ARf0aqPTLL1VLQ=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 04 Feb 2026 14:44:20 GMT"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "bi3ft63fxg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-g8T1kGeKs2p6ABaooSYsrtPCdu8y3ARf0aqPTLL1VLQ="
-        },
-        {
-          "Name": "label",
-          "Value": "js/book-appointment.js"
-        }
-      ]
-    },
-    {
-      "Route": "js/book-appointment.bi3ft63fxg.js",
-      "AssetFile": "js/book-appointment.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "8784"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"g8T1kGeKs2p6ABaooSYsrtPCdu8y3ARf0aqPTLL1VLQ=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 04 Feb 2026 14:44:20 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "bi3ft63fxg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-g8T1kGeKs2p6ABaooSYsrtPCdu8y3ARf0aqPTLL1VLQ="
-        },
-        {
-          "Name": "label",
-          "Value": "js/book-appointment.js"
-        }
-      ]
-    },
-    {
-      "Route": "js/book-appointment.bi3ft63fxg.js.gz",
-      "AssetFile": "js/book-appointment.js.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2605"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"SyuchoRXTvqdjG6s2xopUnpXoOfaojjOyXGEQcBcZ0E=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 04 Feb 2026 14:44:20 GMT"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "bi3ft63fxg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-SyuchoRXTvqdjG6s2xopUnpXoOfaojjOyXGEQcBcZ0E="
-        },
-        {
-          "Name": "label",
-          "Value": "js/book-appointment.js.gz"
-        }
-      ]
-    },
-    {
       "Route": "js/book-appointment.js",
       "AssetFile": "js/book-appointment.js.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000383729854"
+          "Quality": "0.000291970803"
         }
       ],
       "ResponseHeaders": [
@@ -12973,7 +12812,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2605"
+          "Value": "3424"
         },
         {
           "Name": "Content-Type",
@@ -12981,15 +12820,15 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"SyuchoRXTvqdjG6s2xopUnpXoOfaojjOyXGEQcBcZ0E=\""
+          "Value": "\"k27brdwE2thY9yGsSA9zSxlIDVN5RR/EUzY3E2kyXe0=\""
         },
         {
           "Name": "ETag",
-          "Value": "W/\"g8T1kGeKs2p6ABaooSYsrtPCdu8y3ARf0aqPTLL1VLQ=\""
+          "Value": "W/\"Ad5g8RfA0fwhg677z+PZ011LCfEat30vm4xjRce3E08=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Feb 2026 14:44:20 GMT"
+          "Value": "Wed, 04 Feb 2026 14:53:30 GMT"
         },
         {
           "Name": "Vary",
@@ -12999,7 +12838,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-g8T1kGeKs2p6ABaooSYsrtPCdu8y3ARf0aqPTLL1VLQ="
+          "Value": "sha256-Ad5g8RfA0fwhg677z+PZ011LCfEat30vm4xjRce3E08="
         }
       ]
     },
@@ -13018,7 +12857,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8784"
+          "Value": "12557"
         },
         {
           "Name": "Content-Type",
@@ -13026,17 +12865,17 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"g8T1kGeKs2p6ABaooSYsrtPCdu8y3ARf0aqPTLL1VLQ=\""
+          "Value": "\"Ad5g8RfA0fwhg677z+PZ011LCfEat30vm4xjRce3E08=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Feb 2026 14:44:20 GMT"
+          "Value": "Wed, 04 Feb 2026 14:53:30 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-g8T1kGeKs2p6ABaooSYsrtPCdu8y3ARf0aqPTLL1VLQ="
+          "Value": "sha256-Ad5g8RfA0fwhg677z+PZ011LCfEat30vm4xjRce3E08="
         }
       ]
     },
@@ -13059,7 +12898,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2605"
+          "Value": "3424"
         },
         {
           "Name": "Content-Type",
@@ -13067,11 +12906,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"SyuchoRXTvqdjG6s2xopUnpXoOfaojjOyXGEQcBcZ0E=\""
+          "Value": "\"k27brdwE2thY9yGsSA9zSxlIDVN5RR/EUzY3E2kyXe0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Feb 2026 14:44:20 GMT"
+          "Value": "Wed, 04 Feb 2026 14:53:30 GMT"
         },
         {
           "Name": "Vary",
@@ -13081,7 +12920,168 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-SyuchoRXTvqdjG6s2xopUnpXoOfaojjOyXGEQcBcZ0E="
+          "Value": "sha256-k27brdwE2thY9yGsSA9zSxlIDVN5RR/EUzY3E2kyXe0="
+        }
+      ]
+    },
+    {
+      "Route": "js/book-appointment.x4hte9xl9k.js",
+      "AssetFile": "js/book-appointment.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000291970803"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3424"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"k27brdwE2thY9yGsSA9zSxlIDVN5RR/EUzY3E2kyXe0=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Ad5g8RfA0fwhg677z+PZ011LCfEat30vm4xjRce3E08=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 04 Feb 2026 14:53:30 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "x4hte9xl9k"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ad5g8RfA0fwhg677z+PZ011LCfEat30vm4xjRce3E08="
+        },
+        {
+          "Name": "label",
+          "Value": "js/book-appointment.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/book-appointment.x4hte9xl9k.js",
+      "AssetFile": "js/book-appointment.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12557"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ad5g8RfA0fwhg677z+PZ011LCfEat30vm4xjRce3E08=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 04 Feb 2026 14:53:30 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "x4hte9xl9k"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ad5g8RfA0fwhg677z+PZ011LCfEat30vm4xjRce3E08="
+        },
+        {
+          "Name": "label",
+          "Value": "js/book-appointment.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/book-appointment.x4hte9xl9k.js.gz",
+      "AssetFile": "js/book-appointment.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3424"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"k27brdwE2thY9yGsSA9zSxlIDVN5RR/EUzY3E2kyXe0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 04 Feb 2026 14:53:30 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "x4hte9xl9k"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-k27brdwE2thY9yGsSA9zSxlIDVN5RR/EUzY3E2kyXe0="
+        },
+        {
+          "Name": "label",
+          "Value": "js/book-appointment.js.gz"
         }
       ]
     },
