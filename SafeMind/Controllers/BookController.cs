@@ -20,14 +20,16 @@ public class BookController : Controller
     private readonly BookService _bookService;
     private readonly BookSessionService _bookSessionService;
     private readonly SlotsService _slotsService;
+    private readonly ConfirmService _confirmService;
 
-    public BookController(ILogger<BookController> logger, SafeMindDbContext context, BookService bookService, BookSessionService bookSessionService, SlotsService slotsService)
+    public BookController(ILogger<BookController> logger, SafeMindDbContext context, BookService bookService, BookSessionService bookSessionService, SlotsService slotsService, ConfirmService confirmService)
     {
         _logger = logger;
         _context = context;
         _bookService = bookService;
         _bookSessionService = bookSessionService;
         _slotsService = slotsService;
+        _confirmService = confirmService;
     }
 
     [AllowAnonymous]
@@ -96,20 +98,7 @@ public class BookController : Controller
 
         var availableSlots = _slotsService.BuildSlots(doctor, selectedDate, bookedTimes);
 
-        var vm = new SessionsViewModel
-        {
-            DoctorId = doctor.Id,
-            DoctorName = doctor.Name,
-            Biography = doctor.Biography,
-            Specialties = doctor.DoctorSpecialties.Select(ds => ds.Specialty?.Name ?? string.Empty),
-            Languages = doctor.DoctorLanguages.Select(dl => dl.Language?.Name ?? string.Empty),
-            Price = doctor.Price,
-            SessionDuration = doctor.SessionDuration,
-            Rating = doctor.Rating,
-            AvailabilityRange = $"{doctor.WorkStart:HH\\:mm} - {doctor.WorkEnd:HH\\:mm}",
-            SelectedDate = selectedDate,
-            AvailableSlots = availableSlots
-        };
+        var vm = SessionMapper.ToViewModel(doctor, selectedDate, availableSlots);
 
         return View(vm);
     }
@@ -147,8 +136,6 @@ public class BookController : Controller
     [Authorize]
     public async Task<IActionResult> Checkout(int doctorId, string? selectedSlotsJson)
     {
-        if (!User.Identity?.IsAuthenticated ?? false)
-            return Challenge();
 
         if (!_slotsService.TryParseSlots(selectedSlotsJson, out var payloadDoctorId, out var slots, out var error))
         {
@@ -185,8 +172,6 @@ public class BookController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Confirm(CheckoutViewModel model)
     {
-        if (!User.Identity?.IsAuthenticated ?? false)
-            return Challenge();
 
         if (!Enum.IsDefined(typeof(PaymentStatus), model.PaymentStatus))
             model.PaymentStatus = PaymentStatus.Pending;
@@ -233,7 +218,7 @@ public class BookController : Controller
             return View("Checkout", model);
         }
 
-        await using var tx = await _context.Database.BeginTransactionAsync();
+        await using var transaction = await _context.Database.BeginTransactionAsync();
 
         try
         {
@@ -248,25 +233,15 @@ public class BookController : Controller
 
             foreach (var slot in normalizedSlots)
             {
-                _context.Sessions.Add(new Session
-                {
-                    DoctorId = doctor.Id,
-                    PatientId = userId,
-                    StartTime = slot.StartTime,
-                    EndTime = slot.EndTime,
-                    Price = doctor.Price,
-                    SessionStatus = SessionStatus.Scheduled,
-                    PaymentStatus = model.PaymentStatus,
-                    Contact = contact
-                });
+                await _confirmService.AddSessionToDb(doctor, slot, userId, model.PaymentStatus, contact);
             }
 
             await _context.SaveChangesAsync();
-            await tx.CommitAsync();
+            await transaction.CommitAsync();
         }
         catch
         {
-            await tx.RollbackAsync();
+            await transaction.RollbackAsync();
             throw;
         }
 
@@ -286,9 +261,7 @@ public class BookController : Controller
     [Authorize]
     public async Task<IActionResult> Confirmation(int doctorId, int count)
     {
-        var doctor = await _context.Doctors
-            .AsNoTracking()
-            .FirstOrDefaultAsync(d => d.Id == doctorId);
+        var doctor = await _bookSessionService.GetSelectedDoctor(doctorId);
 
         var vm = new ConfirmationViewModel
         {

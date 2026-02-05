@@ -24,6 +24,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<SafeMind.Services.BookService>();
 builder.Services.AddScoped<SafeMind.Services.BookSessionService>();
 builder.Services.AddScoped<SafeMind.Services.SlotsService>();
+builder.Services.AddScoped<SafeMind.Services.ConfirmService>();
+
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
