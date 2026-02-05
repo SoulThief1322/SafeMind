@@ -9,7 +9,7 @@ using SafeMind.Data;
 using SafeMind.Models;
 using Data.Models;
 using Data.Enums;
-
+using SafeMind.Services;
 namespace SafeMind.Controllers;
 
 [Authorize]
@@ -17,11 +17,17 @@ public class BookController : Controller
 {
     private readonly ILogger<BookController> _logger;
     private readonly SafeMindDbContext _context;
+    private readonly BookService _bookService;
+    private readonly BookSessionService _bookSessionService;
+    private readonly SlotsService _slotsService;
 
-    public BookController(ILogger<BookController> logger, SafeMindDbContext context)
+    public BookController(ILogger<BookController> logger, SafeMindDbContext context, BookService bookService, BookSessionService bookSessionService, SlotsService slotsService)
     {
         _logger = logger;
         _context = context;
+        _bookService = bookService;
+        _bookSessionService = bookSessionService;
+        _slotsService = slotsService;
     }
 
     [AllowAnonymous]
@@ -29,21 +35,16 @@ public class BookController : Controller
     {
         const int pageSize = 5;
 
-        var doctorQuery = _context.Doctors
-            .Include(d => d.DoctorSpecialties).ThenInclude(ds => ds.Specialty)
-            .Include(d => d.DoctorLanguages).ThenInclude(dl => dl.Language)
-            .AsNoTracking()
-            .AsQueryable();
+        var doctorQuery = await _bookService.GetDoctors();
 
         if (!string.IsNullOrWhiteSpace(specialty))
         {
-            doctorQuery = doctorQuery.Where(d =>
-                d.DoctorSpecialties.Any(ds => ds.Specialty != null && ds.Specialty.Name == specialty));
+            doctorQuery = await _bookService.DoctorsWithSpecialty(specialty);
         }
 
         if (!string.IsNullOrWhiteSpace(name))
         {
-            doctorQuery = doctorQuery.Where(d => d.Name.Contains(name));
+            doctorQuery = await _bookService.DoctorsWithName(name);
         }
 
         var totalDoctors = await doctorQuery.CountAsync();
@@ -55,61 +56,33 @@ public class BookController : Controller
 
         page = totalPages == 0 ? 1 : Math.Min(page, totalPages);
 
-        var doctors = await doctorQuery
-            .OrderBy(d => d.Name)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .ToListAsync();
+        var doctors = await _bookService.GetPageDoctors(doctorQuery, page, pageSize);
 
-        var specialties = await _context.Specialties
-            .AsNoTracking()
-            .OrderBy(s => s.Name)
-            .Select(s => s.Name)
-            .ToListAsync();
+        var specialties = await _bookService.GetSpecialties();
 
         var vm = new BookPageViewModel
         {
-            Doctors = doctors.Select(d => new DoctorViewModel
-            {
-                Id = d.Id,
-                Name = d.Name,
-                Specialties = d.DoctorSpecialties
-                    .Where(ds => ds.Specialty != null)
-                    .Select(ds => ds.Specialty!.Name),
-                Languages = d.DoctorLanguages
-                    .Where(dl => dl.Language != null)
-                    .Select(dl => dl.Language!.Name),
-                SessionDuration = d.SessionDuration,
-                Price = d.Price,
-                WorkStart = d.WorkStart,
-                WorkEnd = d.WorkEnd,
-                Rating = d.Rating,
-                Biography = d.Biography
-            }).ToList(),
+            Doctors = doctors
+        .Select(DoctorMapper.ToViewModel)
+        .ToList(),
+
             Specialties = specialties,
             SelectedSpecialty = specialty ?? string.Empty,
             SearchName = name ?? string.Empty,
             PageNumber = page,
             TotalPages = totalPages,
             PageSize = pageSize,
-            HasSearched = true
         };
+
 
         return View(vm);
     }
 
-    [HttpGet("/Book/BookAppointment/{id:int}")]
-    [AllowAnonymous]
-    public async Task<IActionResult> BookAppointment(int id, DateOnly? date)
+    [HttpGet("/Book/BookSession/{id:int}")]
+    [Authorize]
+    public async Task<IActionResult> BookSession(int id, DateOnly? date)
     {
-        if (!User.Identity?.IsAuthenticated ?? false)
-            return Challenge();
-
-        var doctor = await _context.Doctors
-            .Include(d => d.DoctorSpecialties).ThenInclude(ds => ds.Specialty)
-            .Include(d => d.DoctorLanguages).ThenInclude(dl => dl.Language)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(d => d.Id == id);
+        var doctor = await _bookSessionService.GetSelectedDoctor(id);
 
         if (doctor == null)
             return NotFound();
@@ -119,19 +92,11 @@ public class BookController : Controller
         var dayStart = new DateTimeOffset(selectedDate.ToDateTime(TimeOnly.MinValue), TimeSpan.Zero);
         var dayEnd = dayStart.AddDays(1);
 
-        var bookedTimes = await _context.Sessions
-            .AsNoTracking()
-            .Where(s =>
-                s.DoctorId == id &&
-                s.StartTime >= dayStart &&
-                s.StartTime < dayEnd &&
-                s.SessionStatus != SessionStatus.Cancelled)
-            .Select(s => TimeOnly.FromDateTime(s.StartTime.DateTime))
-            .ToListAsync();
+        var bookedTimes = await _bookSessionService.GetTakenSessions(dayStart, dayEnd, doctor.Id);
 
-        var availableSlots = BuildSlots(doctor, selectedDate, bookedTimes);
+        var availableSlots = _slotsService.BuildSlots(doctor, selectedDate, bookedTimes);
 
-        var vm = new AppointmentViewModel
+        var vm = new SessionsViewModel
         {
             DoctorId = doctor.Id,
             DoctorName = doctor.Name,
@@ -142,7 +107,6 @@ public class BookController : Controller
             SessionDuration = doctor.SessionDuration,
             Rating = doctor.Rating,
             AvailabilityRange = $"{doctor.WorkStart:HH\\:mm} - {doctor.WorkEnd:HH\\:mm}",
-            Initials = GetInitials(doctor.Name),
             SelectedDate = selectedDate,
             AvailableSlots = availableSlots
         };
@@ -151,15 +115,13 @@ public class BookController : Controller
     }
 
     [HttpGet("/Book/AvailableSessions")]
-    [AllowAnonymous]
+    [Authorize]
     public async Task<IActionResult> AvailableSessions(int id, DateOnly date)
     {
         if (!User.Identity?.IsAuthenticated ?? false)
             return Challenge();
 
-        var doctor = await _context.Doctors
-            .AsNoTracking()
-            .FirstOrDefaultAsync(d => d.Id == id);
+        var doctor = await _bookSessionService.GetSelectedDoctor(id);
 
         if (doctor == null)
             return NotFound();
@@ -167,17 +129,10 @@ public class BookController : Controller
         var dayStart = new DateTimeOffset(date.ToDateTime(TimeOnly.MinValue), TimeSpan.Zero);
         var dayEnd = dayStart.AddDays(1);
 
-        var bookedTimes = await _context.Sessions
-            .AsNoTracking()
-            .Where(s =>
-                s.DoctorId == id &&
-                s.StartTime >= dayStart &&
-                s.StartTime < dayEnd &&
-                s.SessionStatus != SessionStatus.Cancelled)
-            .Select(s => TimeOnly.FromDateTime(s.StartTime.DateTime))
-            .ToListAsync();
+        var bookedTimes = await _bookSessionService.GetTakenSessions(dayStart, dayEnd, doctor.Id);
+            
 
-        var slots = BuildSlots(doctor, date, bookedTimes);
+        var slots = _slotsService.BuildSlots(doctor, date, bookedTimes);
 
         return Json(new
         {
@@ -189,16 +144,17 @@ public class BookController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize]
     public async Task<IActionResult> Checkout(int doctorId, string? selectedSlotsJson)
     {
         if (!User.Identity?.IsAuthenticated ?? false)
             return Challenge();
 
-        if (!TryParseSlots(selectedSlotsJson, out var payloadDoctorId, out var slots, out var error))
+        if (!_slotsService.TryParseSlots(selectedSlotsJson, out var payloadDoctorId, out var slots, out var error))
         {
             var fallbackDoctorId = doctorId != 0 ? doctorId : payloadDoctorId;
             TempData["Error"] = error;
-            return RedirectToAction(nameof(BookAppointment), new { id = fallbackDoctorId });
+            return RedirectToAction(nameof(BookSession), new { id = fallbackDoctorId });
         }
 
         var effectiveDoctorId = doctorId != 0 ? doctorId : payloadDoctorId;
@@ -209,9 +165,7 @@ public class BookController : Controller
         if (effectiveDoctorId == 0)
             return BadRequest("Missing doctor.");
 
-        var doctor = await _context.Doctors
-            .AsNoTracking()
-            .FirstOrDefaultAsync(d => d.Id == effectiveDoctorId);
+        var doctor = await _bookSessionService.GetSelectedDoctor(effectiveDoctorId);
 
         if (doctor == null)
             return NotFound();
@@ -227,6 +181,7 @@ public class BookController : Controller
     }
 
     [HttpPost]
+    [Authorize]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Confirm(CheckoutViewModel model)
     {
@@ -236,9 +191,7 @@ public class BookController : Controller
         if (!Enum.IsDefined(typeof(PaymentStatus), model.PaymentStatus))
             model.PaymentStatus = PaymentStatus.Pending;
 
-        var doctor = await _context.Doctors
-            .AsNoTracking()
-            .FirstOrDefaultAsync(d => d.Id == model.DoctorId);
+        var doctor = await _bookSessionService.GetSelectedDoctor(model.DoctorId);
 
         if (doctor == null)
             return NotFound();
@@ -257,7 +210,7 @@ public class BookController : Controller
 
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        var normalizedSlots = NormalizeSlots(model.Slots, doctor.SessionDuration);
+        var normalizedSlots = _slotsService.NormalizeSlots(model.Slots, doctor.SessionDuration);
         var requestedStarts = normalizedSlots.Select(s => s.StartTime).ToList();
 
         var conflicts = await _context.Sessions
@@ -330,6 +283,7 @@ public class BookController : Controller
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> Confirmation(int doctorId, int count)
     {
         var doctor = await _context.Doctors
@@ -345,120 +299,4 @@ public class BookController : Controller
         return View(vm);
     }
 
-    // ===================== Helpers =====================
-
-    private static bool TryParseSlots(string? rawJson, out int doctorId, out List<SlotVM>? slots, out string error)
-    {
-        doctorId = 0;
-        slots = null;
-        error = "Please select at least one session.";
-
-        if (string.IsNullOrWhiteSpace(rawJson))
-            return false;
-
-        try
-        {
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var trimmed = rawJson.TrimStart();
-
-            List<SlotInput>? parsedSlots;
-
-            if (trimmed.StartsWith("{"))
-            {
-                var payload = JsonSerializer.Deserialize<SlotPayload>(rawJson, options);
-                doctorId = payload?.DoctorId ?? 0;
-                parsedSlots = payload?.Slots;
-            }
-            else
-            {
-                parsedSlots = JsonSerializer.Deserialize<List<SlotInput>>(rawJson, options);
-            }
-
-            if (parsedSlots == null || parsedSlots.Count == 0)
-                return false;
-
-            slots = parsedSlots
-                .Where(p => DateTime.TryParse(p.Date, out _) && TimeSpan.TryParse(p.Time, out _))
-                .Select(p => new SlotVM
-                {
-                    Date = DateTime.Parse(p.Date!).Date,
-                    Time = TimeSpan.Parse(p.Time!)
-                })
-                .DistinctBy(s => new { s.Date, s.Time })
-                .OrderBy(s => s.Date)
-                .ThenBy(s => s.Time)
-                .ToList();
-
-            return slots.Count > 0;
-        }
-        catch
-        {
-            error = "Invalid slot selection.";
-            return false;
-        }
-    }
-
-    private static List<NormalizedSlot> NormalizeSlots(IEnumerable<SlotVM> slots, int durationMinutes)
-    {
-        return slots.Select(s =>
-        {
-            var startUtc = DateTime.SpecifyKind(s.Date + s.Time, DateTimeKind.Utc);
-            var start = new DateTimeOffset(startUtc);
-
-            return new NormalizedSlot
-            {
-                StartTime = start,
-                EndTime = start.AddMinutes(durationMinutes)
-            };
-        }).ToList();
-    }
-
-    private static IReadOnlyCollection<string> BuildSlots(
-        Doctor doctor,
-        DateOnly date,
-        IEnumerable<TimeOnly> bookedTimes)
-    {
-        var booked = new HashSet<TimeOnly>(bookedTimes);
-        var slots = new List<string>();
-
-        var today = DateOnly.FromDateTime(DateTime.UtcNow);
-        var currentTimeUtc = TimeOnly.FromDateTime(DateTime.UtcNow);
-
-        var start = date.ToDateTime(doctor.WorkStart);
-        var end = date.ToDateTime(doctor.WorkEnd);
-        var duration = TimeSpan.FromMinutes(doctor.SessionDuration);
-
-        for (var current = start; current.Add(duration) <= end; current = current.Add(duration))
-        {
-            var time = TimeOnly.FromDateTime(current);
-            if (date == today && time <= currentTimeUtc)
-                continue;
-            if (!booked.Contains(time))
-                slots.Add(current.ToString("HH:mm"));
-        }
-
-        return slots;
-    }
-
-    private static string GetInitials(string name) =>
-        string.Join("", name.Split(' ', StringSplitOptions.RemoveEmptyEntries)
-            .Select(p => char.ToUpperInvariant(p[0])));
-
-    private sealed class SlotInput
-    {
-        public string? Date { get; set; }
-        public string? Time { get; set; }
-    }
-
-    private sealed class SlotPayload
-    {
-        public int DoctorId { get; set; }
-        public List<SlotInput>? Slots { get; set; }
-    }
-
-    private sealed class NormalizedSlot
-    {
-        public DateTimeOffset StartTime { get; set; }
-        public DateTimeOffset EndTime { get; set; }
-    }
 }
