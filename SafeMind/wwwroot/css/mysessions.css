@@ -104,6 +104,7 @@
 	.session-list {
 		display: grid;
 		gap: 0.75rem;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 	}
 
 	.session-card {
@@ -179,6 +180,18 @@
 		border-color: #fed7aa;
 	}
 
+	.chip-neutral {
+		background: #f6f7fb;
+		color: #334155;
+		border-color: #e2e8f0;
+	}
+
+	.btn-primary-solid,
+	.btn-primary-ghost,
+	.btn-ghost {
+		transition: transform 120ms ease, box-shadow 120ms ease, background 140ms ease, border-color 140ms ease, color 140ms ease;
+	}
+
 	.btn-primary-solid {
 		background: var(--sm-primary);
 		color: #fff;
@@ -186,6 +199,13 @@
 		padding: 0.45rem 0.9rem;
 		border-radius: 10px;
 		font-weight: 700;
+	}
+
+	.btn-primary-solid:hover {
+		background: #255a46;
+		border-color: #255a46;
+		transform: scale(0.98);
+		box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
 	}
 
 	.btn-primary-ghost {
@@ -197,6 +217,14 @@
 		font-weight: 700;
 	}
 
+	.btn-primary-ghost:hover {
+		background: #eef5f1;
+		border-color: #d5e6db;
+		transform: scale(0.98);
+	}
+	.section-head{
+		margin: 10px;
+	}
 	.btn-ghost {
 		background: #f9fafb;
 		color: var(--sm-text);
@@ -204,6 +232,12 @@
 		padding: 0.4rem 0.85rem;
 		border-radius: 10px;
 		font-weight: 700;
+	}
+
+	.btn-ghost:hover {
+		background: #f1f5f9;
+		border-color: #d8dee5;
+		transform: scale(0.98);
 	}
 
 	@media (max-width: 640px) {

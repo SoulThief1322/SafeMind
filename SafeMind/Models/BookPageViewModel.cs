@@ -14,9 +14,6 @@ namespace SafeMind.Models
 
         public string SearchName { get; set; } = string.Empty;
 
-        public bool HasSearched { get; set; }
-            = false;
-
         public int PageNumber { get; set; } = 1;
 
         public int TotalPages { get; set; }

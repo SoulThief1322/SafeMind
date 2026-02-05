@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SafeMind.Models
 {
-    public class AppointmentViewModel
+    public class SessionsViewModel
     {
         public int DoctorId { get; set; }
         public string DoctorName { get; set; } = string.Empty;
@@ -14,8 +14,6 @@ namespace SafeMind.Models
         public int SessionDuration { get; set; }
         public decimal Rating { get; set; }
         public string AvailabilityRange { get; set; } = string.Empty;
-        public string Initials { get; set; } = string.Empty;
-
         public DateOnly SelectedDate { get; set; }
         public IReadOnlyCollection<string> AvailableSlots { get; set; } = Array.Empty<string>();
     }

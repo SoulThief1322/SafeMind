@@ -9,12 +9,16 @@
       "PackagePath": "staticwebassets\\css\\articles.css"
     },
     {
-      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\book-appointment.css",
-      "PackagePath": "staticwebassets\\css\\book-appointment.css"
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\book-session.css",
+      "PackagePath": "staticwebassets\\css\\book-session.css"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\book.css",
       "PackagePath": "staticwebassets\\css\\book.css"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\booking-flow.css",
+      "PackagePath": "staticwebassets\\css\\booking-flow.css"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\diaryentry.css",
@@ -55,6 +59,14 @@
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\articles.js",
       "PackagePath": "staticwebassets\\js\\articles.js"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\book-appointment.js",
+      "PackagePath": "staticwebassets\\js\\book-appointment.js"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\book-index.js",
+      "PackagePath": "staticwebassets\\js\\book-index.js"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\login.js",

@@ -324,6 +324,89 @@ p {
     justify-content: center;
 }
 
+/* Processing */
+
+.processing-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 3rem 1rem;
+}
+
+.processing-card {
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    padding: 2.3rem;
+}
+
+.spinner-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.4rem;
+}
+
+.loading-spinner {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 6px solid var(--border);
+    border-top-color: var(--accent);
+    animation: spin 0.9s linear infinite;
+}
+
+.processing-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 1.25rem;
+}
+
+.processing-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.45;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.processing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.processing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.35;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-4px);
+    }
+
+    100% {
+        opacity: 0.35;
+        transform: translateY(0);
+    }
+}
+
 @media (max-width: 900px) {
     .checkout-grid {
         grid-template-columns: 1fr;

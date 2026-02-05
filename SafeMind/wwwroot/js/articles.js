@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Rotates the hero banner content automatically and on user selection.
   const hero = document.querySelector("[data-hero-rotator]");
   if (!hero) return;
 
@@ -73,24 +74,27 @@ document.addEventListener("DOMContentLoaded", () => {
   let timerId;
   let isSwapping = false;
 
+  // Builds the pagination dots and wires them to swap the hero slide.
   const createDots = () => {
     dotsEl.innerHTML = "";
-    heroArticles.forEach((article, i) => {
+    heroArticles.forEach((article, articleIndex) => {
       const dot = document.createElement("button");
       dot.type = "button";
       dot.className = "hero-dot";
       dot.setAttribute("role", "tab");
       dot.setAttribute("aria-label", `Show ${article.title}`);
-      dot.addEventListener("click", () => setIndex(i, true));
+      dot.addEventListener("click", () => setIndex(articleIndex, true));
       dotsEl.appendChild(dot);
     });
   };
 
+  // Restarts the auto-advance timer for the hero rotator.
   const restartTimer = () => {
     clearInterval(timerId);
     timerId = window.setInterval(() => setIndex(index + 1), 7000);
   };
 
+  // Applies the active article data to the hero UI.
   const applyHero = () => {
     const item = heroArticles[index];
     if (!item) return;
@@ -110,14 +114,15 @@ document.addEventListener("DOMContentLoaded", () => {
       link.classList.toggle("active", heroTopic === item.topic);
     });
 
-    [...dotsEl.children].forEach((dot, i) => {
-      const isActive = i === index;
+    [...dotsEl.children].forEach((dot, dotIndex) => {
+      const isActive = dotIndex === index;
       dot.classList.toggle("is-active", isActive);
       dot.setAttribute("aria-selected", isActive ? "true" : "false");
       dot.tabIndex = isActive ? 0 : -1;
     });
   };
 
+  // Swaps to a specific hero slide, optionally triggered by user interaction.
   const setIndex = (nextIndex, isManual = false) => {
     if (isSwapping) return;
     const target = (nextIndex + heroArticles.length) % heroArticles.length;

@@ -3,16 +3,4 @@
 
 // Write your JavaScript code.
 
-const qs = new URLSearchParams(location.search);
-const openLoginModal = () => {
-    if (typeof openLogin === "function") {
-        openLogin();
-    } else if (typeof openAuthModal === "function") {
-        openAuthModal("login");
-    }
-};
-
-if (qs.get("auth") === "login") {
-    openLoginModal();
-    history.replaceState({}, "", location.pathname + location.hash);
-}
+// No-op: previously handled ?auth=login deep link. Left intentionally empty to avoid unused script.

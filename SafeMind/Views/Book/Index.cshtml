@@ -125,7 +125,7 @@
                                 <div class="provider-actions">
                                     <div class="price">$@doctor.Price</div>
                                     <div class="muted small">@doctor.SessionDuration min session</div>
-                                       <a class="book-btn" href="@Url.Action(action: "BookAppointment", "Book", new { id = doctor.Id })">Book</a>
+                                       <a class="book-btn" href="@Url.Action(action: "BookSession", "Book", new { id = doctor.Id })">Book</a>
                                 </div>
                             </div>
                         </div>
