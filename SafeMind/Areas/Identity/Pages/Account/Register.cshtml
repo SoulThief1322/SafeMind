@@ -1,0 +1,52 @@
+@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<link rel="stylesheet" href="~/css/login-page.css" asp-append-version="true" />
+
+<div class="page-login">
+    <div class="page-login-card">
+        <div class="page-login-logo">SM</div>
+        <h1 class="page-login-title">Create your account</h1>
+        <p class="page-login-lead">Join SafeMind to capture every session, insight, and step forward.</p>
+        <div class="page-login-badge">Trusted &amp; secure</div>
+
+        <form class="page-login-form" id="register" method="post" asp-route-returnUrl="@Model.ReturnUrl">
+            <div asp-validation-summary="ModelOnly" class="page-login-errors" role="alert"></div>
+
+            <div class="page-login-field">
+                <input asp-for="Input.Email" autocomplete="username" aria-required="true" placeholder=" " />
+                <label asp-for="Input.Email">Email address</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="page-login-field">
+                <input asp-for="Input.Password" autocomplete="new-password" aria-required="true" placeholder=" " />
+                <label asp-for="Input.Password">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="page-login-field">
+                <input asp-for="Input.ConfirmPassword" autocomplete="new-password" aria-required="true" placeholder=" " />
+                <label asp-for="Input.ConfirmPassword">Confirm password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="page-login-button">Create account</button>
+        </form>
+
+        <div class="page-login-footer">
+            <span>Already have an account?</span>
+            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Sign in</a>
+        </div>
+
+        <div class="page-login-footer">
+            <span>Are you a clinician?</span>
+            <a asp-area="Identity" asp-page="/Account/RegisterDoctor" asp-route-returnUrl="@Model.ReturnUrl">Register as a doctor</a>
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />

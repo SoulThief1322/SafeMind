@@ -40,6 +40,11 @@
 				<span>New here?</span>
 				<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Create account</a>
 			</div>
+
+			<div class="page-login-footer">
+				<span>Are you a clinician?</span>
+				<a asp-area="Identity" asp-page="/Account/RegisterDoctor" asp-route-returnUrl="@Model.ReturnUrl">Register as a doctor</a>
+			</div>
 	</div>
 </div>
 
