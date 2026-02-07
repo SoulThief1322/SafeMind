@@ -1,0 +1,46 @@
+@page
+@model LoginModel
+@{
+	ViewData["Title"] = "Log in";
+}
+
+<link rel="stylesheet" href="~/css/login-page.css" asp-append-version="true" />
+
+<div class="page-login">
+	<div class="page-login-card">
+		<div class="page-login-logo">SM</div>
+		<h1 class="page-login-title">Sign in</h1>
+		<p class="page-login-lead">Stay on track-your sessions, notes, and progress all in one place.</p>
+		<div class="page-login-badge">Trusted &amp; secure</div>
+
+			<form class="page-login-form" id="account" method="post">
+				<div asp-validation-summary="ModelOnly" class="page-login-errors" role="alert"></div>
+
+				<div class="page-login-field">
+				<input asp-for="Input.Email" autocomplete="username" aria-required="true" placeholder=" " />
+				<label asp-for="Input.Email">Email address</label>
+				<span asp-validation-for="Input.Email" class="text-danger"></span>
+			</div>
+
+			<div class="page-login-field">
+				<input asp-for="Input.Password" autocomplete="current-password" aria-required="true" placeholder=" " />
+				<label asp-for="Input.Password">Password</label>
+				</div>
+
+				<div class="page-login-meta">
+					<a asp-page="./ForgotPassword">Forgot password?</a>
+				</div>
+
+				<button type="submit" class="page-login-button">Continue</button>
+			</form>
+
+			
+
+			<div class="page-login-footer">
+				<span>New here?</span>
+				<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Create account</a>
+			</div>
+	</div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
