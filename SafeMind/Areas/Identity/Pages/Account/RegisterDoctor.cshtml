@@ -10,7 +10,7 @@
 <script src="~/js/register-doctor-timepicker.js" asp-append-version="true"></script>
 
 <div class="page-login">
-	<div class="page-login-card">
+	<div class="page-login-card page-login-card--wide">
 		<div class="page-login-logo">SM</div>
 		<h1 class="page-login-title">Register as a Clinician</h1>
 		<p class="page-login-lead">Join our network of mental health professionals</p>
@@ -19,7 +19,7 @@
 		<form class="page-login-form" id="registerDoctor" method="post" asp-route-returnUrl="@Model.ReturnUrl">
 			<div asp-validation-summary="ModelOnly" class="page-login-errors" role="alert"></div>
 
-			<div class="page-login-field">
+			<div class="page-login-field grid-span-2">
 				<input asp-for="Input.FullName" aria-required="true" placeholder=" " />
 				<label asp-for="Input.FullName">Full Name</label>
 				<span asp-validation-for="Input.FullName" class="text-danger"></span>
@@ -37,7 +37,7 @@
 				<span asp-validation-for="Input.DoctorId" class="text-danger"></span>
 			</div>
 
-			<div class="page-login-field">
+			<div class="page-login-field grid-span-2">
 				<input asp-for="Input.Email" autocomplete="username" aria-required="true" placeholder=" " />
 				<label asp-for="Input.Email">Email address</label>
 				<span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -98,19 +98,34 @@
 			</div>
 
 			<div class="page-login-field">
+				<input asp-for="Input.Price" type="number" min="20" max="500" step="1" aria-required="true"
+					   placeholder=" " />
+				<label asp-for="Input.Price">Price per session</label>
+				<span asp-validation-for="Input.Price" class="text-danger"></span>
+			</div>
+
+			<div class="page-login-field page-login-field--stacked grid-span-2">
+				<div class="field-heading">Biography</div>
+				<div class="field-subtitle">Share a concise intro clients will see</div>
+				<textarea asp-for="Input.Biography" rows="4" placeholder=""></textarea>
+				<span asp-validation-for="Input.Biography" class="text-danger"></span>
+				<small class="field-hint">Aim for 50-2000 characters.</small>
+			</div>
+
+			<div class="page-login-field">
 				<input asp-for="Input.Password" autocomplete="new-password" aria-required="true" placeholder=" " />
 				<label asp-for="Input.Password">Password</label>
 				<span asp-validation-for="Input.Password" class="text-danger"></span>
 			</div>
 
-			<div class="page-login-field">
+			<div class="page-login-field grid-span-2">
 				<input asp-for="Input.ConfirmPassword" autocomplete="new-password" aria-required="true"
 					   placeholder=" " />
 				<label asp-for="Input.ConfirmPassword">Confirm password</label>
 				<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
 			</div>
 
-			<button type="submit" class="page-login-button">Register</button>
+			<button type="submit" class="page-login-button grid-span-2">Register</button>
 		</form>
 
 		<div class="page-login-footer">

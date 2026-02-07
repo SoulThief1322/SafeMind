@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using SafeMind.Data;
 using Data.Models;
 using System.ComponentModel.DataAnnotations;
+using SafeMind.Services;
+using Data.Constants;
 
 namespace SafeMind.Areas.Identity.Pages.Account
 {
@@ -17,6 +19,7 @@ namespace SafeMind.Areas.Identity.Pages.Account
         private readonly DoctorLicensingDbContext _licensingContext;
         private readonly SafeMindDbContext _context;
         private readonly ILogger<RegisterDoctorModel> _logger;
+        private readonly IDeterministicHasher _hasher;
 
         public RegisterDoctorModel(
             UserManager<IdentityUser> userManager,
@@ -24,7 +27,8 @@ namespace SafeMind.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             DoctorLicensingDbContext licensingContext,
             SafeMindDbContext context,
-            ILogger<RegisterDoctorModel> logger)
+            ILogger<RegisterDoctorModel> logger,
+            IDeterministicHasher hasher)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -33,6 +37,7 @@ namespace SafeMind.Areas.Identity.Pages.Account
             _licensingContext = licensingContext;
             _context = context;
             _logger = logger;
+            _hasher = hasher;
         }
 
         [BindProperty]
@@ -95,6 +100,16 @@ namespace SafeMind.Areas.Identity.Pages.Account
             [Range(30, 120, ErrorMessage = "Session duration must be between 30 and 120 minutes")]
             [Display(Name = "Session Duration (minutes)")]
             public int SessionDuration { get; set; } = 50;
+
+            [Required]
+            [Range(DoctorConstants.MinPrice, DoctorConstants.MaxPrice, ErrorMessage = "Price must be between {1} and {2}.")]
+            [Display(Name = "Price per session")]
+            public decimal Price { get; set; } = (decimal)DoctorConstants.MinPrice;
+
+            [Required]
+            [StringLength(DoctorConstants.BiographyMaxLength, MinimumLength = DoctorConstants.BiographyMinLength, ErrorMessage = "Biography must be between {2} and {1} characters.")]
+            [Display(Name = "Biography")]
+            public string Biography { get; set; } = string.Empty;
         }
 
         public async Task OnGetAsync(string? returnUrl = null)
@@ -119,13 +134,35 @@ namespace SafeMind.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                var hashedNationalId = _hasher.Hash(Input.NationalId);
+                var hashedLicenseNumber = _hasher.Hash(Input.DoctorId);
+
                 var license = await _licensingContext.DoctorLicenses
                     .Include(dl => dl.DoctorLicenseSpecialties)
                     .ThenInclude(dls => dls.Specialty)
                     .FirstOrDefaultAsync(dl =>
                         dl.FullName == Input.FullName &&
-                        dl.NationalId == Input.NationalId &&
-                        dl.LicenseNumber == Input.DoctorId);
+                        dl.NationalId == hashedNationalId &&
+                        dl.LicenseNumber == hashedLicenseNumber);
+
+                // Backfill if legacy records were stored unhashed
+                if (license == null)
+                {
+                    license = await _licensingContext.DoctorLicenses
+                        .Include(dl => dl.DoctorLicenseSpecialties)
+                        .ThenInclude(dls => dls.Specialty)
+                        .FirstOrDefaultAsync(dl =>
+                            dl.FullName == Input.FullName &&
+                            dl.NationalId == Input.NationalId &&
+                            dl.LicenseNumber == Input.DoctorId);
+
+                    if (license != null)
+                    {
+                        license.NationalId = hashedNationalId;
+                        license.LicenseNumber = hashedLicenseNumber;
+                        await _licensingContext.SaveChangesAsync();
+                    }
+                }
 
                 if (license == null || license.Status != "Active" || license.ExpiresOn <= DateTime.UtcNow)
                 {
@@ -168,9 +205,9 @@ namespace SafeMind.Areas.Identity.Pages.Account
                         WorkStart = Input.WorkStart,
                         WorkEnd = Input.WorkEnd,
                         SessionDuration = Input.SessionDuration,
-                        Rating = 0,
-                        Biography = string.Empty,
-                        Price = 0
+                        Rating = (decimal)GeneralConstants.RatingMinNumber,
+                        Biography = Input.Biography,
+                        Price = Input.Price
                     };
                     _context.Doctors.Add(doctor);
                     await _context.SaveChangesAsync();

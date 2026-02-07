@@ -18,6 +18,7 @@ namespace SafeMind.Services
 
             var mainContext = provider.GetRequiredService<SafeMindDbContext>();
             var licensingContext = provider.GetRequiredService<DoctorLicensingDbContext>();
+            var hasher = provider.GetRequiredService<IDeterministicHasher>();
             var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = provider.GetRequiredService<UserManager<IdentityUser>>();
 
@@ -28,7 +29,7 @@ namespace SafeMind.Services
 
             var users = await EnsureUsersAsync(userManager);
 
-            await SeedDoctorLicensesAsync(licensingContext);
+            await SeedDoctorLicensesAsync(licensingContext, hasher);
             await SeedCoreLookupsAsync(mainContext);
             await SeedDoctorsAsync(mainContext, users);
         }
@@ -87,9 +88,33 @@ namespace SafeMind.Services
             return results;
         }
 
-        private static async Task SeedDoctorLicensesAsync(DoctorLicensingDbContext ctx)
+        private static async Task SeedDoctorLicensesAsync(DoctorLicensingDbContext ctx, IDeterministicHasher hasher)
         {
-            if (await ctx.DoctorLicenses.AnyAsync()) return;
+            var existing = await ctx.DoctorLicenses.ToListAsync();
+
+            // Upgrade legacy plaintext records in place
+            var upgraded = false;
+            foreach (var license in existing)
+            {
+                if (IsLegacyValue(license.LicenseNumber))
+                {
+                    license.LicenseNumber = hasher.Hash(license.LicenseNumber);
+                    upgraded = true;
+                }
+
+                if (IsLegacyValue(license.NationalId))
+                {
+                    license.NationalId = hasher.Hash(license.NationalId);
+                    upgraded = true;
+                }
+            }
+
+            if (upgraded)
+            {
+                await ctx.SaveChangesAsync();
+            }
+
+            var existingLicenses = existing.Select(l => l.LicenseNumber).ToHashSet();
 
             // Seed specialties first
             if (!await ctx.LicenceSpecialties.AnyAsync())
@@ -107,25 +132,65 @@ namespace SafeMind.Services
 
             var licenseData = new[]
             {
-                new { LicenseNumber = "1000000001", FullName = "Aleksandar Dimitrov", NationalId = "8001012345", Specialty = "Psychiatry" },
-                new { LicenseNumber = "1000000002", FullName = "Borislava Ivanova", NationalId = "8205123456", Specialty = "Clinical Psychology" },
-                new { LicenseNumber = "1000000003", FullName = "Viktor Petrov", NationalId = "7909234567", Specialty = "Counseling" },
-                new { LicenseNumber = "1000000004", FullName = "Desislava Georgieva", NationalId = "8507045678", Specialty = "Neurology" },
-                new { LicenseNumber = "1000000005", FullName = "Emil Nikolov", NationalId = "8803156789", Specialty = "Family Medicine" },
-                new { LicenseNumber = "1000000006", FullName = "Gabriela Stoyanova", NationalId = "9008267890", Specialty = "Pediatrics" },
-                new { LicenseNumber = "1000000007", FullName = "Hristo Kolev", NationalId = "7701078901", Specialty = "Psychiatry" },
-                new { LicenseNumber = "1000000008", FullName = "Iva Marinova", NationalId = "8602189012", Specialty = "Geriatrics" },
-                new { LicenseNumber = "1000000009", FullName = "Kalin Todorov", NationalId = "8403290123", Specialty = "Addiction Medicine" },
-                new { LicenseNumber = "1000000010", FullName = "Lyubomira Hristova", NationalId = "9104301234", Specialty = "Child Psychology" }
+                new { LicenseNumber = "1000000001", FullName = "Aleksandar Dimitrov", NationalId = "8001012345", Specialties = new[]{ "Psychiatry", "Behavioral Therapy" } },
+                new { LicenseNumber = "1000000002", FullName = "Borislava Ivanova", NationalId = "8205123456", Specialties = new[]{ "Clinical Psychology", "Counseling" } },
+                new { LicenseNumber = "1000000003", FullName = "Viktor Petrov", NationalId = "7909234567", Specialties = new[]{ "Counseling", "Behavioral Therapy" } },
+                new { LicenseNumber = "1000000004", FullName = "Desislava Georgieva", NationalId = "8507045678", Specialties = new[]{ "Neurology", "Family Medicine" } },
+                new { LicenseNumber = "1000000005", FullName = "Emil Nikolov", NationalId = "8803156789", Specialties = new[]{ "Family Medicine", "Geriatrics" } },
+                new { LicenseNumber = "1000000006", FullName = "Gabriela Stoyanova", NationalId = "9008267890", Specialties = new[]{ "Pediatrics", "Child Psychology" } },
+                new { LicenseNumber = "1000000007", FullName = "Hristo Kolev", NationalId = "7701078901", Specialties = new[]{ "Psychiatry", "Addiction Medicine" } },
+                new { LicenseNumber = "1000000008", FullName = "Iva Marinova", NationalId = "8602189012", Specialties = new[]{ "Geriatrics", "Family Medicine" } },
+                new { LicenseNumber = "1000000009", FullName = "Kalin Todorov", NationalId = "8403290123", Specialties = new[]{ "Addiction Medicine", "Behavioral Therapy" } },
+                new { LicenseNumber = "1000000010", FullName = "Lyubomira Hristova", NationalId = "9104301234", Specialties = new[]{ "Child Psychology", "Pediatrics" } },
+
+                new { LicenseNumber = "2000000031", FullName = "Petar Vasilev", NationalId = "7301011111", Specialties = new[]{ "Psychiatry", "Neurology" } },
+                new { LicenseNumber = "2000000032", FullName = "Stanimira Koleva", NationalId = "7402022222", Specialties = new[]{ "Clinical Psychology", "Behavioral Therapy" } },
+                new { LicenseNumber = "2000000033", FullName = "Miroslav Genov", NationalId = "7503033333", Specialties = new[]{ "Family Medicine", "Geriatrics" } },
+                new { LicenseNumber = "2000000034", FullName = "Elena Bogdanova", NationalId = "7604044444", Specialties = new[]{ "Pediatrics", "Child Psychology" } },
+                new { LicenseNumber = "2000000035", FullName = "Tihomir Slavev", NationalId = "7705055555", Specialties = new[]{ "Addiction Medicine", "Counseling" } },
+                new { LicenseNumber = "2000000036", FullName = "Mariyana Kostova", NationalId = "7806066666", Specialties = new[]{ "Clinical Psychology", "Family Medicine" } },
+                new { LicenseNumber = "2000000037", FullName = "Rosen Iliev", NationalId = "7907077777", Specialties = new[]{ "Neurology", "Behavioral Therapy" } },
+                new { LicenseNumber = "2000000038", FullName = "Silvia Kirilova", NationalId = "8008088888", Specialties = new[]{ "Counseling", "Addiction Medicine" } },
+                new { LicenseNumber = "2000000039", FullName = "Nikolay Berov", NationalId = "8109099999", Specialties = new[]{ "Family Medicine", "Behavioral Therapy" } },
+                new { LicenseNumber = "2000000040", FullName = "Denitsa Popova", NationalId = "8201010001", Specialties = new[]{ "Clinical Psychology", "Pediatrics" } },
+
+                new { LicenseNumber = "2000000041", FullName = "Boyan Trenchev", NationalId = "8302020002", Specialties = new[]{ "Psychiatry", "Addiction Medicine" } },
+                new { LicenseNumber = "2000000042", FullName = "Kalina Borisova", NationalId = "8403030003", Specialties = new[]{ "Child Psychology", "Behavioral Therapy" } },
+                new { LicenseNumber = "2000000043", FullName = "Ognyan Radev", NationalId = "8504040004", Specialties = new[]{ "Neurology", "Family Medicine" } },
+                new { LicenseNumber = "2000000044", FullName = "Raya Staneva", NationalId = "8605050005", Specialties = new[]{ "Pediatrics", "Behavioral Therapy" } },
+                new { LicenseNumber = "2000000045", FullName = "Plamen Ganchev", NationalId = "8706060006", Specialties = new[]{ "Counseling", "Clinical Psychology" } },
+                new { LicenseNumber = "2000000046", FullName = "Vesela Daskalova", NationalId = "8807070007", Specialties = new[]{ "Geriatrics", "Family Medicine" } },
+                new { LicenseNumber = "2000000047", FullName = "Georgi Mitov", NationalId = "8908080008", Specialties = new[]{ "Addiction Medicine", "Psychiatry" } },
+                new { LicenseNumber = "2000000048", FullName = "Yoana Petrova", NationalId = "9009090009", Specialties = new[]{ "Clinical Psychology", "Child Psychology" } },
+                new { LicenseNumber = "2000000049", FullName = "Simeon Apostolov", NationalId = "9101010010", Specialties = new[]{ "Neurology", "Behavioral Therapy" } },
+                new { LicenseNumber = "2000000050", FullName = "Iveta Manolova", NationalId = "9202020011", Specialties = new[]{ "Family Medicine", "Pediatrics" } },
+
+                new { LicenseNumber = "2000000051", FullName = "Kristian Zhelev", NationalId = "9303030012", Specialties = new[]{ "Counseling", "Addiction Medicine" } },
+                new { LicenseNumber = "2000000052", FullName = "Albena Racheva", NationalId = "9404040013", Specialties = new[]{ "Clinical Psychology", "Behavioral Therapy" } },
+                new { LicenseNumber = "2000000053", FullName = "Lyuben Kolev", NationalId = "9505050014", Specialties = new[]{ "Psychiatry", "Neurology" } },
+                new { LicenseNumber = "2000000054", FullName = "Magdalena Encheva", NationalId = "9606060015", Specialties = new[]{ "Pediatrics", "Child Psychology" } },
+                new { LicenseNumber = "2000000055", FullName = "Vanya Tsvetanova", NationalId = "9707070016", Specialties = new[]{ "Family Medicine", "Geriatrics" } },
+                new { LicenseNumber = "2000000056", FullName = "Dimitar Naydenov", NationalId = "9808080017", Specialties = new[]{ "Neurology", "Counseling" } },
+                new { LicenseNumber = "2000000057", FullName = "Stanislava Marin", NationalId = "9909090018", Specialties = new[]{ "Addiction Medicine", "Behavioral Therapy" } },
+                new { LicenseNumber = "2000000058", FullName = "Todor Asenov", NationalId = "0101010019", Specialties = new[]{ "Psychiatry", "Clinical Psychology" } },
+                new { LicenseNumber = "2000000059", FullName = "Ralitsa Videnova", NationalId = "0202020020", Specialties = new[]{ "Child Psychology", "Counseling" } },
+                new { LicenseNumber = "2000000060", FullName = "Mila Georgieva", NationalId = "0303030021", Specialties = new[]{ "Pediatrics", "Behavioral Therapy" } }
             };
 
             foreach (var data in licenseData)
             {
+                var hashedLicense = hasher.Hash(data.LicenseNumber);
+
+                if (existingLicenses.Contains(hashedLicense))
+                {
+                    continue;
+                }
+
                 var license = new DoctorLicense
                 {
-                    LicenseNumber = data.LicenseNumber,
+                    LicenseNumber = hashedLicense,
                     FullName = data.FullName,
-                    NationalId = data.NationalId,
+                    NationalId = hasher.Hash(data.NationalId),
                     IssuingAuthority = "Bulgarian Medical Association",
                     IssuedOn = DateTime.Now.AddYears(-5),
                     ExpiresOn = DateTime.Now.AddYears(5),
@@ -134,18 +199,23 @@ namespace SafeMind.Services
                 ctx.DoctorLicenses.Add(license);
                 await ctx.SaveChangesAsync();
 
-                if (specialtyMap.TryGetValue(data.Specialty, out var specialtyId))
+                foreach (var specialtyName in data.Specialties)
                 {
-                    ctx.LicenceDoctorSpecialties.Add(new LicenceDoctorSpecialty
+                    if (specialtyMap.TryGetValue(specialtyName, out var specialtyId))
                     {
-                        DoctorLicenseId = license.Id,
-                        SpecialtyId = specialtyId
-                    });
+                        ctx.LicenceDoctorSpecialties.Add(new LicenceDoctorSpecialty
+                        {
+                            DoctorLicenseId = license.Id,
+                            SpecialtyId = specialtyId
+                        });
+                    }
                 }
             }
 
             await ctx.SaveChangesAsync();
         }
+
+        private static bool IsLegacyValue(string value) => !string.IsNullOrWhiteSpace(value) && value.All(char.IsDigit);
 
         private static async Task SeedCoreLookupsAsync(SafeMindDbContext ctx)
         {
