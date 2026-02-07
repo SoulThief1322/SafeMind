@@ -66,6 +66,56 @@
     position: relative;
 }
 
+.page-login-field--stacked {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.page-login-field .field-heading {
+    font-weight: 700;
+    color: var(--color-primary, #2e6f54);
+    font-size: 0.98rem;
+    letter-spacing: 0.01em;
+}
+
+.page-login-field .field-subtitle {
+    margin: 0;
+    color: var(--color-text-muted, #4a4a4a);
+    font-size: 0.9rem;
+}
+
+.multi-select-control {
+    width: 100%;
+    border: 1.5px solid var(--color-muted, #cbd5c0);
+    border-radius: 10px;
+    padding: 10px 12px;
+    min-height: 140px;
+    background: linear-gradient(180deg, #fff, #fbfbf7);
+    color: var(--color-text, #1e1e1e);
+    font-size: 0.98rem;
+    transition: border-color 0.25s cubic-bezier(.2,.9,.2,1), box-shadow 0.18s ease, background 0.25s ease;
+}
+
+.multi-select-control:focus {
+    outline: none;
+    border-color: var(--color-primary, #2e6f54);
+    box-shadow: 0 8px 18px rgba(46, 111, 84, 0.12);
+    background: #fff;
+}
+
+.multi-select-control option {
+    padding: 6px 8px;
+    border-radius: 6px;
+}
+
+.field-hint {
+    display: block;
+    margin-top: 2px;
+    color: #666;
+    font-size: 0.86rem;
+}
+
 .page-login-field label {
     position: absolute;
     left: 14px;

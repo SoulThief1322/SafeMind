@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Models
 {
-    public class DoctorLanguages
+    public class DoctorLanguage
     {
         public Doctor Doctor { get; set; } = null!;
         [ForeignKey(nameof(Doctor))]

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Models
 {
-    public class ArticleCategories
+    public class ArticleCategory
     {
 
         public Article Article { get; set; } = null!;

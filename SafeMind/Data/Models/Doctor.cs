@@ -28,7 +28,7 @@ namespace Data.Models
         [Range(GeneralConstants.RatingMinNumber, GeneralConstants.RatingMaxNumber)]
         public decimal Rating { get; set; }
         public ICollection<DoctorSpecialty> DoctorSpecialties { get; set; } = new HashSet<DoctorSpecialty>();
-        public ICollection<DoctorLanguages> DoctorLanguages { get; set; } = new HashSet<DoctorLanguages>();
+        public ICollection<DoctorLanguage> DoctorLanguages { get; set; } = new HashSet<DoctorLanguage>();
         [Required]
         [MaxLength(DoctorConstants.BiographyMaxLength)]
         [MinLength(DoctorConstants.BiographyMinLength)]

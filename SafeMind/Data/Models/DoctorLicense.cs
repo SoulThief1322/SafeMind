@@ -26,8 +26,8 @@ namespace Data.Models
         public DateTime IssuedOn { get; set; }
         public DateTime ExpiresOn { get; set; }
 
-        [MaxLength(120)]
-        public string Specialty { get; set; } = string.Empty;
+        public ICollection<LicenceDoctorSpecialty> DoctorLicenseSpecialties { get; set; }
+            = new List<LicenceDoctorSpecialty>();
 
         [MaxLength(40)]
         public string Status { get; set; } = "Active";

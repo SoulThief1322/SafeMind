@@ -68,7 +68,7 @@ public class BookController : Controller
         .Select(DoctorMapper.ToViewModel)
         .ToList(),
 
-            Specialties = specialties,
+            Specialties = specialties.Where(s => s != null).Select(s => s!).ToList(),
             SelectedSpecialty = specialty ?? string.Empty,
             SearchName = name ?? string.Empty,
             PageNumber = page,

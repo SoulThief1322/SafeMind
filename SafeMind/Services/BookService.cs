@@ -41,7 +41,7 @@ namespace SafeMind.Services
             .Select(ds => ds.Specialty!.Name)
             .OrderBy(name => name)
             .AsQueryable();
-            return Task.FromResult(specialties);
+            return Task.FromResult<IQueryable<string?>>(specialties);
         }
     }
 }

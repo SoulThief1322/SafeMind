@@ -40,6 +40,37 @@
 				<span asp-validation-for="Input.Email" class="text-danger"></span>
 			</div>
 
+			<div class="page-login-field page-login-field--stacked">
+				<div class="field-heading">Specialties</div>
+				<div class="field-subtitle">Select everything that appears on your license</div>
+				<select asp-for="Input.SelectedSpecialties" multiple class="multi-select-control" size="6">
+					@foreach (var specialty in Model.AvailableSpecialties)
+					{
+						<option value="@specialty">@specialty</option>
+					}
+				</select>
+				<span asp-validation-for="Input.SelectedSpecialties" class="text-danger"></span>
+				<small class="field-hint">Hold Ctrl (Windows) or Cmd (Mac) to select multiple</small>
+			</div>
+
+			<div class="page-login-field">
+				<input asp-for="Input.WorkStart" type="time" aria-required="true" placeholder=" " />
+				<label asp-for="Input.WorkStart">Work Start Time</label>
+				<span asp-validation-for="Input.WorkStart" class="text-danger"></span>
+			</div>
+
+			<div class="page-login-field">
+				<input asp-for="Input.WorkEnd" type="time" aria-required="true" placeholder=" " />
+				<label asp-for="Input.WorkEnd">Work End Time</label>
+				<span asp-validation-for="Input.WorkEnd" class="text-danger"></span>
+			</div>
+
+			<div class="page-login-field">
+				<input asp-for="Input.SessionDuration" type="number" min="30" max="120" aria-required="true" placeholder=" " />
+				<label asp-for="Input.SessionDuration">Session Duration (minutes)</label>
+				<span asp-validation-for="Input.SessionDuration" class="text-danger"></span>
+			</div>
+
 			<div class="page-login-field">
 				<input asp-for="Input.Password" autocomplete="new-password" aria-required="true" placeholder=" " />
 				<label asp-for="Input.Password">Password</label>
