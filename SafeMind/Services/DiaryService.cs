@@ -50,17 +50,23 @@ namespace SafeMind.Services
         }
         public Task<Dictionary<string, int>> GetMoodDistribution(IQueryable<Journal> journals, IQueryable<DailyCheck> checks)
         {
-            var moodDistribution = journals.Select(j => j.Mood)
-            .Concat(checks.Select(c => c.Mood))
-            .GroupBy(m => m.ToString())
-            .ToDictionary(g => g.Key, g => g.Count(), StringComparer.OrdinalIgnoreCase);
+            var journalMoods = journals.Select(j => j.Mood).ToList();
+            var checkMoods = checks.Select(c => c.Mood).ToList();
+            
+            var moodDistribution = journalMoods
+                .Concat(checkMoods)
+                .GroupBy(m => m.ToString())
+                .ToDictionary(g => g.Key, g => g.Count(), StringComparer.OrdinalIgnoreCase);
             return Task.FromResult(moodDistribution);
         }
         public Task<List<double>> GetMoodScores(IQueryable<Journal> journals, DiaryService diaryService, IQueryable<DailyCheck> checks)
         {
-            var score = journals.Select(j => diaryService.MapMoodScore(j.Mood))
-            .Concat(checks.Select(c => diaryService.MapMoodScore(c.Mood)))
-            .ToList();
+            var journalScores = journals.Select(j => j.Mood).ToList().Select(m => diaryService.MapMoodScore(m));
+            var checkScores = checks.Select(c => c.Mood).ToList().Select(m => diaryService.MapMoodScore(m));
+            
+            var score = journalScores
+                .Concat(checkScores)
+                .ToList();
             return Task.FromResult(score);
         }
     }
