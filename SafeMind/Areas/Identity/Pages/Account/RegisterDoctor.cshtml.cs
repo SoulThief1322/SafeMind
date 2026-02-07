@@ -41,6 +41,7 @@ namespace SafeMind.Areas.Identity.Pages.Account
         public string ReturnUrl { get; set; } = string.Empty;
 
         public List<string> AvailableSpecialties { get; set; } = new List<string>();
+        public List<string> AvailableLanguages { get; set; } = new List<string>();
 
         public class InputModel
         {
@@ -79,6 +80,9 @@ namespace SafeMind.Areas.Identity.Pages.Account
             [Display(Name = "Specialties")]
             public List<string> SelectedSpecialties { get; set; } = new List<string>();
 
+            [Display(Name = "Languages")]
+            public List<string> SelectedLanguages { get; set; } = new List<string>();
+
             [Required]
             [Display(Name = "Work Start Time")]
             public TimeOnly WorkStart { get; set; } = new TimeOnly(9, 0);
@@ -100,12 +104,18 @@ namespace SafeMind.Areas.Identity.Pages.Account
                 .Select(s => s.Name)
                 .OrderBy(n => n)
                 .ToListAsync();
+
+            AvailableLanguages = await _context.Languages
+                .Select(l => l.Name)
+                .OrderBy(n => n)
+                .ToListAsync();
         }
 
         public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
         {
             ReturnUrl = returnUrl ?? Url.Content("~/");
             AvailableSpecialties = await _context.Specialties.Select(s => s.Name).OrderBy(n => n).ToListAsync();
+            AvailableLanguages = await _context.Languages.Select(l => l.Name).OrderBy(n => n).ToListAsync();
 
             if (ModelState.IsValid)
             {
@@ -183,6 +193,22 @@ namespace SafeMind.Areas.Identity.Pages.Account
                             SpecialtyId = specialtyId
                         });
                     }
+
+                        // Link selected languages to doctor (no license check required)
+                        var languageIds = await _context.Languages
+                            .Where(l => Input.SelectedLanguages.Contains(l.Name))
+                            .Select(l => l.Id)
+                            .ToListAsync();
+
+                        foreach (var languageId in languageIds)
+                        {
+                            _context.DoctorLanguages.Add(new DoctorLanguage
+                            {
+                                DoctorId = doctor.Id,
+                                LanguageId = languageId
+                            });
+                        }
+
                     await _context.SaveChangesAsync();
 
                     await _signInManager.SignInAsync(user, isPersistent: false);

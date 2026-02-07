@@ -5,6 +5,7 @@
 }
 
 <link rel="stylesheet" href="~/css/login-page.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/register-doctor.css" asp-append-version="true" />
 
 <div class="page-login">
 	<div class="page-login-card">
@@ -53,20 +54,35 @@
 				<small class="field-hint">Hold Ctrl (Windows) or Cmd (Mac) to select multiple</small>
 			</div>
 
-			<div class="page-login-field">
-				<input asp-for="Input.WorkStart" type="time" aria-required="true" placeholder=" " />
-				<label asp-for="Input.WorkStart">Work Start Time</label>
-				<span asp-validation-for="Input.WorkStart" class="text-danger"></span>
+			<div class="page-login-field page-login-field--stacked">
+				<div class="field-heading">Languages</div>
+				<div class="field-subtitle">Clients will see these on your profile</div>
+				<select asp-for="Input.SelectedLanguages" multiple class="multi-select-control" size="6">
+					@foreach (var language in Model.AvailableLanguages)
+					{
+						<option value="@language">@language</option>
+					}
+				</select>
+				<span asp-validation-for="Input.SelectedLanguages" class="text-danger"></span>
+				<small class="field-hint">Hold Ctrl (Windows) or Cmd (Mac) to select multiple</small>
 			</div>
 
-			<div class="page-login-field">
-				<input asp-for="Input.WorkEnd" type="time" aria-required="true" placeholder=" " />
-				<label asp-for="Input.WorkEnd">Work End Time</label>
-				<span asp-validation-for="Input.WorkEnd" class="text-danger"></span>
+			<div class="page-login-field time-field">
+				<div class="field-heading">Workday start</div>
+				<input asp-for="Input.WorkStart"           type="time"           lang="en-GB"           min="00:00"           max="23:59"           step="900"
+					   class="time-input"           aria-required="true" />
+				<small class="field-hint">24-hour format (00:00 – 23:59)</small>
 			</div>
 
+			<div class="page-login-field time-field">
+				<div class="field-heading">Workday end</div>
+				<input asp-for="Input.WorkEnd" type="time" lang="en-GB" min="00:00" max="23:59" step="900"
+					   class="time-input" aria-required="true" />
+				<small class="field-hint">24-hour format (00:00 – 23:59)</small>
+			</div>
 			<div class="page-login-field">
-				<input asp-for="Input.SessionDuration" type="number" min="30" max="120" aria-required="true" placeholder=" " />
+				<input asp-for="Input.SessionDuration" type="number" min="30" max="120" aria-required="true"
+					   placeholder=" " />
 				<label asp-for="Input.SessionDuration">Session Duration (minutes)</label>
 				<span asp-validation-for="Input.SessionDuration" class="text-danger"></span>
 			</div>
@@ -78,7 +94,8 @@
 			</div>
 
 			<div class="page-login-field">
-				<input asp-for="Input.ConfirmPassword" autocomplete="new-password" aria-required="true" placeholder=" " />
+				<input asp-for="Input.ConfirmPassword" autocomplete="new-password" aria-required="true"
+					   placeholder=" " />
 				<label asp-for="Input.ConfirmPassword">Confirm password</label>
 				<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
 			</div>
@@ -88,14 +105,15 @@
 
 		<div class="page-login-footer">
 			<span>Not a clinician?</span>
-			<a asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a user</a>
-		</div>
+			<a asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a
+				user</a>
+			</div>
 
-		<div class="page-login-footer">
-			<span>Already have an account?</span>
-			<a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Model.ReturnUrl">Sign in</a>
+			<div class="page-login-footer">
+				<span>Already have an account?</span>
+				<a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Model.ReturnUrl">Sign in</a>
+			</div>
 		</div>
 	</div>
-</div>
 
-<partial name="_ValidationScriptsPartial" />
+	<partial name="_ValidationScriptsPartial" />
