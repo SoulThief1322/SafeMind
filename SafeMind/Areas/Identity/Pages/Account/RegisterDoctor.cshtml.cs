@@ -119,7 +119,6 @@ namespace SafeMind.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // Validate license and get licensed specialties
                 var license = await _licensingContext.DoctorLicenses
                     .Include(dl => dl.DoctorLicenseSpecialties)
                     .ThenInclude(dls => dls.Specialty)
@@ -135,12 +134,10 @@ namespace SafeMind.Areas.Identity.Pages.Account
                     return Page();
                 }
 
-                // Get licensed specialty names
                 var licensedSpecialties = license.DoctorLicenseSpecialties
                     .Select(dls => dls.Specialty.Name)
                     .ToHashSet();
 
-                // Validate selected specialties are in licensed specialties
                 var invalidSpecialties = Input.SelectedSpecialties
                     .Where(s => !licensedSpecialties.Contains(s))
                     .ToList();
@@ -153,7 +150,6 @@ namespace SafeMind.Areas.Identity.Pages.Account
                     return Page();
                 }
 
-                // Create user account
                 var user = CreateUser();
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -179,7 +175,6 @@ namespace SafeMind.Areas.Identity.Pages.Account
                     _context.Doctors.Add(doctor);
                     await _context.SaveChangesAsync();
 
-                    // Link selected specialties to doctor
                     var specialtyIds = await _context.Specialties
                         .Where(s => Input.SelectedSpecialties.Contains(s.Name))
                         .Select(s => s.Id)
@@ -194,7 +189,6 @@ namespace SafeMind.Areas.Identity.Pages.Account
                         });
                     }
 
-                        // Link selected languages to doctor (no license check required)
                         var languageIds = await _context.Languages
                             .Where(l => Input.SelectedLanguages.Contains(l.Name))
                             .Select(l => l.Id)

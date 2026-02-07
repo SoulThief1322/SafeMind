@@ -3,16 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("registerOverlay");
 
   if (modal && overlay) {
-    const close = () => {
-      modal.classList.add("hidden");
-      overlay.classList.add("hidden");
-      document.body.style.overflow = "";
-    };
-
     const open = () => {
       modal.classList.remove("hidden");
       overlay.classList.remove("hidden");
       document.body.style.overflow = "hidden";
+    };
+
+    const close = () => {
+      modal.classList.add("hidden");
+      overlay.classList.add("hidden");
+      document.body.style.overflow = "";
     };
 
     window.openRegister = open;
@@ -45,9 +45,24 @@ document.addEventListener("DOMContentLoaded", () => {
       errors.classList.add("visible");
     };
 
+    const startInput = form?.querySelector("#workStart");
+    const endInput = form?.querySelector("#workEnd");
+
+    const isValidTimeRange = () => {
+      if (!startInput || !endInput) return true;
+      if (!startInput.value || !endInput.value) return true;
+      return endInput.value > startInput.value;
+    };
+
     form?.addEventListener("submit", async e => {
       e.preventDefault();
       showErrors([]);
+
+      if (!isValidTimeRange()) {
+        showErrors(["End time must be after start time."]);
+        return;
+      }
+
       const btn = form.querySelector('[type="submit"]');
       if (btn) btn.disabled = true;
 
@@ -80,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         showErrors(["Invalid registration attempt."]);
       } catch {
-        showErrors(["Network error. Please try again."]);
+        showErrors(["Network error - please try again."]);
       } finally {
         if (btn) btn.disabled = false;
       }
@@ -90,6 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const pickers = document.querySelectorAll(".time-picker");
   if (!pickers.length) return;
 
+  const pad = n => String(n).padStart(2, "0");
+
   const closeAll = () => {
     pickers.forEach(p => {
       p.classList.remove("is-open");
@@ -98,67 +115,84 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  const pad = n => String(n).padStart(2, "0");
-
   pickers.forEach(picker => {
     const input = picker.querySelector('input[type="time"]');
     const display = picker.querySelector(".time-display");
     const panel = picker.querySelector(".time-panel");
     if (!input || !display || !panel) return;
 
-    const step = Math.max(1, Math.round(Number(input.step || 900) / 60));
-    let h = null;
-    let m = null;
+    const step = Math.max(1, Math.round(Number(picker.dataset.step || input.step || 900) / 60));
+
+    let hour = null;
+    let minute = null;
     let confirmMinute = true;
 
-    const col = type =>
-      Object.assign(document.createElement("div"), { className: "time-column" });
+    const hourCol = document.createElement("div");
+    hourCol.className = "time-column";
 
-    const hourCol = col("hour");
-    const minCol = col("minute");
+    const minuteCol = document.createElement("div");
+    minuteCol.className = "time-column";
 
-    for (let i = 0; i < 24; i++) {
+    for (let h = 0; h < 24; h++) {
       const b = document.createElement("button");
       b.type = "button";
-      b.textContent = pad(i);
+      b.className = "time-option";
+      b.dataset.value = h;
+      b.textContent = pad(h);
       b.onclick = () => {
-        h = i;
+        hour = h;
         confirmMinute = true;
-        render();
+        render(false);
       };
       hourCol.appendChild(b);
     }
 
-    for (let i = 0; i < 60; i += step) {
+    for (let m = 0; m < 60; m += step) {
       const b = document.createElement("button");
       b.type = "button";
-      b.textContent = pad(i);
+      b.className = "time-option";
+      b.dataset.value = m;
+      b.textContent = pad(m);
       b.onclick = () => {
-        m = i;
-        if (h !== null) {
+        minute = m;
+        if (hour !== null) {
           confirmMinute = false;
-          commit();
+          render(true);
           closeAll();
+        } else {
+          render(false);
         }
-        render();
       };
-      minCol.appendChild(b);
+      minuteCol.appendChild(b);
     }
 
-    panel.append(hourCol, minCol);
+    panel.append(hourCol, minuteCol);
 
-    const render = () => {
-      display.textContent = `${h === null ? "--" : pad(h)}:${m === null || confirmMinute ? "--" : pad(m)}`;
+    const updateActive = () => {
+      panel.querySelectorAll(".time-option").forEach(opt => {
+        const val = Number(opt.dataset.value);
+        const isHour = opt.parentElement === hourCol;
+        opt.classList.toggle(
+          "is-active",
+          isHour ? val === hour : val === minute
+        );
+      });
     };
 
-    const commit = () => {
-      if (h !== null && m !== null && !confirmMinute) {
-        input.value = `${pad(h)}:${pad(m)}`;
+    const render = commit => {
+      const hText = hour === null ? "--" : pad(hour);
+      const mText = minute === null || confirmMinute ? "--" : pad(minute);
+      display.textContent = `${hText}:${mText}`;
+      updateActive();
+
+      if (commit && hour !== null && minute !== null && !confirmMinute) {
+        input.value = `${pad(hour)}:${pad(minute)}`;
         display.textContent = input.value;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
       }
     };
 
-    display.onclick = () => {
+    display.addEventListener("click", () => {
       const open = picker.classList.contains("is-open");
       closeAll();
       if (!open) {
@@ -166,31 +200,31 @@ document.addEventListener("DOMContentLoaded", () => {
         panel.setAttribute("aria-hidden", "false");
         display.setAttribute("aria-expanded", "true");
       }
-    };
-
-    input.addEventListener("input", () => {
-      const [hh, mm] = input.value.split(":").map(Number);
-      if (!Number.isNaN(hh) && !Number.isNaN(mm)) {
-        h = hh;
-        m = mm;
-        confirmMinute = false;
-      } else {
-        h = m = null;
-        confirmMinute = true;
-      }
-      render();
     });
 
-    if (input.value) {
-      const [hh, mm] = input.value.split(":").map(Number);
-      if (!Number.isNaN(hh) && !Number.isNaN(mm)) {
-        h = hh;
-        m = mm;
+    input.addEventListener("input", () => {
+      const [h, m] = input.value.split(":").map(Number);
+      if (!Number.isNaN(h) && !Number.isNaN(m)) {
+        hour = h;
+        minute = m;
+        confirmMinute = false;
+      } else {
+        hour = minute = null;
+        confirmMinute = true;
+      }
+      render(false);
+    });
+
+    if (input.value || input.defaultValue) {
+      const [h, m] = (input.value || input.defaultValue).split(":").map(Number);
+      if (!Number.isNaN(h) && !Number.isNaN(m)) {
+        hour = h;
+        minute = m;
         confirmMinute = false;
       }
     }
 
-    render();
+    render(false);
   });
 
   document.addEventListener("click", e => {
