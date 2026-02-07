@@ -8,7 +8,7 @@ namespace SafeMind.Services
 
     public class BookSessionService(SafeMindDbContext context, BookService bookService)
     {
-        public async Task<Doctor> GetSelectedDoctor(int id)
+        public async Task<Doctor?> GetSelectedDoctor(int id)
         {
             var doctor = await (await bookService.GetDoctors()).Where(d => d.Id == id).FirstOrDefaultAsync();
             return doctor;

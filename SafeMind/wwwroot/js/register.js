@@ -1,105 +1,134 @@
-// Sets up registration modal behavior and AJAX submission.
 document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("registerModal");
-  const overlay = document.getElementById("registerOverlay");
+  const pickers = document.querySelectorAll(".time-picker");
+  if (!pickers.length) return;
 
-  if (!modal || !overlay) return;
+  const pad = n => String(n).padStart(2, "0");
 
-  // Opens the registration modal.
-  window.openRegister = () => {
-    modal.classList.remove("hidden");
-    overlay.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
+  const closeAll = () => {
+    pickers.forEach(p => {
+      p.classList.remove("is-open");
+      p.querySelector(".time-panel")?.setAttribute("aria-hidden", "true");
+      p.querySelector(".time-display")?.setAttribute("aria-expanded", "false");
+    });
   };
 
-  // Closes the registration modal.
-  window.closeRegister = () => {
-    modal.classList.add("hidden");
-    overlay.classList.add("hidden");
-    document.body.style.overflow = "";
-  };
+  pickers.forEach(picker => {
+    const input = picker.querySelector('input[type="time"]');
+    const display = picker.querySelector(".time-display");
+    const panel = picker.querySelector(".time-panel");
+    if (!input || !display || !panel) return;
 
-  document.getElementById("registerCloseBtn")?.addEventListener("click", closeRegister);
-  overlay?.addEventListener("click", closeRegister);
+    const step = Math.max(1, Math.round(Number(picker.dataset.step || input.step || 900) / 60));
 
-  document.getElementById("switchToLogin")?.addEventListener("click", event => {
-    event.preventDefault();
-    closeRegister();
-    window.openLogin();
-  });
+    let hour = null;
+    let minute = null;
+    let confirmMinute = true;
 
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && !modal.classList.contains("hidden")) {
-      closeRegister();
+    const hourCol = document.createElement("div");
+    hourCol.className = "time-column";
+
+    const minuteCol = document.createElement("div");
+    minuteCol.className = "time-column";
+
+    for (let h = 0; h < 24; h++) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "time-option";
+      b.dataset.value = h;
+      b.textContent = pad(h);
+      b.onclick = () => {
+        hour = h;
+        confirmMinute = true;
+        render(false);
+      };
+      hourCol.appendChild(b);
     }
-  });
 
-  const form = modal?.querySelector('form.register-form');
-  const errors = modal?.querySelector('.register-errors');
-
-  // Renders validation errors inside the register modal.
-  const showErrors = messages => {
-    if (!errors) return;
-    if (!messages || messages.length === 0) {
-      errors.innerHTML = '';
-      errors.classList.remove('visible');
-      return;
+    for (let m = 0; m < 60; m += step) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "time-option";
+      b.dataset.value = m;
+      b.textContent = pad(m);
+      b.onclick = () => {
+        minute = m;
+        if (hour !== null) {
+          confirmMinute = false;
+          render(true);
+          closeAll();
+        } else {
+          render(false);
+        }
+      };
+      minuteCol.appendChild(b);
     }
-    errors.innerHTML = '<ul>' + messages.map(message => `<li>${message}</li>`).join('') + '</ul>';
-    errors.classList.add('visible');
-  };
 
-  // Handles AJAX registration submission and error display.
-  form?.addEventListener('submit', async event => {
-    event.preventDefault();
-    showErrors([]);
-    const submitBtn = form.querySelector('button[type="submit"]');
-    if (submitBtn) submitBtn.disabled = true;
-    try {
-      const formData = new FormData(form);
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
-        credentials: 'same-origin',
-        redirect: 'manual'
+    panel.append(hourCol, minuteCol);
+
+    const updateActive = () => {
+      panel.querySelectorAll(".time-option").forEach(opt => {
+        const val = Number(opt.dataset.value);
+        const isHour = opt.parentElement === hourCol;
+        opt.classList.toggle(
+          "is-active",
+          isHour ? val === hour : val === minute
+        );
       });
+    };
 
-      const contentType = response.headers.get('content-type') || '';
-      const isRedirect = response.type === 'opaqueredirect' || response.redirected || (response.status >= 300 && response.status < 400);
+    const render = commit => {
+      const hText = hour === null ? "--" : pad(hour);
+      const mText = minute === null || confirmMinute ? "--" : pad(minute);
+      display.textContent = `${hText}:${mText}`;
+      updateActive();
 
-      if (isRedirect) {
-        const redirectLocation = response.headers.get('Location');
-        if (redirectLocation) {
-          window.location.href = redirectLocation;
-        } else {
-          window.location.reload();
-        }
-      } else if (response.ok && contentType.includes('application/json')) {
-        const data = await response.json();
-        if (data.succeeded) {
-          closeRegister();
-          if (data.redirect) window.location.href = data.redirect; else window.location.reload();
-        } else if (data.errors?.length) {
-          showErrors(data.errors);
-        } else if (data.reason) {
-          showErrors([data.reason]);
-        } else {
-          showErrors(['Registration failed.']);
-        }
-      } else if (response.ok && contentType.includes('text/html')) {
-        showErrors(['Invalid registration attempt.']);
-      } else if (response.status === 400 && contentType.includes('application/json')) {
-        const data = await response.json();
-        if (data.errors?.length) showErrors(data.errors); else if (data.reason) showErrors([data.reason]); else showErrors(['Invalid registration attempt.']);
-      } else {
-        showErrors(['Invalid registration attempt.']);
+      if (commit && hour !== null && minute !== null && !confirmMinute) {
+        input.value = `${pad(hour)}:${pad(minute)}`;
+        display.textContent = input.value;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
       }
-    } catch (error) {
-      console.error('Register request failed', error);
-      showErrors(['Network error - please try again.']);
-    } finally {
-      if (submitBtn) submitBtn.disabled = false;
+    };
+
+    display.addEventListener("click", () => {
+      const open = picker.classList.contains("is-open");
+      closeAll();
+      if (!open) {
+        picker.classList.add("is-open");
+        panel.setAttribute("aria-hidden", "false");
+        display.setAttribute("aria-expanded", "true");
+      }
+    });
+
+    input.addEventListener("input", () => {
+      const [h, m] = input.value.split(":").map(Number);
+      if (!Number.isNaN(h) && !Number.isNaN(m)) {
+        hour = h;
+        minute = m;
+        confirmMinute = false;
+      } else {
+        hour = minute = null;
+        confirmMinute = true;
+      }
+      render(false);
+    });
+
+    if (input.value || input.defaultValue) {
+      const [h, m] = (input.value || input.defaultValue).split(":").map(Number);
+      if (!Number.isNaN(h) && !Number.isNaN(m)) {
+        hour = h;
+        minute = m;
+        confirmMinute = false;
+      }
     }
+
+    render(false);
+  });
+
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".time-picker")) closeAll();
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeAll();
   });
 });

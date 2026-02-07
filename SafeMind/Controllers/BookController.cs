@@ -68,7 +68,7 @@ public class BookController : Controller
         .Select(DoctorMapper.ToViewModel)
         .ToList(),
 
-            Specialties = specialties,
+            Specialties = specialties.Where(s => s != null).Select(s => s!).ToList(),
             SelectedSpecialty = specialty ?? string.Empty,
             SearchName = name ?? string.Empty,
             PageNumber = page,
@@ -198,13 +198,7 @@ public class BookController : Controller
         var normalizedSlots = _slotsService.NormalizeSlots(model.Slots, doctor.SessionDuration);
         var requestedStarts = normalizedSlots.Select(s => s.StartTime).ToList();
 
-        var conflicts = await _context.Sessions
-            .AsNoTracking()
-            .Where(s =>
-                s.DoctorId == doctor.Id &&
-                requestedStarts.Contains(s.StartTime) &&
-                s.SessionStatus != SessionStatus.Cancelled)
-            .AnyAsync();
+        var conflicts = await _confirmService.GetConflicts(doctor, requestedStarts);
 
         if (conflicts)
         {

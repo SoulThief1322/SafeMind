@@ -9,15 +9,15 @@ namespace Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(64)]
+        [RegularExpression("^[0-9]{10}$", ErrorMessage = "License number must be exactly 10 digits.")]
         public string LicenseNumber { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(160)]
+        [MaxLength(50)]
         public string FullName { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(32)]
+        [RegularExpression("^[0-9]{10}$", ErrorMessage = "National ID must be exactly 10 digits.")]
         public string NationalId { get; set; } = string.Empty;
 
         [MaxLength(120)]
@@ -26,8 +26,8 @@ namespace Data.Models
         public DateTime IssuedOn { get; set; }
         public DateTime ExpiresOn { get; set; }
 
-        [MaxLength(120)]
-        public string Specialty { get; set; } = string.Empty;
+        public ICollection<LicenceDoctorSpecialty> DoctorLicenseSpecialties { get; set; }
+            = new List<LicenceDoctorSpecialty>();
 
         [MaxLength(40)]
         public string Status { get; set; } = "Active";

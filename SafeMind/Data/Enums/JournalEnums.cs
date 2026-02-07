@@ -18,5 +18,5 @@ namespace Data.Enums
         Ideas,
         Others
     }
-    
+
 }

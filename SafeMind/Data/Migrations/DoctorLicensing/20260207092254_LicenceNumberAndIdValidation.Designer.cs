@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SafeMind.Data;
 
@@ -11,9 +12,11 @@ using SafeMind.Data;
 namespace SafeMind.Data.Migrations.DoctorLicensing
 {
     [DbContext(typeof(DoctorLicensingDbContext))]
-    partial class DoctorLicensingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260207092254_LicenceNumberAndIdValidation")]
+    partial class LicenceNumberAndIdValidation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,6 +57,11 @@ namespace SafeMind.Data.Migrations.DoctorLicensing
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Specialty")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
@@ -69,68 +77,6 @@ namespace SafeMind.Data.Migrations.DoctorLicensing
                     b.HasIndex("NationalId");
 
                     b.ToTable("DoctorLicenses", (string)null);
-                });
-
-            modelBuilder.Entity("Data.Models.LicenceDoctorSpecialty", b =>
-                {
-                    b.Property<int>("DoctorLicenseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SpecialtyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DoctorLicenseId", "SpecialtyId");
-
-                    b.HasIndex("SpecialtyId");
-
-                    b.ToTable("LicenceDoctorSpecialties", (string)null);
-                });
-
-            modelBuilder.Entity("Data.Models.LicenceSpecialty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LicenceSpecialties", (string)null);
-                });
-
-            modelBuilder.Entity("Data.Models.LicenceDoctorSpecialty", b =>
-                {
-                    b.HasOne("Data.Models.DoctorLicense", "DoctorLicense")
-                        .WithMany("DoctorLicenseSpecialties")
-                        .HasForeignKey("DoctorLicenseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data.Models.LicenceSpecialty", "Specialty")
-                        .WithMany("DoctorLicenceSpecialties")
-                        .HasForeignKey("SpecialtyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DoctorLicense");
-
-                    b.Navigation("Specialty");
-                });
-
-            modelBuilder.Entity("Data.Models.DoctorLicense", b =>
-                {
-                    b.Navigation("DoctorLicenseSpecialties");
-                });
-
-            modelBuilder.Entity("Data.Models.LicenceSpecialty", b =>
-                {
-                    b.Navigation("DoctorLicenceSpecialties");
                 });
 #pragma warning restore 612, 618
         }

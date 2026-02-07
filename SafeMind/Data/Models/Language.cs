@@ -9,7 +9,7 @@ namespace Data.Models
         [MaxLength(GeneralConstants.NameMaxLength)]
         [MinLength(GeneralConstants.NameMinLength)]
         public string Name { get; set; } = string.Empty;
-        public ICollection<DoctorLanguages> DoctorLanguages { get; set; }
-            = new List<DoctorLanguages>();
+        public ICollection<DoctorLanguage> DoctorLanguages { get; set; }
+            = new List<DoctorLanguage>();
     }
 }

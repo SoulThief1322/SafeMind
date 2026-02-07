@@ -17,11 +17,11 @@ namespace SafeMind.Data
             public DbSet<Specialty> Specialties { get; set; }
             public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
             public DbSet<Language> Languages { get; set; }
-            public DbSet<DoctorLanguages> DoctorLanguages { get; set; }
+            public DbSet<DoctorLanguage> DoctorLanguages { get; set; }
             public DbSet<Session> Sessions { get; set; }
             public DbSet<Article> Articles { get; set; }
             public DbSet<Category> Categories { get; set; }
-            public DbSet<ArticleCategories> ArticleCategories { get; set; }
+            public DbSet<ArticleCategory> ArticleCategories { get; set; }
             public DbSet<Journal> Journals { get; set; }
             public DbSet<DailyCheck> DailyChecks { get; set; }
             public DbSet<Goal> Goals { get; set; }
@@ -90,7 +90,7 @@ namespace SafeMind.Data
                   });
 
                   // -------- DoctorLanguages --------
-                  builder.Entity<DoctorLanguages>(entity =>
+                  builder.Entity<DoctorLanguage>(entity =>
                   {
                         entity.ToTable("DoctorLanguages");
                         entity.HasKey(dl => new { dl.DoctorId, dl.LanguageId });
@@ -170,7 +170,7 @@ namespace SafeMind.Data
                   });
 
                   // -------- ArticleCategories --------
-                  builder.Entity<ArticleCategories>(entity =>
+                  builder.Entity<ArticleCategory>(entity =>
                   {
                         entity.ToTable("ArticleCategories");
 

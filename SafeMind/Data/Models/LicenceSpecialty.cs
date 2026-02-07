@@ -1,19 +1,15 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Data.Constants;
-
 namespace Data.Models
 {
-    public class Category
+    public class LicenceSpecialty
     {
-
         public int Id { get; set; }
         [Required]
         [MaxLength(GeneralConstants.NameMaxLength)]
         [MinLength(GeneralConstants.NameMinLength)]
         public string Name { get; set; } = string.Empty;
-        public ICollection<ArticleCategory> ArticleCategories { get; set; }
-            = new List<ArticleCategory>();
-
+        public ICollection<LicenceDoctorSpecialty> DoctorLicenceSpecialties { get; set; }
+            = new List<LicenceDoctorSpecialty>();
     }
 }
