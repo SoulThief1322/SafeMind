@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="~/css/login-page.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/register-doctor.css" asp-append-version="true" />
 
+<script src="~/js/register-doctor-timepicker.js" asp-append-version="true"></script>
+
 <div class="page-login">
 	<div class="page-login-card">
 		<div class="page-login-logo">SM</div>
@@ -69,15 +71,23 @@
 
 			<div class="page-login-field time-field">
 				<div class="field-heading">Workday start</div>
-				<input asp-for="Input.WorkStart"           type="time"           lang="en-GB"           min="00:00"           max="23:59"           step="900"
-					   class="time-input"           aria-required="true" />
+				<div class="time-picker" data-step="900">
+					<input asp-for="Input.WorkStart" type="time" lang="en-GB" min="00:00" max="23:59" step="900"
+						   class="time-input time-input--native" aria-required="true" />
+					<button type="button" class="time-display" aria-haspopup="dialog" aria-expanded="false" aria-label="Workday start time"></button>
+					<div class="time-panel" role="dialog" aria-label="Select time" aria-hidden="true"></div>
+				</div>
 				<small class="field-hint">24-hour format (00:00 – 23:59)</small>
 			</div>
 
 			<div class="page-login-field time-field">
 				<div class="field-heading">Workday end</div>
-				<input asp-for="Input.WorkEnd" type="time" lang="en-GB" min="00:00" max="23:59" step="900"
-					   class="time-input" aria-required="true" />
+				<div class="time-picker" data-step="900">
+					<input asp-for="Input.WorkEnd" type="time" lang="en-GB" min="00:00" max="23:59" step="900"
+						   class="time-input time-input--native" aria-required="true" />
+					<button type="button" class="time-display" aria-haspopup="dialog" aria-expanded="false" aria-label="Workday end time"></button>
+					<div class="time-panel" role="dialog" aria-label="Select time" aria-hidden="true"></div>
+				</div>
 				<small class="field-hint">24-hour format (00:00 – 23:59)</small>
 			</div>
 			<div class="page-login-field">

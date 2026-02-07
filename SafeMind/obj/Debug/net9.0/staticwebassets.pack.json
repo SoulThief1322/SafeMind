@@ -53,6 +53,10 @@
       "PackagePath": "staticwebassets\\css\\navbar.css"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\register-doctor.css",
+      "PackagePath": "staticwebassets\\css\\register-doctor.css"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
