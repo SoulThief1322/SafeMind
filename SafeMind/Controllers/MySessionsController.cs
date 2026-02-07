@@ -5,43 +5,29 @@ using Microsoft.EntityFrameworkCore;
 using SafeMind.Data;
 using SafeMind.Models;
 using Data.Enums;
+using Microsoft.AspNetCore.Authorization;
+using SafeMind.Services;
 namespace SafeMind.Controllers;
 
 public class MySessionsController : Controller
 {
     private readonly ILogger<MySessionsController> _logger;
     private readonly SafeMindDbContext _context;
+    private readonly MySessionService _mySessionService;
 
-    public MySessionsController(ILogger<MySessionsController> logger, SafeMindDbContext context)
+    public MySessionsController(ILogger<MySessionsController> logger, SafeMindDbContext context, MySessionService mySessionService)
     {
         _logger = logger;
         _context = context;
+        _mySessionService = mySessionService;
     }
-
+    [Authorize]
     public async Task<IActionResult> Index()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(userId))
-            return Challenge();
 
-        var sessions = await _context.Sessions
-            .AsNoTracking()
-            .Include(s => s.Doctor)
-            .Include(s => s.Contact)
-            .Where(s => s.PatientId == userId)
-            .OrderBy(s => s.StartTime)
-            .Select(s => new MySessionsViewModel
-            {
-                DoctorName = s.Doctor != null ? s.Doctor.Name : string.Empty,
-                SessionDate = DateOnly.FromDateTime(s.StartTime.DateTime),
-                SessionTime = TimeOnly.FromDateTime(s.StartTime.DateTime),
-                SessionPrice = s.Price,
-                SessionDuration = s.Doctor != null ? s.Doctor.SessionDuration : 0,
-                ContactFullName = s.Contact != null ? s.Contact.FullName : string.Empty,
-                PaymentStatus = s.PaymentStatus,
-                SessionStatus = s.SessionStatus
-            })
-            .ToListAsync();
+
+        var sessions = await _mySessionService.GetSessions(_context, userId);
 
         return View(sessions);
     }
