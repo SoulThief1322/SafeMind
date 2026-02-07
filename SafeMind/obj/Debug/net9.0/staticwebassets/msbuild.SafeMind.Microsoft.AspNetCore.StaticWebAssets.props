@@ -228,8 +228,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>hyrz819pio</Fingerprint>
-      <Integrity>twtRAielpTft6FXIf+FGz0hu+nEwwHk2+l0y46oFDQU=</Integrity>
+      <Fingerprint>payxnwi0jx</Fingerprint>
+      <Integrity>4UIQZX/kd6REk0WbZfx1asquB8apLBC8XBJnbIjcNT8=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\register-doctor.css'))</OriginalItemSpec>

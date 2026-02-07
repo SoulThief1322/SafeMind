@@ -139,12 +139,6 @@
     border-color: var(--color-primary-light, #b7e4c7);
 }
 
-.page-login-remember {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
 .page-login-errors {
     background: rgba(255, 60, 60, 0.06);
     border: 1px solid rgba(255, 60, 60, 0.12);
@@ -170,42 +164,6 @@
 .page-login-button:hover {
     background: #265c47;
     box-shadow: 0 8px 18px rgba(46, 111, 84, 0.3);
-}
-
-.page-login-separator {
-    margin: 14px 0 12px;
-    text-align: center;
-    color: var(--color-text-muted, #4a4a4a);
-    font-weight: 700;
-    font-size: 0.9rem;
-}
-
-.page-login-socials {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.page-login-social-btn {
-    width: 100%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-weight: 700;
-    font-size: 0.96rem;
-    padding: 10px 12px;
-    border-radius: 9px;
-    border: 1.4px solid var(--color-muted, #cbd5c0);
-    background: #fff;
-    color: var(--color-text, #1e1e1e);
-    cursor: pointer;
-    transition: box-shadow 0.18s ease, border-color 0.18s ease;
-}
-
-.page-login-social-btn:hover {
-    border-color: var(--color-primary, #2e6f54);
-    box-shadow: 0 8px 18px rgba(46, 111, 84, 0.12);
 }
 
 .page-login-footer {
