@@ -77,10 +77,6 @@
       "PackagePath": "staticwebassets\\js\\book-index.js"
     },
     {
-      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\login.js",
-      "PackagePath": "staticwebassets\\js\\login.js"
-    },
-    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\myDiary.js",
       "PackagePath": "staticwebassets\\js\\myDiary.js"
     },
