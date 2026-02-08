@@ -431,3 +431,4 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\c6l2srpgns
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\s9pvvqg1i6-ssgqq60xnl.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\4z6v1d2ghd-cephhgsob5.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\g4rbyt7ei9-yykmv6xtez.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\n9m5z7r6nx-at5ks36ojk.gz

@@ -9,6 +9,7 @@ namespace SafeMind.Models
         public int SessionCount { get; set; }
         public decimal TotalAmount { get; set; }
         public string ContactId { get; set; } = string.Empty;
+        public int? SessionId { get; set; }
 
         [Required(ErrorMessage = "Card number is required")]
         [RegularExpression(@"^([0-9]{4} ?){4}$", ErrorMessage = "Card number is incorrect")]

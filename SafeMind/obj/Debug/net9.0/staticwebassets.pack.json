@@ -85,6 +85,10 @@
       "PackagePath": "staticwebassets\\js\\myDiary.js"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\mysessions.js",
+      "PackagePath": "staticwebassets\\js\\mysessions.js"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\navbar.js",
       "PackagePath": "staticwebassets\\js\\navbar.js"
     },

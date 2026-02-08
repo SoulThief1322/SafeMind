@@ -17,6 +17,7 @@ namespace SafeMind.Services
             .OrderBy(s => s.StartTime)
             .Select(s => new MySessionsViewModel
             {
+                SessionId = s.Id,
                 DoctorName = s.Doctor != null ? s.Doctor.Name : string.Empty,
                 SessionDate = DateOnly.FromDateTime(s.StartTime.DateTime),
                 SessionTime = TimeOnly.FromDateTime(s.StartTime.DateTime),
