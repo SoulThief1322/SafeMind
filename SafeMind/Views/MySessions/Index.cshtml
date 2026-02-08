@@ -3,6 +3,10 @@
 <link rel="stylesheet" href="~/css/mysessions.css" asp-append-version="true" />
 <script src="~/js/mysessions.js" asp-append-version="true" defer></script>
 
+@{
+    var isDoctor = User.IsInRole("Doctor");
+}
+
 <section class="my-sessions container py-4">
     <div class="sessions-header">
         <div>
@@ -16,6 +20,8 @@
         </div>
     </div>
 
+    @if (!isDoctor)
+    {
     <div class="credits-card">
         <div class="credits-header">
             <div>
@@ -29,8 +35,9 @@
                 <div class="progress-fill" style="width: @Model.ProgressPercent%"></div>
             </div>
         </div>
+    }
 
-        <div class="section-block" data-panel="upcoming">
+    <div class="section-block" data-panel="upcoming">
             <div class="section-head">
                 <p class="eyebrow">Payment due</p>
                 <h2 class="h5 mb-0">@Model.Unpaid.Count awaiting payment</h2>
@@ -83,29 +90,50 @@
                         foreach (var s in Model.Upcoming)
                         {
                             var isPaid = s.PaymentStatus == PaymentStatus.Paid;
+                            var isScheduled = s.SessionStatus == SessionStatus.Scheduled;
                             <article class="session-card">
                                 <div class="date-bar @(isPaid ? "date-primary" : "date-accent")"></div>
                                 <div class="session-content">
                                     <div class="session-main">
                                         <div>
-                                            <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") ·
-                                                @s.SessionTime.ToString("hh\\:mm")</p>
-                                                <h3 class="session-title">Session (@s.SessionDuration min)</h3>
+                                            <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") · @s.SessionTime.ToString("hh\\:mm")</p>
+                                            <h3 class="session-title">Session (@s.SessionDuration min)</h3>
+                                            @if (isDoctor)
+                                            {
+                                                <p class="session-with">@(!string.IsNullOrEmpty(s.ContactFullName) ? $"With {s.ContactFullName}" : "Patient")</p>
+                                            }
+                                            else
+                                            {
                                                 <p class="session-with">With Dr. @s.DoctorName</p>
+                                            }
                                             </div>
                                             <div class="session-actions">
-                                                @if (isPaid)
+                                                @if (isDoctor)
                                                 {
-                                                    <span class="chip chip-paid">Paid</span>
-                                                    <button class="btn-ghost" type="button">Postpone</button>
-                                                    <button class="btn-primary-ghost" type="button">Join session</button>
+                                                    <span class="chip @(s.SessionStatus == SessionStatus.Confirmed ? "chip-paid" : "chip-neutral")">@s.SessionStatus</span>
+                                                    @if (isScheduled)
+                                                    {
+                                                        <form asp-action="Confirm" asp-controller="MySessions" method="post" style="display:inline;">
+                                                            @Html.AntiForgeryToken()
+                                                            <input type="hidden" name="id" value="@s.SessionId" />
+                                                            <button type="submit" class="btn-primary-solid">Confirm</button>
+                                                        </form>
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    <span class="chip chip-due">Payment due</span>
-                                                    <button class="btn-ghost" type="button">Postpone</button>
-                                                    <button onclick="location.href='@Url.Action("Payment", "MySessions", new { id = s.SessionId })'"
-                                                            class="btn-primary-solid">Pay now</button>
+                                                    @if (isPaid)
+                                                    {
+                                                        <span class="chip chip-paid">Paid</span>
+                                                        <button class="btn-ghost" type="button">Postpone</button>
+                                                        <button class="btn-primary-ghost" type="button">Join session</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="chip chip-due">Payment due</span>
+                                                        <button class="btn-ghost" type="button">Postpone</button>
+                                                        <button onclick="location.href='@Url.Action("Payment", "MySessions", new { id = s.SessionId })'" class="btn-primary-solid">Pay now</button>
+                                                    }
                                                 }
                                             </div>
                                         </div>
@@ -134,10 +162,16 @@
                                     <div class="session-content">
                                         <div class="session-main">
                                             <div>
-                                                <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") ·
-                                                    @s.SessionTime.ToString("hh\\:mm")</p>
-                                                    <h3 class="session-title">Session (@s.SessionDuration min)</h3>
+                                                <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") · @s.SessionTime.ToString("hh\\:mm")</p>
+                                                <h3 class="session-title">Session (@s.SessionDuration min)</h3>
+                                                @if (isDoctor)
+                                                {
+                                                    <p class="session-with">@(!string.IsNullOrEmpty(s.ContactFullName) ? $"With {s.ContactFullName}" : "Patient")</p>
+                                                }
+                                                else
+                                                {
                                                     <p class="session-with">With Dr. @s.DoctorName</p>
+                                                }
                                                 </div>
                                                 <div class="session-actions">
                                                     <span class="chip chip-neutral">@s.SessionStatus</span>

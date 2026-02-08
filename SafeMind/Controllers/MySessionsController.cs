@@ -25,8 +25,9 @@ public class MySessionsController : Controller
     public async Task<IActionResult> Index()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var isDoctor = User.IsInRole("Doctor");
 
-        var sessions = await _mySessionService.GetSessions(_context, userId);
+        var sessions = await _mySessionService.GetSessions(_context, userId, isDoctor);
 
         var now = DateTime.UtcNow;
 
@@ -35,7 +36,7 @@ public class MySessionsController : Controller
             .OrderBy(m => m.SessionDate.ToDateTime(m.SessionTime))
             .ToList();
 
-        var unpaid = upcoming
+        var unpaid = isDoctor ? new List<MySessionsViewModel>() : upcoming
             .Where(m => m.PaymentStatus != PaymentStatus.Paid)
             .OrderBy(m => m.SessionDate.ToDateTime(m.SessionTime))
             .ToList();
@@ -116,6 +117,36 @@ public class MySessionsController : Controller
         await _context.SaveChangesAsync();
 
         TempData["Success"] = "Payment successful! Your session is now confirmed.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Doctor")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Confirm(int id)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        var session = await _context.Sessions
+            .Include(s => s.Doctor)
+            .FirstOrDefaultAsync(s => s.Id == id && s.Doctor != null && s.Doctor.UserId == userId);
+
+        if (session == null)
+        {
+            TempData["Error"] = "Session not found or you don't have permission to confirm it.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        if (session.SessionStatus == SessionStatus.Confirmed)
+        {
+            TempData["Error"] = "This session has already been confirmed.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        session.SessionStatus = SessionStatus.Confirmed;
+        await _context.SaveChangesAsync();
+
+        TempData["Success"] = "Session confirmed successfully.";
         return RedirectToAction(nameof(Index));
     }
 
