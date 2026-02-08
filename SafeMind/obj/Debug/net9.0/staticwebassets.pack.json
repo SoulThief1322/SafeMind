@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\css\\booking-flow.css"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\booking.css",
+      "PackagePath": "staticwebassets\\css\\booking.css"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\diaryentry.css",
       "PackagePath": "staticwebassets\\css\\diaryentry.css"
     },

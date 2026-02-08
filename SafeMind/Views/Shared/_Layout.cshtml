@@ -88,27 +88,31 @@
                     </div>
 
                     <div class="footer-section">
-                        <h4>App & Resources</h4>
-                        <a href="#">Home</a>
-                        <a href="#">Privacy</a>
-                        <a href="#">About Us</a>
-                        <a href="#">Contact</a>
+                        <h4>Navigation</h4>
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                        <a asp-controller="Book" asp-action="Index">Book Session</a>
+                        <a asp-controller="Articles" asp-action="Index">Articles</a>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <a asp-controller="MySessions" asp-action="Index">My Sessions</a>
+                            <a asp-controller="MyDiary" asp-action="Index">My Diary</a>
+                        }
                     </div>
 
                     <div class="footer-section">
                         <h4>Support</h4>
-                        <a href="#">Mental Health Tips</a>
-                        <a href="#">Articles</a>
-                        <a href="#">Community</a>
-                        <a href="#">FAQs</a>
+                        <a asp-controller="Articles" asp-action="Index">Mental Health Articles</a>
+                        <a href="#">Help & FAQs</a>
+                        <a href="#">Contact Us</a>
+                        <a href="#">Crisis Resources</a>
                     </div>
 
                     <div class="footer-section">
-                        <h4>Site Map</h4>
-                        <a href="#">Home</a>
-                        <a href="#">Articles</a>
-                        <a href="#">Community</a>
+                        <h4>Legal</h4>
                         <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">About Us</a>
+                        <a href="#">HIPAA Compliance</a>
                     </div>
                 </div>
 

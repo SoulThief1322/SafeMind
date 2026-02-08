@@ -11,7 +11,7 @@ namespace Data.Enums
     {
         Pending = 0,
         Paid = 1,
-        Refunded = 2
+        Refunded = 2,
     };
     
 }
