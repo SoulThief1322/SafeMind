@@ -211,7 +211,23 @@ public class BookController : Controller
                 model.PaymentStatus = PaymentStatus.Pending;
             return View("Checkout", model);
         }
+        if (model.PaymentStatus == PaymentStatus.Paid)
+        {
+            TempData["BookingData"] = JsonSerializer.Serialize(new
+            {
+                model.DoctorId,
+                DoctorName = doctor.Name,
+                UserId = userId,
+                model.FullName,
+                model.Email,
+                model.PhoneNumber,
+                Slots = normalizedSlots.Select(s => new { s.StartTime, s.EndTime }).ToList(),
+                SessionCount = normalizedSlots.Count,
+                TotalAmount = normalizedSlots.Count * doctor.Price
+            });
 
+            return RedirectToAction(nameof(Payment));
+        }
         await using var transaction = await _context.Database.BeginTransactionAsync();
 
         try
@@ -248,6 +264,120 @@ public class BookController : Controller
         {
             RedirectUrl = redirectUrl,
             DelayMs = 4000
+        });
+    }
+
+    [HttpGet]
+    [Authorize]
+    public IActionResult Payment()
+    {
+        var bookingDataJson = TempData["BookingData"] as string;
+
+        if (string.IsNullOrEmpty(bookingDataJson))
+        {
+            TempData["Error"] = "Session expired. Please try booking again.";
+            return RedirectToAction(nameof(Index));
+        }
+        TempData.Keep("BookingData");
+
+        var bookingData = JsonSerializer.Deserialize<JsonElement>(bookingDataJson);
+
+        var vm = new PaymentViewModel
+        {
+            DoctorId = bookingData.GetProperty("DoctorId").GetInt32(),
+            SessionCount = bookingData.GetProperty("SessionCount").GetInt32(),
+            TotalAmount = bookingData.GetProperty("TotalAmount").GetDecimal()
+        };
+
+        return View(vm);
+    }
+
+    [HttpPost]
+    [Authorize]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ProcessPayment(PaymentViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View("Payment", model);
+        }
+
+        var bookingDataJson = TempData["BookingData"] as string;
+
+        if (string.IsNullOrEmpty(bookingDataJson))
+        {
+            TempData["Error"] = "Session expired. Please try booking again.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        var bookingData = JsonSerializer.Deserialize<JsonElement>(bookingDataJson);
+
+        var doctorId = bookingData.GetProperty("DoctorId").GetInt32();
+        var userId = bookingData.GetProperty("UserId").GetString()!;
+        var fullName = bookingData.GetProperty("FullName").GetString()!;
+        var email = bookingData.GetProperty("Email").GetString()!;
+        var phoneNumber = bookingData.GetProperty("PhoneNumber").GetString()!;
+        var sessionCount = bookingData.GetProperty("SessionCount").GetInt32();
+
+        var doctor = await _bookSessionService.GetSelectedDoctor(doctorId);
+        if (doctor == null)
+            return NotFound();
+
+        var slots = bookingData.GetProperty("Slots")
+            .EnumerateArray()
+            .Select(s => new
+            {
+                StartTime = s.GetProperty("StartTime").GetDateTimeOffset(),
+                EndTime = s.GetProperty("EndTime").GetDateTimeOffset()
+            })
+            .ToList();
+        await using var transaction = await _context.Database.BeginTransactionAsync();
+
+        try
+        {
+            var contact = new SessionContact
+            {
+                FullName = fullName,
+                Email = email,
+                PhoneNumber = phoneNumber,
+            };
+
+            _context.SessionContacts.Add(contact);
+            await _context.SaveChangesAsync();
+
+            foreach (var slot in slots)
+            {
+                var session = new Session
+                {
+                    StartTime = slot.StartTime,
+                    EndTime = slot.EndTime,
+                    PatientId = userId,
+                    DoctorId = doctor.Id,
+                    PaymentStatus = PaymentStatus.Paid,
+                    SessionStatus = SessionStatus.Scheduled,
+                    ContactId = contact.Id
+                };
+                _context.Sessions.Add(session);
+            }
+
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+
+        var redirectUrl = Url.Action(nameof(Confirmation),
+            new { doctorId = doctor.Id, count = sessionCount })
+            ?? Url.Action(nameof(Index))
+            ?? "/";
+
+        return View("Processing", new PaymentProcessingViewModel
+        {
+            RedirectUrl = redirectUrl,
+            DelayMs = 2000
         });
     }
 

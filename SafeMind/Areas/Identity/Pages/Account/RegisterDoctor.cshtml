@@ -37,7 +37,13 @@
 				<span asp-validation-for="Input.DoctorId" class="text-danger"></span>
 			</div>
 
-			<div class="page-login-field grid-span-2">
+<div class="page-login-field">
+				<input asp-for="Input.Username" aria-required="true" placeholder=" " />
+				<label asp-for="Input.Username">Username</label>
+				<span asp-validation-for="Input.Username" class="text-danger"></span>
+			</div>
+
+			<div class="page-login-field">
 				<input asp-for="Input.Email" autocomplete="username" aria-required="true" placeholder=" " />
 				<label asp-for="Input.Email">Email address</label>
 				<span asp-validation-for="Input.Email" class="text-danger"></span>

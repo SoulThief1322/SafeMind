@@ -1,404 +1,418 @@
 :root {
-    --color-primary: #2E6F54;
-    --color-primary-light: #B7E4C7;
-    --color-primary-contrast: #F7FFF5;
-    --color-muted: #CBD5C0;
-    --color-surface: #FFFFFF;
-    --color-bg: #FAFAF7;
-    --color-text: #1E1E1E;
-    --color-text-muted: #4A4A4A;
+  --color-primary: #2e6f54;
+  --color-primary-light: #b7e4c7;
+  --color-primary-contrast: #f7fff5;
+  --color-muted: #cbd5c0;
+  --color-surface: #ffffff;
+  --color-bg: #fafaf7;
+  --color-text: #1e1e1e;
+  --color-text-muted: #4a4a4a;
 }
 
 .appointment-page {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 2rem 1rem 3rem;
-    color: var(--color-text);
-    background: var(--color-bg);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  color: var(--color-text);
+  background: var(--color-bg);
 }
 
 .flow-header {
-    margin-bottom: 1.1rem;
+  margin-bottom: 1.1rem;
 }
 
 .flow-header h1 {
-    margin: 0;
+  margin: 0;
 }
 
 .eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.78rem;
-    color: var(--color-text-muted);
-    margin: 0 0 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin: 0 0 0.3rem;
 }
 
 .subhead {
-    margin: 0.35rem 0 0;
-    color: var(--color-text-muted);
+  margin: 0.35rem 0 0;
+  color: var(--color-text-muted);
 }
 
 .header-row {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 1.5rem;
-    align-items: stretch;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+  align-items: stretch;
 }
 
 .card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-muted);
-    border-radius: 16px;
-    padding: 1.25rem;
-    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.06);
+  background: var(--color-surface);
+  border: 1px solid var(--color-muted);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.06);
 }
 
 .doc-header {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
 }
 
 .avatar {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, var(--color-primary), #1F5A42);
-    color: #fff;
-    display: grid;
-    place-items: center;
-    font-weight: 700;
-    font-size: 1.2rem;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--color-primary), #1f5a42);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 
 .doc-meta h1 {
-    margin: 0 0 0.4rem;
-    font-size: 1.4rem;
+  margin: 0 0 0.4rem;
+  font-size: 1.4rem;
 }
 
 .pill-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin: 0.4rem 0 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.4rem 0 0.6rem;
 }
 
 .pill {
-    background: var(--color-primary-contrast);
-    color: var(--color-primary);
-    padding: 0.25rem 0.6rem;
-    border-radius: 999px;
-    font-size: 0.85rem;
-    border: 1px solid var(--color-primary-light);
+  background: var(--color-primary-contrast);
+  color: var(--color-primary);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  border: 1px solid var(--color-primary-light);
 }
 
 .bio {
-    color: var(--color-text-muted);
-    line-height: 1.5;
-    font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  font-size: 0.95rem;
 }
 
 .stats {
-    display: flex;
-    gap: 1rem;
-    margin-top: 0.8rem;
-    color: var(--color-text);
-    font-weight: 600;
-    font-size: 0.95rem;
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.8rem;
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .stat-pill {
-    background: #f5fbf6;
-    border: 1px solid var(--color-muted);
-    border-radius: 12px;
-    padding: 0.65rem 0.9rem;
+  background: #f5fbf6;
+  border: 1px solid var(--color-muted);
+  border-radius: 12px;
+  padding: 0.65rem 0.9rem;
 }
 
 .calendar-card {
-    padding: 1.25rem;
+  padding: 1.25rem;
 }
 
 .calendar-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .calendar-title {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 700;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .cal-nav {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .cal-btn {
-    border: 1px solid var(--color-muted);
-    background: var(--color-surface);
-    padding: 0.4rem 0.7rem;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    color: var(--color-text);
+  border: 1px solid var(--color-muted);
+  background: var(--color-surface);
+  padding: 0.4rem 0.7rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: var(--color-text);
 }
 
 .cal-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .cal-btn:hover:not(:disabled) {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    box-shadow: 0 8px 24px rgba(46, 111, 84, 0.16);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 8px 24px rgba(46, 111, 84, 0.16);
 }
 
 .calendar-wrap {
-    overflow-x: auto;
-    padding-bottom: 0.25rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
 }
 
 .week-grid {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(120px, 1fr));
-    gap: 0.5rem;
-    min-width: 840px;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(120px, 1fr));
+  gap: 0.5rem;
+  min-width: 840px;
 }
 
 .day {
-    border: 1px solid var(--color-muted);
-    border-radius: 12px;
-    padding: 0.75rem 0.6rem;
-    text-align: center;
-    cursor: pointer;
-    background: var(--color-surface);
-    transition: all 0.15s ease;
-    white-space: nowrap;
+  border: 1px solid var(--color-muted);
+  border-radius: 12px;
+  padding: 0.75rem 0.6rem;
+  text-align: center;
+  cursor: pointer;
+  background: var(--color-surface);
+  transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .day .dow {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
 }
 
 .day .date {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-top: 0.15rem;
-    color: var(--color-text);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 0.15rem;
+  color: var(--color-text);
 }
 
 .day:hover {
-    border-color: var(--color-primary);
-    box-shadow: 0 10px 26px rgba(46, 111, 84, 0.14);
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 26px rgba(46, 111, 84, 0.14);
 }
 
 .day.selected {
-    background: linear-gradient(135deg, var(--color-primary), #368767);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: 0 14px 32px rgba(46, 111, 84, 0.3);
+  background: linear-gradient(135deg, var(--color-primary), #368767);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 14px 32px rgba(46, 111, 84, 0.3);
 }
 
 .day.selected .dow {
-    color: #e9f7ee;
+  color: #e9f7ee;
 }
 
 .day.disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    background: #f4f6f4;
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: #f4f6f4;
 }
 
 .sessions {
-    margin-top: 1.25rem;
+  margin-top: 1.25rem;
 }
 
 .sessions-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
 }
 
 .sessions-head h3 {
-    margin: 0;
+  margin: 0;
 }
 
 .text-muted {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
 }
 
 .session-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
 }
 
 .session {
-    border: 1px solid var(--color-muted);
-    border-radius: 12px;
-    padding: 0.9rem 0.95rem;
-    background: var(--color-surface);
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+  border: 1px solid var(--color-muted);
+  border-radius: 12px;
+  padding: 0.9rem 0.95rem;
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
 .session strong {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 .session small {
-    color: var(--color-text-muted);
-    margin-bottom: 5px;
+  color: var(--color-text-muted);
+  margin-bottom: 5px;
 }
 
 .session:hover {
-    border-color: var(--color-primary);
-    box-shadow: 0 12px 26px rgba(46, 111, 84, 0.16);
-    cursor: pointer;
+  border-color: var(--color-primary);
+  box-shadow: 0 12px 26px rgba(46, 111, 84, 0.16);
+  cursor: pointer;
 }
 
 .session.selected {
-    border-color: var(--color-primary);
-    background: var(--color-primary-contrast);
-    box-shadow: 0 12px 26px rgba(46, 111, 84, 0.16);
+  border-color: var(--color-primary);
+  background: var(--color-primary-contrast);
+  box-shadow: 0 12px 26px rgba(46, 111, 84, 0.16);
 }
 
 .session .cta {
-    color: var(--color-primary);
-    font-weight: 600;
+  color: var(--color-primary);
+  font-weight: 600;
 }
 
 .empty-state {
-    padding: 1rem;
-    border: 1px dashed var(--color-muted);
-    border-radius: 12px;
-    text-align: center;
-    color: var(--color-text-muted);
-    background: #f7f8f5;
+  padding: 1rem;
+  border: 1px dashed var(--color-muted);
+  border-radius: 12px;
+  text-align: center;
+  color: var(--color-text-muted);
+  background: #f7f8f5;
+}
+.continue-actions {
+  display: none;
+  margin-top: 1rem;
+  justify-content: flex-end;
 }
 
+.continue-btn {
+  padding: 0.85rem 1.4rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
 @media (max-width: 980px) {
-    .header-row {
-        grid-template-columns: 1fr;
-    }
+  .header-row {
+    grid-template-columns: 1fr;
+  }
 
-    .calendar-card {
-        overflow: hidden;
-    }
+  .calendar-card {
+    overflow: hidden;
+  }
 }
 
 @media (max-width: 768px) {
-    .appointment-page {
-        padding: 1.25rem 0.75rem 2rem;
-    }
+  .appointment-page {
+    padding: 1.25rem 0.75rem 2rem;
+  }
 
-    .card {
-        padding: 1rem;
-    }
+  .card {
+    padding: 1rem;
+  }
 
-    .week-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        min-width: auto;
-    }
+  .week-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    min-width: auto;
+  }
 
-    .calendar-wrap {
-        overflow-x: visible;
-    }
+  .calendar-wrap {
+    overflow-x: visible;
+  }
 
-    .session-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
+  .session-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
 }
 
 @media (max-width: 520px) {
-    .doc-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .doc-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    .avatar {
-        width: 56px;
-        height: 56px;
-        border-radius: 12px;
-        font-size: 1rem;
-    }
+  .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    font-size: 1rem;
+  }
 
-    .calendar-head {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
+  .calendar-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 
-    .cal-nav {
-        width: 100%;
-        justify-content: flex-start;
-        gap: 0.75rem;
-    }
+  .cal-nav {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.75rem;
+  }
 
-    .sessions-head {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.35rem;
-    }
+  .sessions-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
 
-    .session-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    }
+  .session-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
 }
 
 @media (max-width: 420px) {
-    .appointment-page {
-        padding: 1rem 0.65rem 1.5rem;
-    }
+  .appointment-page {
+    padding: 1rem 0.65rem 1.5rem;
+  }
 
-    .header-row {
-        gap: 1rem;
-    }
+  .header-row {
+    gap: 1rem;
+  }
 
-    .card {
-        padding: 0.85rem;
-        border-radius: 12px;
-    }
+  .card {
+    padding: 0.85rem;
+    border-radius: 12px;
+  }
 
-    .pill-row {
-        gap: 0.3rem;
-    }
+  .pill-row {
+    gap: 0.3rem;
+  }
 
-    .stats {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
+  .stats {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 
-    .stat-pill {
-        width: calc(50% - 0.25rem);
-        text-align: center;
-    }
+  .stat-pill {
+    width: calc(50% - 0.25rem);
+    text-align: center;
+  }
 
-    .week-grid {
-        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-        gap: 0.4rem;
-        min-width: auto;
-    }
+  .week-grid {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 0.4rem;
+    min-width: auto;
+  }
 
-    .calendar-head {
-        gap: 0.35rem;
-    }
+  .calendar-head {
+    gap: 0.35rem;
+  }
 
-    .day {
-        padding: 0.6rem 0.4rem;
-    }
+  .day {
+    padding: 0.6rem 0.4rem;
+  }
 
-    .session-grid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-        gap: 0.6rem;
-    }
+  .session-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.6rem;
+  }
 }

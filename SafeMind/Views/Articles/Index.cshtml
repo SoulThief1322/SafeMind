@@ -1,6 +1,5 @@
-@{
-    ViewData["Title"] = "Articles";
-}
+@using SafeMind.Models;
+@model IEnumerable<ArticlesViewModel>
 
 <link rel="stylesheet" href="~/css/articles.css" />
 
@@ -45,68 +44,23 @@
             <h2 class="section-title">Latest Posts</h2>
 
             <div class="latest-posts">
-                <a class="story-card">
-                    <img src="/images/a1.jpg">
-                    <div class="story-content">
-                        <span class="story-tag">Mind</span>
-                        <h3>Calming Techniques That Actually Work</h3>
-                        <p>Practical steps you can try today.</p>
-                    </div>
-                </a>
-
-                <a class="story-card">
-                    <img src="/images/a2.jpg">
-                    <div class="story-content">
-                        <span class="story-tag">Sleep</span>
-                        <h3>Why Night Routines Matter</h3>
-                        <p>Build habits that support rest.</p>
-                    </div>
-                </a>
-
-                <a class="story-card">
-                    <img src="/images/a2.jpg">
-                    <div class="story-content">
-                        <span class="story-tag">Sleep</span>
-                        <h3>Why Night Routines Matter</h3>
-                        <p>Build habits that support rest.</p>
-                    </div>
-                </a>
-
-                <a class="story-card">
-                    <img src="/images/a2.jpg">
-                    <div class="story-content">
-                        <span class="story-tag">Sleep</span>
-                        <h3>Why Night Routines Matter</h3>
-                        <p>Build habits that support rest.</p>
-                    </div>
-                </a>
-
-                <a class="story-card">
-                    <img src="/images/a2.jpg">
-                    <div class="story-content">
-                        <span class="story-tag">Sleep</span>
-                        <h3>Why Night Routines Matter</h3>
-                        <p>Build habits that support rest.</p>
-                    </div>
-                </a>
-
-                <a class="story-card">
-                    <img src="/images/a2.jpg">
-                    <div class="story-content">
-                        <span class="story-tag">Sleep</span>
-                        <h3>Why Night Routines Matter</h3>
-                        <p>Build habits that support rest.</p>
-                    </div>
-                </a>
-
-                <a class="story-card">
-                    <img src="/images/a2.jpg">
-                    <div class="story-content">
-                        <span class="story-tag">Sleep</span>
-                        <h3>Why Night Routines Matter</h3>
-                        <p>Build habits that support rest.</p>
-                    </div>
-                </a>
+                @foreach (var article in Model)
+                {
+                    <a class="story-card" asp-action="SelectedArticle" asp-route-id="@article.Id">
+                        @if (!string.IsNullOrEmpty(article.imagePath))
+                        {
+                            <img src="@article.imagePath" alt="@article.Headline">
+                        }
+                        <div class="story-content">
+                            @if (article.Categories.Any())
+                            {
+                                <span class="story-tag">@article.Categories.First().Name</span>
+                            }
+                            <h3>@article.Headline</h3>
+                            <p>@(article.Content.Length > 80 ? article.Content.Substring(0, 80) + "..." : article.Content)</p>
+                        </div>
+                    </a>
+                }
             </div>
         </div>
 
@@ -189,10 +143,10 @@
             <div class="sidebar-block block-categories" role="navigation" aria-label="Categories">
                 <h4>Categories</h4>
                 <div class="category-grid">
-                    <a class="category-tile" style="background-image:url('/images/cat1.jpg')">
+                    <a class="category-tile" style="background-image:url('https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=400&h=300&fit=crop')">
                         <span>Mind</span><em>20</em>
                     </a>
-                    <a class="category-tile" style="background-image:url('/images/cat2.jpg')">
+                    <a class="category-tile" style="background-image:url('https://images.unsplash.com/photo-1495197359483-d092478c170a?w=400&h=300&fit=crop')">
                         <span>Sleep</span><em>12</em>
                     </a>
                 </div>
@@ -202,29 +156,19 @@
             <div class="sidebar-block block-most-viewed" role="region" aria-label="Most viewed posts">
                 <h4>Most viewed posts</h4>
 
-                <div class="most-viewed-post">
-                    <img src="/images/p1.jpg">
-                    <div>
-                        <h5>Evening Wind-Down Rituals</h5>
-                        <span>1.2k views</span>
+                @foreach (var article in Model.OrderByDescending(a => a.ViewCount).Take(3))
+                {
+                    <div class="most-viewed-post">
+                        @if (!string.IsNullOrEmpty(article.imagePath))
+                        {
+                            <img src="@article.imagePath" alt="@article.Headline">
+                        }
+                        <div>
+                            <h5>@article.Headline</h5>
+                            <span>@(article.ViewCount >= 1000 ? $"{article.ViewCount / 1000.0:0.#}k" : article.ViewCount.ToString()) views</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="most-viewed-post">
-                    <img src="/images/p2.jpg">
-                    <div>
-                        <h5>Small Steps Toward Calm</h5>
-                        <span>980 views</span>
-                    </div>
-                </div>
-
-                <div class="most-viewed-post">
-                    <img src="/images/p3.jpg">
-                    <div>
-                        <h5>Breathing for Busy Minds</h5>
-                        <span>860 views</span>
-                    </div>
-                </div>
+                }
 
             </div>
 

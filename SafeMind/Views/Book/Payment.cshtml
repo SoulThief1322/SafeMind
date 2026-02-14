@@ -1,0 +1,99 @@
+@model PaymentViewModel
+
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<link rel="stylesheet" href="~/css/booking-flow.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/booking.css" asp-append-version="true" />
+
+<div class="checkout-page">
+    <div class="checkout-header">
+        <p class="eyebrow">Payment</p>
+        <h1>Complete your payment</h1>
+        <p class="subhead">Enter your payment details to confirm your booking.</p>
+    </div>
+
+    <div class="checkout-grid">
+        <section class="card summary-card">
+            <div class="card-header">
+                <div>
+                    <p class="eyebrow">Booking Summary</p>
+                    <h3>@Model.SessionCount Session@(Model.SessionCount > 1 ? "s" : "")</h3>
+                </div>
+            </div>
+
+            <div class="total-row">
+                <div>
+                    <p class="label">Total Amount</p>
+                    <p class="hint">Payment will be processed securely.</p>
+                </div>
+                <div class="total">$@Model.TotalAmount.ToString("0.##")</div>
+            </div>
+
+            <div class="note">
+                <span class="dot"></span>
+                <p>This is a simulated payment. No actual charges will be made.</p>
+            </div>
+        </section>
+
+        <section class="card form-card">
+            <h3>Payment Details</h3>
+            <p class="hint">Enter your card information below.</p>
+
+            <form asp-action="ProcessPayment" method="post" class="checkout-form">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="DoctorId" />
+                <input type="hidden" asp-for="SessionCount" />
+                <input type="hidden" asp-for="TotalAmount" />
+
+                <div class="field">
+                    <label asp-for="CardNumber">Card Number</label>
+                    <input asp-for="CardNumber" 
+                           placeholder="1234 5678 9012 3456" 
+                           maxlength="19"
+                           pattern="^([0-9]{4} ?){4}$"
+                           inputmode="numeric" />
+                    <span asp-validation-for="CardNumber" class="validation"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="CardholderName">Cardholder Name</label>
+                    <input asp-for="CardholderName" placeholder="John Doe" />
+                    <span asp-validation-for="CardholderName" class="validation"></span>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label asp-for="ExpiryDate">Expiry Date</label>
+                        <input asp-for="ExpiryDate" 
+                               placeholder="MM/YY" 
+                               maxlength="5"
+                               pattern="\d{2}/\d{2}" />
+                        <span asp-validation-for="ExpiryDate" class="validation"></span>
+                    </div>
+
+                    <div class="field">
+                        <label asp-for="CVV">CVV</label>
+                        <input asp-for="CVV" 
+                               placeholder="123" 
+                               maxlength="4"
+                               pattern="\d{3,4}"
+                               inputmode="numeric" />
+                        <span asp-validation-for="CVV" class="validation"></span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <a asp-controller="Book" asp-action="Index" class="btn ghost">Cancel</a>
+                    <button type="submit" class="btn primary">Process Payment</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

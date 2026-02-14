@@ -1,27 +1,10 @@
 @using Data.Enums
-@model List<SafeMind.Models.MySessionsViewModel>
+@model SafeMind.Models.MySessionsPageViewModel
 <link rel="stylesheet" href="~/css/mysessions.css" asp-append-version="true" />
+<script src="~/js/mysessions.js" asp-append-version="true" defer></script>
 
 @{
-    DateTime now = DateTime.UtcNow;
-
-    var upcoming = Model
-        .Where(m => m.SessionDate.ToDateTime(m.SessionTime) >= now)
-        .OrderBy(m => m.SessionDate.ToDateTime(m.SessionTime))
-        .ToList();
-
-    var unpaid = upcoming
-        .Where(m => m.PaymentStatus != PaymentStatus.Paid)
-        .OrderBy(m => m.SessionDate.ToDateTime(m.SessionTime))
-        .ToList();
-
-    var past = Model
-        .Where(m => m.SessionDate.ToDateTime(m.SessionTime) < now)
-        .OrderByDescending(m => m.SessionDate.ToDateTime(m.SessionTime))
-        .ToList();
-
-    var paidCount = upcoming.Count(m => m.PaymentStatus == PaymentStatus.Paid);
-    var progressPercent = upcoming.Count == 0 ? 0 : (int)Math.Round((double)paidCount / upcoming.Count * 100);
+    var isDoctor = User.IsInRole("Doctor");
 }
 
 <section class="my-sessions container py-4">
@@ -37,154 +20,193 @@
         </div>
     </div>
 
+    @if (!isDoctor)
+    {
     <div class="credits-card">
         <div class="credits-header">
             <div>
                 <p class="eyebrow">Schedule status</p>
-                <h2 class="h5 mb-0">@upcoming.Count session@(upcoming.Count == 1 ? string.Empty : "s") upcoming</h2>
-                <p class="sessions-sub">@paidCount paid · @progressPercent% complete</p>
+                <h2 class="h5 mb-0">@Model.Upcoming.Count session@(Model.Upcoming.Count == 1 ? string.Empty : "s")
+                    upcoming</h2>
+                    <p class="sessions-sub">@Model.PaidCount paid · @Model.ProgressPercent% complete</p>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="progress-fill" style="width: @Model.ProgressPercent%"></div>
             </div>
         </div>
-        <div class="progress">
-            <div class="progress-fill" style="width: @progressPercent%"></div>
-        </div>
-    </div>
+    }
 
-    <div class="section-block" data-panel="upcoming">
-        <div class="section-head">
-            <p class="eyebrow">Payment due</p>
-            <h2 class="h5 mb-0">@unpaid.Count awaiting payment</h2>
-        </div>
-        <div class="session-list">
-            @if (!unpaid.Any())
-            {
-                <div class="empty-state">No unpaid sessions. You’re all set.</div>
-            }
-            else
-            {
-                foreach (var s in unpaid)
+    @if (!isDoctor)
+    {
+        <div class="section-block" data-panel="upcoming">
+            <div class="section-head">
+                <p class="eyebrow">Payment due</p>
+                <h2 class="h5 mb-0">@Model.Unpaid.Count awaiting payment</h2>
+            </div>
+            <div class="session-list">
+                @if (!Model.Unpaid.Any())
                 {
-                    <article class="session-card">
-                        <div class="date-bar date-accent"></div>
-                        <div class="session-content">
-                            <div class="session-main">
-                                <div>
-                                    <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") · @s.SessionTime.ToString("hh\\:mm")</p>
-                                    <h3 class="session-title">Session (@s.SessionDuration min)</h3>
-                                    <p class="session-with">With Dr. @s.DoctorName</p>
-                                </div>
-                                <div class="session-actions">
-                                    <span class="chip chip-due">Payment due</span>
-                                    <button class="btn-ghost" type="button">Postpone</button>
-                                    <button class="btn-primary-solid" type="button">Pay now</button>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
+                    <div class="empty-state">No unpaid sessions. You're all set.</div>
                 }
-            }
-        </div>
-    </div>
-
-    <div class="section-block" data-panel="upcoming">
-        <div class="section-head">
-            <p class="eyebrow">Upcoming sessions</p>
-            <h2 class="h5 mb-0">Nearest first</h2>
-        </div>
-        <div class="session-list">
-            @if (!upcoming.Any())
-            {
-                <div class="empty-state">No sessions booked yet.</div>
-            }
-            else
-            {
-                foreach (var s in upcoming)
+                else
                 {
-                    var isPaid = s.PaymentStatus == PaymentStatus.Paid;
-                    <article class="session-card">
-                        <div class="date-bar @(isPaid ? "date-primary" : "date-accent")"></div>
-                        <div class="session-content">
-                            <div class="session-main">
-                                <div>
-                                    <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") · @s.SessionTime.ToString("hh\\:mm")</p>
-                                    <h3 class="session-title">Session (@s.SessionDuration min)</h3>
-                                    <p class="session-with">With Dr. @s.DoctorName</p>
-                                </div>
-                                <div class="session-actions">
-                                    @if (isPaid)
-                                    {
-                                        <span class="chip chip-paid">Paid</span>
-                                        <button class="btn-ghost" type="button">Postpone</button>
-                                        <button class="btn-primary-ghost" type="button">Join session</button>
-                                    }
-                                    else
-                                    {
+                    foreach (var s in Model.Unpaid)
+                    {
+                        <article class="session-card">
+                            <div class="date-bar date-accent"></div>
+                            <div class="session-content">
+                                <div class="session-main">
+                                    <div>
+                                        <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") · @s.SessionTime.ToString("hh\\:mm")</p>
+                                        <h3 class="session-title">Session (@s.SessionDuration min)</h3>
+                                        <p class="session-with">With Dr. @s.DoctorName</p>
+                                    </div>
+                                    <div class="session-actions">
                                         <span class="chip chip-due">Payment due</span>
                                         <button class="btn-ghost" type="button">Postpone</button>
-                                        <button class="btn-primary-solid" type="button">Pay now</button>
-                                    }
+                                        <button onclick="location.href='@Url.Action("Payment", "MySessions", new { id = s.SessionId })'" class="btn-primary-solid">Pay now</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </article>
+                        </article>
+                    }
                 }
-            }
+            </div>
         </div>
-    </div>
+    }
 
-    <div class="section-block" data-panel="past" style="display:none;">
-        <div class="section-head">
-            <p class="eyebrow">Past sessions</p>
-        </div>
-        <div class="session-list">
-            @if (!past.Any())
-            {
-                <div class="empty-state">No past sessions to show.</div>
-            }
-            else
-            {
-                foreach (var s in past)
-                {
-                    <article class="session-card">
-                        <div class="date-bar date-primary"></div>
-                        <div class="session-content">
-                            <div class="session-main">
-                                <div>
-                                    <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") · @s.SessionTime.ToString("hh\\:mm")</p>
-                                    <h3 class="session-title">Session (@s.SessionDuration min)</h3>
-                                    <p class="session-with">With Dr. @s.DoctorName</p>
-                                </div>
-                                <div class="session-actions">
-                                    <span class="chip chip-neutral">@s.SessionStatus</span>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                }
-            }
-        </div>
-    </div>
-</section>
+            <div class="section-block" data-panel="upcoming">
+                <div class="section-head">
+                    <p class="eyebrow">Upcoming sessions</p>
+                    <h2 class="h5 mb-0">Nearest first</h2>
+                </div>
+                <div class="session-list">
+                    @if (!Model.Upcoming.Any())
+                    {
+                        <div class="empty-state">No sessions booked yet.</div>
+                    }
+                    else
+                    {
+                        foreach (var s in Model.Upcoming)
+                        {
+                            var isPaid = s.PaymentStatus == PaymentStatus.Paid;
+                            var isScheduled = s.SessionStatus == SessionStatus.Scheduled;
+                            <article class="session-card">
+                                <div class="date-bar @(isPaid ? "date-primary" : "date-accent")"></div>
+                                <div class="session-content">
+                                    <div class="session-main">
+                                        <div>
+                                            <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") · @s.SessionTime.ToString("hh\\:mm")</p>
+                                            <h3 class="session-title">Session (@s.SessionDuration min)</h3>
+                                            @if (isDoctor)
+                                            {
+                                                <p class="session-with">@(!string.IsNullOrEmpty(s.ContactFullName) ? $"With {s.ContactFullName}" : "Patient")</p>
+                                            }
+                                            else
+                                            {
+                                                <p class="session-with">With Dr. @s.DoctorName</p>
+                                            }
+                                            </div>
+                                            <div class="session-actions">
+                                                @if (isDoctor)
+                                                {
+                                                    <span class="chip @(s.SessionStatus == SessionStatus.Confirmed ? "chip-paid" : "chip-neutral")">@s.SessionStatus</span>
+                                                    @if (isScheduled)
+                                                    {
+                                                        <form asp-action="Confirm" asp-controller="MySessions" method="post" style="display:inline;">
+                                                            @Html.AntiForgeryToken()
+                                                            <input type="hidden" name="id" value="@s.SessionId" />
+                                                            <button type="submit" class="btn-primary-solid">Confirm</button>
+                                                        </form>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    @if (isPaid)
+                                                    {
+                                                        <span class="chip chip-paid">Paid</span>
+                                                        <button class="btn-ghost" type="button">Postpone</button>
+                                                        <button class="btn-primary-ghost" type="button">Join session</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="chip chip-due">Payment due</span>
+                                                        <button class="btn-ghost" type="button">Postpone</button>
+                                                        <button onclick="location.href='@Url.Action("Payment", "MySessions", new { id = s.SessionId })'" class="btn-primary-solid">Pay now</button>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            }
+                        }
+                    </div>
+                </div>
 
-<script>
-    (function () {
-        const tabs = document.getElementById('sessionTabs');
-        if (!tabs) return;
-
-        const panels = document.querySelectorAll('[data-panel]');
-
-        tabs.addEventListener('click', (e) => {
-            const btn = e.target.closest('[data-target]');
-            if (!btn) return;
-
-            const target = btn.getAttribute('data-target');
-            tabs.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-            btn.classList.add('active');
-
-            panels.forEach(panel => {
-                panel.style.display = panel.getAttribute('data-panel') === target ? 'block' : 'none';
-            });
-        });
-    })();
-</script>
-
+                <div class="section-block" data-panel="past" style="display:none;">
+                    <div class="section-head">
+                        <p class="eyebrow">Past sessions</p>
+                    </div>
+                    <div class="session-list">
+                        @if (!Model.Past.Any())
+                        {
+                            <div class="empty-state">No past sessions to show.</div>
+                        }
+                        else
+                        {
+                            foreach (var s in Model.Past)
+                            {
+                                var isScheduledPast = s.SessionStatus == SessionStatus.Scheduled;
+                                var canComplete = s.SessionStatus != SessionStatus.Completed && s.SessionStatus != SessionStatus.Cancelled;
+                                <article class="session-card">
+                                    <div class="date-bar date-primary"></div>
+                                    <div class="session-content">
+                                        <div class="session-main">
+                                            <div>
+                                                <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") · @s.SessionTime.ToString("hh\\:mm")</p>
+                                                <h3 class="session-title">Session (@s.SessionDuration min)</h3>
+                                                @if (isDoctor)
+                                                {
+                                                    <p class="session-with">@(!string.IsNullOrEmpty(s.ContactFullName) ? $"With {s.ContactFullName}" : "Patient")</p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="session-with">With Dr. @s.DoctorName</p>
+                                                }
+                                            </div>
+                                            <div class="session-actions">
+                                                @if (isDoctor)
+                                                {
+                                                    <span class="chip @(s.SessionStatus == SessionStatus.Confirmed ? "chip-paid" : "chip-neutral")">@s.SessionStatus</span>
+                                                    @if (isScheduledPast)
+                                                    {
+                                                        <form asp-action="Confirm" asp-controller="MySessions" method="post" style="display:inline;">
+                                                            @Html.AntiForgeryToken()
+                                                            <input type="hidden" name="id" value="@s.SessionId" />
+                                                            <button type="submit" class="btn-primary-solid">Confirm</button>
+                                                        </form>
+                                                    }
+                                                        @if (canComplete)
+                                                        {
+                                                            <form asp-action="Complete" asp-controller="MySessions" method="post" style="display:inline;">
+                                                                @Html.AntiForgeryToken()
+                                                                <input type="hidden" name="id" value="@s.SessionId" />
+                                                                <button type="submit" class="btn-ghost">Mark completed</button>
+                                                            </form>
+                                                        }
+                                                }
+                                                else
+                                                {
+                                                    <span class="chip chip-neutral">@s.SessionStatus</span>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            }
+                        }
+                    </div>
+                </div>
+                </section>

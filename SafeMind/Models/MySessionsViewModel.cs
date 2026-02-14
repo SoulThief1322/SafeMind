@@ -4,6 +4,7 @@ namespace SafeMind.Models
 {
     public class MySessionsViewModel
     {
+        public int SessionId { get; set; }
         public string DoctorName { get; set; } = string.Empty;
         public DateOnly SessionDate { get; set; }
         public TimeOnly SessionTime { get; set; }

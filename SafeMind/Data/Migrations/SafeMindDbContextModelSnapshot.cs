@@ -87,6 +87,21 @@ namespace SafeMind.Data.Migrations
                     b.ToTable("ArticleCategories", (string)null);
                 });
 
+            modelBuilder.Entity("Data.Models.ArticleLike", b =>
+                {
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ArticleId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ArticleLikes", (string)null);
+                });
+
             modelBuilder.Entity("Data.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -646,6 +661,25 @@ namespace SafeMind.Data.Migrations
                     b.Navigation("Article");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Data.Models.ArticleLike", b =>
+                {
+                    b.HasOne("Data.Models.Article", "Article")
+                        .WithMany()
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Data.Models.DailyCheck", b =>

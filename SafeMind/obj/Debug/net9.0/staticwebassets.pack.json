@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\css\\booking-flow.css"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\booking.css",
+      "PackagePath": "staticwebassets\\css\\booking.css"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\diaryentry.css",
       "PackagePath": "staticwebassets\\css\\diaryentry.css"
     },
@@ -57,6 +61,10 @@
       "PackagePath": "staticwebassets\\css\\register-doctor.css"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\selected-article.css",
+      "PackagePath": "staticwebassets\\css\\selected-article.css"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
@@ -79,6 +87,10 @@
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\myDiary.js",
       "PackagePath": "staticwebassets\\js\\myDiary.js"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\mysessions.js",
+      "PackagePath": "staticwebassets\\js\\mysessions.js"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\navbar.js",
