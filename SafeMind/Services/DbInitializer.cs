@@ -32,6 +32,7 @@ namespace SafeMind.Services
             await SeedDoctorLicensesAsync(licensingContext, hasher);
             await SeedCoreLookupsAsync(mainContext);
             await SeedDoctorsAsync(mainContext, users);
+            await SeedArticlesAsync(mainContext, users);
         }
 
         private static async Task EnsureRolesAsync(RoleManager<IdentityRole> roleManager, IEnumerable<string> roles)
@@ -235,6 +236,13 @@ namespace SafeMind.Services
                 ctx.Languages.AddRange(languages.Select(l => new Language { Name = l }));
                 await ctx.SaveChangesAsync();
             }
+
+            if (!await ctx.Categories.AnyAsync())
+            {
+                var categories = new[] { "Mind", "Wellness", "Sleep", "Therapy", "Insights" };
+                ctx.Categories.AddRange(categories.Select(c => new Category { Name = c }));
+                await ctx.SaveChangesAsync();
+            }
         }
 
         private static async Task SeedDoctorsAsync(SafeMindDbContext ctx, Dictionary<string, IdentityUser> users)
@@ -284,6 +292,63 @@ namespace SafeMind.Services
                     if (languageMap.TryGetValue(langName, out var langId))
                     {
                         ctx.DoctorLanguages.Add(new DoctorLanguage { DoctorId = doctor.Id, LanguageId = langId });
+                    }
+                }
+
+                await ctx.SaveChangesAsync();
+            }
+        }
+
+        private static async Task SeedArticlesAsync(SafeMindDbContext ctx, Dictionary<string, IdentityUser> users)
+        {
+            if (await ctx.Articles.AnyAsync()) return;
+
+            var categoryMap = await ctx.Categories.ToDictionaryAsync(c => c.Name, c => c.Id);
+
+            // Use the admin user as the author for all seeded articles
+            var author = users.Values.FirstOrDefault();
+            if (author == null) return;
+
+            var articleSeeds = new[]
+            {
+                new { Headline = "Quick Breathing Reset", Content = "Feeling overwhelmed? Try box breathing: inhale for four counts, hold for four, exhale for four, hold for four. Repeat three to five cycles. This simple technique activates your parasympathetic nervous system, slowing your heart rate and calming racing thoughts. You can do it at your desk, on the bus, or before a difficult conversation. Over time, regular practice rewires your stress response so you recover faster from everyday pressure. Pair it with a brief body scan — notice tension in your shoulders, jaw, and hands, then consciously release each area. Even thirty seconds of focused breathing can shift your entire afternoon.", Categories = new[] { "Mind", "Wellness" }, Views = 1420, WeeklyViews = 210, Likes = 87, ImagePath = "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=450&fit=crop" },
+                new { Headline = "Why Night Routines Matter", Content = "A consistent wind-down routine tells your brain it is time to transition from alertness to rest. Start dimming lights an hour before bed, put screens away, and choose a calming activity like reading, gentle stretching, or journaling. Keep your bedroom cool and dark. Avoid caffeine after midday and heavy meals close to bedtime. Research shows that people who follow a predictable pre-sleep ritual fall asleep faster and experience deeper, more restorative sleep stages. Quality sleep strengthens memory consolidation, emotional regulation, and immune function. Small changes compound — even adding one relaxing step tonight can improve how you feel tomorrow morning.", Categories = new[] { "Sleep" }, Views = 980, WeeklyViews = 145, Likes = 63, ImagePath = "https://images.unsplash.com/photo-1511295742362-92c96b1cf484?w=600&h=450&fit=crop" },
+                new { Headline = "Finding Peace in Nature Walks", Content = "Time in green spaces lowers cortisol, reduces rumination, and lifts mood. You do not need a mountain hike — a twenty-minute walk through a local park counts. Pay attention to textures underfoot, birdsong, the feel of wind on your skin. This informal mindfulness practice grounds you in the present moment and breaks the cycle of anxious thinking. Studies show that even viewing nature photos provides a small mood boost, but being physically immersed is significantly more effective. Try scheduling a short outdoor walk after lunch three times a week and notice how your afternoon focus improves.", Categories = new[] { "Wellness", "Mind" }, Views = 860, WeeklyViews = 130, Likes = 72, ImagePath = "https://images.unsplash.com/photo-1545389336-cf090694435e?w=600&h=450&fit=crop" },
+                new { Headline = "Breathing Exercises for Beginners", Content = "If you are new to breathwork, start with the simplest pattern: four seconds in through the nose, six seconds out through the mouth. The longer exhale is the key — it stimulates the vagus nerve and signals safety to your body. Practice for just two minutes at first, ideally at the same time each day so it becomes habitual. Once comfortable, explore 4-7-8 breathing or alternate-nostril breathing. Keep a small log of how you feel before and after each session to build motivation. Many people report noticeable stress reduction within the first week of daily practice.", Categories = new[] { "Therapy", "Mind" }, Views = 750, WeeklyViews = 98, Likes = 55, ImagePath = "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=450&fit=crop" },
+                new { Headline = "The Power of Daily Journaling", Content = "Writing even three sentences about your day creates distance between you and your emotions, making them easier to process. Journaling reduces intrusive thoughts, clarifies priorities, and helps you spot patterns in mood or behaviour over time. You do not need fancy prompts — simply describe what happened, how you felt, and one thing you are grateful for. Keep a notebook by your bed or use a notes app on your phone. Consistency matters more than length. Research links expressive writing to improved immune function, lower anxiety, and better sleep. Start tonight and see what surfaces.", Categories = new[] { "Insights", "Mind" }, Views = 1120, WeeklyViews = 175, Likes = 91, ImagePath = "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=600&h=450&fit=crop" },
+                new { Headline = "Morning Rituals That Set Your Mood", Content = "How you spend your first hour shapes the rest of the day. Instead of reaching for your phone, try a screen-free start: hydrate, stretch for five minutes, and set one clear intention. Exposure to natural light within thirty minutes of waking helps regulate your circadian rhythm and boosts serotonin. A short gratitude list or two minutes of breathing grounds your mindset before external demands arrive. These small anchors build resilience — when stressful moments hit later, you have a calm baseline to return to. Experiment for one week and compare your energy levels before and after.", Categories = new[] { "Wellness" }, Views = 640, WeeklyViews = 88, Likes = 48, ImagePath = "https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=600&h=450&fit=crop" },
+                new { Headline = "What Therapists Wish You Knew", Content = "Therapy works best when you arrive with honesty, not rehearsed answers. Therapists are not there to judge — they are trained to sit with discomfort alongside you. It is okay to not know what to say; silence is useful too. Progress is rarely linear, and a 'bad' session often precedes a breakthrough. Share feedback about what helps and what does not — your therapist wants to adjust. Between sessions, small experiments matter more than big revelations. And remember: seeking help is not a sign of weakness, it is an investment in the quality of your entire life.", Categories = new[] { "Therapy", "Insights" }, Views = 1350, WeeklyViews = 200, Likes = 105, ImagePath = "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=600&h=450&fit=crop" },
+                new { Headline = "Understanding Sleep Cycles", Content = "Your body cycles through light sleep, deep sleep, and REM roughly every ninety minutes. Deep sleep repairs tissue and strengthens immunity, while REM consolidates memories and processes emotions. Waking mid-cycle leaves you groggy; timing your alarm to land at the end of a cycle helps you feel refreshed. Most adults need four to six full cycles per night, which translates to about seven and a half to nine hours. Alcohol and screens before bed suppress REM, robbing you of emotional processing time. Tracking your sleep patterns for a week reveals where simple adjustments can radically improve how you feel.", Categories = new[] { "Sleep", "Insights" }, Views = 890, WeeklyViews = 115, Likes = 67, ImagePath = "https://images.unsplash.com/photo-1495197359483-d092478c170a?w=600&h=450&fit=crop" },
+                new { Headline = "Building Emotional Resilience", Content = "Resilience is not about avoiding difficulty — it is about recovering effectively when difficulty arrives. Three evidence-based pillars support it: strong social connections, a sense of purpose, and flexible thinking. Practice reframing setbacks as data rather than failure. Maintain at least two or three relationships where you can be vulnerable. Invest in activities that give your life meaning, even small ones like cooking a good meal or mentoring a colleague. Physical health underpins mental toughness, so protect your sleep, movement, and nutrition. Resilience is a skill you build, not a trait you are born with.", Categories = new[] { "Mind", "Wellness" }, Views = 1050, WeeklyViews = 160, Likes = 82, ImagePath = "https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=600&h=450&fit=crop" },
+                new { Headline = "Your Weekly Grounding Check-In", Content = "Set aside ten minutes each Sunday to review your week. Ask yourself: What drained me? What energised me? Did I move my body enough? Did I connect with someone I care about? Rate your overall mood on a simple one-to-ten scale and jot down one thing you want to do differently next week. This micro-reflection habit catches downward trends early, before they snowball into burnout or low mood. Over a month you will see clear patterns — maybe Tuesdays are consistently hard, or exercise days correlate with better sleep. Data about yourself is the first step to meaningful change.", Categories = new[] { "Insights" }, Views = 720, WeeklyViews = 105, Likes = 58, ImagePath = "https://images.unsplash.com/photo-1515894203077-9cd36032142f?w=600&h=450&fit=crop" }
+            };
+
+            foreach (var seed in articleSeeds)
+            {
+                var article = new Article
+                {
+                    Headline = seed.Headline,
+                    Content = seed.Content,
+                    AuthorId = author.Id,
+                    PublishedOn = DateTimeOffset.UtcNow.AddDays(-new Random(seed.Headline.GetHashCode()).Next(1, 60)),
+                    ViewCount = seed.Views,
+                    ViewsInLastWeek = seed.WeeklyViews,
+                    Likes = seed.Likes,
+                    ImagePath = seed.ImagePath
+                };
+
+                ctx.Articles.Add(article);
+                await ctx.SaveChangesAsync();
+
+                foreach (var catName in seed.Categories)
+                {
+                    if (categoryMap.TryGetValue(catName, out var catId))
+                    {
+                        ctx.ArticleCategories.Add(new ArticleCategory
+                        {
+                            ArticleId = article.Id,
+                            CategoryId = catId
+                        });
                     }
                 }
 

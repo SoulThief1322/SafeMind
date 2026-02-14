@@ -1,0 +1,214 @@
+/* ================= SELECTED ARTICLE PAGE ================= */
+
+/* ---------- Hero ---------- */
+.article-hero {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 48px;
+}
+
+.article-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.article-hero-bg--plain {
+    background: linear-gradient(135deg, #1a3c2a 0%, #2e6f54 100%);
+}
+
+.article-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(14, 30, 24, 0.25) 0%,
+        rgba(14, 30, 24, 0.75) 100%
+    );
+}
+
+.article-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 48px 20px 40px;
+    color: #fff;
+    width: 100%;
+}
+
+.article-categories {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.article-cat-badge {
+    display: inline-block;
+    background: rgba(183, 228, 199, 0.25);
+    border: 1px solid rgba(183, 228, 199, 0.5);
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(4px);
+}
+
+.article-hero-title {
+    font-size: 2.4rem;
+    line-height: 1.2;
+    margin: 0 0 18px;
+    max-width: 720px;
+}
+
+.article-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 0.9rem;
+    opacity: 0.85;
+}
+
+.article-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.article-meta-item svg {
+    flex-shrink: 0;
+}
+
+/* ---------- Body layout ---------- */
+.article-body-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 40px;
+    margin-top: 8px;
+    margin-bottom: 64px;
+}
+
+.article-body-content {
+    font-size: 1.08rem;
+    line-height: 1.85;
+    color: var(--color-text, #1e1e1e);
+}
+
+.article-body-content p {
+    margin-bottom: 1.4em;
+}
+
+/* ---------- Sidebar ---------- */
+.article-body-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.article-sidebar-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+}
+
+.article-sidebar-card h4 {
+    margin: 0 0 12px;
+    color: var(--color-primary, #2e6f54);
+    font-size: 1rem;
+}
+
+.article-author-name {
+    font-weight: 700;
+    color: var(--color-text, #1e1e1e);
+    margin: 0 0 6px;
+}
+
+.article-author-desc {
+    font-size: 0.88rem;
+    color: var(--color-text-muted, #4a4a4a);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.article-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--color-muted, #cbd5c0);
+    font-size: 0.9rem;
+}
+
+.article-stat-row:last-child {
+    border-bottom: none;
+}
+
+.article-stat-row span {
+    color: var(--color-text-muted, #4a4a4a);
+}
+
+.article-stat-row strong {
+    color: var(--color-primary, #2e6f54);
+}
+
+.article-sidebar-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.article-sidebar-tag {
+    display: inline-block;
+    background: var(--color-surface, #f4ede4);
+    color: var(--color-primary, #2e6f54);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.article-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-primary, #2e6f54);
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 10px 0;
+    transition: opacity 0.2s ease;
+}
+
+.article-back-link:hover {
+    opacity: 0.7;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .article-hero {
+        min-height: 320px;
+    }
+
+    .article-hero-title {
+        font-size: 1.7rem;
+    }
+
+    .article-meta-row {
+        gap: 12px;
+        font-size: 0.82rem;
+    }
+
+    .article-body-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .article-body-sidebar {
+        order: -1;
+    }
+}

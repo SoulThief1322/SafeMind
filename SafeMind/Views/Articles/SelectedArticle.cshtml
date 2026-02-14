@@ -1,0 +1,103 @@
+@using SafeMind.Models
+@model SelectedArticleViewModel
+
+@{
+    ViewData["Title"] = Model.Headline;
+}
+
+<link rel="stylesheet" href="~/css/articles.css" />
+<link rel="stylesheet" href="~/css/selected-article.css" />
+
+<!-- Hero banner with article image -->
+<section class="article-hero">
+    @if (!string.IsNullOrEmpty(Model.imagePath))
+    {
+        <div class="article-hero-bg" style="background-image:url('@Model.imagePath')">
+            <div class="article-hero-overlay"></div>
+        </div>
+    }
+    else
+    {
+        <div class="article-hero-bg article-hero-bg--plain">
+            <div class="article-hero-overlay"></div>
+        </div>
+    }
+    <div class="article-hero-content container">
+        <div class="article-categories">
+            @foreach (var cat in Model.Categories)
+            {
+                <span class="article-cat-badge">@cat.Name</span>
+            }
+        </div>
+        <h1 class="article-hero-title">@Model.Headline</h1>
+        <div class="article-meta-row">
+            <span class="article-meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg>
+                @Model.AuthorName
+            </span>
+            <span class="article-meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                @Model.DateOfPublish.ToString("MMMM d, yyyy")
+            </span>
+            <span class="article-meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                @(Model.ViewCount >= 1000 ? $"{Model.ViewCount / 1000.0:0.#}k" : Model.ViewCount.ToString()) views
+            </span>
+            <span class="article-meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                @Model.Likes likes
+            </span>
+        </div>
+    </div>
+</section>
+
+<!-- Article body -->
+<section class="container">
+    <article class="article-body-layout">
+        <div class="article-body-content">
+            @foreach (var paragraph in Model.Content.Split(new[] { "\n\n", "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                <p>@paragraph.Trim()</p>
+            }
+        </div>
+
+        <aside class="article-body-sidebar">
+            <div class="article-sidebar-card">
+                <h4>About the Author</h4>
+                <p class="article-author-name">@Model.AuthorName</p>
+                <p class="article-author-desc">Contributing writer at SafeMind, focused on mental health and wellness topics.</p>
+            </div>
+
+            <div class="article-sidebar-card">
+                <h4>Article Stats</h4>
+                <div class="article-stat-row">
+                    <span>Total Views</span>
+                    <strong>@Model.ViewCount.ToString("N0")</strong>
+                </div>
+                <div class="article-stat-row">
+                    <span>This Week</span>
+                    <strong>@Model.ViewsInLastWeek.ToString("N0")</strong>
+                </div>
+                <div class="article-stat-row">
+                    <span>Likes</span>
+                    <strong>@Model.Likes.ToString("N0")</strong>
+                </div>
+            </div>
+
+            <div class="article-sidebar-card">
+                <h4>Categories</h4>
+                <div class="article-sidebar-tags">
+                    @foreach (var cat in Model.Categories)
+                    {
+                        <span class="article-sidebar-tag">@cat.Name</span>
+                    }
+                </div>
+            </div>
+
+            <a class="article-back-link" asp-action="Index">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Back to Articles
+            </a>
+        </aside>
+    </article>
+</section>

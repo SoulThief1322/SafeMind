@@ -28,7 +28,7 @@ builder.Services.AddScoped<SafeMind.Services.ConfirmService>();
 builder.Services.AddSingleton<SafeMind.Services.IDeterministicHasher, SafeMind.Services.DeterministicHasher>();
 builder.Services.AddScoped<SafeMind.Services.MySessionService>();
 builder.Services.AddScoped<SafeMind.Services.DiaryService>();
-
+builder.Services.AddScoped<SafeMind.Services.ArticleService>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/";
