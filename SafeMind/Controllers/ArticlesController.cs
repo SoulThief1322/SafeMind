@@ -23,7 +23,13 @@ public class ArticlesController : Controller
     public async Task<IActionResult> Index()
     {
         var articles = await _articleService.GetAllArticlesAsync();
-        return View(articles);
+        var featured = await _articleService.GetFeaturedPerCategoryAsync();
+        var viewModel = new ArticlesPageViewModel
+        {
+            Articles = articles,
+            FeaturedArticles = featured
+        };
+        return View(viewModel);
     }
     public async Task<IActionResult> SelectedArticle(int id)
     {

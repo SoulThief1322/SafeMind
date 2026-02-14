@@ -1,15 +1,19 @@
 @using SafeMind.Models;
-@model IEnumerable<ArticlesViewModel>
+@using System.Text.Json;
+@model ArticlesPageViewModel
 
 <link rel="stylesheet" href="~/css/articles.css" />
 
+<script>
+    window.__heroArticles = @Html.Raw(JsonSerializer.Serialize(Model.FeaturedArticles, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
+</script>
+
 <section class="hero-editorial" data-hero-rotator>
     <aside class="hero-side-nav">
-        <a class="side-link active" href="#" data-hero-topic="Mind">Mind</a>
-        <a class="side-link" href="#" data-hero-topic="Wellness">Wellness</a>
-        <a class="side-link" href="#" data-hero-topic="Sleep">Sleep</a>
-        <a class="side-link" href="#" data-hero-topic="Therapy">Therapy</a>
-        <a class="side-link" href="#" data-hero-topic="Insights">Insights</a>
+        @foreach (var feat in Model.FeaturedArticles)
+        {
+            <a class="side-link" href="#" data-hero-topic="@feat.Topic">@feat.Topic</a>
+        }
     </aside>
 
     <div class="hero-bg" style="background-image:url('/images/feat1.jpg')">
@@ -44,7 +48,7 @@
             <h2 class="section-title">Latest Posts</h2>
 
             <div class="latest-posts">
-                @foreach (var article in Model)
+                @foreach (var article in Model.Articles)
                 {
                     <a class="story-card" asp-action="SelectedArticle" asp-route-id="@article.Id">
                         @if (!string.IsNullOrEmpty(article.imagePath))
@@ -156,9 +160,9 @@
             <div class="sidebar-block block-most-viewed" role="region" aria-label="Most viewed posts">
                 <h4>Most viewed posts</h4>
 
-                @foreach (var article in Model.OrderByDescending(a => a.ViewCount).Take(3))
+                @foreach (var article in Model.Articles.OrderByDescending(a => a.ViewCount).Take(3))
                 {
-                    <div class="most-viewed-post">
+                    <a class="most-viewed-post" asp-action="SelectedArticle" asp-route-id="@article.Id">
                         @if (!string.IsNullOrEmpty(article.imagePath))
                         {
                             <img src="@article.imagePath" alt="@article.Headline">
@@ -167,7 +171,7 @@
                             <h5>@article.Headline</h5>
                             <span>@(article.ViewCount >= 1000 ? $"{article.ViewCount / 1000.0:0.#}k" : article.ViewCount.ToString()) views</span>
                         </div>
-                    </div>
+                    </a>
                 }
 
             </div>

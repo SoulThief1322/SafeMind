@@ -608,11 +608,18 @@ body {
 }
 
 /* Most viewed posts mini list */
-.most-viewed-post {
+a.most-viewed-post {
   display: grid;
   grid-template-columns: 64px 1fr;
   gap: 12px;
   margin-bottom: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+}
+
+a.most-viewed-post:hover {
+  opacity: 0.75;
 }
 
 .most-viewed-post img {

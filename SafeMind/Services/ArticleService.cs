@@ -86,5 +86,41 @@ namespace SafeMind.Services
             await _context.SaveChangesAsync();
             return (liked, article.Likes);
         }
+
+        public async Task<List<FeaturedArticleViewModel>> GetFeaturedPerCategoryAsync()
+        {
+            var categories = await _context.Categories
+                .Include(c => c.ArticleCategories)
+                    .ThenInclude(ac => ac.Article)
+                .ToListAsync();
+
+            var featured = new List<FeaturedArticleViewModel>();
+
+            foreach (var cat in categories)
+            {
+                var topArticle = cat.ArticleCategories
+                    .Select(ac => ac.Article)
+                    .OrderByDescending(a => a.ViewsInLastWeek)
+                    .FirstOrDefault();
+
+                if (topArticle != null)
+                {
+                    featured.Add(new FeaturedArticleViewModel
+                    {
+                        Topic = cat.Name,
+                        Category = cat.Name,
+                        Eyebrow = $"Top in {cat.Name}",
+                        Title = topArticle.Headline,
+                        Summary = topArticle.Content.Length > 100
+                            ? topArticle.Content.Substring(0, 100) + "..."
+                            : topArticle.Content,
+                        Cta = "Read article",
+                        ArticleId = topArticle.Id
+                    });
+                }
+            }
+
+            return featured;
+        }
     }
 }

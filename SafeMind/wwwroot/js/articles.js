@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Rotates the hero banner content automatically and on user selection.
-  const hero = document.querySelector("[data-hero-rotator]");
+    const hero = document.querySelector("[data-hero-rotator]");
   if (!hero) return;
 
   const heroBg = hero.querySelector(".hero-bg");
@@ -17,58 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const heroArticles = [
-    {
-      topic: "Mind",
-      category: "Mindfulness",
-      eyebrow: "Expansive Exploration",
-      title: "Quick Breathing Reset",
-      summary: "30-second calm routine to reset before your day.",
-      cta: "Read article",
-      link: "#mind",
-      background: "/images/feat1.jpg"
-    },
-    {
-      topic: "Wellness",
-      category: "Wellness",
-      eyebrow: "Tiny Steps",
-      title: "Tiny Steps, Big Calm",
-      summary: "Stack small habits for steady progress.",
-      cta: "Try the steps",
-      link: "#wellness",
-      background: "/images/feat3.jpg"
-    },
-    {
-      topic: "Sleep",
-      category: "Sleep",
-      eyebrow: "Nightly Rituals",
-      title: "Better Night Routines",
-      summary: "Wind-down cues to help your body rest.",
-      cta: "Build your routine",
-      link: "#sleep",
-      background: "/images/feat2.jpg"
-    },
-    {
-      topic: "Therapy",
-      category: "Therapy",
-      eyebrow: "Therapist Notes",
-      title: "What Therapists Wish You Knew",
-      summary: "Prep for your first session with less nerves.",
-      cta: "See prep list",
-      link: "#therapy",
-      background: "/images/a1.jpg"
-    },
-    {
-      topic: "Insights",
-      category: "Insights",
-      eyebrow: "Data-backed Check-ins",
-      title: "Your Weekly Grounding",
-      summary: "Micro-reflections to keep you steady all week.",
-      cta: "Start check-in",
-      link: "#insights",
-      background: "/images/a2.jpg"
-    }
-  ];
+  const heroArticles = (window.__heroArticles || []).map(a => ({
+    topic: a.topic,
+    category: a.category,
+    eyebrow: a.eyebrow,
+    title: a.title,
+    summary: a.summary,
+    cta: a.cta,
+    link: `/Articles/SelectedArticle/${a.articleId}`
+  }));
+
+  if (heroArticles.length === 0) return;
 
   let index = 0;
   let timerId;
