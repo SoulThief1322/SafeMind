@@ -601,6 +601,20 @@ body {
   cursor: pointer;
 }
 
+.category-tile--plain {
+  background: var(--color-surface, #f4ede4);
+  color: var(--color-text, #333);
+  transition: background 0.3s ease;
+}
+
+.category-tile--plain::after {
+  display: none;
+}
+
+.category-tile--plain:hover {
+  background: var(--color-primary-light, #b7e4c7);
+}
+
 .category-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

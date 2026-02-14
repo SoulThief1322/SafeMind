@@ -1,18 +1,25 @@
 @using SafeMind.Models;
 @using System.Text.Json;
-@model ArticlesPageViewModel
+@model ArticlesAndCategoriesViewModel
 
 <link rel="stylesheet" href="~/css/articles.css" />
 
 <script>
-    window.__heroArticles = @Html.Raw(JsonSerializer.Serialize(Model.FeaturedArticles, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
+    window.__heroArticles = @Html.Raw(JsonSerializer.Serialize(
+        Model.Articles.Take(5).Select(a => new {
+            a.Id,
+            a.Headline,
+            Content = a.Content.Length > 100 ? a.Content.Substring(0, 100) + "..." : a.Content,
+            Categories = a.Categories.Select(c => c.Name)
+        }),
+        new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
 </script>
 
 <section class="hero-editorial" data-hero-rotator>
     <aside class="hero-side-nav">
-        @foreach (var feat in Model.FeaturedArticles)
+        @foreach (var feat in Model.Articles.Take(5))
         {
-            <a class="side-link" href="#" data-hero-topic="@feat.Topic">@feat.Topic</a>
+            <a class="side-link" href="#" data-hero-topic="@feat.Headline">@feat.Headline</a>
         }
     </aside>
 
@@ -147,12 +154,12 @@
             <div class="sidebar-block block-categories" role="navigation" aria-label="Categories">
                 <h4>Categories</h4>
                 <div class="category-grid">
-                    <a class="category-tile" style="background-image:url('https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=400&h=300&fit=crop')">
-                        <span>Mind</span><em>20</em>
-                    </a>
-                    <a class="category-tile" style="background-image:url('https://images.unsplash.com/photo-1495197359483-d092478c170a?w=400&h=300&fit=crop')">
-                        <span>Sleep</span><em>12</em>
-                    </a>
+                    @foreach (var category in Model.Categories.Categories)
+                    {
+                        <a class="category-tile category-tile--plain" href="#">
+                            <span>@category</span>
+                        </a>
+                    }
                 </div>
             </div>
 

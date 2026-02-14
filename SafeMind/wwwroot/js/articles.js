@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const hero = document.querySelector("[data-hero-rotator]");
+    
   if (!hero) return;
 
   const heroBg = hero.querySelector(".hero-bg");
@@ -17,13 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const heroArticles = (window.__heroArticles || []).map(a => ({
-    topic: a.topic,
-    category: a.category,
-    eyebrow: a.eyebrow,
-    title: a.title,
-    summary: a.summary,
-    cta: a.cta,
-    link: `/Articles/SelectedArticle/${a.articleId}`
+    topic: a.headline,
+    category: a.categories && a.categories.length > 0 ? a.categories[0] : "",
+    eyebrow: a.categories && a.categories.length > 0 ? a.categories[0] : "Article",
+    title: a.headline,
+    summary: a.content,
+    cta: "Read article",
+    link: `/Articles/SelectedArticle/${a.id}`
   }));
 
   if (heroArticles.length === 0) return;

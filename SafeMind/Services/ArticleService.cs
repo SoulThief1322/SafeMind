@@ -122,5 +122,10 @@ namespace SafeMind.Services
 
             return featured;
         }
+        public async Task<CategoriesViewModel> GetAllCategoriesAsync()
+        {
+            var categories = await _context.Categories.Select(c => c.Name).ToListAsync();
+            return new CategoriesViewModel { Categories = categories };
+        }
     }
 }

@@ -24,10 +24,16 @@ public class ArticlesController : Controller
     {
         var articles = await _articleService.GetAllArticlesAsync();
         var featured = await _articleService.GetFeaturedPerCategoryAsync();
-        var viewModel = new ArticlesPageViewModel
+        var articleViewModel = new ArticlesPageViewModel
         {
             Articles = articles,
             FeaturedArticles = featured
+        };
+        var categoryVM = await _articleService.GetAllCategoriesAsync();
+        var viewModel = new ArticlesAndCategoriesViewModel
+        {
+            Articles = articles,
+            Categories = categoryVM
         };
         return View(viewModel);
     }
