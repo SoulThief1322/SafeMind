@@ -31,6 +31,8 @@ public class ArticlesController : Controller
         {
             return NotFound();
         }
+        _context.Articles.Where(a => a.Id == id).FirstOrDefault().ViewCount++;
+        _context.SaveChanges();
         return View(article);
     }
 

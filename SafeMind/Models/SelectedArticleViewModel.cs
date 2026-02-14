@@ -4,6 +4,7 @@ namespace SafeMind.Models
 {
     public class SelectedArticleViewModel
     {
+        public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Headline { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
