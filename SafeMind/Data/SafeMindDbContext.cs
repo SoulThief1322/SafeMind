@@ -22,6 +22,7 @@ namespace SafeMind.Data
             public DbSet<Article> Articles { get; set; }
             public DbSet<Category> Categories { get; set; }
             public DbSet<ArticleCategory> ArticleCategories { get; set; }
+            public DbSet<ArticleLike> ArticleLikes { get; set; }
             public DbSet<Journal> Journals { get; set; }
             public DbSet<DailyCheck> DailyChecks { get; set; }
             public DbSet<Goal> Goals { get; set; }
@@ -186,6 +187,24 @@ namespace SafeMind.Data
                         .HasForeignKey(ac => ac.CategoryId)
                         .OnDelete(DeleteBehavior.Cascade);
                   });
+
+                  // -------- ArticleLike --------
+                  builder.Entity<ArticleLike>(entity =>
+                  {
+                        entity.ToTable("ArticleLikes");
+                        entity.HasKey(al => new { al.ArticleId, al.UserId });
+
+                        entity.HasOne(al => al.Article)
+                        .WithMany()
+                        .HasForeignKey(al => al.ArticleId)
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                        entity.HasOne(al => al.User)
+                        .WithMany()
+                        .HasForeignKey(al => al.UserId)
+                        .OnDelete(DeleteBehavior.Cascade);
+                  });
+
                   // -------- Journal --------
                   builder.Entity<Journal>(entity =>
                   {

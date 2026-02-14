@@ -1,5 +1,5 @@
 @using SafeMind.Models
-@model SelectedArticleViewModel
+@model ArticlesViewModel
 
 @{
     ViewData["Title"] = Model.Headline;
@@ -61,14 +61,12 @@
             }
 
             <div class="article-like-section">
-                <form asp-action="Like" asp-route-id="@Model.Id" method="post">
-                    @Html.AntiForgeryToken()
-                    <button type="submit" class="article-like-btn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                        <span>Like this article</span>
-                        <span class="article-like-count">@Model.Likes</span>
-                    </button>
-                </form>
+                <button type="button" class="article-like-btn @(Model.HasLiked ? "article-like-btn--liked" : "")" 
+                        id="likeBtn" data-article-id="@Model.Id" data-liked="@Model.HasLiked.ToString().ToLower()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="@(Model.HasLiked ? "currentColor" : "none")" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span id="likeText">@(Model.HasLiked ? "Liked" : "Like this article")</span>
+                    <span class="article-like-count" id="likeCount">@Model.Likes</span>
+                </button>
             </div>
         </div>
 
@@ -112,3 +110,66 @@
         </aside>
     </article>
 </section>
+
+@Html.AntiForgeryToken()
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const btn = document.getElementById('likeBtn');
+        if (!btn) return;
+
+        btn.addEventListener('click', async function () {
+            const articleId = btn.dataset.articleId;
+            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(`/Articles/LikeArticle/${articleId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'RequestVerificationToken': token
+                    },
+                    body: `__RequestVerificationToken=${encodeURIComponent(token)}`
+                });
+
+                if (!res.ok) return;
+
+                const data = await res.json();
+                const liked = data.hasLiked;
+                const likes = data.likes;
+
+                btn.dataset.liked = liked;
+                btn.classList.toggle('article-like-btn--liked', liked);
+
+                const svg = btn.querySelector('svg path');
+                if (svg) svg.setAttribute('fill', liked ? 'currentColor' : 'none');
+
+                document.getElementById('likeText').textContent = liked ? 'Liked' : 'Like this article';
+                document.getElementById('likeCount').textContent = likes;
+
+                // Also update the sidebar stat
+                const statLikes = document.querySelectorAll('.article-stat-row');
+                statLikes.forEach(function (row) {
+                    if (row.querySelector('span') && row.querySelector('span').textContent.trim() === 'Likes') {
+                        row.querySelector('strong').textContent = likes.toLocaleString();
+                    }
+                });
+
+                // Update hero meta likes
+                const metaItems = document.querySelectorAll('.article-meta-item');
+                metaItems.forEach(function (item) {
+                    if (item.textContent.includes('likes')) {
+                        const svg = item.querySelector('svg');
+                        item.innerHTML = '';
+                        item.appendChild(svg);
+                        item.append(` ${likes >= 1000 ? (likes / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : likes} likes`);
+                    }
+                });
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    });
+</script>

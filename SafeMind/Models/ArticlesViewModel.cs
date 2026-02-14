@@ -14,6 +14,7 @@ namespace SafeMind.Models
         public int ViewsInLastWeek { get; set; }
         public int Likes { get; set; }
         public string imagePath { get; set; } = string.Empty;
+        public bool HasLiked { get; set; }
         public List<Category> Categories { get; set; } = new List<Category>();
     }
 }

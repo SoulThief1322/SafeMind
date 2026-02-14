@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using SafeMind.Data;
 using SafeMind.Models;
@@ -26,7 +27,8 @@ public class ArticlesController : Controller
     }
     public async Task<IActionResult> SelectedArticle(int id)
     {
-        var article = await _articleService.GetSelectedArticleAsync(id);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var article = await _articleService.GetSelectedArticleAsync(id, userId);
         if (article == null)
         {
             return NotFound();
@@ -34,6 +36,18 @@ public class ArticlesController : Controller
         _context.Articles.Where(a => a.Id == id).FirstOrDefault().ViewCount++;
         _context.SaveChanges();
         return View(article);
+    }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> LikeArticle(int id)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (userId == null)
+        {
+            return Unauthorized();
+        }
+        var (hasLiked, likes) = await _articleService.ToggleLikeAsync(id, userId);
+        return Json(new { hasLiked, likes });
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

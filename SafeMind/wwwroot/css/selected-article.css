@@ -268,3 +268,32 @@
     font-weight: 700;
     transition: background 0.25s ease;
 }
+
+/* Liked state */
+.article-like-btn--liked {
+    background: var(--color-primary, #2e6f54);
+    border-color: var(--color-primary, #2e6f54);
+    color: #fff;
+}
+
+.article-like-btn--liked svg {
+    stroke: #fff;
+    fill: #fff;
+}
+
+.article-like-btn--liked .article-like-count {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.article-like-btn--liked:hover {
+    background: #245a44;
+    border-color: #245a44;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(46, 111, 84, 0.25);
+}
+
+.article-like-btn--liked:hover svg {
+    stroke: #fff;
+    fill: rgba(255, 255, 255, 0.6);
+}
