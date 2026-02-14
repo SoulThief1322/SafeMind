@@ -111,8 +111,6 @@ public class MySessionsController : Controller
             TempData["Error"] = "This session has already been paid.";
             return RedirectToAction(nameof(Index));
         }
-
-        // Update session payment status
         session.PaymentStatus = PaymentStatus.Paid;
         await _context.SaveChangesAsync();
 
@@ -147,6 +145,48 @@ public class MySessionsController : Controller
         await _context.SaveChangesAsync();
 
         TempData["Success"] = "Session confirmed successfully.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Doctor")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Complete(int id)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        var session = await _context.Sessions
+            .Include(s => s.Doctor)
+            .FirstOrDefaultAsync(s => s.Id == id && s.Doctor != null && s.Doctor.UserId == userId);
+
+        if (session == null)
+        {
+            TempData["Error"] = "Session not found or you don't have permission to update it.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        if (session.StartTime >= DateTime.UtcNow)
+        {
+            TempData["Error"] = "Only past sessions can be marked as completed.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        if (session.SessionStatus == SessionStatus.Completed)
+        {
+            TempData["Error"] = "This session is already completed.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        if (session.SessionStatus == SessionStatus.Cancelled)
+        {
+            TempData["Error"] = "Cancelled sessions cannot be marked as completed.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        session.SessionStatus = SessionStatus.Completed;
+        await _context.SaveChangesAsync();
+
+        TempData["Success"] = "Session marked as completed.";
         return RedirectToAction(nameof(Index));
     }
 

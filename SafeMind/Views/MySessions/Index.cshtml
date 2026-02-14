@@ -37,7 +37,9 @@
         </div>
     }
 
-    <div class="section-block" data-panel="upcoming">
+    @if (!isDoctor)
+    {
+        <div class="section-block" data-panel="upcoming">
             <div class="section-head">
                 <p class="eyebrow">Payment due</p>
                 <h2 class="h5 mb-0">@Model.Unpaid.Count awaiting payment</h2>
@@ -56,24 +58,23 @@
                             <div class="session-content">
                                 <div class="session-main">
                                     <div>
-                                        <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") ·
-                                            @s.SessionTime.ToString("hh\\:mm")</p>
-                                            <h3 class="session-title">Session (@s.SessionDuration min)</h3>
-                                            <p class="session-with">With Dr. @s.DoctorName</p>
-                                        </div>
-                                        <div class="session-actions">
-                                            <span class="chip chip-due">Payment due</span>
-                                            <button class="btn-ghost" type="button">Postpone</button>
-                                            <button onclick="location.href='@Url.Action("Payment", "MySessions", new { id = s.SessionId })'"
-                                                    class="btn-primary-solid">Pay now</button>
-                                        </div>
+                                        <p class="eyebrow">@s.SessionDate.ToString("ddd, MMM d") · @s.SessionTime.ToString("hh\\:mm")</p>
+                                        <h3 class="session-title">Session (@s.SessionDuration min)</h3>
+                                        <p class="session-with">With Dr. @s.DoctorName</p>
+                                    </div>
+                                    <div class="session-actions">
+                                        <span class="chip chip-due">Payment due</span>
+                                        <button class="btn-ghost" type="button">Postpone</button>
+                                        <button onclick="location.href='@Url.Action("Payment", "MySessions", new { id = s.SessionId })'" class="btn-primary-solid">Pay now</button>
                                     </div>
                                 </div>
-                            </article>
-                        }
+                            </div>
+                        </article>
                     }
-                </div>
+                }
             </div>
+        </div>
+    }
 
             <div class="section-block" data-panel="upcoming">
                 <div class="section-head">
@@ -157,6 +158,8 @@
                         {
                             foreach (var s in Model.Past)
                             {
+                                var isScheduledPast = s.SessionStatus == SessionStatus.Scheduled;
+                                var canComplete = s.SessionStatus != SessionStatus.Completed && s.SessionStatus != SessionStatus.Cancelled;
                                 <article class="session-card">
                                     <div class="date-bar date-primary"></div>
                                     <div class="session-content">
@@ -172,15 +175,38 @@
                                                 {
                                                     <p class="session-with">With Dr. @s.DoctorName</p>
                                                 }
-                                                </div>
-                                                <div class="session-actions">
+                                            </div>
+                                            <div class="session-actions">
+                                                @if (isDoctor)
+                                                {
+                                                    <span class="chip @(s.SessionStatus == SessionStatus.Confirmed ? "chip-paid" : "chip-neutral")">@s.SessionStatus</span>
+                                                    @if (isScheduledPast)
+                                                    {
+                                                        <form asp-action="Confirm" asp-controller="MySessions" method="post" style="display:inline;">
+                                                            @Html.AntiForgeryToken()
+                                                            <input type="hidden" name="id" value="@s.SessionId" />
+                                                            <button type="submit" class="btn-primary-solid">Confirm</button>
+                                                        </form>
+                                                    }
+                                                        @if (canComplete)
+                                                        {
+                                                            <form asp-action="Complete" asp-controller="MySessions" method="post" style="display:inline;">
+                                                                @Html.AntiForgeryToken()
+                                                                <input type="hidden" name="id" value="@s.SessionId" />
+                                                                <button type="submit" class="btn-ghost">Mark completed</button>
+                                                            </form>
+                                                        }
+                                                }
+                                                else
+                                                {
                                                     <span class="chip chip-neutral">@s.SessionStatus</span>
-                                                </div>
+                                                }
                                             </div>
                                         </div>
-                                    </article>
-                                }
+                                    </div>
+                                </article>
                             }
-                        </div>
+                        }
                     </div>
+                </div>
                 </section>
