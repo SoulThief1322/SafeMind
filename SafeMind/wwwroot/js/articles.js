@@ -99,7 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const item = heroArticles[index];
     if (!item) return;
 
-    heroBg.style.backgroundImage = `url('${item.background}')`;
     eyebrowEl.textContent = item.eyebrow;
     titleEl.innerHTML = item.title;
     summaryEl.textContent = item.summary;
