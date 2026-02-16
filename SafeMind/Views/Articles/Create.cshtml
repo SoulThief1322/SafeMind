@@ -1,0 +1,72 @@
+@model SafeMind.Models.CreateArticleViewModel
+
+@{
+    ViewData["Title"] = "Create Article";
+}
+
+<link rel="stylesheet" href="~/css/articles.css" />
+<link rel="stylesheet" href="~/css/create-article.css" />
+
+<section class="container create-article-page">
+    <h1 class="section-title">Create New Article</h1>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="create-article-form">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly" class="form-errors"></div>
+
+        <div class="form-group">
+            <label asp-for="Headline" class="form-label">Headline</label>
+            <input asp-for="Headline" class="form-input" placeholder="Enter the article headline" />
+            <span asp-validation-for="Headline" class="form-validation-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Content" class="form-label">Content</label>
+            <textarea asp-for="Content" class="form-input form-textarea" rows="12" placeholder="Write your article content here..."></textarea>
+            <span asp-validation-for="Content" class="form-validation-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Image" class="form-label">Article Image</label>
+            <div class="file-upload-wrapper">
+                <input asp-for="Image" type="file" accept="image/*" class="form-file-input" id="imageInput" />
+                <label for="imageInput" class="file-upload-label">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                    <span id="fileLabel">Choose an image…</span>
+                </label>
+            </div>
+            <span asp-validation-for="Image" class="form-validation-error"></span>
+            <div class="image-preview-container" id="imagePreview" style="display:none;">
+                <img id="previewImg" alt="Preview" class="image-preview" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Categories</label>
+            <div class="categories-checkbox-grid">
+                @for (int i = 0; i < Model.AvailableCategories.Count; i++)
+                {
+                    <label class="category-checkbox">
+                        <input type="checkbox"
+                               name="SelectedCategoryIds"
+                               value="@Model.AvailableCategories[i].Id"
+                               @(Model.SelectedCategoryIds.Contains(Model.AvailableCategories[i].Id) ? "checked" : "") />
+                        <span class="category-checkbox-label">@Model.AvailableCategories[i].Name</span>
+                    </label>
+                }
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-create">Publish Article</button>
+            <a asp-action="Index" class="btn-cancel">Cancel</a>
+        </div>
+    </form>
+</section>
+
+<script src="~/js/createArticle.js"></script>

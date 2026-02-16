@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\css\\booking.css"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\create-article.css",
+      "PackagePath": "staticwebassets\\css\\create-article.css"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\diaryentry.css",
       "PackagePath": "staticwebassets\\css\\diaryentry.css"
     },
@@ -71,6 +75,10 @@
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\images\\SafeMindLogo.png",
       "PackagePath": "staticwebassets\\images\\SafeMindLogo.png"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\images\\articles\\5d6643a1-15bc-453c-85c1-66a28ae27445.png",
+      "PackagePath": "staticwebassets\\images\\articles\\5d6643a1-15bc-453c-85c1-66a28ae27445.png"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\articles.js",

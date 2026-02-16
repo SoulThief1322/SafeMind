@@ -1,0 +1,229 @@
+/* ================= CREATE ARTICLE PAGE ================= */
+
+.create-article-page {
+  padding-top: 40px;
+  padding-bottom: 60px;
+  max-width: 780px;
+}
+
+.create-article-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ---- Form groups ---- */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.form-input {
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-muted);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #fff;
+  color: var(--color-text);
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(46, 111, 84, 0.12);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 200px;
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+/* ---- Validation ---- */
+
+.form-validation-error {
+  color: #c0392b;
+  font-size: 0.82rem;
+}
+
+.form-errors {
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #c0392b;
+  font-size: 0.9rem;
+}
+
+/* ---- File upload ---- */
+
+.file-upload-wrapper {
+  position: relative;
+}
+
+.form-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.file-upload-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1.5px dashed var(--color-muted);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.file-upload-label:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ---- Image preview ---- */
+
+.image-preview-container {
+  margin-top: 10px;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  border: 1px solid var(--color-muted);
+  object-fit: cover;
+}
+
+/* ---- Categories checkboxes ---- */
+
+.categories-checkbox-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.category-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.category-checkbox input[type="checkbox"] {
+  accent-color: var(--color-primary);
+  width: 16px;
+  height: 16px;
+}
+
+.category-checkbox-label {
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+/* ---- Buttons ---- */
+
+.form-actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding-top: 8px;
+}
+
+.btn-create {
+  padding: 12px 28px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-create:hover {
+  background: #245a43;
+}
+
+.btn-cancel {
+  padding: 12px 28px;
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1.5px solid var(--color-muted);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+
+.btn-cancel:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ---- Admin toolbar (used on Index page) ---- */
+
+.admin-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.btn-new-article {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.btn-new-article:hover {
+  background: #245a43;
+  color: #fff;
+}
+
+/* ---- Delete button on article cards ---- */
+
+.btn-delete-article {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 2;
+  position: relative;
+}
+
+.btn-delete-article:hover {
+  background: #a93226;
+}

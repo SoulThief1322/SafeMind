@@ -3,6 +3,7 @@
 @model ArticlesAndCategoriesViewModel
 
 <link rel="stylesheet" href="~/css/articles.css" />
+<link rel="stylesheet" href="~/css/create-article.css" />
 
 <script>
     window.__heroArticles = @Html.Raw(JsonSerializer.Serialize(
@@ -47,6 +48,16 @@
 
 <section class="container">
 
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="admin-toolbar">
+            <a asp-action="Create" class="btn-new-article">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                New Article
+            </a>
+        </div>
+    }
+
     <!-- EDITORIAL BODY -->
     <section class="editorial-layout">
 
@@ -57,20 +68,33 @@
             <div class="latest-posts">
                 @foreach (var article in Model.Articles)
                 {
-                    <a class="story-card" asp-action="SelectedArticle" asp-route-id="@article.Id">
-                        @if (!string.IsNullOrEmpty(article.imagePath))
-                        {
-                            <img src="@article.imagePath" alt="@article.Headline">
-                        }
-                        <div class="story-content">
-                            @if (article.Categories.Any())
+                    <div class="story-card-wrapper">
+                        <a class="story-card" asp-action="SelectedArticle" asp-route-id="@article.Id">
+                            @if (!string.IsNullOrEmpty(article.imagePath))
                             {
-                                <span class="story-tag">@article.Categories.First().Name</span>
+                                <img src="@article.imagePath" alt="@article.Headline">
                             }
-                            <h3>@article.Headline</h3>
-                            <p>@(article.Content.Length > 80 ? article.Content.Substring(0, 80) + "..." : article.Content)</p>
-                        </div>
-                    </a>
+                            <div class="story-content">
+                                @if (article.Categories.Any())
+                                {
+                                    <span class="story-tag">@article.Categories.First().Name</span>
+                                }
+                                <h3>@article.Headline</h3>
+                                <p>@(article.Content.Length > 80 ? article.Content.Substring(0, 80) + "..." : article.Content)</p>
+                            </div>
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <form asp-action="Delete" asp-route-id="@article.Id" method="post"
+                                  onsubmit="return confirm('Are you sure you want to delete this article?');">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn-delete-article">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                    Delete
+                                </button>
+                            </form>
+                        }
+                    </div>
                 }
             </div>
         </div>
