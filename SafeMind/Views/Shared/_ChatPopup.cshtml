@@ -1,5 +1,4 @@
 @* Chat popup – rendered only for authenticated users *@
-@if (User.Identity != null && User.Identity.IsAuthenticated && !User.IsInRole("Doctor"))
 {
     <!-- Floating chat toggle button -->
     <button id="chat-fab" class="chat-fab" title="Messages">

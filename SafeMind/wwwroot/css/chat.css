@@ -148,7 +148,7 @@
 
 /* ---------- Doctor List ---------- */
 .chat-doctor-list {
-    flex: 1;
+    height: 276px;
     overflow-y: auto;
     padding: 6px 0;
 }
@@ -271,14 +271,13 @@
 
 /* ---------- Messages Area ---------- */
 .chat-messages {
-    flex: 1;
     overflow-y: auto;
     padding: 16px 14px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     background: #fafaf7;
-    min-height: 260px;
+    height: 276px;
 }
 
 /* Message row */

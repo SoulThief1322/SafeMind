@@ -1,20 +1,20 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SafeMind.Data;
+using SafeMind.Services;
 
 namespace SafeMind.Controllers
 {
     [Authorize]
     public class ChatController : Controller
     {
-        private readonly SafeMindDbContext _safeMindDbContext;
+        private readonly ChatService _chatService;
 
-        public ChatController(SafeMindDbContext safeMindDbContext)
+        public ChatController(ChatService chatService)
         {
-            _safeMindDbContext = safeMindDbContext;
+            _chatService = chatService;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetConversations()
         {
@@ -22,19 +22,10 @@ namespace SafeMind.Controllers
             if (currentUserId == null)
                 return Unauthorized();
 
-            var conversations = await _safeMindDbContext.ChatMessages
-                .Where(m => m.SenderId == currentUserId || m.ReceiverId == currentUserId)
-                .GroupBy(m => m.SenderId == currentUserId ? m.ReceiverId : m.SenderId)
-                .Select(g => new
-                {
-                    UserId = g.Key,
-                    LastMessage = g.OrderByDescending(m => m.Timestamp).FirstOrDefault()
-                })
-                .ToListAsync();
-
-            return Json(conversations);
+            var result = await _chatService.GetConversationsAsync(currentUserId);
+            return Json(result);
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetMyDoctors()
         {
@@ -42,18 +33,19 @@ namespace SafeMind.Controllers
             if (currentUserId == null)
                 return Unauthorized();
 
-            var doctors = await _safeMindDbContext.Sessions
-                .Where(s => s.PatientId == currentUserId)
-                .Select(s => s.Doctor)
-                .Distinct()
-                .Select(d => new
-                {
-                    d.UserId,
-                    d.Name
-                })
-                .ToListAsync();
-
+            var doctors = await _chatService.GetMyDoctorsAsync(currentUserId);
             return Json(doctors);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMessages(int doctorId)
+        {
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (currentUserId == null)
+                return Unauthorized();
+
+            var messages = await _chatService.GetMessagesAsync(currentUserId, doctorId);
+            return Json(messages);
         }
     }
 }
