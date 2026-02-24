@@ -27,6 +27,7 @@ namespace SafeMind.Data
             public DbSet<DailyCheck> DailyChecks { get; set; }
             public DbSet<Goal> Goals { get; set; }
             public DbSet<SessionContact> SessionContacts { get; set; }
+            public DbSet<ChatMessage> ChatMessages { get; set; }
 
             protected override void OnModelCreating(ModelBuilder builder)
             {

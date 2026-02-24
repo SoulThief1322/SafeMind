@@ -11,6 +11,8 @@ builder.Services.AddDbContext<SafeMindDbContext>(options =>
 builder.Services.AddDbContext<DoctorLicensingDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DoctorLicensingConnection")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddSignalR();
+
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
@@ -74,6 +76,8 @@ app.MapControllerRoute(
 
 app.MapRazorPages()
    .WithStaticAssets();
+
+app.MapHub<SafeMind.Hubs.ChatHub>("/chathub");
 
 await SafeMind.Services.DbInitializer.SeedAsync(app.Services);
 
