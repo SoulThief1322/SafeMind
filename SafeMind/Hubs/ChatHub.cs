@@ -17,8 +17,7 @@ namespace SafeMind.Hubs
         }
 
         /// <summary>
-        /// Client sends a message using the doctor's public integer ID.
-        /// The hub resolves it to the actual UserId server-side.
+        /// Patient sends a message to a doctor using the doctor's public integer ID.
         /// </summary>
         public async Task SendMessage(int doctorId, string message)
         {
@@ -35,25 +34,15 @@ namespace SafeMind.Hubs
             if (doctor is null)
                 return;
 
-            // Determine who is the receiver: if sender is the doctor, receiver is the patient; otherwise receiver is the doctor
-            var receiverUserId = doctor.UserId == senderUserId
-                ? await _db.Sessions
-                    .Where(s => s.DoctorId == doctorId && s.Doctor.UserId == senderUserId)
-                    .Select(s => s.PatientId)
-                    .FirstOrDefaultAsync()
-                : doctor.UserId;
+            var receiverUserId = doctor.UserId;
 
-            if (receiverUserId is null)
-                return;
-
-            // Verify they share at least one session
+            // Verify the patient has at least one session with this doctor
             bool hasSharedSession = await _db.Sessions.AnyAsync(s =>
-                s.DoctorId == doctorId &&
-                (s.PatientId == senderUserId || s.Doctor.UserId == senderUserId)
+                s.DoctorId == doctorId && s.PatientId == senderUserId
             );
 
             if (!hasSharedSession)
-                return; 
+                return;
 
             var chatMessage = new ChatMessage
             {
@@ -66,28 +55,93 @@ namespace SafeMind.Hubs
             _db.ChatMessages.Add(chatMessage);
             await _db.SaveChangesAsync();
 
+            // Notify the doctor
             await Clients.User(receiverUserId).SendAsync("ReceiveMessage", new
             {
                 chatMessage.Id,
                 DoctorId = doctorId,
+                PatientId = senderUserId,
                 chatMessage.Message,
                 Timestamp = chatMessage.Timestamp.ToString("o")
             });
 
+            // Echo back to patient
             await Clients.Caller.SendAsync("MessageSent", new
             {
                 chatMessage.Id,
                 DoctorId = doctorId,
+                PatientId = senderUserId,
                 chatMessage.Message,
                 Timestamp = chatMessage.Timestamp.ToString("o")
             });
         }
+
+        /// <summary>
+        /// Doctor sends a message to a patient using the patient's UserId.
+        /// </summary>
+        public async Task SendMessageToPatient(string patientId, string message)
+        {
+            var senderUserId = Context.UserIdentifier;
+            if (senderUserId is null || string.IsNullOrWhiteSpace(message))
+                return;
+
+            // Resolve the doctor record for the sender
+            var doctor = await _db.Doctors
+                .Where(d => d.UserId == senderUserId)
+                .Select(d => new { d.Id, d.UserId })
+                .FirstOrDefaultAsync();
+
+            if (doctor is null)
+                return;
+
+            // Verify this doctor has at least one session with the patient
+            bool hasSharedSession = await _db.Sessions.AnyAsync(s =>
+                s.DoctorId == doctor.Id && s.PatientId == patientId
+            );
+
+            if (!hasSharedSession)
+                return;
+
+            var chatMessage = new ChatMessage
+            {
+                SenderId = senderUserId,
+                ReceiverId = patientId,
+                Message = message.Trim(),
+                Timestamp = DateTimeOffset.UtcNow,
+                IsRead = false
+            };
+            _db.ChatMessages.Add(chatMessage);
+            await _db.SaveChangesAsync();
+
+            // Notify the patient
+            await Clients.User(patientId).SendAsync("ReceiveMessage", new
+            {
+                chatMessage.Id,
+                DoctorId = doctor.Id,
+                PatientId = patientId,
+                chatMessage.Message,
+                Timestamp = chatMessage.Timestamp.ToString("o")
+            });
+
+            // Echo back to doctor
+            await Clients.Caller.SendAsync("MessageSent", new
+            {
+                chatMessage.Id,
+                DoctorId = doctor.Id,
+                PatientId = patientId,
+                chatMessage.Message,
+                Timestamp = chatMessage.Timestamp.ToString("o")
+            });
+        }
+
+        /// <summary>
+        /// Patient marks messages from a doctor as read.
+        /// </summary>
         public async Task MarkAsRead(int doctorId)
         {
             var currentUserId = Context.UserIdentifier;
             if (currentUserId is null) return;
 
-            // Resolve the doctor's UserId from the public doctorId
             var doctorUserId = await _db.Doctors
                 .Where(d => d.Id == doctorId)
                 .Select(d => d.UserId)
@@ -95,15 +149,26 @@ namespace SafeMind.Hubs
 
             if (doctorUserId is null) return;
 
-            // The "sender" is whichever side is the doctor in this conversation
-            var senderUserId = doctorUserId == currentUserId
-                ? await _db.Sessions.Where(s => s.DoctorId == doctorId).Select(s => s.PatientId).FirstOrDefaultAsync()
-                : doctorUserId;
+            var unread = await _db.ChatMessages
+                .Where(m => m.SenderId == doctorUserId && m.ReceiverId == currentUserId && !m.IsRead)
+                .ToListAsync();
 
-            if (senderUserId is null) return;
+            foreach (var msg in unread)
+                msg.IsRead = true;
+
+            await _db.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Doctor marks messages from a patient as read.
+        /// </summary>
+        public async Task MarkPatientAsRead(string patientId)
+        {
+            var currentUserId = Context.UserIdentifier;
+            if (currentUserId is null) return;
 
             var unread = await _db.ChatMessages
-                .Where(m => m.SenderId == senderUserId && m.ReceiverId == currentUserId && !m.IsRead)
+                .Where(m => m.SenderId == patientId && m.ReceiverId == currentUserId && !m.IsRead)
                 .ToListAsync();
 
             foreach (var msg in unread)

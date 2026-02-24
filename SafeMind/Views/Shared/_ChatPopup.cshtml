@@ -1,12 +1,16 @@
 @* Chat popup – rendered only for authenticated users *@
+@if (User.Identity?.IsAuthenticated == true)
 {
+    var isDoctor = User.IsInRole("Doctor");
+    var chatRole = isDoctor ? "doctor" : "patient";
+
     <!-- Floating chat toggle button -->
-    <button id="chat-fab" class="chat-fab" title="Messages">
+    <button id="chat-fab" class="chat-fab" title="Messages" data-role="@chatRole">
         <i class="fa-regular fa-comment-dots"></i>
         <span id="chat-fab-badge" class="chat-fab-badge" style="display:none;"></span>
     </button>
 
-    <!-- ======== PANEL 1: Doctor list ======== -->
+    <!-- ======== PANEL 1: Contact list (doctors for patients, patients for doctors) ======== -->
     <div id="chat-panel" class="chat-panel" style="display:none;">
         <div class="chat-panel-header">
             <span class="chat-panel-title">Messages</span>
@@ -20,28 +24,18 @@
 
         <div class="chat-search-box">
             <i class="fa-solid fa-magnifying-glass chat-search-icon"></i>
-            <input id="chat-search" type="text" placeholder="Search doctors…" class="chat-search-input" autocomplete="off" />
+            <input id="chat-search" type="text" placeholder="@(isDoctor ? "Search patients…" : "Search doctors…")" class="chat-search-input" autocomplete="off" />
         </div>
 
-        <div id="chat-doctor-list" class="chat-doctor-list">
-            <!-- Populated via JS – each item will look like:
-            <button class="chat-doctor-item" data-user-id="...">
-                <div class="chat-doctor-avatar">DR</div>
-                <div class="chat-doctor-info">
-                    <span class="chat-doctor-name">Dr. Name</span>
-                    <span class="chat-doctor-preview">Last message preview…</span>
-                </div>
-                <span class="chat-doctor-time">5m</span>
-            </button>
-            -->
+        <div id="chat-contact-list" class="chat-doctor-list">
             <div class="chat-empty-state">
                 <i class="fa-regular fa-comment-dots"></i>
-                <p>No conversations yet.<br />Book a session to start messaging.</p>
+                <p>No conversations yet.<br />@(isDoctor ? "Your patients will appear here." : "Book a session to start messaging.")</p>
             </div>
         </div>
     </div>
 
-    <!-- ======== PANEL 3: New conversation – doctor picker ======== -->
+    <!-- ======== PANEL 2: New conversation – contact picker ======== -->
     <div id="chat-new-conv" class="chat-panel" style="display:none;">
         <div class="chat-panel-header">
             <button id="chat-new-back" class="chat-back-btn" title="Back">
@@ -55,26 +49,25 @@
 
         <div class="chat-search-box">
             <i class="fa-solid fa-magnifying-glass chat-search-icon"></i>
-            <input id="chat-new-search" type="text" placeholder="Search your doctors…" class="chat-search-input" autocomplete="off" />
+            <input id="chat-new-search" type="text" placeholder="@(isDoctor ? "Search your patients…" : "Search your doctors…")" class="chat-search-input" autocomplete="off" />
         </div>
 
-        <div id="chat-new-doctor-list" class="chat-doctor-list">
-            <!-- Populated via JS from /Chat/GetMyDoctors -->
+        <div id="chat-new-contact-list" class="chat-doctor-list">
             <div class="chat-empty-state">
                 <i class="fa-regular fa-calendar"></i>
-                <p>No doctors found.<br />Book a session first.</p>
+                <p>@(isDoctor ? "No patients found." : "No doctors found.<br />Book a session first.")</p>
             </div>
         </div>
     </div>
 
-    <!-- ======== PANEL 2: Conversation view ======== -->
+    <!-- ======== PANEL 3: Conversation view ======== -->
     <div id="chat-conversation" class="chat-panel chat-conversation" style="display:none;">
         <div class="chat-panel-header">
             <button id="chat-back" class="chat-back-btn" title="Back">
                 <i class="fa-solid fa-arrow-left"></i>
             </button>
             <div class="chat-conv-title-group">
-                <span id="chat-conv-name" class="chat-panel-title">Doctor</span>
+                <span id="chat-conv-name" class="chat-panel-title">Contact</span>
                 <span id="chat-conv-status" class="chat-conv-status">offline</span>
             </div>
             <button id="chat-conv-close" class="chat-panel-close" title="Close">
@@ -82,18 +75,7 @@
             </button>
         </div>
 
-        <div id="chat-messages" class="chat-messages">
-            <!-- Messages rendered via JS – structure:
-            <div class="chat-msg chat-msg--sent">
-                <div class="chat-msg-bubble">Hello!</div>
-                <span class="chat-msg-time">2:35 PM</span>
-            </div>
-            <div class="chat-msg chat-msg--received">
-                <div class="chat-msg-bubble">Hi there 👋</div>
-                <span class="chat-msg-time">2:36 PM</span>
-            </div>
-            -->
-        </div>
+        <div id="chat-messages" class="chat-messages"></div>
 
         <div class="chat-input-area">
             <input id="chat-input" type="text" placeholder="Write a message…" class="chat-input" autocomplete="off" />
@@ -103,5 +85,3 @@
         </div>
     </div>
 }
-
-<script src="~/js/chat.js"></script>

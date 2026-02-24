@@ -99,5 +99,124 @@ namespace SafeMind.Services
 
             return messages;
         }
+
+        // ── Doctor-side methods ──
+
+        /// <summary>
+        /// Returns conversations for a doctor, keyed by patient.
+        /// </summary>
+        public async Task<object> GetDoctorConversationsAsync(string doctorUserId)
+        {
+            // Get all patient IDs this doctor has sessions with
+            var doctor = await _safeMindDbContext.Doctors
+                .Where(d => d.UserId == doctorUserId)
+                .Select(d => d.Id)
+                .FirstOrDefaultAsync();
+
+            if (doctor == 0) return new List<object>();
+
+            var patientIds = await _safeMindDbContext.Sessions
+                .Where(s => s.DoctorId == doctor)
+                .Select(s => s.PatientId)
+                .Distinct()
+                .ToListAsync();
+
+            var conversations = await _safeMindDbContext.ChatMessages
+                .Where(m =>
+                    (m.SenderId == doctorUserId && patientIds.Contains(m.ReceiverId)) ||
+                    (m.ReceiverId == doctorUserId && patientIds.Contains(m.SenderId)))
+                .GroupBy(m => m.SenderId == doctorUserId ? m.ReceiverId : m.SenderId)
+                .Select(g => new
+                {
+                    PatientId = g.Key,
+                    LastMessage = g.OrderByDescending(m => m.Timestamp).FirstOrDefault()
+                })
+                .ToListAsync();
+
+            // Resolve patient names
+            var patientUserIds = conversations.Select(c => c.PatientId).ToList();
+            var patientNames = await _safeMindDbContext.Users
+                .Where(u => patientUserIds.Contains(u.Id))
+                .ToDictionaryAsync(u => u.Id, u => u.UserName ?? u.Email ?? "Patient");
+
+            // Also get the session contact full names for better display
+            var contactNames = await _safeMindDbContext.Sessions
+                .Where(s => s.DoctorId == doctor && patientUserIds.Contains(s.PatientId))
+                .GroupBy(s => s.PatientId)
+                .Select(g => new { PatientId = g.Key, Name = g.OrderByDescending(s => s.TimeOfBooking).First().Contact.FullName })
+                .ToDictionaryAsync(x => x.PatientId, x => x.Name);
+
+            return conversations.Select(c => new
+            {
+                c.PatientId,
+                PatientName = contactNames.ContainsKey(c.PatientId) ? contactNames[c.PatientId]
+                             : patientNames.ContainsKey(c.PatientId) ? patientNames[c.PatientId]
+                             : "Patient",
+                c.LastMessage
+            });
+        }
+
+        /// <summary>
+        /// Returns all patients this doctor has had sessions with.
+        /// </summary>
+        public async Task<object> GetMyPatientsAsync(string doctorUserId)
+        {
+            var doctor = await _safeMindDbContext.Doctors
+                .Where(d => d.UserId == doctorUserId)
+                .Select(d => d.Id)
+                .FirstOrDefaultAsync();
+
+            if (doctor == 0) return new List<object>();
+
+            // All patients this doctor has had sessions with, with their contact names
+            var patients = await _safeMindDbContext.Sessions
+                .Where(s => s.DoctorId == doctor)
+                .GroupBy(s => s.PatientId)
+                .Select(g => new
+                {
+                    PatientId = g.Key,
+                    Name = g.OrderByDescending(s => s.TimeOfBooking).First().Contact.FullName
+                })
+                .ToListAsync();
+
+            // Which of those patients already have chat messages with this doctor
+            var patientIdsAll = patients.Select(p => p.PatientId).ToList();
+            var patientsWithMessages = await _safeMindDbContext.ChatMessages
+                .Where(m =>
+                    (m.SenderId == doctorUserId && patientIdsAll.Contains(m.ReceiverId)) ||
+                    (m.ReceiverId == doctorUserId && patientIdsAll.Contains(m.SenderId)))
+                .Select(m => m.SenderId == doctorUserId ? m.ReceiverId : m.SenderId)
+                .Distinct()
+                .ToListAsync();
+
+            return patients.Select(p => new
+            {
+                p.PatientId,
+                p.Name,
+                HasConversation = patientsWithMessages.Contains(p.PatientId)
+            });
+        }
+
+        /// <summary>
+        /// Returns messages between the doctor and a specific patient.
+        /// </summary>
+        public async Task<object> GetDoctorMessagesAsync(string doctorUserId, string patientId)
+        {
+            var messages = await _safeMindDbContext.ChatMessages
+                .Where(m =>
+                    (m.SenderId == doctorUserId && m.ReceiverId == patientId) ||
+                    (m.SenderId == patientId && m.ReceiverId == doctorUserId))
+                .OrderBy(m => m.Timestamp)
+                .Select(m => new
+                {
+                    m.Id,
+                    IsMine = m.SenderId == doctorUserId,
+                    m.Message,
+                    Timestamp = m.Timestamp.ToString("o")
+                })
+                .ToListAsync();
+
+            return messages;
+        }
     }
 }

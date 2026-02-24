@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "0Z9e6uiHgpxp/2F5DMpsWag1kW3I0GEnaSy5nME+FGs=",
+  "Hash": "KAgCeI8HakkuIfikw5lkJ7NStA2SArBqtcgk9KQtM7o=",
   "Source": "SafeMind",
   "BasePath": "_content/SafeMind",
   "Mode": "Default",
@@ -2369,12 +2369,12 @@
       "OriginalItemSpec": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\cojbppgrgs-jy1yozjs9k.gz",
+      "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\cojbppgrgs-boq8n9pdg4.gz",
       "SourceId": "SafeMind",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/SafeMind",
-      "RelativePath": "css/chat#[.{fingerprint=jy1yozjs9k}]?.css.gz",
+      "RelativePath": "css/chat#[.{fingerprint=boq8n9pdg4}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -2383,8 +2383,8 @@
       "RelatedAsset": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\chat.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "oq8lbpxgel",
-      "Integrity": "gB56Wi+sxEcsWHwMtummVkVDKOPoef25dE6F5rAAC0I=",
+      "Fingerprint": "4tsc18a2d1",
+      "Integrity": "KALUdIiuxE63c3QF/w/sIAu64Yoo2SVENSFkYt+bGao=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\chat.css"
@@ -3566,12 +3566,12 @@
       "OriginalItemSpec": "C:\\Users\\gajok\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\9.0.2\\staticwebassets\\V5\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\qjynee2m8t-dlvqe5z8rd.gz",
+      "Identity": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\qjynee2m8t-wikj06dsb1.gz",
       "SourceId": "SafeMind",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/SafeMind",
-      "RelativePath": "js/chat#[.{fingerprint=dlvqe5z8rd}]?.js.gz",
+      "RelativePath": "js/chat#[.{fingerprint=wikj06dsb1}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -3580,8 +3580,8 @@
       "RelatedAsset": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\chat.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "n7akhybjya",
-      "Integrity": "TaaFfOBmRzmeJRCqzaFPO9hUcLIRPwTZseYZncQRFU8=",
+      "Fingerprint": "qne89z183y",
+      "Integrity": "yt7Csm+UAGn/Zk+sJtTuIKewUJsdh4eZAlK435ULXBg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\chat.js"
@@ -4693,8 +4693,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "jy1yozjs9k",
-      "Integrity": "lQ0W7pjdDwudptorip9aus4T8wexUlkfrlVaRYwa6yQ=",
+      "Fingerprint": "boq8n9pdg4",
+      "Integrity": "C0QFCmx0EzN/pp/LWABuAkLq3U7hV1MD+Ky5oQgYtAc=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\chat.css"
@@ -5071,8 +5071,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "dlvqe5z8rd",
-      "Integrity": "j6sgoD4Rg+uKb0JlZgs3kz0uWvELAyw3grWzmWoOtiQ=",
+      "Fingerprint": "wikj06dsb1",
+      "Integrity": "WGlAnNJwcuzztplToQOQ9OFyAx1t+bKVccC0hq3akIg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\chat.js"
@@ -7977,13 +7977,13 @@
       ]
     },
     {
-      "Route": "css/chat.css",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\cojbppgrgs-jy1yozjs9k.gz",
+      "Route": "css/chat.boq8n9pdg4.css",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\cojbppgrgs-boq8n9pdg4.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000507099391"
+          "Quality": "0.000506585613"
         }
       ],
       "ResponseHeaders": [
@@ -7993,19 +7993,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1971"
+          "Value": "1973"
         },
         {
           "Name": "ETag",
-          "Value": "\"gB56Wi+sxEcsWHwMtummVkVDKOPoef25dE6F5rAAC0I=\""
+          "Value": "\"KALUdIiuxE63c3QF/w/sIAu64Yoo2SVENSFkYt+bGao=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 10:54:54 GMT"
+          "Value": "Tue, 24 Feb 2026 11:20:44 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "no-cache"
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Encoding",
@@ -8021,18 +8021,26 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"lQ0W7pjdDwudptorip9aus4T8wexUlkfrlVaRYwa6yQ=\""
+          "Value": "W/\"C0QFCmx0EzN/pp/LWABuAkLq3U7hV1MD+Ky5oQgYtAc=\""
         }
       ],
       "EndpointProperties": [
         {
+          "Name": "fingerprint",
+          "Value": "boq8n9pdg4"
+        },
+        {
+          "Name": "label",
+          "Value": "css/chat.css"
+        },
+        {
           "Name": "integrity",
-          "Value": "sha256-lQ0W7pjdDwudptorip9aus4T8wexUlkfrlVaRYwa6yQ="
+          "Value": "sha256-C0QFCmx0EzN/pp/LWABuAkLq3U7hV1MD+Ky5oQgYtAc="
         }
       ]
     },
     {
-      "Route": "css/chat.css",
+      "Route": "css/chat.boq8n9pdg4.css",
       "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\chat.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -8042,7 +8050,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8761"
+          "Value": "8749"
         },
         {
           "Name": "Content-Type",
@@ -8050,121 +8058,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"lQ0W7pjdDwudptorip9aus4T8wexUlkfrlVaRYwa6yQ=\""
+          "Value": "\"C0QFCmx0EzN/pp/LWABuAkLq3U7hV1MD+Ky5oQgYtAc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 10:54:54 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-lQ0W7pjdDwudptorip9aus4T8wexUlkfrlVaRYwa6yQ="
-        }
-      ]
-    },
-    {
-      "Route": "css/chat.css.gz",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\cojbppgrgs-jy1yozjs9k.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1971"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"gB56Wi+sxEcsWHwMtummVkVDKOPoef25dE6F5rAAC0I=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 10:54:54 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-gB56Wi+sxEcsWHwMtummVkVDKOPoef25dE6F5rAAC0I="
-        }
-      ]
-    },
-    {
-      "Route": "css/chat.jy1yozjs9k.css",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\cojbppgrgs-jy1yozjs9k.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000507099391"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1971"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"gB56Wi+sxEcsWHwMtummVkVDKOPoef25dE6F5rAAC0I=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 10:54:54 GMT"
+          "Value": "Tue, 24 Feb 2026 11:20:44 GMT"
         },
         {
           "Name": "Cache-Control",
           "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"lQ0W7pjdDwudptorip9aus4T8wexUlkfrlVaRYwa6yQ=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "jy1yozjs9k"
+          "Value": "boq8n9pdg4"
         },
         {
           "Name": "label",
@@ -8172,13 +8080,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-lQ0W7pjdDwudptorip9aus4T8wexUlkfrlVaRYwa6yQ="
+          "Value": "sha256-C0QFCmx0EzN/pp/LWABuAkLq3U7hV1MD+Ky5oQgYtAc="
         }
       ]
     },
     {
-      "Route": "css/chat.jy1yozjs9k.css",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\chat.css",
+      "Route": "css/chat.boq8n9pdg4.css.gz",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\cojbppgrgs-boq8n9pdg4.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -8187,7 +8095,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "8761"
+          "Value": "1973"
         },
         {
           "Name": "Content-Type",
@@ -8195,56 +8103,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"lQ0W7pjdDwudptorip9aus4T8wexUlkfrlVaRYwa6yQ=\""
+          "Value": "\"KALUdIiuxE63c3QF/w/sIAu64Yoo2SVENSFkYt+bGao=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 10:54:54 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "jy1yozjs9k"
-        },
-        {
-          "Name": "label",
-          "Value": "css/chat.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-lQ0W7pjdDwudptorip9aus4T8wexUlkfrlVaRYwa6yQ="
-        }
-      ]
-    },
-    {
-      "Route": "css/chat.jy1yozjs9k.css.gz",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\cojbppgrgs-jy1yozjs9k.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1971"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"gB56Wi+sxEcsWHwMtummVkVDKOPoef25dE6F5rAAC0I=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 10:54:54 GMT"
+          "Value": "Tue, 24 Feb 2026 11:20:44 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8262,7 +8125,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "jy1yozjs9k"
+          "Value": "boq8n9pdg4"
         },
         {
           "Name": "label",
@@ -8270,7 +8133,144 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-gB56Wi+sxEcsWHwMtummVkVDKOPoef25dE6F5rAAC0I="
+          "Value": "sha256-KALUdIiuxE63c3QF/w/sIAu64Yoo2SVENSFkYt+bGao="
+        }
+      ]
+    },
+    {
+      "Route": "css/chat.css",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\cojbppgrgs-boq8n9pdg4.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000506585613"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1973"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KALUdIiuxE63c3QF/w/sIAu64Yoo2SVENSFkYt+bGao=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 24 Feb 2026 11:20:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"C0QFCmx0EzN/pp/LWABuAkLq3U7hV1MD+Ky5oQgYtAc=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-C0QFCmx0EzN/pp/LWABuAkLq3U7hV1MD+Ky5oQgYtAc="
+        }
+      ]
+    },
+    {
+      "Route": "css/chat.css",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\chat.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8749"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"C0QFCmx0EzN/pp/LWABuAkLq3U7hV1MD+Ky5oQgYtAc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 24 Feb 2026 11:20:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-C0QFCmx0EzN/pp/LWABuAkLq3U7hV1MD+Ky5oQgYtAc="
+        }
+      ]
+    },
+    {
+      "Route": "css/chat.css.gz",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\cojbppgrgs-boq8n9pdg4.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1973"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KALUdIiuxE63c3QF/w/sIAu64Yoo2SVENSFkYt+bGao=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 24 Feb 2026 11:20:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KALUdIiuxE63c3QF/w/sIAu64Yoo2SVENSFkYt+bGao="
         }
       ]
     },
@@ -21514,13 +21514,13 @@
       ]
     },
     {
-      "Route": "js/chat.dlvqe5z8rd.js",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\qjynee2m8t-dlvqe5z8rd.gz",
+      "Route": "js/chat.js",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\qjynee2m8t-wikj06dsb1.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000423011844"
+          "Quality": "0.000346860909"
         }
       ],
       "ResponseHeaders": [
@@ -21530,19 +21530,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2363"
+          "Value": "2882"
         },
         {
           "Name": "ETag",
-          "Value": "\"TaaFfOBmRzmeJRCqzaFPO9hUcLIRPwTZseYZncQRFU8=\""
+          "Value": "\"yt7Csm+UAGn/Zk+sJtTuIKewUJsdh4eZAlK435ULXBg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 11:10:05 GMT"
+          "Value": "Tue, 24 Feb 2026 11:41:15 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -21558,26 +21558,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"j6sgoD4Rg+uKb0JlZgs3kz0uWvELAyw3grWzmWoOtiQ=\""
+          "Value": "W/\"WGlAnNJwcuzztplToQOQ9OFyAx1t+bKVccC0hq3akIg=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "dlvqe5z8rd"
-        },
-        {
-          "Name": "label",
-          "Value": "js/chat.js"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-j6sgoD4Rg+uKb0JlZgs3kz0uWvELAyw3grWzmWoOtiQ="
+          "Value": "sha256-WGlAnNJwcuzztplToQOQ9OFyAx1t+bKVccC0hq3akIg="
         }
       ]
     },
     {
-      "Route": "js/chat.dlvqe5z8rd.js",
+      "Route": "js/chat.js",
       "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\chat.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -21587,7 +21579,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "10655"
+          "Value": "11832"
         },
         {
           "Name": "Content-Type",
@@ -21595,11 +21587,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"j6sgoD4Rg+uKb0JlZgs3kz0uWvELAyw3grWzmWoOtiQ=\""
+          "Value": "\"WGlAnNJwcuzztplToQOQ9OFyAx1t+bKVccC0hq3akIg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 11:10:05 GMT"
+          "Value": "Tue, 24 Feb 2026 11:41:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-WGlAnNJwcuzztplToQOQ9OFyAx1t+bKVccC0hq3akIg="
+        }
+      ]
+    },
+    {
+      "Route": "js/chat.js.gz",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\qjynee2m8t-wikj06dsb1.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2882"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yt7Csm+UAGn/Zk+sJtTuIKewUJsdh4eZAlK435ULXBg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 24 Feb 2026 11:41:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-yt7Csm+UAGn/Zk+sJtTuIKewUJsdh4eZAlK435ULXBg="
+        }
+      ]
+    },
+    {
+      "Route": "js/chat.wikj06dsb1.js",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\qjynee2m8t-wikj06dsb1.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000346860909"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2882"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yt7Csm+UAGn/Zk+sJtTuIKewUJsdh4eZAlK435ULXBg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 24 Feb 2026 11:41:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"WGlAnNJwcuzztplToQOQ9OFyAx1t+bKVccC0hq3akIg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wikj06dsb1"
+        },
+        {
+          "Name": "label",
+          "Value": "js/chat.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-WGlAnNJwcuzztplToQOQ9OFyAx1t+bKVccC0hq3akIg="
+        }
+      ]
+    },
+    {
+      "Route": "js/chat.wikj06dsb1.js",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\chat.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11832"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WGlAnNJwcuzztplToQOQ9OFyAx1t+bKVccC0hq3akIg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 24 Feb 2026 11:41:15 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -21609,7 +21746,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "dlvqe5z8rd"
+          "Value": "wikj06dsb1"
         },
         {
           "Name": "label",
@@ -21617,13 +21754,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-j6sgoD4Rg+uKb0JlZgs3kz0uWvELAyw3grWzmWoOtiQ="
+          "Value": "sha256-WGlAnNJwcuzztplToQOQ9OFyAx1t+bKVccC0hq3akIg="
         }
       ]
     },
     {
-      "Route": "js/chat.dlvqe5z8rd.js.gz",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\qjynee2m8t-dlvqe5z8rd.gz",
+      "Route": "js/chat.wikj06dsb1.js.gz",
+      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\qjynee2m8t-wikj06dsb1.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -21632,7 +21769,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2363"
+          "Value": "2882"
         },
         {
           "Name": "Content-Type",
@@ -21640,11 +21777,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"TaaFfOBmRzmeJRCqzaFPO9hUcLIRPwTZseYZncQRFU8=\""
+          "Value": "\"yt7Csm+UAGn/Zk+sJtTuIKewUJsdh4eZAlK435ULXBg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 11:10:05 GMT"
+          "Value": "Tue, 24 Feb 2026 11:41:15 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -21662,7 +21799,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "dlvqe5z8rd"
+          "Value": "wikj06dsb1"
         },
         {
           "Name": "label",
@@ -21670,144 +21807,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-TaaFfOBmRzmeJRCqzaFPO9hUcLIRPwTZseYZncQRFU8="
-        }
-      ]
-    },
-    {
-      "Route": "js/chat.js",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\qjynee2m8t-dlvqe5z8rd.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000423011844"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2363"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"TaaFfOBmRzmeJRCqzaFPO9hUcLIRPwTZseYZncQRFU8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 11:10:05 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"j6sgoD4Rg+uKb0JlZgs3kz0uWvELAyw3grWzmWoOtiQ=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-j6sgoD4Rg+uKb0JlZgs3kz0uWvELAyw3grWzmWoOtiQ="
-        }
-      ]
-    },
-    {
-      "Route": "js/chat.js",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\chat.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "10655"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"j6sgoD4Rg+uKb0JlZgs3kz0uWvELAyw3grWzmWoOtiQ=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 11:10:05 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-j6sgoD4Rg+uKb0JlZgs3kz0uWvELAyw3grWzmWoOtiQ="
-        }
-      ]
-    },
-    {
-      "Route": "js/chat.js.gz",
-      "AssetFile": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\obj\\Debug\\net9.0\\compressed\\qjynee2m8t-dlvqe5z8rd.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2363"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"TaaFfOBmRzmeJRCqzaFPO9hUcLIRPwTZseYZncQRFU8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 24 Feb 2026 11:10:05 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-TaaFfOBmRzmeJRCqzaFPO9hUcLIRPwTZseYZncQRFU8="
+          "Value": "sha256-yt7Csm+UAGn/Zk+sJtTuIKewUJsdh4eZAlK435ULXBg="
         }
       ]
     },
