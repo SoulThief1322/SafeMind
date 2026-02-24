@@ -64,15 +64,27 @@ namespace SafeMind.Services
                 ("kalin.todorov@safemind.bg", "Password123!", "User"),
             };
 
+
             foreach (var seed in seeds)
             {
-                var user = await userManager.FindByEmailAsync(seed.Email);
-                if (user == null)
+                // Use ToUpperInvariant for normalized email
+                var normalizedEmail = seed.Email.ToUpperInvariant();
+                var usersWithEmail = await userManager.Users
+                    .Where(u => u.NormalizedEmail == normalizedEmail)
+                    .ToListAsync();
+                IdentityUser user = null;
+                if (usersWithEmail.Count > 0)
+                {
+                    // Use the first user found (if duplicates exist, just pick the first)
+                    user = usersWithEmail[0];
+                }
+                else
                 {
                     user = new IdentityUser { UserName = seed.Email, Email = seed.Email, EmailConfirmed = true };
                     await userManager.CreateAsync(user, seed.Password);
                 }
-                else if (!user.EmailConfirmed)
+
+                if (!user.EmailConfirmed)
                 {
                     user.EmailConfirmed = true;
                     await userManager.UpdateAsync(user);

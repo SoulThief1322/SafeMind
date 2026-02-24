@@ -17,6 +17,7 @@ namespace SafeMind.Services
         public async Task<List<ArticlesViewModel>> GetAllArticlesAsync()
         {
             var articles = await _context.Articles
+                .Where(a => !a.IsDeleted)
                 .Select(a => new ArticlesViewModel
                 {
                     Id = a.Id,
@@ -30,6 +31,7 @@ namespace SafeMind.Services
                     imagePath = a.ImagePath,
                     Categories = a.ArticleCategories.Select(ac => ac.Category).ToList()
                 })
+                .OrderByDescending(a => a.DateOfPublish)
                 .ToListAsync();
 
             return articles;
@@ -38,7 +40,7 @@ namespace SafeMind.Services
         public async Task<ArticlesViewModel> GetSelectedArticleAsync(int id, string? userId = null)
         {
             var article = await _context.Articles
-                .Where(a => a.Id == id)
+                .Where(a => a.Id == id && !a.IsDeleted)
                 .Select(a => new ArticlesViewModel
                 {
                     Id = a.Id,
@@ -85,6 +87,101 @@ namespace SafeMind.Services
 
             await _context.SaveChangesAsync();
             return (liked, article.Likes);
+        }
+
+        public async Task<List<FeaturedArticleViewModel>> GetFeaturedPerCategoryAsync()
+        {
+            var categories = await _context.Categories
+                .Include(c => c.ArticleCategories)
+                    .ThenInclude(ac => ac.Article)
+                .ToListAsync();
+
+            var featured = new List<FeaturedArticleViewModel>();
+
+            foreach (var cat in categories)
+            {
+                var topArticle = cat.ArticleCategories
+                    .Select(ac => ac.Article)
+                    .Where(a => !a.IsDeleted)
+                    .OrderByDescending(a => a.ViewsInLastWeek)
+                    .FirstOrDefault();
+
+                if (topArticle != null)
+                {
+                    featured.Add(new FeaturedArticleViewModel
+                    {
+                        Topic = cat.Name,
+                        Category = cat.Name,
+                        Eyebrow = $"Top in {cat.Name}",
+                        Title = topArticle.Headline,
+                        Summary = topArticle.Content.Length > 100
+                            ? topArticle.Content.Substring(0, 100) + "..."
+                            : topArticle.Content,
+                        Cta = "Read article",
+                        ArticleId = topArticle.Id
+                    });
+                }
+            }
+
+            return featured;
+        }
+        public async Task<CategoriesViewModel> GetAllCategoriesAsync()
+        {
+            var categories = await _context.Categories.Select(c => c.Name).ToListAsync();
+            return new CategoriesViewModel { Categories = categories };
+        }
+
+        public async Task<List<CategoryOptionViewModel>> GetCategoryOptionsAsync()
+        {
+            return await _context.Categories
+                .Select(c => new CategoryOptionViewModel { Id = c.Id, Name = c.Name })
+                .ToListAsync();
+        }
+
+        public async Task<Article> CreateArticleAsync(string headline, string content, string authorId, string? imagePath, List<int> categoryIds)
+        {
+            var article = new Article
+            {
+                Headline = headline,
+                Content = content,
+                AuthorId = authorId,
+                PublishedOn = DateTimeOffset.UtcNow,
+                ImagePath = imagePath
+            };
+
+            _context.Articles.Add(article);
+            await _context.SaveChangesAsync();
+
+            if (categoryIds.Any())
+            {
+                var validIds = await _context.Categories
+                    .Where(c => categoryIds.Contains(c.Id))
+                    .Select(c => c.Id)
+                    .ToListAsync();
+
+                foreach (var catId in validIds)
+                {
+                    _context.ArticleCategories.Add(new ArticleCategory
+                    {
+                        ArticleId = article.Id,
+                        CategoryId = catId
+                    });
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
+            return article;
+        }
+
+        public async Task<bool> SoftDeleteArticleAsync(int id)
+        {
+            var article = await _context.Articles.FindAsync(id);
+            if (article == null) return false;
+
+            article.IsDeleted = true;
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

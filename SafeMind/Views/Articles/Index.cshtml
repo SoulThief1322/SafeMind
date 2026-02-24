@@ -1,15 +1,27 @@
 @using SafeMind.Models;
-@model IEnumerable<ArticlesViewModel>
+@using System.Text.Json;
+@model ArticlesAndCategoriesViewModel
 
 <link rel="stylesheet" href="~/css/articles.css" />
+<link rel="stylesheet" href="~/css/create-article.css" />
+
+<script>
+    window.__heroArticles = @Html.Raw(JsonSerializer.Serialize(
+        Model.Articles.Take(5).Select(a => new {
+            a.Id,
+            a.Headline,
+            Content = a.Content.Length > 100 ? a.Content.Substring(0, 100) + "..." : a.Content,
+            Categories = a.Categories.Select(c => c.Name)
+        }),
+        new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
+</script>
 
 <section class="hero-editorial" data-hero-rotator>
     <aside class="hero-side-nav">
-        <a class="side-link active" href="#" data-hero-topic="Mind">Mind</a>
-        <a class="side-link" href="#" data-hero-topic="Wellness">Wellness</a>
-        <a class="side-link" href="#" data-hero-topic="Sleep">Sleep</a>
-        <a class="side-link" href="#" data-hero-topic="Therapy">Therapy</a>
-        <a class="side-link" href="#" data-hero-topic="Insights">Insights</a>
+        @foreach (var feat in Model.Articles.Take(5))
+        {
+            <a class="side-link" href="#" data-hero-topic="@feat.Headline">@feat.Headline</a>
+        }
     </aside>
 
     <div class="hero-bg" style="background-image:url('/images/feat1.jpg')">
@@ -36,6 +48,16 @@
 
 <section class="container">
 
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="admin-toolbar">
+            <a asp-action="Create" class="btn-new-article">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                New Article
+            </a>
+        </div>
+    }
+
     <!-- EDITORIAL BODY -->
     <section class="editorial-layout">
 
@@ -44,22 +66,35 @@
             <h2 class="section-title">Latest Posts</h2>
 
             <div class="latest-posts">
-                @foreach (var article in Model)
+                @foreach (var article in Model.Articles)
                 {
-                    <a class="story-card" asp-action="SelectedArticle" asp-route-id="@article.Id">
-                        @if (!string.IsNullOrEmpty(article.imagePath))
-                        {
-                            <img src="@article.imagePath" alt="@article.Headline">
-                        }
-                        <div class="story-content">
-                            @if (article.Categories.Any())
+                    <div class="story-card-wrapper">
+                        <a class="story-card" asp-action="SelectedArticle" asp-route-id="@article.Id">
+                            @if (!string.IsNullOrEmpty(article.imagePath))
                             {
-                                <span class="story-tag">@article.Categories.First().Name</span>
+                                <img src="@article.imagePath" alt="@article.Headline">
                             }
-                            <h3>@article.Headline</h3>
-                            <p>@(article.Content.Length > 80 ? article.Content.Substring(0, 80) + "..." : article.Content)</p>
-                        </div>
-                    </a>
+                            <div class="story-content">
+                                @if (article.Categories.Any())
+                                {
+                                    <span class="story-tag">@article.Categories.First().Name</span>
+                                }
+                                <h3>@article.Headline</h3>
+                                <p>@(article.Content.Length > 80 ? article.Content.Substring(0, 80) + "..." : article.Content)</p>
+                            </div>
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <form asp-action="Delete" asp-route-id="@article.Id" method="post"
+                                  onsubmit="return confirm('Are you sure you want to delete this article?');">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn-delete-article">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                    Delete
+                                </button>
+                            </form>
+                        }
+                    </div>
                 }
             </div>
         </div>
@@ -143,12 +178,12 @@
             <div class="sidebar-block block-categories" role="navigation" aria-label="Categories">
                 <h4>Categories</h4>
                 <div class="category-grid">
-                    <a class="category-tile" style="background-image:url('https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=400&h=300&fit=crop')">
-                        <span>Mind</span><em>20</em>
-                    </a>
-                    <a class="category-tile" style="background-image:url('https://images.unsplash.com/photo-1495197359483-d092478c170a?w=400&h=300&fit=crop')">
-                        <span>Sleep</span><em>12</em>
-                    </a>
+                    @foreach (var category in Model.Categories.Categories)
+                    {
+                        <a class="category-tile category-tile--plain" href="#">
+                            <span>@category</span>
+                        </a>
+                    }
                 </div>
             </div>
 
@@ -156,9 +191,9 @@
             <div class="sidebar-block block-most-viewed" role="region" aria-label="Most viewed posts">
                 <h4>Most viewed posts</h4>
 
-                @foreach (var article in Model.OrderByDescending(a => a.ViewCount).Take(3))
+                @foreach (var article in Model.Articles.OrderByDescending(a => a.ViewCount).Take(3))
                 {
-                    <div class="most-viewed-post">
+                    <a class="most-viewed-post" asp-action="SelectedArticle" asp-route-id="@article.Id">
                         @if (!string.IsNullOrEmpty(article.imagePath))
                         {
                             <img src="@article.imagePath" alt="@article.Headline">
@@ -167,7 +202,7 @@
                             <h5>@article.Headline</h5>
                             <span>@(article.ViewCount >= 1000 ? $"{article.ViewCount / 1000.0:0.#}k" : article.ViewCount.ToString()) views</span>
                         </div>
-                    </div>
+                    </a>
                 }
 
             </div>

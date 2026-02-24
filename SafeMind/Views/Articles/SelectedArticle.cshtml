@@ -8,20 +8,11 @@
 <link rel="stylesheet" href="~/css/articles.css" />
 <link rel="stylesheet" href="~/css/selected-article.css" />
 
-<!-- Hero banner with article image -->
+<!-- Hero banner with same background as articles index -->
 <section class="article-hero">
-    @if (!string.IsNullOrEmpty(Model.imagePath))
-    {
-        <div class="article-hero-bg" style="background-image:url('@Model.imagePath')">
-            <div class="article-hero-overlay"></div>
-        </div>
-    }
-    else
-    {
-        <div class="article-hero-bg article-hero-bg--plain">
-            <div class="article-hero-overlay"></div>
-        </div>
-    }
+    <div class="article-hero-bg" style="background-image:url('/images/feat1.jpg')">
+        <div class="article-hero-overlay"></div>
+    </div>
     <div class="article-hero-content container">
         <div class="article-categories">
             @foreach (var cat in Model.Categories)

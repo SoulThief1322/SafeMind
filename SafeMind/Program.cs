@@ -11,6 +11,8 @@ builder.Services.AddDbContext<SafeMindDbContext>(options =>
 builder.Services.AddDbContext<DoctorLicensingDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DoctorLicensingConnection")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddSignalR();
+
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
@@ -29,6 +31,7 @@ builder.Services.AddSingleton<SafeMind.Services.IDeterministicHasher, SafeMind.S
 builder.Services.AddScoped<SafeMind.Services.MySessionService>();
 builder.Services.AddScoped<SafeMind.Services.DiaryService>();
 builder.Services.AddScoped<SafeMind.Services.ArticleService>();
+builder.Services.AddScoped<SafeMind.Services.ChatService>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/";
@@ -74,6 +77,8 @@ app.MapControllerRoute(
 
 app.MapRazorPages()
    .WithStaticAssets();
+
+app.MapHub<SafeMind.Hubs.ChatHub>("/chathub");
 
 await SafeMind.Services.DbInitializer.SeedAsync(app.Services);
 

@@ -25,6 +25,14 @@
       "PackagePath": "staticwebassets\\css\\booking.css"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\chat.css",
+      "PackagePath": "staticwebassets\\css\\chat.css"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\create-article.css",
+      "PackagePath": "staticwebassets\\css\\create-article.css"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\diaryentry.css",
       "PackagePath": "staticwebassets\\css\\diaryentry.css"
     },
@@ -73,6 +81,10 @@
       "PackagePath": "staticwebassets\\images\\SafeMindLogo.png"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\images\\articles\\5d6643a1-15bc-453c-85c1-66a28ae27445.png",
+      "PackagePath": "staticwebassets\\images\\articles\\5d6643a1-15bc-453c-85c1-66a28ae27445.png"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\articles.js",
       "PackagePath": "staticwebassets\\js\\articles.js"
     },
@@ -83,6 +95,14 @@
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\book-index.js",
       "PackagePath": "staticwebassets\\js\\book-index.js"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\chat.js",
+      "PackagePath": "staticwebassets\\js\\chat.js"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\createArticle.js",
+      "PackagePath": "staticwebassets\\js\\createArticle.js"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\myDiary.js",

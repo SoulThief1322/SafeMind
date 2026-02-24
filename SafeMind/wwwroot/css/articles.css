@@ -601,6 +601,20 @@ body {
   cursor: pointer;
 }
 
+.category-tile--plain {
+  background: var(--color-surface, #f4ede4);
+  color: var(--color-text, #333);
+  transition: background 0.3s ease;
+}
+
+.category-tile--plain::after {
+  display: none;
+}
+
+.category-tile--plain:hover {
+  background: var(--color-primary-light, #b7e4c7);
+}
+
 .category-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -608,11 +622,18 @@ body {
 }
 
 /* Most viewed posts mini list */
-.most-viewed-post {
+a.most-viewed-post {
   display: grid;
   grid-template-columns: 64px 1fr;
   gap: 12px;
   margin-bottom: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+}
+
+a.most-viewed-post:hover {
+  opacity: 0.75;
 }
 
 .most-viewed-post img {
