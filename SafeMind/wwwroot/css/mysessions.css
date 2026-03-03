@@ -240,6 +240,23 @@
 		transform: scale(0.98);
 	}
 
+	.btn-danger {
+		background: #fff;
+		color: #dc2626;
+		border: 1px solid #fca5a5;
+		padding: 0.4rem 0.85rem;
+		border-radius: 10px;
+		font-weight: 700;
+		cursor: pointer;
+		transition: transform 120ms ease, box-shadow 120ms ease, background 140ms ease, border-color 140ms ease, color 140ms ease;
+	}
+
+	.btn-danger:hover {
+		background: #fef2f2;
+		border-color: #f87171;
+		transform: scale(0.98);
+	}
+
 	@media (max-width: 640px) {
 		.credits-header {
 			flex-direction: column;

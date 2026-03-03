@@ -53,6 +53,8 @@
                 {
                     foreach (var s in Model.Unpaid)
                     {
+                        var unpaidSessionDt = s.SessionDate.ToDateTime(s.SessionTime);
+                        var unpaidCanModify = unpaidSessionDt > DateTime.UtcNow.AddHours(24) && s.SessionStatus != SessionStatus.Cancelled;
                         <article class="session-card">
                             <div class="date-bar date-accent"></div>
                             <div class="session-content">
@@ -64,7 +66,15 @@
                                     </div>
                                     <div class="session-actions">
                                         <span class="chip chip-due">Payment due</span>
-                                        <button class="btn-ghost" type="button">Postpone</button>
+                                        @if (unpaidCanModify)
+                                        {
+                                            <a href="@Url.Action("Postpone", "MySessions", new { id = s.SessionId })" class="btn-ghost">Postpone</a>
+                                            <form asp-action="Cancel" asp-controller="MySessions" method="post" style="display:inline;">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@s.SessionId" />
+                                                <button type="submit" class="btn-danger">Cancel</button>
+                                            </form>
+                                        }
                                         <button onclick="location.href='@Url.Action("Payment", "MySessions", new { id = s.SessionId })'" class="btn-primary-solid">Pay now</button>
                                     </div>
                                 </div>
@@ -92,6 +102,8 @@
                         {
                             var isPaid = s.PaymentStatus == PaymentStatus.Paid;
                             var isScheduled = s.SessionStatus == SessionStatus.Scheduled;
+                            var sessionDt = s.SessionDate.ToDateTime(s.SessionTime);
+                            var canModify = sessionDt > DateTime.UtcNow.AddHours(24) && s.SessionStatus != SessionStatus.Cancelled;
                             <article class="session-card">
                                 <div class="date-bar @(isPaid ? "date-primary" : "date-accent")"></div>
                                 <div class="session-content">
@@ -120,19 +132,44 @@
                                                             <button type="submit" class="btn-primary-solid">Confirm</button>
                                                         </form>
                                                     }
+                                                    @if (canModify)
+                                                    {
+                                                        <a href="@Url.Action("Postpone", "MySessions", new { id = s.SessionId })" class="btn-ghost">Postpone</a>
+                                                        <form asp-action="Cancel" asp-controller="MySessions" method="post" style="display:inline;">
+                                                            @Html.AntiForgeryToken()
+                                                            <input type="hidden" name="id" value="@s.SessionId" />
+                                                            <button type="submit" class="btn-danger">Cancel</button>
+                                                        </form>
+                                                    }
                                                 }
                                                 else
                                                 {
                                                     @if (isPaid)
                                                     {
                                                         <span class="chip chip-paid">Paid</span>
-                                                        <button class="btn-ghost" type="button">Postpone</button>
+                                                        @if (canModify)
+                                                        {
+                                                            <a href="@Url.Action("Postpone", "MySessions", new { id = s.SessionId })" class="btn-ghost">Postpone</a>
+                                                            <form asp-action="Cancel" asp-controller="MySessions" method="post" style="display:inline;">
+                                                                @Html.AntiForgeryToken()
+                                                                <input type="hidden" name="id" value="@s.SessionId" />
+                                                                <button type="submit" class="btn-danger">Cancel</button>
+                                                            </form>
+                                                        }
                                                         <button class="btn-primary-ghost" type="button">Join session</button>
                                                     }
                                                     else
                                                     {
                                                         <span class="chip chip-due">Payment due</span>
-                                                        <button class="btn-ghost" type="button">Postpone</button>
+                                                        @if (canModify)
+                                                        {
+                                                            <a href="@Url.Action("Postpone", "MySessions", new { id = s.SessionId })" class="btn-ghost">Postpone</a>
+                                                            <form asp-action="Cancel" asp-controller="MySessions" method="post" style="display:inline;">
+                                                                @Html.AntiForgeryToken()
+                                                                <input type="hidden" name="id" value="@s.SessionId" />
+                                                                <button type="submit" class="btn-danger">Cancel</button>
+                                                            </form>
+                                                        }
                                                         <button onclick="location.href='@Url.Action("Payment", "MySessions", new { id = s.SessionId })'" class="btn-primary-solid">Pay now</button>
                                                     }
                                                 }

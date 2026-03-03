@@ -421,8 +421,6 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\zhgzodug5h
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\95ik48ex86-9y1hkik14b.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\2z3uqclwml-ga51tmzuje.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\ud38cju2lx-9ktneatf4s.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\mhy6l4v2w4-i0wwipxerb.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\ab7pg0y39c-beq4fvaadn.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\c40yqc459f-payxnwi0jx.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\qkyvlefo0z-6rugzjs8wz.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\c6l2srpgns-cxlt87exgi.gz
@@ -454,3 +452,5 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\runtimes\browser\lib\
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Text.Encodings.Web.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\cojbppgrgs-2yjr6tvcrj.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\qjynee2m8t-n1lmx759qu.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\ab7pg0y39c-rvc01qdlud.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\mhy6l4v2w4-kxolmuy06o.gz

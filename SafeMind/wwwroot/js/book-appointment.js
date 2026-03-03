@@ -163,6 +163,22 @@
             slotSet = new Set();
             selectedSlotsByDate.set(dateIso, slotSet);
         }
+
+        const limit = window._safeSlotLimit || 0; // 0 = unlimited
+        const alreadySelected = sessionElement.classList.contains('selected');
+
+        if (!alreadySelected && limit > 0) {
+            // Count total selected across all dates
+            const totalSelected = Array.from(selectedSlotsByDate.values())
+                .reduce((sum, s) => sum + s.size, 0);
+            if (totalSelected >= limit) {
+                // Deselect all existing selections first
+                selectedSlotsByDate.forEach((set, key) => set.clear());
+                sessionGrid.querySelectorAll('.session.selected')
+                    .forEach(el => el.classList.remove('selected'));
+            }
+        }
+
         const isSelected = sessionElement.classList.toggle('selected');
         if (isSelected) slotSet.add(time); else slotSet.delete(time);
         updateContinueCta();
