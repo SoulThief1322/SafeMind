@@ -33,11 +33,33 @@
   const chatInput = document.getElementById("chat-input");
   const sendBtn = document.getElementById("chat-send");
 
+  const fabBadge = document.getElementById("chat-fab-badge");
+
   // Active conversation state — works for both roles
   // For patients:  activeContactId = doctorId (int)
   // For doctors:   activeContactId = patientId (string)
   let activeContactId = null;
   let activeContactName = "";
+  let totalUnread = 0;
+
+  // ── Badge helpers ──
+  function updateBadge(count) {
+    totalUnread = Math.max(0, count);
+    if (totalUnread === 0) {
+      fabBadge.style.display = "none";
+      fabBadge.textContent = "";
+    } else {
+      fabBadge.textContent = totalUnread > 99 ? "99+" : totalUnread;
+      fabBadge.style.display = "grid";
+    }
+  }
+
+  function fetchUnreadCount() {
+    fetch("/Chat/GetUnreadCount")
+      .then((r) => r.json())
+      .then((data) => updateBadge(data.count))
+      .catch(() => {});
+  }
 
   // ── SignalR connection ──
   const connection = new signalR.HubConnectionBuilder()
@@ -47,7 +69,11 @@
 
   connection
     .start()
+    .then(() => fetchUnreadCount())
     .catch((err) => console.error("SignalR connect failed:", err));
+
+  // Also fetch on page load (in case SignalR takes a moment)
+  fetchUnreadCount();
 
   // ── Helpers ──
   function hideAll() {
@@ -148,6 +174,11 @@
             ? formatTime(c.lastMessage.timestamp)
             : "";
 
+          const unread = c.unreadCount || 0;
+          const unreadBadge = unread > 0
+            ? `<span class="chat-contact-badge">${unread > 99 ? "99+" : unread}</span>`
+            : "";
+
           btn.innerHTML = `
             <div class="chat-doctor-avatar">${getInitials(contactName)}</div>
             <div class="chat-doctor-info">
@@ -156,7 +187,10 @@
             </div>
             <div class="chat-doctor-meta">
               <span class="chat-doctor-time">${time}</span>
+              ${unreadBadge}
             </div>`;
+
+          if (unread > 0) btn.classList.add("chat-doctor-item--unread");
 
           btn.addEventListener("click", () =>
             openConversation(contactId, contactName),
@@ -263,13 +297,17 @@
       })
       .catch((err) => console.error("Failed to load messages:", err));
 
-    // Mark unread messages as read
+    // Mark unread messages as read and refresh badge
     if (isDoctor) {
       connection
         .invoke("MarkPatientAsRead", String(contactId))
+        .then(() => fetchUnreadCount())
         .catch(() => {});
     } else {
-      connection.invoke("MarkAsRead", contactId).catch(() => {});
+      connection
+        .invoke("MarkAsRead", contactId)
+        .then(() => fetchUnreadCount())
+        .catch(() => {});
     }
   }
 
@@ -333,8 +371,10 @@
       } else {
         connection.invoke("MarkAsRead", data.doctorId).catch(() => {});
       }
+    } else {
+      // Conversation is not open – increment unread badge
+      updateBadge(totalUnread + 1);
     }
-    // TODO: increment unread badge when conversation is not open
   });
 
   connection.on("MessageSent", (data) => {

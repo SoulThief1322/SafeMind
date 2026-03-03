@@ -30,11 +30,19 @@ namespace SafeMind.Services
                 .Select(d => new { d.UserId, DoctorId = d.Id, d.Name })
                 .ToDictionaryAsync(d => d.UserId);
 
+            // Count unread per conversation
+            var unreadCounts = await _safeMindDbContext.ChatMessages
+                .Where(m => m.ReceiverId == currentUserId && !m.IsRead)
+                .GroupBy(m => m.SenderId)
+                .Select(g => new { SenderId = g.Key, Count = g.Count() })
+                .ToDictionaryAsync(x => x.SenderId, x => x.Count);
+
             var result = conversations.Select(c => new
             {
                 DoctorId = userIdToDoctorMap.ContainsKey(c.OtherUserId) ? userIdToDoctorMap[c.OtherUserId].DoctorId : (int?)null,
                 DoctorName = userIdToDoctorMap.ContainsKey(c.OtherUserId) ? userIdToDoctorMap[c.OtherUserId].Name : null,
-                c.LastMessage
+                c.LastMessage,
+                UnreadCount = unreadCounts.ContainsKey(c.OtherUserId) ? unreadCounts[c.OtherUserId] : 0
             });
 
             return result;
@@ -146,13 +154,21 @@ namespace SafeMind.Services
                 .Select(g => new { PatientId = g.Key, Name = g.OrderByDescending(s => s.TimeOfBooking).First().Contact.FullName })
                 .ToDictionaryAsync(x => x.PatientId, x => x.Name);
 
+            // Count unread per conversation
+            var unreadCounts = await _safeMindDbContext.ChatMessages
+                .Where(m => m.ReceiverId == doctorUserId && !m.IsRead && patientUserIds.Contains(m.SenderId))
+                .GroupBy(m => m.SenderId)
+                .Select(g => new { SenderId = g.Key, Count = g.Count() })
+                .ToDictionaryAsync(x => x.SenderId, x => x.Count);
+
             return conversations.Select(c => new
             {
                 c.PatientId,
                 PatientName = contactNames.ContainsKey(c.PatientId) ? contactNames[c.PatientId]
                              : patientNames.ContainsKey(c.PatientId) ? patientNames[c.PatientId]
                              : "Patient",
-                c.LastMessage
+                c.LastMessage,
+                UnreadCount = unreadCounts.ContainsKey(c.PatientId) ? unreadCounts[c.PatientId] : 0
             });
         }
 
@@ -195,6 +211,15 @@ namespace SafeMind.Services
                 p.Name,
                 HasConversation = patientsWithMessages.Contains(p.PatientId)
             });
+        }
+
+        /// <summary>
+        /// Returns total unread message count for the current user.
+        /// </summary>
+        public async Task<int> GetUnreadCountAsync(string currentUserId)
+        {
+            return await _safeMindDbContext.ChatMessages
+                .CountAsync(m => m.ReceiverId == currentUserId && !m.IsRead);
         }
 
         /// <summary>

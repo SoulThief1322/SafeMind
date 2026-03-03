@@ -72,6 +72,17 @@ namespace SafeMind.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetUnreadCount()
+        {
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (currentUserId == null)
+                return Unauthorized();
+
+            var count = await _chatService.GetUnreadCountAsync(currentUserId);
+            return Json(new { count });
+        }
+
+        [HttpGet]
         [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> GetPatientMessages(string patientId)
         {

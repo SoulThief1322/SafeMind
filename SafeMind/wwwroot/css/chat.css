@@ -236,6 +236,30 @@
     line-height: 1;
 }
 
+/* Per-conversation unread badge */
+.chat-contact-badge {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--color-primary, #2E6F54);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    line-height: 1;
+}
+
+.chat-doctor-item--unread .chat-doctor-name {
+    font-weight: 700;
+}
+
+.chat-doctor-item--unread .chat-doctor-preview {
+    color: #374151;
+    font-weight: 600;
+}
+
 /* Empty state */
 .chat-empty-state {
     padding: 40px 20px;
