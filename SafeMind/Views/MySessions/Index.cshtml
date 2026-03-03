@@ -144,6 +144,7 @@
                                                 }
                                                 else
                                                 {
+                                                    <span class="chip @(s.SessionStatus == SessionStatus.Confirmed ? "chip-paid" : "chip-neutral")">@s.SessionStatus</span>
                                                     @if (isPaid)
                                                     {
                                                         <span class="chip chip-paid">Paid</span>
@@ -156,7 +157,6 @@
                                                                 <button type="submit" class="btn-danger">Cancel</button>
                                                             </form>
                                                         }
-                                                        <button class="btn-primary-ghost" type="button">Join session</button>
                                                     }
                                                     else
                                                     {

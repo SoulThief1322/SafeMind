@@ -7,14 +7,14 @@
     <div class="flow-header">
         <p class="eyebrow">Step 1 of 2</p>
         <h1>Select your sessions</h1>
-        <p class="subhead">Pick times with Dr. @Model.DoctorName before continuing to checkout.</p>
+        <p class="subhead">Pick times with Dr. @Model.Doctor.Name before continuing to checkout.</p>
     </div>
 
     <!-- 🔽 FORM START -->
     <form asp-action="Checkout" asp-controller="Book" method="post">
         @Html.AntiForgeryToken()
 
-        <input type="hidden" name="doctorId" value="@Model.DoctorId" />
+        <input type="hidden" name="doctorId" value="@Model.Doctor.Id" />
         <input type="hidden" id="selectedSlotsJson" name="selectedSlotsJson" />
 
         <div class="header-row">
@@ -22,26 +22,26 @@
                 <div class="doc-header">
                     <div class="avatar"></div>
                     <div class="doc-meta">
-                        <h1>Dr. @Model.DoctorName</h1>
+                        <h1>Dr. @Model.Doctor.Name</h1>
 
                         <div class="pill-row">
-                            @foreach (var s in Model.Specialties)
+                            @foreach (var s in Model.Doctor.Specialties)
                             {
                                 <span class="pill">@s</span>
                             }
-                            @if (Model.Languages.Any())
+                            @if (Model.Doctor.Languages.Any())
                             {
-                                <span class="pill">@string.Join(" / ", Model.Languages)</span>
+                                <span class="pill">@string.Join(" / ", Model.Doctor.Languages)</span>
                             }
                         </div>
 
-                        <p class="bio">@Model.Biography</p>
+                        <p class="bio">@Model.Doctor.Biography</p>
 
                         <div class="stats">
-                            <span class="stat-pill">Rating @Model.Rating</span>
-                            <span class="stat-pill">$@Model.Price / session</span>
-                            <span class="stat-pill">@Model.SessionDuration min</span>
-                            <span class="stat-pill">@Model.AvailabilityRange</span>
+                            <span class="stat-pill">Rating @Model.Doctor.Rating</span>
+                            <span class="stat-pill">$@Model.Doctor.Price / session</span>
+                            <span class="stat-pill">@Model.Doctor.SessionDuration min</span>
+                            <span class="stat-pill">@Model.Doctor.AvailabilityRange</span>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                 {
                     <div class="session">
                         <strong>@slot</strong>
-                        <small>@Model.SessionDuration min · Online / In-person</small>
+                        <small>@Model.Doctor.SessionDuration min · Online / In-person</small>
                         <span class="cta">Select</span>
                     </div>
                 }
