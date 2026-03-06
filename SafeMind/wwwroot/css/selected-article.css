@@ -11,7 +11,10 @@
 
 .article-hero-bg {
     position: absolute;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background-size: cover;
     background-position: center;
 }
@@ -22,7 +25,10 @@
 
 .article-hero-overlay {
     position: absolute;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background: linear-gradient(
         180deg,
         rgba(14, 30, 24, 0.25) 0%,
@@ -55,6 +61,7 @@
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.3px;
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
 }
 

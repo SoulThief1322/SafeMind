@@ -492,6 +492,8 @@ main {
     font-size: 0.85rem;
     font-weight: 600;
     margin-bottom: 12px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
 }
 
@@ -515,6 +517,8 @@ main {
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
 }
 

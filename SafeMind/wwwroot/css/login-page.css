@@ -19,7 +19,10 @@
 .page-login-card::after {
     content: "";
     position: absolute;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     border-radius: 14px;
     background: linear-gradient(145deg, rgba(46, 111, 84, 0.06), transparent 55%);
     pointer-events: none;
