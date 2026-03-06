@@ -201,6 +201,21 @@ body {
         font-size: 0.9rem;
     }
 }
+@media (min-width: 992px) and (max-width: 1009px) {
+    .navbar-expand-lg .navbar-toggler {
+        display: grid !important;
+    }
+
+    .navbar-expand-lg .navbar-collapse {
+        display: none !important;
+    }
+
+    .navbar-expand-lg .navbar-collapse.show,
+    .navbar-expand-lg .navbar-collapse.collapsing {
+        display: block !important;
+    }
+}
+
 @media (min-width: 1010px) {
     .navbar-expand-lg .navbar-collapse {
         display: flex !important;
