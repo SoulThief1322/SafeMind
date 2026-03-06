@@ -23,14 +23,17 @@ public class ArticlesController : Controller
         _env = env;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int page = 1)
     {
-        var articles = await _articleService.GetAllArticlesAsync();
+        const int pageSize = 10;
+        var (articles, totalCount) = await _articleService.GetArticlesPagedAsync(page, pageSize);
         var categories = await _articleService.GetAllCategoriesAsync();
         var viewModel = new ArticlesAndCategoriesViewModel
         {
             Articles = articles,
-            Categories = categories
+            Categories = categories,
+            CurrentPage = page,
+            TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
         };
         return View(viewModel);
     }
