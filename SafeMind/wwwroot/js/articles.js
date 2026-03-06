@@ -123,4 +123,38 @@ document.addEventListener("DOMContentLoaded", () => {
   createDots();
   applyHero();
   restartTimer();
+
+  // ── Category filtering ──
+  const categoryGrid = document.querySelector("[data-category-grid]");
+  const articlesList = document.querySelector("[data-articles-list]");
+
+  if (categoryGrid && articlesList) {
+    const tiles = [...categoryGrid.querySelectorAll("[data-category-filter]")];
+    const cards = [...articlesList.querySelectorAll("[data-categories]")];
+
+    tiles.forEach(tile => {
+      tile.addEventListener("click", e => {
+        e.preventDefault();
+        const filter = tile.dataset.categoryFilter;
+
+        // Toggle active class on tiles
+        tiles.forEach(t => t.classList.remove("is-active"));
+        tile.classList.add("is-active");
+
+        // Show/hide article cards
+        cards.forEach(card => {
+          const cardCategories = card.dataset.categories
+            .split(",")
+            .map(c => c.trim())
+            .filter(Boolean);
+
+          if (filter === "all" || cardCategories.includes(filter)) {
+            card.style.display = "";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+  }
 });

@@ -65,10 +65,10 @@
         <div class="left-side">
             <h2 class="section-title">Latest Posts</h2>
 
-            <div class="latest-posts">
+            <div class="latest-posts" data-articles-list>
                 @foreach (var article in Model.Articles)
                 {
-                    <div class="story-card-wrapper">
+                    <div class="story-card-wrapper" data-categories="@string.Join(",", article.Categories.Select(c => c.Name))">
                         <a class="story-card" asp-action="SelectedArticle" asp-route-id="@article.Id">
                             @if (!string.IsNullOrEmpty(article.imagePath))
                             {
@@ -177,10 +177,13 @@
             <!-- Categories -->
             <div class="sidebar-block block-categories" role="navigation" aria-label="Categories">
                 <h4>Categories</h4>
-                <div class="category-grid">
+                <div class="category-grid" data-category-grid>
+                    <a class="category-tile category-tile--plain is-active" href="#" data-category-filter="all">
+                        <span>All</span>
+                    </a>
                     @foreach (var category in Model.Categories)
                     {
-                        <a class="category-tile category-tile--plain" href="#">
+                        <a class="category-tile category-tile--plain" href="#" data-category-filter="@category">
                             <span>@category</span>
                         </a>
                     }
