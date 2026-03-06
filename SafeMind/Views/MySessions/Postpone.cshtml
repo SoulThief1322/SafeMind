@@ -2,18 +2,22 @@
 
 <link rel="stylesheet" href="~/css/book-session.css" asp-append-version="true" />
 
+@{
+    var oldSessionId = (int)ViewBag.PostponeSessionId;
+}
+
 <div class="appointment-page">
 
     <div class="flow-header">
-        <p class="eyebrow">Step 1 of 2</p>
-        <h1>Select your sessions</h1>
-        <p class="subhead">Pick times with Dr. @Model.Doctor.Name before continuing to checkout.</p>
+        <p class="eyebrow">Reschedule</p>
+        <h1>Pick a new time</h1>
+        <p class="subhead">Choose a new session time with Dr. @Model.Doctor.Name. Your current session will be cancelled automatically.</p>
     </div>
 
-    <!-- 🔽 FORM START -->
-    <form asp-action="Checkout" asp-controller="Book" method="post">
+    <form asp-action="ConfirmPostpone" asp-controller="MySessions" method="post">
         @Html.AntiForgeryToken()
 
+        <input type="hidden" name="oldSessionId" value="@oldSessionId" />
         <input type="hidden" name="doctorId" value="@Model.Doctor.Id" />
         <input type="hidden" id="selectedSlotsJson" name="selectedSlotsJson" />
 
@@ -35,10 +39,7 @@
                             }
                         </div>
 
-                        <p class="bio">@Model.Doctor.Biography</p>
-
                         <div class="stats">
-                            <span class="stat-pill">Rating @Model.Doctor.Rating</span>
                             <span class="stat-pill">$@Model.Doctor.Price / session</span>
                             <span class="stat-pill">@Model.Doctor.SessionDuration min</span>
                             <span class="stat-pill">@Model.Doctor.AvailabilityRange</span>
@@ -67,7 +68,7 @@
                     <h3>Available sessions</h3>
                     <small id="selectedDateLabel" data-date="@Model.SelectedDate.ToString("yyyy-MM-dd")">@Model.SelectedDate.ToString("dddd, MMM d")</small>
                 </div>
-                <div class="text-muted">Times shown in 24-hour format</div>
+                <div class="text-muted">Pick one new time slot</div>
             </div>
 
             <div class="session-grid" id="sessionGrid">
@@ -88,14 +89,21 @@
 
             <div class="continue-actions" id="continueContainer">
                 <button type="submit" class="continue-btn" id="continueBtn">
-                    Continue to checkout
+                    Confirm reschedule
                 </button>
             </div>
         </div>
     </form>
-    <!-- 🔼 FORM END -->
 </div>
 
 @section Scripts {
     <script src="~/js/book-appointment.js" asp-append-version="true"></script>
+    <script>
+        // Limit selection to 1 slot for postpone
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window._safeSlotLimit === undefined) {
+                window._safeSlotLimit = 1;
+            }
+        });
+    </script>
 }

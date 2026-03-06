@@ -32,6 +32,8 @@ builder.Services.AddScoped<SafeMind.Services.MySessionService>();
 builder.Services.AddScoped<SafeMind.Services.DiaryService>();
 builder.Services.AddScoped<SafeMind.Services.ArticleService>();
 builder.Services.AddScoped<SafeMind.Services.ChatService>();
+builder.Services.AddScoped<SafeMind.Services.GoalService>();
+builder.Services.AddHostedService<SafeMind.Services.SessionCleanupService>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/";

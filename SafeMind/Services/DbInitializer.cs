@@ -33,6 +33,7 @@ namespace SafeMind.Services
             await SeedCoreLookupsAsync(mainContext);
             await SeedDoctorsAsync(mainContext, users);
             await SeedArticlesAsync(mainContext, users);
+            await SeedGoalTemplatesAsync(mainContext);
         }
 
         private static async Task EnsureRolesAsync(RoleManager<IdentityRole> roleManager, IEnumerable<string> roles)
@@ -366,6 +367,68 @@ namespace SafeMind.Services
 
                 await ctx.SaveChangesAsync();
             }
+        }
+
+        private static async Task SeedGoalTemplatesAsync(SafeMindDbContext ctx)
+        {
+            if (await ctx.GoalTemplates.AnyAsync()) return;
+
+            var goals = new[]
+            {
+                "Drink 8 glasses of water",
+                "Take a 20-minute walk outside",
+                "Write 3 things you are grateful for",
+                "Meditate for 10 minutes",
+                "Do a 5-minute breathing exercise",
+                "Stretch for 10 minutes",
+                "Eat a healthy breakfast",
+                "Go to bed before 11 PM",
+                "Read for 15 minutes",
+                "Limit screen time to 2 hours after work",
+                "Call or text a friend you haven't spoken to recently",
+                "Compliment someone genuinely",
+                "Spend 10 minutes tidying your space",
+                "Write down one thing you did well today",
+                "Take a break every 90 minutes while working",
+                "Listen to a calming song or playlist",
+                "Avoid caffeine after 2 PM",
+                "Eat at least one serving of vegetables",
+                "Practice saying no to one unnecessary commitment",
+                "Spend 5 minutes sitting quietly with no phone",
+                "Write a short journal entry about your day",
+                "Try a new healthy recipe",
+                "Do 10 minutes of light exercise",
+                "Take a different route on your walk today",
+                "Set one clear intention for the day",
+                "Smile at a stranger",
+                "Unfollow one negative social media account",
+                "Drink herbal tea instead of coffee in the evening",
+                "Spend time with a pet or in nature",
+                "Watch a sunrise or sunset",
+                "Do something creative for 15 minutes",
+                "Write a kind note to yourself",
+                "Organize one small area of your home",
+                "Practice deep listening in a conversation today",
+                "Take a warm bath or shower mindfully",
+                "Identify one worry and write it down to let it go",
+                "Plan something fun for the weekend",
+                "Eat a meal without any screens",
+                "Do a random act of kindness",
+                "Spend 10 minutes in sunlight",
+                "Try a body scan relaxation exercise",
+                "Set your phone to do-not-disturb for 1 hour",
+                "Reflect on a positive memory for 5 minutes",
+                "Avoid comparing yourself to others today",
+                "Take three slow deep breaths before each meal",
+                "Write down your top 3 priorities for tomorrow",
+                "Say something encouraging to yourself in the mirror",
+                "Laugh \u2014 watch something funny for 10 minutes",
+                "Forgive yourself for one small mistake today",
+                "End the day by naming one good thing that happened"
+            };
+
+            ctx.GoalTemplates.AddRange(goals.Select(d => new GoalTemplate { Description = d }));
+            await ctx.SaveChangesAsync();
         }
     }
 }

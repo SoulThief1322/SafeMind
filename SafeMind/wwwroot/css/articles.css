@@ -202,7 +202,7 @@ body {
 }
 
 /* ------------------ Responsive: Hero & Carousel ------------------ */
-@media (max-width: 980px) {
+@media (max-width: 1250px) {
   .hero-editorial {
     min-height: 420px;
     margin-bottom: 60px;
@@ -615,6 +615,11 @@ body {
   background: var(--color-primary-light, #b7e4c7);
 }
 
+.category-tile--plain.is-active {
+  background: var(--color-primary-light, #b7e4c7);
+  font-weight: 600;
+}
+
 .category-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -656,46 +661,101 @@ a.most-viewed-post:hover {
   margin-bottom: 60px;
 }
 /* Responsive */
+
+.hero-cta-text {
+  display: inline-block;
+  padding: 10px 28px;
+  border-radius: 6px;
+  background: var(--color-primary, #2e6f54);
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.hero-cta-text:hover {
+  background: #1f4d38;
+  color: #fff;
+}
+
+.hero-cta-text:active {
+  background: #174030;
+  color: #fff;
+}
+
+/* ================= RESPONSIVE: EDITORIAL + ARTICLES ================= */
+
+/* Tablet – sidebar drops below, articles go single-column */
 @media (max-width: 980px) {
   .editorial-layout {
     grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 32px;
   }
-  .most-viewed {
-    margin-bottom: 40px;
-  }
-}
 
-/* Mobile: reorder sidebar blocks so Follow Us sits at the bottom */
-@media (max-width: 640px) {
+  .latest-posts {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
   .editorial-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .sidebar-block {
-    margin-bottom: 50px;
-  }
-  .sidebar-block.block-categories {
-    order: 1;
-  }
-  .sidebar-block.block-most-viewed {
     order: 2;
   }
-  .sidebar-block.block-follow {
-    order: 3;
+
+  .social-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  /* make follow-us buttons full-width stack on mobile */
-  .block-follow .social-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
-.hero-cta-text {
-  padding: 10px 20px;
-  border-radius: 15px;
-  background-color: #0f1724;
-  color: inherit;
-  text-decoration: none;
-  text-align: center;
+
+/* Mobile – tighten spacing, full-width everything */
+@media (max-width: 640px) {
+  .editorial-layout {
+    gap: 22px;
+    margin-top: 20px;
+  }
+
+  .latest-posts {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .story-card {
+    border-radius: 10px;
+  }
+
+  .story-card img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .story-content {
+    padding: 14px;
+  }
+
+  .story-content h3 {
+    font-size: 1rem;
+  }
+
+  .sidebar-block {
+    border-radius: 10px;
+    padding: 14px;
+  }
+
+  .social-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-toolbar {
+    margin-bottom: 12px;
+  }
 }

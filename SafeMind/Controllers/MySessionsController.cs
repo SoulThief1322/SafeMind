@@ -1,8 +1,6 @@
 using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SafeMind.Data;
 using SafeMind.Models;
 using Data.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -12,22 +10,25 @@ namespace SafeMind.Controllers;
 public class MySessionsController : Controller
 {
     private readonly ILogger<MySessionsController> _logger;
-    private readonly SafeMindDbContext _context;
     private readonly MySessionService _mySessionService;
+    private readonly BookSessionService _bookSessionService;
+    private readonly SlotsService _slotsService;
 
-    public MySessionsController(ILogger<MySessionsController> logger, SafeMindDbContext context, MySessionService mySessionService)
+    public MySessionsController(ILogger<MySessionsController> logger, MySessionService mySessionService, BookSessionService bookSessionService, SlotsService slotsService)
     {
         _logger = logger;
-        _context = context;
         _mySessionService = mySessionService;
+        _bookSessionService = bookSessionService;
+        _slotsService = slotsService;
     }
+
     [Authorize]
     public async Task<IActionResult> Index()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var isDoctor = User.IsInRole("Doctor");
 
-        var sessions = await _mySessionService.GetSessions(_context, userId, isDoctor);
+        var sessions = await _mySessionService.GetSessions(userId, isDoctor);
 
         var now = DateTime.UtcNow;
 
@@ -60,15 +61,13 @@ public class MySessionsController : Controller
 
         return View(viewModel);
     }
+
     [HttpGet]
     [Authorize]
     public async Task<IActionResult> Payment(int id)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        var session = await _context.Sessions
-            .Include(s => s.Doctor)
-            .FirstOrDefaultAsync(s => s.Id == id && s.PatientId == userId);
+        var session = await _mySessionService.GetPayableSession(id, userId);
 
         if (session == null)
             return NotFound();
@@ -94,27 +93,25 @@ public class MySessionsController : Controller
     public async Task<IActionResult> ProcessPayment(PaymentViewModel model)
     {
         if (!ModelState.IsValid)
-        {
             return View("Payment", model);
-        }
 
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        var session = await _context.Sessions
-            .FirstOrDefaultAsync(s => s.Id == model.SessionId && s.PatientId == userId);
-
-        if (session == null)
-            return NotFound();
-
-        if (session.PaymentStatus == PaymentStatus.Paid)
+        if (model.SessionId == null)
         {
-            TempData["Error"] = "This session has already been paid.";
+            TempData["Error"] = "Session not found.";
             return RedirectToAction(nameof(Index));
         }
-        session.PaymentStatus = PaymentStatus.Paid;
-        await _context.SaveChangesAsync();
 
-        TempData["Success"] = "Payment successful! Your session is now confirmed.";
+        var (success, message) = await _mySessionService.ProcessPaymentAsync(model.SessionId.Value, userId);
+
+        if (!success)
+        {
+            TempData["Error"] = message;
+            return RedirectToAction(nameof(Index));
+        }
+
+        TempData["Success"] = message;
         return RedirectToAction(nameof(Index));
     }
 
@@ -124,27 +121,8 @@ public class MySessionsController : Controller
     public async Task<IActionResult> Confirm(int id)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        var session = await _context.Sessions
-            .Include(s => s.Doctor)
-            .FirstOrDefaultAsync(s => s.Id == id && s.Doctor != null && s.Doctor.UserId == userId);
-
-        if (session == null)
-        {
-            TempData["Error"] = "Session not found or you don't have permission to confirm it.";
-            return RedirectToAction(nameof(Index));
-        }
-
-        if (session.SessionStatus == SessionStatus.Confirmed)
-        {
-            TempData["Error"] = "This session has already been confirmed.";
-            return RedirectToAction(nameof(Index));
-        }
-
-        session.SessionStatus = SessionStatus.Confirmed;
-        await _context.SaveChangesAsync();
-
-        TempData["Success"] = "Session confirmed successfully.";
+        var (success, message) = await _mySessionService.ConfirmSessionAsync(id, userId);
+        TempData[success ? "Success" : "Error"] = message;
         return RedirectToAction(nameof(Index));
     }
 
@@ -154,39 +132,8 @@ public class MySessionsController : Controller
     public async Task<IActionResult> Complete(int id)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        var session = await _context.Sessions
-            .Include(s => s.Doctor)
-            .FirstOrDefaultAsync(s => s.Id == id && s.Doctor != null && s.Doctor.UserId == userId);
-
-        if (session == null)
-        {
-            TempData["Error"] = "Session not found or you don't have permission to update it.";
-            return RedirectToAction(nameof(Index));
-        }
-
-        if (session.StartTime >= DateTime.UtcNow)
-        {
-            TempData["Error"] = "Only past sessions can be marked as completed.";
-            return RedirectToAction(nameof(Index));
-        }
-
-        if (session.SessionStatus == SessionStatus.Completed)
-        {
-            TempData["Error"] = "This session is already completed.";
-            return RedirectToAction(nameof(Index));
-        }
-
-        if (session.SessionStatus == SessionStatus.Cancelled)
-        {
-            TempData["Error"] = "Cancelled sessions cannot be marked as completed.";
-            return RedirectToAction(nameof(Index));
-        }
-
-        session.SessionStatus = SessionStatus.Completed;
-        await _context.SaveChangesAsync();
-
-        TempData["Success"] = "Session marked as completed.";
+        var (success, message) = await _mySessionService.CompleteSessionAsync(id, userId);
+        TempData[success ? "Success" : "Error"] = message;
         return RedirectToAction(nameof(Index));
     }
 
@@ -194,5 +141,80 @@ public class MySessionsController : Controller
     public async Task<IActionResult> Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    [HttpPost]
+    [Authorize]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Cancel(int id)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var isDoctor = User.IsInRole("Doctor");
+        var (success, message) = await _mySessionService.CancelSessionAsync(id, userId, isDoctor);
+        TempData[success ? "Success" : "Error"] = message;
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> Postpone(int id, DateOnly? date)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var isDoctor = User.IsInRole("Doctor");
+
+        var session = await _mySessionService.GetSessionWithDoctorDetails(id, userId, isDoctor);
+
+        if (session == null)
+        {
+            TempData["Error"] = "Session not found.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        if (session.SessionStatus == SessionStatus.Cancelled || session.SessionStatus == SessionStatus.Completed)
+        {
+            TempData["Error"] = "This session cannot be postponed.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        if (session.StartTime <= DateTimeOffset.UtcNow.AddHours(24))
+        {
+            TempData["Error"] = "Sessions can only be postponed more than 24 hours in advance.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        var doctor = session.Doctor;
+        var selectedDate = date ?? DateOnly.FromDateTime(DateTime.UtcNow);
+
+        var dayStart = new DateTimeOffset(selectedDate.ToDateTime(TimeOnly.MinValue), TimeSpan.Zero);
+        var dayEnd = dayStart.AddDays(1);
+        var bookedTimes = await _bookSessionService.GetTakenSessions(dayStart, dayEnd, doctor.Id);
+        var availableSlots = _slotsService.BuildSlots(doctor, selectedDate, bookedTimes);
+
+        var vm = SessionMapper.ToViewModel(doctor, selectedDate, availableSlots);
+
+        ViewBag.PostponeSessionId = id;
+        return View(vm);
+    }
+
+    [HttpPost]
+    [Authorize]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ConfirmPostpone(int oldSessionId, int doctorId, string? selectedSlotsJson)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var isDoctor = User.IsInRole("Doctor");
+
+        var (success, message, _) = await _mySessionService.ConfirmPostponeAsync(oldSessionId, doctorId, selectedSlotsJson, userId, isDoctor);
+
+        if (!success)
+        {
+            TempData["Error"] = message;
+            if (message.Contains("select"))
+                return RedirectToAction(nameof(Postpone), new { id = oldSessionId });
+            return RedirectToAction(nameof(Index));
+        }
+
+        TempData["Success"] = message;
+        return RedirectToAction(nameof(Index));
     }
 }

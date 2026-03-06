@@ -26,17 +26,11 @@ public class ArticlesController : Controller
     public async Task<IActionResult> Index()
     {
         var articles = await _articleService.GetAllArticlesAsync();
-        var featured = await _articleService.GetFeaturedPerCategoryAsync();
-        var articleViewModel = new ArticlesPageViewModel
-        {
-            Articles = articles,
-            FeaturedArticles = featured
-        };
-        var categoryVM = await _articleService.GetAllCategoriesAsync();
+        var categories = await _articleService.GetAllCategoriesAsync();
         var viewModel = new ArticlesAndCategoriesViewModel
         {
             Articles = articles,
-            Categories = categoryVM
+            Categories = categories
         };
         return View(viewModel);
     }
