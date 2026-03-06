@@ -1,4 +1,38 @@
 // Initializes the diary calendar, mood chips, and check-in submission.
+
+// Marks a weekly goal as completed via AJAX.
+async function completeGoal(weeklyGoalId, btn) {
+	btn.disabled = true;
+	const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+	try {
+		const res = await fetch("/MyDiary/CompleteGoal", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"RequestVerificationToken": token
+			},
+			body: JSON.stringify({ weeklyGoalId })
+		});
+		const data = await res.json();
+		if (!data.success) { btn.disabled = false; return; }
+
+		const row = btn.closest(".wg-row");
+		row.classList.add("wg-done");
+		btn.querySelector("i").className = "fa-solid fa-circle-check";
+
+		const totalEl = document.querySelector(".wg-total");
+		if (totalEl) totalEl.innerHTML = `<i class="fa-solid fa-trophy"></i> ${data.totalCompleted}`;
+
+		const allDone = [...document.querySelectorAll(".wg-row")].every(r => r.classList.contains("wg-done"));
+		if (allDone) {
+			document.querySelector(".wg-list").outerHTML =
+				'<div class="wg-congrats"><i class="fa-solid fa-circle-check"></i><p>All done this week \u2014 great job!</p></div>';
+		}
+	} catch {
+		btn.disabled = false;
+	}
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 	const weekRow = document.querySelector("[data-week-row]");
 	const weekLabel = document.querySelector("[data-week-label]");

@@ -20,14 +20,16 @@ public class MyDiaryController : Controller
     private readonly SafeMindDbContext _context;
     private readonly UserManager<IdentityUser> _userManager;
     private readonly DiaryService _diaryService;
+    private readonly GoalService _goalService;
 
 
-    public MyDiaryController(ILogger<MyDiaryController> logger, SafeMindDbContext context, UserManager<IdentityUser> userManager, DiaryService diaryService)
+    public MyDiaryController(ILogger<MyDiaryController> logger, SafeMindDbContext context, UserManager<IdentityUser> userManager, DiaryService diaryService, GoalService goalService)
     {
         _logger = logger;
         _context = context;
         _userManager = userManager;
         _diaryService = diaryService;
+        _goalService = goalService;
     }
 
     public async Task<IActionResult> Index()
@@ -49,6 +51,9 @@ public class MyDiaryController : Controller
         var moodScoresList = await _diaryService.GetMoodScores(journals, _diaryService, checks);
         double? avgMood = moodScoresList.Any() ? moodScoresList.Average() : null;
         var streak = await _diaryService.CalculateStreak(checks);
+
+        var weeklyGoals = await _goalService.GetOrCreateWeeklyGoalsAsync(userId);
+        var totalGoalsCompleted = await _goalService.GetTotalCompletedAsync(userId);
         
         var vm = new DiaryPageViewModel
         {
@@ -57,12 +62,19 @@ public class MyDiaryController : Controller
             Insights = DiaryMapper.ToViewModel(
                 totalJournals: journals.Count(),
                 totalCheckIns: checks.Count(),
-                totalGoals: _context.Goals.Count(g => g.UserId == userId),
+                totalGoals: totalGoalsCompleted,
                 averageMoodScore: avgMood,
                 moodDistribution: moodDistribution,
                 dayStreak: streak
             ),
-            HasTodayCheck = hasTodayCheck
+            HasTodayCheck = hasTodayCheck,
+            WeeklyGoals = weeklyGoals.Select(w => new WeeklyGoalItem
+            {
+                Id = w.Id,
+                Description = w.GoalTemplate.Description,
+                IsCompleted = w.IsCompleted
+            }).ToList(),
+            TotalGoalsCompleted = totalGoalsCompleted
         };
 
         return View(vm);
@@ -164,9 +176,23 @@ public class MyDiaryController : Controller
         return RedirectToAction("Index");
     }
 
-    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CompleteGoal([FromBody] CompleteGoalRequest request)
+    {
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
 
-    
+        var success = await _goalService.CompleteGoalAsync(userId, request.WeeklyGoalId);
+        if (!success)
+            return Conflict(new { success = false, error = "Already completed." });
 
+        var total = await _goalService.GetTotalCompletedAsync(userId);
+        return Json(new { success = true, totalCompleted = total });
+    }
+}
 
+public class CompleteGoalRequest
+{
+    public int WeeklyGoalId { get; set; }
 }

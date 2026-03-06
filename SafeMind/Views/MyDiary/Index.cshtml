@@ -240,30 +240,37 @@
 					</div>
 				}
 
-				<div class="card">
+				@{ var allDone = Model.WeeklyGoals.All(g => g.IsCompleted); }
+				<div class="card wg-card">
 					<div class="card-head compact">
 						<div>
-							<h3>Today’s focus</h3>
-							<p class="muted">A simple goal and a tiny step.</p>
+							<h3>Weekly goals</h3>
+							<p class="muted">4 small goals for this week. New ones every Monday.</p>
 						</div>
+						<span class="wg-total" title="Total goals completed"><i class="fa-solid fa-trophy"></i> @Model.TotalGoalsCompleted</span>
 					</div>
 
-					<div class="focus-row">
-						<div class="focus-item">
-							<h1>NOT FUNCTIONAL. TO BE DONE.</h1>
-							<div class="focus-label">Goal</div>
-							<div class="focus-value" data-focus-goal>—</div>
+					@if (allDone)
+					{
+						<div class="wg-congrats">
+							<i class="fa-solid fa-circle-check"></i>
+							<p>All done this week — great job!</p>
 						</div>
-						<div class="focus-item">
-							<div class="focus-label">Tiny step</div>
-							<div class="focus-value" data-focus-step>—</div>
+					}
+					else
+					{
+						<div class="wg-list">
+							@foreach (var g in Model.WeeklyGoals)
+							{
+								<div class="wg-row @(g.IsCompleted ? "wg-done" : "")" data-wg-id="@g.Id">
+									<button type="button" class="wg-btn" @(g.IsCompleted ? "disabled" : "") onclick="completeGoal(@g.Id, this)">
+										<i class="@(g.IsCompleted ? "fa-solid fa-circle-check" : "fa-regular fa-circle")"></i>
+									</button>
+									<span class="wg-desc">@g.Description</span>
+								</div>
+							}
 						</div>
-					</div>
-
-					<div class="hero-actions">
-						<button type="button" class="diary-btn diary-btn-secondary" id="editFocusBtn">Edit</button>
-						<button type="button" class="diary-btn diary-btn-ghost" id="markDoneBtn">Mark done</button>
-					</div>
+					}
 				</div>
 			</section>
 

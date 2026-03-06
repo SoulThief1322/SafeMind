@@ -28,6 +28,8 @@ namespace SafeMind.Data
             public DbSet<Goal> Goals { get; set; }
             public DbSet<SessionContact> SessionContacts { get; set; }
             public DbSet<ChatMessage> ChatMessages { get; set; }
+            public DbSet<GoalTemplate> GoalTemplates { get; set; }
+            public DbSet<WeeklyGoal> WeeklyGoals { get; set; }
 
             protected override void OnModelCreating(ModelBuilder builder)
             {
@@ -290,6 +292,25 @@ namespace SafeMind.Data
                         .WithMany()
                         .HasForeignKey(g => g.UserId)
                         .OnDelete(DeleteBehavior.Restrict);
+                  });
+
+                  // -------- GoalTemplate --------
+                  builder.Entity<GoalTemplate>(entity =>
+                  {
+                        entity.ToTable("GoalTemplates");
+                        entity.HasKey(g => g.Id);
+                        entity.Property(g => g.Description).IsRequired().HasMaxLength(200);
+                  });
+
+                  // -------- WeeklyGoal --------
+                  builder.Entity<WeeklyGoal>(entity =>
+                  {
+                        entity.ToTable("WeeklyGoals");
+                        entity.HasKey(w => w.Id);
+                        entity.Property(w => w.WeekStart).IsRequired();
+                        entity.Property(w => w.IsCompleted).IsRequired().HasDefaultValue(false);
+                        entity.HasOne(w => w.GoalTemplate).WithMany().HasForeignKey(w => w.GoalTemplateId).OnDelete(DeleteBehavior.Cascade);
+                        entity.HasOne(w => w.User).WithMany().HasForeignKey(w => w.UserId).OnDelete(DeleteBehavior.Restrict);
                   });
 
             }
