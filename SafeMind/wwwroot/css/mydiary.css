@@ -435,6 +435,46 @@
 	color: white;
 }
 
+.mc-has-journal {
+	background: #FFF3CD;
+	border-color: #F9C74F;
+	color: var(--color-text);
+}
+
+.mc-has-check {
+	background: #D4EDDA;
+	border-color: #90BE6D;
+	color: var(--color-text);
+}
+
+.mc-has-both {
+	background: var(--color-primary);
+	border-color: var(--color-primary);
+	color: white;
+}
+
+.mc-legend {
+	display: flex;
+	gap: 14px;
+	margin-top: 10px;
+	flex-wrap: wrap;
+}
+
+.mc-legend-item {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 0.78rem;
+	color: var(--color-text-muted);
+}
+
+.mc-legend-dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	display: inline-block;
+}
+
 /* Recent check-ins */
 .checkin-list {
 	display: grid;

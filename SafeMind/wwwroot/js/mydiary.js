@@ -72,9 +72,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	if (calendarBody && monthLabel && prevMonthBtn && nextMonthBtn) {
 		let monthOffset = 0;
+		let entryDateCache = {};
 
-		// Renders the month calendar grid and wires date selection.
-		const renderCalendar = () => {
+		// Fetches journal and check-in dates for a given month from the server.
+		const fetchEntryDates = async (year, month) => {
+			const key = `${year}-${month}`;
+			if (entryDateCache[key]) return entryDateCache[key];
+
+			try {
+				const resp = await fetch(`/MyDiary/GetEntryDates?year=${year}&month=${month}`);
+				if (!resp.ok) return { journalDates: [], checkDates: [] };
+				const data = await resp.json();
+				entryDateCache[key] = data;
+				return data;
+			} catch {
+				return { journalDates: [], checkDates: [] };
+			}
+		};
+
+		// Renders the month calendar grid and highlights dates with entries.
+		const renderCalendar = async () => {
 			const base = new Date(today);
 			base.setDate(1);
 			base.setMonth(base.getMonth() + monthOffset);
@@ -93,19 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			calendarBody.innerHTML = "";
 
-			const setSelectedDate = (dateStr) => {
-				calendarBody.querySelectorAll(".mc-day").forEach((btn) => {
-					btn.classList.remove("mc-selected");
-					btn.removeAttribute("aria-current");
-				});
-				const match = calendarBody.querySelector(`[data-date='${dateStr}']`);
-				if (match) {
-					match.classList.add("mc-selected");
-					match.setAttribute("aria-current", "date");
-				}
-			};
-
-			let initialSelectableDate = null;
+			const entryData = await fetchEntryDates(baseYear, baseMonth + 1);
+			const journalSet = new Set(entryData.journalDates || []);
+			const checkSet = new Set(entryData.checkDates || []);
 
 			for (let weekIndex = 0; weekIndex < 6; weekIndex++) {
 				const row = document.createElement("div");
@@ -129,27 +136,30 @@ document.addEventListener("DOMContentLoaded", () => {
 						btn.setAttribute("aria-disabled", "true");
 					}
 
+					const dateStr = formatISO(current);
 					const isToday = current.toDateString() === today.toDateString();
+					const hasJournal = journalSet.has(dateStr);
+					const hasCheck = checkSet.has(dateStr);
+
 					if (isToday && isCurrentMonth && monthOffset === 0) {
 						btn.classList.add("mc-today");
-						initialSelectableDate = formatISO(current);
 					}
 
-					if (isCurrentMonth) {
-						if (!initialSelectableDate) initialSelectableDate = formatISO(current);
-						btn.addEventListener("click", () => {
-							setSelectedDate(btn.dataset.date);
-						});
+					if (isCurrentMonth && hasJournal && hasCheck) {
+						btn.classList.add("mc-has-both");
+						btn.title = "Journal & Check-in";
+					} else if (isCurrentMonth && hasJournal) {
+						btn.classList.add("mc-has-journal");
+						btn.title = "Journal entry";
+					} else if (isCurrentMonth && hasCheck) {
+						btn.classList.add("mc-has-check");
+						btn.title = "Check-in";
 					}
 
 					row.appendChild(btn);
 				}
 
 				calendarBody.appendChild(row);
-			}
-
-			if (initialSelectableDate) {
-				setSelectedDate(initialSelectableDate);
 			}
 		};
 

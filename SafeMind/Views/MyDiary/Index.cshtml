@@ -103,12 +103,6 @@
 							<div class="mini-value" data-streak>@(streakDays.HasValue && streakDays > 0 ? $"{streakDays} days" : "—")</div>
 							<div class="mini-sub">Keep checking in to grow your streak.</div>
 						</div>
-						<div class="mini-card">
-							<div class="mini-label">Busiest day</div>
-							<div class="mini-value">Wed · 6 entries</div>
-							<div class="mini-sub">Most activity last week.</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</section>
@@ -279,7 +273,7 @@
 					<div class="card-head compact">
 						<div>
 							<h3>Calendar</h3>
-							<p class="muted">Tap a date to view entries (later).</p>
+							<p class="muted">Dates with journal entries and check-ins are highlighted.</p>
 						</div>
 					</div>
 
@@ -293,6 +287,17 @@
 							<span role="columnheader">M</span><span role="columnheader">T</span><span role="columnheader">W</span><span role="columnheader">T</span><span role="columnheader">F</span><span role="columnheader">S</span><span role="columnheader">S</span>
 						</div>
 						<div class="mc-body" data-calendar-body>
+						</div>
+						<div class="mc-legend">
+							<div class="mc-legend-item">
+								<span class="mc-legend-dot" style="background:#F9C74F"></span> Journal
+							</div>
+							<div class="mc-legend-item">
+								<span class="mc-legend-dot" style="background:#90BE6D"></span> Check-in
+							</div>
+							<div class="mc-legend-item">
+								<span class="mc-legend-dot" style="background:var(--color-primary)"></span> Both
+							</div>
 						</div>
 					</div>
 				</div>

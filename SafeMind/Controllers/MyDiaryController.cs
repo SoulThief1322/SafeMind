@@ -116,6 +116,34 @@ public class MyDiaryController : Controller
     {
         return View();
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetEntryDates(int year, int month)
+    {
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
+
+        var startDate = new DateTime(year, month, 1, 0, 0, 0, DateTimeKind.Utc);
+        var endDate = startDate.AddMonths(1);
+
+        var journalDates = await _context.Journals
+            .Where(j => j.UserId == userId && j.CreatedAt >= startDate && j.CreatedAt < endDate)
+            .Select(j => j.CreatedAt.Date)
+            .Distinct()
+            .ToListAsync();
+
+        var checkDates = await _context.DailyChecks
+            .Where(c => c.UserId == userId && c.CreatedOn >= startDate && c.CreatedOn < endDate)
+            .Select(c => c.CreatedOn.Date)
+            .Distinct()
+            .ToListAsync();
+
+        return Json(new
+        {
+            journalDates = journalDates.Select(d => d.ToString("yyyy-MM-dd")),
+            checkDates = checkDates.Select(d => d.ToString("yyyy-MM-dd"))
+        });
+    }
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> NewEntry([FromForm] NewJournalEntryRequest request)
