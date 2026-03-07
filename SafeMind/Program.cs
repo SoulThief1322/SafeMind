@@ -33,6 +33,7 @@ builder.Services.AddScoped<SafeMind.Services.DiaryService>();
 builder.Services.AddScoped<SafeMind.Services.ArticleService>();
 builder.Services.AddScoped<SafeMind.Services.ChatService>();
 builder.Services.AddScoped<SafeMind.Services.GoalService>();
+builder.Services.AddScoped<SafeMind.Services.AdminService>();
 builder.Services.AddHostedService<SafeMind.Services.SessionCleanupService>();
 builder.Services.ConfigureApplicationCookie(options =>
 {

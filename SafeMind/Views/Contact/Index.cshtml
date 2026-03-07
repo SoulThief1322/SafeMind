@@ -1,0 +1,115 @@
+@model SafeMind.Models.ContactViewModel
+
+<link rel="stylesheet" href="~/css/contact.css" asp-append-version="true" />
+
+<section class="contact-hero">
+    <div class="container">
+        <h1>Get in Touch</h1>
+        <p>Have a question, feedback, or need support? We're here to help. Reach out and our team will respond within 24 hours.</p>
+    </div>
+</section>
+
+<section class="contact-body container">
+    <div class="contact-grid">
+
+        <div class="contact-info">
+            <div class="info-card">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div>
+                    <h3>Email Us</h3>
+                    <p>support@safemind.bg</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div>
+                    <h3>Call Us</h3>
+                    <p>+359 2 123 4567</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                    <h3>Visit Us</h3>
+                    <p>123 Vitosha Blvd, Sofia, Bulgaria</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div>
+                    <h3>Working Hours</h3>
+                    <p>Mon–Fri: 9:00 – 18:00</p>
+                </div>
+            </div>
+
+            <div class="crisis-banner">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <div>
+                    <strong>In crisis?</strong>
+                    <p>If you or someone you know is in immediate danger, please call <strong>112</strong> or the National Crisis Line at <strong>0035 2981 7686</strong>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form-wrapper">
+            @if (TempData["ContactSuccess"] != null)
+            {
+                <div class="success-message">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <span>@TempData["ContactSuccess"]</span>
+                </div>
+            }
+
+            <form asp-action="Index" method="post" class="contact-form" novalidate>
+                @Html.AntiForgeryToken()
+
+                <h2>Send us a message</h2>
+                <p class="form-subtitle">Fill out the form below and we'll get back to you as soon as possible.</p>
+
+                <div class="form-group">
+                    <label asp-for="FullName">Full Name</label>
+                    <input asp-for="FullName" class="form-input" placeholder="Your full name" />
+                    <span asp-validation-for="FullName" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email">Email Address</label>
+                    <input asp-for="Email" type="email" class="form-input" placeholder="you@example.com" />
+                    <span asp-validation-for="Email" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Subject">Subject</label>
+                    <input asp-for="Subject" class="form-input" placeholder="What is this about?" />
+                    <span asp-validation-for="Subject" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Message">Message</label>
+                    <textarea asp-for="Message" class="form-input" rows="6" placeholder="Tell us more..."></textarea>
+                    <span asp-validation-for="Message" class="field-error"></span>
+                </div>
+
+                <button type="submit" class="btn-send">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

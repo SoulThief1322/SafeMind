@@ -1,0 +1,131 @@
+@using Data.Models
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    var recentSessions = ViewBag.RecentSessions as List<Session> ?? new List<Session>();
+}
+
+<link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+
+<div class="admin-layout">
+    <partial name="_AdminSidebar" />
+
+    <div class="admin-main">
+        <div class="admin-header">
+            <h1>Dashboard</h1>
+            <p>Overview of your SafeMind platform</p>
+        </div>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-number">@ViewBag.TotalUsers</span>
+                    <span class="stat-label">Total Users</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-number">@ViewBag.TotalDoctors</span>
+                    <span class="stat-label">Doctors</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-number">@ViewBag.TotalSessions</span>
+                    <span class="stat-label">Sessions</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-number">@ViewBag.UnreadContacts</span>
+                    <span class="stat-label">Unread Messages</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon teal">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-number">@ViewBag.TotalArticles</span>
+                    <span class="stat-label">Articles</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon emerald">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-number">@ViewBag.TotalRevenue.ToString("C")</span>
+                    <span class="stat-label">Revenue</span>
+                </div>
+            </div>
+        </div>
+
+        @if (recentSessions.Any())
+        {
+            <div class="admin-card">
+                <h2 class="card-title">Recent Sessions</h2>
+                <div class="table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Doctor</th>
+                                <th>Patient</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var s in recentSessions)
+                            {
+                                <tr>
+                                    <td>@s.Doctor?.Name</td>
+                                    <td>@s.Patient?.Email</td>
+                                    <td>@s.StartTime.ToString("dd MMM yyyy HH:mm")</td>
+                                    <td><span class="badge badge-@s.SessionStatus.ToString().ToLower()">@s.SessionStatus</span></td>
+                                    <td>@s.Price.ToString("C")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+
+        <div class="quick-links">
+            <a asp-action="Contacts" class="quick-link-card">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span>View Contacts</span>
+            </a>
+            <a asp-action="Users" class="quick-link-card">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                <span>Manage Users</span>
+            </a>
+            <a asp-action="Goals" class="quick-link-card">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Manage Goals</span>
+            </a>
+            <a asp-action="Reports" class="quick-link-card">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                <span>View Reports</span>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Admin - Users";
+    var usersWithRoles = ViewBag.ActiveTab != null
+        ? Model as List<(IdentityUser User, IList<string> Roles)>
+        : new List<(IdentityUser, IList<string>)>();
+}
+@model List<(IdentityUser User, IList<string> Roles)>
+
+<link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+
+<div class="admin-layout">
+    <partial name="_AdminSidebar" />
+
+    <div class="admin-main">
+        <div class="admin-header">
+            <div>
+                <h1>User Management</h1>
+                <p>View and manage all registered users</p>
+            </div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="empty-state">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                <h3>No users found</h3>
+            </div>
+        }
+        else
+        {
+            <div class="admin-card">
+                <div class="table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Roles</th>
+                                <th>Email Confirmed</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var (user, roles) in Model)
+                            {
+                                var isLocked = user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.UtcNow;
+                                <tr class="@(isLocked ? "row-locked" : "")">
+                                    <td>
+                                        <div class="user-email">@user.Email</div>
+                                        <div class="user-id">@user.Id[..8]…</div>
+                                    </td>
+                                    <td>
+                                        @foreach (var role in roles)
+                                        {
+                                            <span class="badge badge-role">@role</span>
+                                        }
+                                        @if (!roles.Any())
+                                        {
+                                            <span class="badge badge-user">User</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (user.EmailConfirmed)
+                                        {
+                                            <span class="badge badge-completed">Yes</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-cancelled">No</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (isLocked)
+                                        {
+                                            <span class="badge badge-cancelled">Locked</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-completed">Active</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <form asp-action="ToggleLockout" method="post" style="display:inline">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="userId" value="@user.Id" />
+                                            @if (isLocked)
+                                            {
+                                                <button type="submit" class="btn-admin btn-admin-sm">Unlock</button>
+                                            }
+                                            else
+                                            {
+                                                <button type="submit" class="btn-admin btn-admin-sm btn-admin-outline" onclick="return confirm('Lock this user account?')">Lock</button>
+                                            }
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,40 @@
+@{
+    var activeTab = ViewBag.ActiveTab as string ?? "dashboard";
+}
+
+<aside class="admin-sidebar">
+    <div class="sidebar-brand">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <span>Admin Panel</span>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a asp-controller="AdminPanel" asp-action="Index" class="sidebar-link @(activeTab == "dashboard" ? "active" : "")">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Dashboard
+        </a>
+        <a asp-controller="AdminPanel" asp-action="Contacts" class="sidebar-link @(activeTab == "contacts" ? "active" : "")">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Contacts
+        </a>
+        <a asp-controller="AdminPanel" asp-action="Users" class="sidebar-link @(activeTab == "users" ? "active" : "")">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Users
+        </a>
+        <a asp-controller="AdminPanel" asp-action="Goals" class="sidebar-link @(activeTab == "goals" ? "active" : "")">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Goals
+        </a>
+        <a asp-controller="AdminPanel" asp-action="Reports" class="sidebar-link @(activeTab == "reports" ? "active" : "")">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            Reports
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a asp-controller="Home" asp-action="Index" class="sidebar-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Back to Site
+        </a>
+    </div>
+</aside>
