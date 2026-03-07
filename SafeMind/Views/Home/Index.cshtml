@@ -1,6 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Home";
-}
+﻿@model SafeMind.Models.HomePageViewModel
 <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 <!-- HERO SECTION -->
 <section class="hero">
@@ -67,13 +65,13 @@
         <div class="content-card">
             <h3>Stress</h3>
             <p>A natural response to pressures, but chronic stress can affect sleep, focus, and mood.</p>
-            <a href="#" class="learn-more-btn">Learn more →</a>
+            <a href="/Articles?category=Stress" class="learn-more-btn">Learn more →</a>
         </div>
 
         <div class="content-card">
             <h3>Anxiety</h3>
             <p>Feelings of worry or fear that can become overwhelming. Learn ways to manage and calm your mind.</p>
-            <a href="#" class="learn-more-btn">Explore →</a>
+            <a href="/Articles?category=Anxiety" class="learn-more-btn">Learn more →</a>
         </div>
     </div>
 </section>
@@ -117,77 +115,26 @@
 <section class="articles-section">
     <h2>Mental health articles</h2>
     <div class="articles-grid">
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1522869635100-ce3402e7fba0?w=400&h=250&fit=crop" alt="Understanding Stress">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Stress</span>
-                <h3>Understanding Stress</h3>
-                <p>Learn how stress affects your body and mind, and discover practical techniques to manage it effectively.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop" alt="Managing Anxiety">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Anxiety</span>
-                <h3>Managing Anxiety</h3>
-                <p>Explore evidence-based strategies and daily practices to help reduce anxiety and improve mental well-being.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=250&fit=crop" alt="Building Resilience">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Resilience</span>
-                <h3>Building Resilience</h3>
-                <p>Discover how to strengthen your mental resilience and develop coping strategies for life's challenges.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop" alt="Sleep and Mental Health">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Sleep</span>
-                <h3>Sleep and Mental Health</h3>
-                <p>Understand the crucial connection between quality sleep and mental well-being, plus tips for better rest.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=250&fit=crop" alt="Mindfulness">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Mindfulness</span>
-                <h3>The Power of Mindfulness</h3>
-                <p>Explore mindfulness practices that can help reduce anxiety and improve your overall mental health.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1517457373614-b7152f800fd1?w=400&h=250&fit=crop" alt="Self-Care">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Self-Care</span>
-                <h3>Prioritizing Self-Care</h3>
-                <p>Learn why self-care is essential and discover practical ways to incorporate it into your daily routine.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
+        @foreach (var article in Model.RecentArticles)
+        {
+            <article class="article-card">
+                @if (!string.IsNullOrEmpty(article.ImagePath))
+                {
+                    <div class="article-image">
+                        <img src="@article.ImagePath" alt="@article.Headline">
+                    </div>
+                }
+                <div class="article-content">
+                    @if (article.ArticleCategories.Any())
+                    {
+                        <span class="article-tag">@article.ArticleCategories.First().Category.Name</span>
+                    }
+                    <h3>@article.Headline</h3>
+                    <p>@(article.Content.Length > 120 ? article.Content.Substring(0, 120) + "..." : article.Content)</p>
+                    <a href="/Articles/SelectedArticle/@article.Id" class="read-more-btn">Read More →</a>
+                </div>
+            </article>
+        }
     </div>
 </section>
 

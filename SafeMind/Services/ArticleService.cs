@@ -154,7 +154,10 @@ namespace SafeMind.Services
         }
         public async Task<List<string>> GetAllCategoriesAsync()
         {
-            return await _context.Categories.Select(c => c.Name).ToListAsync();
+            return await _context.Categories
+                .Where(c => c.ArticleCategories.Any(ac => !ac.Article.IsDeleted))
+                .Select(c => c.Name)
+                .ToListAsync();
         }
 
         public async Task<List<CategoryOptionViewModel>> GetCategoryOptionsAsync()
