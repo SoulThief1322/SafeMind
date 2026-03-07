@@ -30,6 +30,8 @@ namespace SafeMind.Data
             public DbSet<ChatMessage> ChatMessages { get; set; }
             public DbSet<GoalTemplate> GoalTemplates { get; set; }
             public DbSet<WeeklyGoal> WeeklyGoals { get; set; }
+            public DbSet<ContactMessage> ContactMessages { get; set; }
+            public DbSet<MoodCheck> MoodChecks { get; set; }
 
             protected override void OnModelCreating(ModelBuilder builder)
             {
@@ -311,6 +313,33 @@ namespace SafeMind.Data
                         entity.Property(w => w.IsCompleted).IsRequired().HasDefaultValue(false);
                         entity.HasOne(w => w.GoalTemplate).WithMany().HasForeignKey(w => w.GoalTemplateId).OnDelete(DeleteBehavior.Cascade);
                         entity.HasOne(w => w.User).WithMany().HasForeignKey(w => w.UserId).OnDelete(DeleteBehavior.Restrict);
+                  });
+
+                  // -------- ContactMessage --------
+                  builder.Entity<ContactMessage>(entity =>
+                  {
+                        entity.ToTable("ContactMessages");
+                        entity.HasKey(c => c.Id);
+                        entity.Property(c => c.FullName).IsRequired().HasMaxLength(100);
+                        entity.Property(c => c.Email).IsRequired().HasMaxLength(200);
+                        entity.Property(c => c.Subject).IsRequired().HasMaxLength(100);
+                        entity.Property(c => c.Message).IsRequired().HasMaxLength(2000);
+                        entity.Property(c => c.SubmittedOn).IsRequired();
+                        entity.Property(c => c.IsRead).IsRequired().HasDefaultValue(false);
+                        entity.Property(c => c.IsArchived).IsRequired().HasDefaultValue(false);
+                  });
+
+                  // -------- MoodCheck --------
+                  builder.Entity<MoodCheck>(entity =>
+                  {
+                        entity.ToTable("MoodChecks");
+                        entity.HasKey(m => m.Id);
+                        entity.Property(m => m.Mood).IsRequired().HasMaxLength(20);
+                        entity.Property(m => m.SavedAt).IsRequired();
+                        entity.HasOne(m => m.User)
+                              .WithMany()
+                              .HasForeignKey(m => m.UserId)
+                              .OnDelete(DeleteBehavior.Cascade);
                   });
 
             }

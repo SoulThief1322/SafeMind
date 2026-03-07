@@ -37,6 +37,33 @@ namespace SafeMind.Services
             return articles;
         }
 
+        public async Task<(List<ArticlesViewModel> Articles, int TotalCount)> GetArticlesPagedAsync(int page, int pageSize = 10)
+        {
+            var query = _context.Articles.Where(a => !a.IsDeleted);
+            var totalCount = await query.CountAsync();
+
+            var articles = await query
+                .OrderByDescending(a => a.PublishedOn)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(a => new ArticlesViewModel
+                {
+                    Id = a.Id,
+                    Headline = a.Headline,
+                    Content = a.Content,
+                    AuthorName = _context.Users.Where(u => u.Id == a.AuthorId).Select(u => u.UserName).FirstOrDefault() ?? "Unknown",
+                    DateOfPublish = a.PublishedOn,
+                    ViewCount = a.ViewCount,
+                    ViewsInLastWeek = a.ViewsInLastWeek,
+                    Likes = a.Likes,
+                    imagePath = a.ImagePath,
+                    Categories = a.ArticleCategories.Select(ac => ac.Category).ToList()
+                })
+                .ToListAsync();
+
+            return (articles, totalCount);
+        }
+
         public async Task<ArticlesViewModel> GetSelectedArticleAsync(int id, string? userId = null)
         {
             var article = await _context.Articles
@@ -127,7 +154,10 @@ namespace SafeMind.Services
         }
         public async Task<List<string>> GetAllCategoriesAsync()
         {
-            return await _context.Categories.Select(c => c.Name).ToListAsync();
+            return await _context.Categories
+                .Where(c => c.ArticleCategories.Any(ac => !ac.Article.IsDeleted))
+                .Select(c => c.Name)
+                .ToListAsync();
         }
 
         public async Task<List<CategoryOptionViewModel>> GetCategoryOptionsAsync()

@@ -1,0 +1,99 @@
+@{
+    ViewData["Title"] = "Admin - Reports";
+    var sessionsByStatus = ViewBag.SessionsByStatus as Dictionary<string, int> ?? new Dictionary<string, int>();
+    var sessionsPerMonth = ViewBag.SessionsPerMonth as Dictionary<string, int> ?? new Dictionary<string, int>();
+    var totalSessions = (int)(ViewBag.TotalSessions ?? 0);
+    var newUsersThisMonth = (int)(ViewBag.NewUsersThisMonth ?? 0);
+}
+
+<link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+
+<div class="admin-layout">
+    <partial name="_AdminSidebar" />
+
+    <div class="admin-main">
+        <div class="admin-header">
+            <div>
+                <h1>Reports</h1>
+                <p>Analytics and platform performance overview</p>
+            </div>
+        </div>
+
+        <div class="stat-grid stat-grid-3">
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-number">@totalSessions</span>
+                    <span class="stat-label">Total Sessions</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-number">@newUsersThisMonth</span>
+                    <span class="stat-label">Active Patients (30d)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="reports-grid">
+            <div class="admin-card">
+                <h2 class="card-title">Sessions by Status</h2>
+                @if (sessionsByStatus.Any())
+                {
+                    <div class="status-bars">
+                        @{
+                            var maxCount = sessionsByStatus.Values.Max();
+                        }
+                        @foreach (var kv in sessionsByStatus)
+                        {
+                            var pct = maxCount > 0 ? (int)(kv.Value * 100.0 / maxCount) : 0;
+                            <div class="status-bar-row">
+                                <span class="status-bar-label">@kv.Key</span>
+                                <div class="status-bar-track">
+                                    <div class="status-bar-fill status-@kv.Key.ToLower()" style="width: @(pct)%"></div>
+                                </div>
+                                <span class="status-bar-count">@kv.Value</span>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">No session data available.</p>
+                }
+            </div>
+
+            <div class="admin-card">
+                <h2 class="card-title">Sessions per Month</h2>
+                @if (sessionsPerMonth.Any())
+                {
+                    <div class="chart-bars">
+                        @{
+                            var maxMonthly = sessionsPerMonth.Values.Max();
+                        }
+                        @foreach (var kv in sessionsPerMonth)
+                        {
+                            var heightPct = maxMonthly > 0 ? (int)(kv.Value * 100.0 / maxMonthly) : 0;
+                            <div class="chart-bar-col">
+                                <div class="chart-bar" style="height: @(heightPct)%">
+                                    <span class="chart-bar-value">@kv.Value</span>
+                                </div>
+                                <span class="chart-bar-label">@kv.Key</span>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">No session data for the selected period.</p>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

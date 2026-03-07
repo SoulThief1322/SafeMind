@@ -22,6 +22,19 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<SafeMindDbContext>();
+
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+        options.Events.OnRemoteFailure = context =>
+        {
+            context.Response.Redirect("/");
+            context.HandleResponse();
+            return Task.CompletedTask;
+        };
+    });
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<SafeMind.Services.BookService>();
 builder.Services.AddScoped<SafeMind.Services.BookSessionService>();
@@ -33,6 +46,7 @@ builder.Services.AddScoped<SafeMind.Services.DiaryService>();
 builder.Services.AddScoped<SafeMind.Services.ArticleService>();
 builder.Services.AddScoped<SafeMind.Services.ChatService>();
 builder.Services.AddScoped<SafeMind.Services.GoalService>();
+builder.Services.AddScoped<SafeMind.Services.AdminService>();
 builder.Services.AddHostedService<SafeMind.Services.SessionCleanupService>();
 builder.Services.ConfigureApplicationCookie(options =>
 {

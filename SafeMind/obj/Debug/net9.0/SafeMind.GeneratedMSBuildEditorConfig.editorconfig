@@ -15,139 +15,173 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v9.0
 build_property.RootNamespace = SafeMind
 build_property.RootNamespace = SafeMind
-build_property.ProjectDir = C:\Users\gajok\SafeMind\SafeMind\SafeMind\
+build_property.ProjectDir = /Users/soulthief/SafeMind/SafeMind/SafeMind/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\gajok\SafeMind\SafeMind\SafeMind
+build_property.MSBuildProjectDirectory = /Users/soulthief/SafeMind/SafeMind/SafeMind
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/Account/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/Account/ExternalLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvQWNjb3VudC9FeHRlcm5hbExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/Account/Logout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/Account/Register.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/Account/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvQWNjb3VudC9Mb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/Account/RegisterDoctor.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3RlckRvY3Rvci5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/Account/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/Account/RegisterDoctor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvQWNjb3VudC9SZWdpc3RlckRvY3Rvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvQWNjb3VudC9fVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Articles/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcQ3JlYXRlLmNzaHRtbA==
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Articles/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcSW5kZXguY3NodG1s
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/AdminPanel/Contacts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5QYW5lbC9Db250YWN0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Articles/SelectedArticle.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZXNcU2VsZWN0ZWRBcnRpY2xlLmNzaHRtbA==
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/AdminPanel/Goals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5QYW5lbC9Hb2Fscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Book/BookSession.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xCb29rU2Vzc2lvbi5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/AdminPanel/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5QYW5lbC9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Book/Checkout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xDaGVja291dC5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/AdminPanel/Reports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5QYW5lbC9SZXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Book/Confirmation.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xDb25maXJtYXRpb24uY3NodG1s
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/AdminPanel/Users.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5QYW5lbC9Vc2Vycy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Book/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xJbmRleC5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/AdminPanel/_AdminSidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5QYW5lbC9fQWRtaW5TaWRlYmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Book/Payment.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xQYXltZW50LmNzaHRtbA==
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Articles/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXJ0aWNsZXMvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Book/Processing.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xQcm9jZXNzaW5nLmNzaHRtbA==
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Articles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXJ0aWNsZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Articles/SelectedArticle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXJ0aWNsZXMvU2VsZWN0ZWRBcnRpY2xlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Book/BookSession.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9vay9Cb29rU2Vzc2lvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/MyDiary/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTXlEaWFyeVxJbmRleC5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Book/Checkout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9vay9DaGVja291dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/MyDiary/NewEntry.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTXlEaWFyeVxOZXdFbnRyeS5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Book/Confirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9vay9Db25maXJtYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/MySessions/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTXlTZXNzaW9uc1xJbmRleC5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Book/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9vay9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/MySessions/Payment.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTXlTZXNzaW9uc1xQYXltZW50LmNzaHRtbA==
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Book/Payment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9vay9QYXltZW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/MySessions/Postpone.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTXlTZXNzaW9uc1xQb3N0cG9uZS5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Book/Processing.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9vay9Qcm9jZXNzaW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Shared/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Contact/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ29udGFjdC9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Shared/_AuthModals.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BdXRoTW9kYWxzLmNzaHRtbA==
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Shared/_ChatPopup.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DaGF0UG9wdXAuY3NodG1s
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/MyDiary/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTXlEaWFyeS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/MyDiary/NewEntry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTXlEaWFyeS9OZXdFbnRyeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/MySessions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTXlTZXNzaW9ucy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gajok/SafeMind/SafeMind/SafeMind/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-vtwh4v8dbg
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/MySessions/Payment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTXlTZXNzaW9ucy9QYXltZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/MySessions/Postpone.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTXlTZXNzaW9ucy9Qb3N0cG9uZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Shared/_AuthModals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19BdXRoTW9kYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Shared/_ChatPopup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19DaGF0UG9wdXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/soulthief/SafeMind/SafeMind/SafeMind/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-khe98gb0ji

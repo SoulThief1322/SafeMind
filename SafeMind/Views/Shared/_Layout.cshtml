@@ -44,7 +44,10 @@
                                 <a asp-area="" asp-controller="MySessions" asp-action="Index">My Sessions</a>
                                 <a asp-area="" asp-controller="MyDiary" asp-action="Index">My Diary</a>
                             }
-
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="" asp-controller="AdminPanel" asp-action="Index">Admin Panel</a>
+                            }
 
                         </div>
 
@@ -62,7 +65,7 @@
 
                             }
 
-                            <a href="#" class="btn-cta">Get in touch</a>
+                            <a asp-controller="Contact" asp-action="Index" class="btn-cta">Get in touch</a>
                         </div>
                     </div>
                 </div>
@@ -107,7 +110,7 @@
                         <h4>Support</h4>
                         <a asp-controller="Articles" asp-action="Index">Mental Health Articles</a>
                         <a href="#">Help & FAQs</a>
-                        <a href="#">Contact Us</a>
+                        <a asp-controller="Contact" asp-action="Index">Contact Us</a>
                         <a href="#">Crisis Resources</a>
                     </div>
 

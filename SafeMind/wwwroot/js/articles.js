@@ -124,37 +124,97 @@ document.addEventListener("DOMContentLoaded", () => {
   applyHero();
   restartTimer();
 
-  // ── Category filtering ──
+  // ── Category filtering + client-side pagination ──
   const categoryGrid = document.querySelector("[data-category-grid]");
   const articlesList = document.querySelector("[data-articles-list]");
 
   if (categoryGrid && articlesList) {
     const tiles = [...categoryGrid.querySelectorAll("[data-category-filter]")];
     const cards = [...articlesList.querySelectorAll("[data-categories]")];
+    const paginationNav = document.getElementById("articlesPagination");
+    const pageSize = 10;
+    let currentFilter = "all";
+    let currentPage = 1;
+
+    // Auto-select category from ?category= query param
+    const urlCategory = new URLSearchParams(window.location.search).get("category");
+    if (urlCategory) {
+      const match = tiles.find(t => t.dataset.categoryFilter === urlCategory);
+      if (match) {
+        currentFilter = urlCategory;
+        tiles.forEach(t => t.classList.remove("is-active"));
+        match.classList.add("is-active");
+      }
+    }
+
+    function getVisibleCards() {
+      return cards.filter(card => {
+        if (currentFilter === "all") return true;
+        const cats = card.dataset.categories.split(",").map(c => c.trim()).filter(Boolean);
+        return cats.includes(currentFilter);
+      });
+    }
+
+    function render() {
+      const visible = getVisibleCards();
+      const totalPages = Math.max(1, Math.ceil(visible.length / pageSize));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const start = (currentPage - 1) * pageSize;
+      const end = start + pageSize;
+      const pageSet = new Set(visible.slice(start, end));
+
+      cards.forEach(card => {
+        card.style.display = pageSet.has(card) ? "" : "none";
+      });
+
+      renderPagination(totalPages);
+    }
+
+    function renderPagination(totalPages) {
+      if (!paginationNav) return;
+      paginationNav.innerHTML = "";
+      if (totalPages <= 1) return;
+
+      if (currentPage > 1) {
+        const prev = document.createElement("a");
+        prev.className = "page-link";
+        prev.href = "#";
+        prev.innerHTML = "&laquo; Prev";
+        prev.addEventListener("click", e => { e.preventDefault(); currentPage--; render(); });
+        paginationNav.appendChild(prev);
+      }
+
+      for (let i = 1; i <= totalPages; i++) {
+        const link = document.createElement("a");
+        link.className = "page-link" + (i === currentPage ? " active" : "");
+        link.href = "#";
+        link.textContent = i;
+        link.addEventListener("click", e => { e.preventDefault(); currentPage = i; render(); });
+        paginationNav.appendChild(link);
+      }
+
+      if (currentPage < totalPages) {
+        const next = document.createElement("a");
+        next.className = "page-link";
+        next.href = "#";
+        next.innerHTML = "Next &raquo;";
+        next.addEventListener("click", e => { e.preventDefault(); currentPage++; render(); });
+        paginationNav.appendChild(next);
+      }
+    }
 
     tiles.forEach(tile => {
       tile.addEventListener("click", e => {
         e.preventDefault();
-        const filter = tile.dataset.categoryFilter;
-
-        // Toggle active class on tiles
+        currentFilter = tile.dataset.categoryFilter;
+        currentPage = 1;
         tiles.forEach(t => t.classList.remove("is-active"));
         tile.classList.add("is-active");
-
-        // Show/hide article cards
-        cards.forEach(card => {
-          const cardCategories = card.dataset.categories
-            .split(",")
-            .map(c => c.trim())
-            .filter(Boolean);
-
-          if (filter === "all" || cardCategories.includes(filter)) {
-            card.style.display = "";
-          } else {
-            card.style.display = "none";
-          }
-        });
+        render();
       });
     });
+
+    render();
   }
 });

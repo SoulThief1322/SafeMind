@@ -1,6 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Home";
-}
+﻿@model SafeMind.Models.HomePageViewModel
 <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 <!-- HERO SECTION -->
 <section class="hero">
@@ -67,48 +65,85 @@
         <div class="content-card">
             <h3>Stress</h3>
             <p>A natural response to pressures, but chronic stress can affect sleep, focus, and mood.</p>
-            <a href="#" class="learn-more-btn">Learn more →</a>
+            <a href="/Articles?category=Stress" class="learn-more-btn">Learn more →</a>
         </div>
 
         <div class="content-card">
             <h3>Anxiety</h3>
             <p>Feelings of worry or fear that can become overwhelming. Learn ways to manage and calm your mind.</p>
-            <a href="#" class="learn-more-btn">Explore →</a>
+            <a href="/Articles?category=Anxiety" class="learn-more-btn">Learn more →</a>
         </div>
     </div>
 </section>
 
 <!-- MOOD CHECK SECTION -->
-<section class="mood-section">
-    <h2>How are you feeling today?</h2>
-    <p class="mood-sub">Pick a mood to save it for today and unlock a gentle kit.</p>
-    <div class="mood-options" id="moodOptions">
-        <button class="mood-btn mood-great">
-            <span class="mood-emoji">😊</span>
-            <span class="mood-label">Great</span>
-        </button>
-        <button class="mood-btn mood-okay">
-            <span class="mood-emoji">😐</span>
-            <span class="mood-label">Okay</span>
-        </button>
-        <button class="mood-btn mood-sad">
-            <span class="mood-emoji">😟</span>
-            <span class="mood-label">Not great</span>
-        </button>
-    </div>
-    <div class="mood-feedback" id="moodFeedback" aria-live="polite">Tap a mood to save how you feel for today.</div>
-    <div class="mood-result hidden" id="moodResult">
-        <div>
-            <p class="eyebrow" id="moodResultLabel">Today's kit</p>
-            <h3 id="moodHeadline">We'll tailor quick support for you.</h3>
-            <p class="mood-note" id="moodNote">Your check-in is saved for the next 24 hours.</p>
-            <p class="mood-support" id="moodSupport"></p>
-            <p class="mood-help" id="moodHelp">Want something small to help right now?</p>
+<section class="mood-section" id="moodSection" data-authenticated="@User.Identity.IsAuthenticated.ToString().ToLower()">
+    <div class="mood-aurora"></div>
+
+    <div class="mood-prompt" id="moodPrompt">
+        <h2>How are you feeling today?</h2>
+        <p class="mood-sub">Take a moment. There's no wrong answer.</p>
+
+        <div class="mood-orbs" id="moodOrbs">
+            <button class="mood-orb orb-great" data-mood="Great" aria-label="Feeling great">
+                <span class="orb-glow"></span>
+                <span class="orb-icon">&#9728;&#65039;</span>
+                <span class="orb-label">Great</span>
+                <span class="orb-hint">Bright &amp; energised</span>
+            </button>
+            <button class="mood-orb orb-okay" data-mood="Okay" aria-label="Feeling okay">
+                <span class="orb-glow"></span>
+                <span class="orb-icon">&#127764;</span>
+                <span class="orb-label">Okay</span>
+                <span class="orb-hint">Calm &amp; steady</span>
+            </button>
+            <button class="mood-orb orb-low" data-mood="Not great" aria-label="Not feeling great">
+                <span class="orb-glow"></span>
+                <span class="orb-icon">&#127783;&#65039;</span>
+                <span class="orb-label">Not great</span>
+                <span class="orb-hint">Heavy or low</span>
+            </button>
         </div>
-        <div class="mood-actions">
-            <button class="btn-primary" type="button">Take a 3-min breath</button>
-            <button class="btn-secondary" type="button">Jot a few words</button>
-            <a class="btn-link" href="/Book">Reach out or book</a>
+    </div>
+
+    <div class="mood-dashboard hidden" id="moodDashboard">
+        <div class="dash-header">
+            <span class="dash-emoji" id="dashEmoji"></span>
+            <div>
+                <h3 id="dashHeadline"></h3>
+                <p class="dash-saved" id="dashSaved">Saved for the next 24 h</p>
+            </div>
+            <button class="dash-reset" id="dashReset" title="Pick again">&#8635;</button>
+        </div>
+
+        <div class="dash-cards">
+            <div class="dash-card dash-breathe" id="dashBreathe">
+                <span class="dash-card-icon">&#127788;&#65039;</span>
+                <h4>3-min breathing</h4>
+                <p>Inhale 4 s &middot; Hold 4 s &middot; Exhale 6 s</p>
+                <div class="breathe-ring hidden" id="breatheRing">
+                    <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="ring-track"/><circle cx="60" cy="60" r="52" class="ring-progress" id="ringProgress"/></svg>
+                    <span class="breathe-phase" id="breathePhase">Ready</span>
+                </div>
+                <button class="dash-card-btn" id="btnBreathe">Start</button>
+            </div>
+
+            <div class="dash-card dash-journal">
+                <span class="dash-card-icon">&#128221;</span>
+                <h4>Quick thought</h4>
+                <p id="journalPromptText"></p>
+                <a class="dash-card-btn" href="/MyDiary">Open diary</a>
+            </div>
+
+            <div class="dash-card dash-tip">
+                <span class="dash-card-icon">&#128161;</span>
+                <h4>Micro-tip</h4>
+                <p id="tipText"></p>
+            </div>
+        </div>
+
+        <div class="dash-footer">
+            <a href="/Book" class="dash-book-btn">Book a session</a>
         </div>
     </div>
 </section>
@@ -117,161 +152,217 @@
 <section class="articles-section">
     <h2>Mental health articles</h2>
     <div class="articles-grid">
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1522869635100-ce3402e7fba0?w=400&h=250&fit=crop" alt="Understanding Stress">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Stress</span>
-                <h3>Understanding Stress</h3>
-                <p>Learn how stress affects your body and mind, and discover practical techniques to manage it effectively.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop" alt="Managing Anxiety">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Anxiety</span>
-                <h3>Managing Anxiety</h3>
-                <p>Explore evidence-based strategies and daily practices to help reduce anxiety and improve mental well-being.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=250&fit=crop" alt="Building Resilience">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Resilience</span>
-                <h3>Building Resilience</h3>
-                <p>Discover how to strengthen your mental resilience and develop coping strategies for life's challenges.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop" alt="Sleep and Mental Health">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Sleep</span>
-                <h3>Sleep and Mental Health</h3>
-                <p>Understand the crucial connection between quality sleep and mental well-being, plus tips for better rest.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=250&fit=crop" alt="Mindfulness">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Mindfulness</span>
-                <h3>The Power of Mindfulness</h3>
-                <p>Explore mindfulness practices that can help reduce anxiety and improve your overall mental health.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <div class="article-image">
-                <img src="https://images.unsplash.com/photo-1517457373614-b7152f800fd1?w=400&h=250&fit=crop" alt="Self-Care">
-            </div>
-            <div class="article-content">
-                <span class="article-tag">Self-Care</span>
-                <h3>Prioritizing Self-Care</h3>
-                <p>Learn why self-care is essential and discover practical ways to incorporate it into your daily routine.</p>
-                <a href="#" class="read-more-btn">Read More →</a>
-            </div>
-        </article>
+        @foreach (var article in Model.RecentArticles)
+        {
+            <article class="article-card">
+                @if (!string.IsNullOrEmpty(article.ImagePath))
+                {
+                    <div class="article-image">
+                        <img src="@article.ImagePath" alt="@article.Headline">
+                    </div>
+                }
+                <div class="article-content">
+                    @if (article.ArticleCategories.Any())
+                    {
+                        <span class="article-tag">@article.ArticleCategories.First().Category.Name</span>
+                    }
+                    <h3>@article.Headline</h3>
+                    <p>@(article.Content.Length > 120 ? article.Content.Substring(0, 120) + "..." : article.Content)</p>
+                    <a href="/Articles/SelectedArticle/@article.Id" class="read-more-btn">Read More →</a>
+                </div>
+            </article>
+        }
     </div>
 </section>
 
 @section Scripts {
 <script>
-// Store mood for 24 hours and swap UI into a mini support kit
 (function () {
-    const feedback = document.getElementById('moodFeedback');
-    const options = document.getElementById('moodOptions');
-    const result = document.getElementById('moodResult');
-    const headline = document.getElementById('moodHeadline');
-    const note = document.getElementById('moodNote');
-    const label = document.getElementById('moodResultLabel');
-    const support = document.getElementById('moodSupport');
+    const section = document.getElementById('moodSection');
+    const isAuth  = section && section.dataset.authenticated === 'true';
 
-    function setCookie(name, value, hours) {
-        const expires = new Date(Date.now() + hours * 60 * 60 * 1000).toUTCString();
-        document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+    /* ── Cookie helpers (fallback for guests) ── */
+    function setCookie(n, v, h) {
+        document.cookie = n + '=' + encodeURIComponent(v) + '; expires=' + new Date(Date.now() + h*36e5).toUTCString() + '; path=/';
+    }
+    function getCookie(n) {
+        return document.cookie.split(';').map(c => c.trim()).filter(c => c.startsWith(n + '=')).map(c => decodeURIComponent(c.split('=')[1]))[0];
+    }
+    function clearCookie(n) {
+        document.cookie = n + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
     }
 
-    function getCookie(name) {
-        return document.cookie.split(';').map(c => c.trim()).filter(c => c.startsWith(name + '='))
-            .map(c => decodeURIComponent(c.split('=')[1]))[0];
+    /* ── Server helpers ── */
+    function saveMoodServer(mood) {
+        return fetch('/Home/SaveMood', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mood: mood })
+        });
+    }
+    function resetMoodServer() {
+        return fetch('/Home/ResetMood', { method: 'POST' });
+    }
+    function getMoodServer() {
+        return fetch('/Home/GetMood').then(r => r.json());
     }
 
-    const prompts = {
+    /* ── Elements ── */
+    const prompt     = document.getElementById('moodPrompt');
+    const dashboard  = document.getElementById('moodDashboard');
+    const orbs       = document.querySelectorAll('.mood-orb');
+    const dashEmoji  = document.getElementById('dashEmoji');
+    const dashHead   = document.getElementById('dashHeadline');
+    const journalP   = document.getElementById('journalPromptText');
+    const tipP       = document.getElementById('tipText');
+    const btnBreathe = document.getElementById('btnBreathe');
+    const breatheRing= document.getElementById('breatheRing');
+    const ringProg   = document.getElementById('ringProgress');
+    const phase      = document.getElementById('breathePhase');
+    const resetBtn   = document.getElementById('dashReset');
+
+    /* ── Per-mood content ── */
+    const moodData = {
         'Great': {
-            headline: 'Bottle this feeling for later.',
-            note: 'Drop a quick gratitude note to revisit on tough days.',
-            label: 'Saved as “Great”',
-            support: 'You’re doing well—keep a small memory of this moment.'
+            emoji: '\u2600\uFE0F',
+            headline: 'Brilliant \u2014 let\u2019s bottle this energy.',
+            journal: 'What made today shine? Capture a moment of gratitude.',
+            tip: 'Share your good energy \u2014 send a kind message to someone you appreciate today.'
         },
         'Okay': {
-            headline: 'Small reset, big impact.',
-            note: 'Try a 3-minute breathing break or stretch to recharge.',
-            label: 'Saved as “Okay”',
-            support: 'A neutral day still deserves care—take one kind pause.'
+            emoji: '\uD83C\uDF14',
+            headline: 'Steady ground \u2014 a small reset can help.',
+            journal: 'What\u2019s one thing you\u2019d like to let go of today?',
+            tip: 'Step outside for 2 minutes. Fresh air and a change of scenery reset more than you\u2019d think.'
         },
         'Not great': {
-            headline: 'We’ve got you—one small step.',
-            note: 'Do a 3-minute grounding exercise and consider messaging a therapist.',
-            label: 'Saved as “Not great”',
-            support: 'It’s okay to feel this way—slow is enough right now.'
+            emoji: '\uD83C\uDF27\uFE0F',
+            headline: 'Rough patch \u2014 we\u2019re right here with you.',
+            journal: 'No pressure to explain. Even one word about how you feel can help.',
+            tip: 'Place a hand on your chest and take 3 slow breaths. You\u2019re safe in this moment.'
         }
     };
 
-    function activateMood(mood, skipSave) {
-        const data = prompts[mood] || prompts['Okay'];
-        if (!skipSave) {
+    /* ── Show dashboard ── */
+    function showDashboard(mood) {
+        const d = moodData[mood] || moodData['Okay'];
+        dashEmoji.textContent = d.emoji;
+        dashHead.textContent  = d.headline;
+        journalP.textContent  = d.journal;
+        tipP.textContent      = d.tip;
+
+        prompt.classList.add('hidden');
+        dashboard.classList.remove('hidden');
+    }
+
+    /* ── Save mood (server or cookie) ── */
+    function saveMood(mood) {
+        if (isAuth) {
+            saveMoodServer(mood);
+        } else {
             setCookie('safemindMood', mood, 24);
         }
-        if (feedback) {
-            feedback.textContent = 'Saved how you feel today. Your kit is just below.';
-        }
-        if (options) options.classList.add('hidden');
-        if (result) result.classList.remove('hidden');
-        if (headline) {
-            headline.textContent = data.headline;
-        }
-        if (note) {
-            note.textContent = data.note + ' Saved for 24 hours.';
-        }
-        if (label) {
-            label.textContent = data.label;
-        }
-        if (support) {
-            support.textContent = data.support;
-        }
     }
 
-    const saved = getCookie('safemindMood');
-    if (saved) {
-        activateMood(saved, true);
-    }
-
-    document.querySelectorAll('.mood-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const mood = btn.querySelector('.mood-label')?.textContent || 'Okay';
-            activateMood(mood, false);
+    /* ── Orb click ── */
+    orbs.forEach(orb => {
+        orb.addEventListener('click', () => {
+            const mood = orb.dataset.mood;
+            orb.classList.add('is-picked');
+            prompt.classList.add('is-leaving');
+            saveMood(mood);
+            setTimeout(() => showDashboard(mood), 480);
         });
     });
+
+    /* ── Reset button ── */
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            if (isAuth) {
+                resetMoodServer();
+            } else {
+                clearCookie('safemindMood');
+            }
+            dashboard.classList.add('hidden');
+            prompt.classList.remove('hidden', 'is-leaving');
+            orbs.forEach(o => o.classList.remove('is-picked'));
+            stopBreathing();
+        });
+    }
+
+    /* ── Restore saved mood ── */
+    if (isAuth) {
+        getMoodServer().then(data => {
+            if (data && data.mood && moodData[data.mood]) {
+                showDashboard(data.mood);
+            }
+        });
+    } else {
+        const saved = getCookie('safemindMood');
+        if (saved && moodData[saved]) showDashboard(saved);
+    }
+
+    /* ── Breathing exercise ── */
+    const CIRCUMFERENCE = 327;
+    let breatheTimer = null;
+
+    function stopBreathing() {
+        clearInterval(breatheTimer);
+        breatheTimer = null;
+        if (breatheRing) breatheRing.classList.add('hidden');
+        if (btnBreathe) { btnBreathe.textContent = 'Start'; btnBreathe.disabled = false; }
+        if (ringProg) ringProg.style.strokeDashoffset = CIRCUMFERENCE;
+        if (phase) phase.textContent = 'Ready';
+    }
+
+    if (btnBreathe) {
+        btnBreathe.addEventListener('click', () => {
+            if (breatheTimer) { stopBreathing(); return; }
+
+            breatheRing.classList.remove('hidden');
+            btnBreathe.textContent = 'Stop';
+
+            const steps = [
+                { label: 'Inhale\u2026', dur: 4000 },
+                { label: 'Hold\u2026',   dur: 4000 },
+                { label: 'Exhale\u2026', dur: 6000 }
+            ];
+            const total = 180000;
+            let stepIdx = 0;
+            let stepStart = Date.now();
+            const startTime = Date.now();
+
+            function tick() {
+                const now = Date.now();
+                const elapsed = now - startTime;
+                const stepElapsed = now - stepStart;
+                const step = steps[stepIdx];
+
+                const pct = Math.min(elapsed / total, 1);
+                ringProg.style.strokeDashoffset = CIRCUMFERENCE * (1 - pct);
+                phase.textContent = step.label;
+
+                if (stepElapsed >= step.dur) {
+                    stepIdx = (stepIdx + 1) % steps.length;
+                    stepStart = now;
+                }
+
+                if (elapsed >= total) {
+                    phase.textContent = 'Done \u2714';
+                    btnBreathe.textContent = 'Start';
+                    clearInterval(breatheTimer);
+                    breatheTimer = null;
+                }
+            }
+
+            breatheTimer = setInterval(tick, 200);
+            tick();
+        });
+    }
 })();
 </script>
 }
+
 <!-- YOU ARE NOT ALONE SECTION -->
 <section class="support-section">
     <h2>You Are Not Alone</h2>

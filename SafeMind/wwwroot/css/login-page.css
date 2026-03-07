@@ -19,7 +19,10 @@
 .page-login-card::after {
     content: "";
     position: absolute;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     border-radius: 14px;
     background: linear-gradient(145deg, rgba(46, 111, 84, 0.06), transparent 55%);
     pointer-events: none;
@@ -212,4 +215,51 @@
     .page-login-card {
         padding: 28px;
     }
+}
+
+/* ── Divider ── */
+.page-login-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+    color: var(--color-text-muted, #4a4a4a);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.page-login-divider::before,
+.page-login-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--color-muted, #cbd5c0);
+}
+
+/* ── Google Button ── */
+.page-login-google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid var(--color-muted, #cbd5c0);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--color-text, #1e1e1e);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.page-login-google-btn:hover {
+    border-color: var(--color-primary, #2e6f54);
+    box-shadow: 0 4px 12px rgba(46, 111, 84, 0.1);
+    background: #fafffe;
+}
+
+.page-login-google-btn svg {
+    flex-shrink: 0;
 }

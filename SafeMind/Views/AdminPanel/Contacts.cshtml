@@ -1,0 +1,87 @@
+@model List<Data.Models.ContactMessage>
+@{
+    ViewData["Title"] = "Admin - Contacts";
+    bool showArchived = ViewBag.ShowArchived ?? false;
+}
+
+<link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+
+<div class="admin-layout">
+    <partial name="_AdminSidebar" />
+
+    <div class="admin-main">
+        <div class="admin-header">
+            <div>
+                <h1>Contact Messages</h1>
+                <p>Messages received from the Contact Us page</p>
+            </div>
+            <div class="header-actions">
+                @if (showArchived)
+                {
+                    <a asp-action="Contacts" class="btn-admin">Hide Archived</a>
+                }
+                else
+                {
+                    <a asp-action="Contacts" asp-route-showArchived="true" class="btn-admin btn-admin-outline">Show Archived</a>
+                }
+            </div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="empty-state">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <h3>No messages yet</h3>
+                <p>Contact messages will appear here when users submit the contact form.</p>
+            </div>
+        }
+        else
+        {
+            <div class="contacts-list">
+                @foreach (var msg in Model)
+                {
+                    <div class="contact-card @(!msg.IsRead ? "unread" : "") @(msg.IsArchived ? "archived" : "")">
+                        <div class="contact-card-header">
+                            <div class="contact-meta">
+                                @if (!msg.IsRead)
+                                {
+                                    <span class="unread-dot"></span>
+                                }
+                                <strong>@msg.FullName</strong>
+                                <span class="contact-email">@msg.Email</span>
+                            </div>
+                            <span class="contact-date">@msg.SubmittedOn.ToString("dd MMM yyyy HH:mm")</span>
+                        </div>
+
+                        <div class="contact-subject">@msg.Subject</div>
+                        <div class="contact-message-text">@msg.Message</div>
+
+                        <div class="contact-actions">
+                            @if (!msg.IsRead)
+                            {
+                                <form asp-action="MarkContactRead" method="post" style="display:inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@msg.Id" />
+                                    <button type="submit" class="btn-admin btn-admin-sm">Mark Read</button>
+                                </form>
+                            }
+                            @if (!msg.IsArchived)
+                            {
+                                <form asp-action="ArchiveContact" method="post" style="display:inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@msg.Id" />
+                                    <button type="submit" class="btn-admin btn-admin-sm btn-admin-outline">Archive</button>
+                                </form>
+                            }
+                            <form asp-action="DeleteContact" method="post" style="display:inline" onsubmit="return confirm('Delete this message permanently?')">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@msg.Id" />
+                                <button type="submit" class="btn-admin btn-admin-sm btn-admin-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

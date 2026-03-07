@@ -47,7 +47,10 @@ body {
 
 .hero-overlay {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: linear-gradient(
     180deg,
     rgba(14, 30, 24, 0.65),
@@ -166,6 +169,7 @@ body {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.55);
   background: rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   cursor: pointer;
   transition: transform 0.25s ease, background-color 0.25s ease,
@@ -412,6 +416,7 @@ body {
 .latest-posts {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;
   gap: 22px;
 }
 
@@ -424,16 +429,29 @@ body {
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
   text-decoration: none;
   color: inherit;
+  flex: 1;
+  min-width: 0;
+}
+
+.story-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
 }
 
 .story-card img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 200px;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .story-content {
   padding: 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .story-tag {
@@ -445,11 +463,67 @@ body {
 .story-content h3 {
   margin: 8px 0;
   color: var(--color-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+  min-height: 2.6em;
+  word-break: break-word;
 }
 
 .story-content p {
   color: var(--color-text-muted);
   font-size: 0.95rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: auto;
+  line-height: 1.4;
+  min-height: 2.8em;
+  word-break: break-word;
+}
+
+/* ---------- PAGINATION ---------- */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.page-link:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.page-link.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  pointer-events: none;
 }
 
 /* ---------- RIGHT: SIDEBAR ---------- */
@@ -569,7 +643,10 @@ body {
 .category-tile::after {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: linear-gradient(90deg, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.12));
   border-radius: inherit;
 }
