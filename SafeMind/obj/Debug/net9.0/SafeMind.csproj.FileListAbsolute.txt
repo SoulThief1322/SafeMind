@@ -918,3 +918,6 @@ C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/gkc4wadbam
 /Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.Google.dll
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/lireahz228-{0}-fk88x0fftx-fk88x0fftx.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/p15u1dbb5x-{0}-tqehaz0ym0-tqehaz0ym0.gz
+/Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/BouncyCastle.Cryptography.dll
+/Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/MailKit.dll
+/Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/MimeKit.dll
