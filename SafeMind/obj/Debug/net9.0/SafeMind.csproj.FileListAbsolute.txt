@@ -821,7 +821,6 @@ C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/gkc4wadbam
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/cc8s1d7sau-{0}-t67ls9x8ph-t67ls9x8ph.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/u94es1c1wm-{0}-erfnqq0slp-erfnqq0slp.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/nh7iaseaw4-{0}-ypw8hd0xv7-ypw8hd0xv7.gz
-/Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/p15u1dbb5x-{0}-g5036wm6y7-g5036wm6y7.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/uo2svcn34h-{0}-esxbhhpw0j-esxbhhpw0j.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/q8pywxhiij-{0}-t7v4eu4xwa-t7v4eu4xwa.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/0i8m7vmz10-{0}-mty6wopbyn-mty6wopbyn.gz
@@ -916,4 +915,6 @@ C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/gkc4wadbam
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/awcbxakkrh-{0}-1mvvrqi7my-1mvvrqi7my.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/ry7ap557as-{0}-g4jay1cz7x-g4jay1cz7x.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/80g6f7zcbh-{0}-758cpnl2pg-758cpnl2pg.gz
-/Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/lireahz228-{0}-jxyy2crk67-jxyy2crk67.gz
+/Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.Google.dll
+/Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/lireahz228-{0}-fk88x0fftx-fk88x0fftx.gz
+/Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/p15u1dbb5x-{0}-tqehaz0ym0-tqehaz0ym0.gz

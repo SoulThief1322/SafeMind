@@ -1,0 +1,36 @@
+@page
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = "Complete registration";
+}
+
+<link rel="stylesheet" href="~/css/login-page.css" asp-append-version="true" />
+
+<div class="page-login">
+    <div class="page-login-card">
+        <div class="page-login-logo">SM</div>
+        <h1 class="page-login-title">Almost there</h1>
+        <p class="page-login-lead">
+            You've signed in with <strong>@Model.ProviderDisplayName</strong>.
+            Please confirm your email to complete registration.
+        </p>
+
+        <div asp-validation-summary="ModelOnly" class="page-login-errors" role="alert"></div>
+
+        <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="page-login-form">
+            <div class="page-login-field">
+                <input asp-for="Input.Email" autocomplete="email" placeholder=" " />
+                <label asp-for="Input.Email">Email address</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <button type="submit" class="page-login-button">Create account</button>
+        </form>
+
+        <div class="page-login-footer">
+            <span>Already have an account?</span>
+            <a asp-page="./Login">Sign in</a>
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
