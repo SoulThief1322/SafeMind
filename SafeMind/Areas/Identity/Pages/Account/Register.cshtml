@@ -13,6 +13,10 @@
         <p class="page-login-lead">Join SafeMind to capture every session, insight, and step forward.</p>
         <div class="page-login-badge">Trusted &amp; secure</div>
 
+        <div style="margin-bottom: 18px; max-width: 500px; background: #fffbe6; border: 1px solid #ffe58f; color: #ad6800; border-radius: 8px; padding: 14px 18px; font-size: 1.08em; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; align-items: center; gap: 10px;">
+            <svg style="flex-shrink:0;" width="22" height="22" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#ffe58f"/><path d="M12 8v4" stroke="#ad6800" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16" r="1" fill="#ad6800"/></svg>
+            <span>After registering, you must confirm your email address before you can log in.</span>
+        </div>
         <form class="page-login-form" id="register" method="post" asp-route-returnUrl="@Model.ReturnUrl">
             <div asp-validation-summary="ModelOnly" class="page-login-errors" role="alert"></div>
 

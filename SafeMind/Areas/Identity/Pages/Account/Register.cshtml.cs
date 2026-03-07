@@ -81,10 +81,10 @@ namespace SafeMind.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -93,28 +93,37 @@ namespace SafeMind.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    user.EmailConfirmed = false;
-                    await _userManager.UpdateAsync(user);
+                    // Generate email confirmation token and link
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    var callbackUrl = Url.Page(
+                        "/Account/ConfirmEmail",
+                        pageHandler: null,
+                        values: new { area = "Identity", userId = userId, code = code },
+                        protocol: Request.Scheme);
+
+                    var emailBody = $"Hi {Input.Username},\n\nThank you for registering! Please confirm your email by clicking the link below:\n{callbackUrl}\n\nIf you did not register, please ignore this email.";
 
                     try
                     {
                         _emailSender.SendEmail(
                             senderName: "SafeMind",
-                            senderEmail: "noreply.safemind@gmail.com",  
+                            senderEmail: "noreply.safemind@gmail.com",
                             toName: Input.Username,
                             toEmail: Input.Email,
                             subject: "Welcome to SafeMind - Please Confirm Your Email",
-                            textContent: $"Hi {Input.Username},\n\nThank you for registering! Please confirm your email."
+                            textContent: emailBody
                         );
-
                         _logger.LogInformation("Confirmation email sent to {Email}.", Input.Email);
                     }
                     catch (Exception ex)
                     {
                         _logger.LogError(ex, "Failed to send confirmation email to {Email}.", Input.Email);
                     }
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    // Optionally, do not sign in until email is confirmed
+                    // await _signInManager.SignInAsync(user, isPersistent: false);
+                    // return LocalRedirect(returnUrl);
+                    return RedirectToPage("/Account/Login", new { area = "Identity" });
                 }
 
                 foreach (var error in result.Errors)
