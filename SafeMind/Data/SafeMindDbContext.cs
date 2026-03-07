@@ -31,6 +31,7 @@ namespace SafeMind.Data
             public DbSet<GoalTemplate> GoalTemplates { get; set; }
             public DbSet<WeeklyGoal> WeeklyGoals { get; set; }
             public DbSet<ContactMessage> ContactMessages { get; set; }
+            public DbSet<MoodCheck> MoodChecks { get; set; }
 
             protected override void OnModelCreating(ModelBuilder builder)
             {
@@ -326,6 +327,19 @@ namespace SafeMind.Data
                         entity.Property(c => c.SubmittedOn).IsRequired();
                         entity.Property(c => c.IsRead).IsRequired().HasDefaultValue(false);
                         entity.Property(c => c.IsArchived).IsRequired().HasDefaultValue(false);
+                  });
+
+                  // -------- MoodCheck --------
+                  builder.Entity<MoodCheck>(entity =>
+                  {
+                        entity.ToTable("MoodChecks");
+                        entity.HasKey(m => m.Id);
+                        entity.Property(m => m.Mood).IsRequired().HasMaxLength(20);
+                        entity.Property(m => m.SavedAt).IsRequired();
+                        entity.HasOne(m => m.User)
+                              .WithMany()
+                              .HasForeignKey(m => m.UserId)
+                              .OnDelete(DeleteBehavior.Cascade);
                   });
 
             }

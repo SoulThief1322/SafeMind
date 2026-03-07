@@ -1,4 +1,7 @@
 using System.Diagnostics;
+using System.Security.Claims;
+using Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SafeMind.Data;
@@ -42,5 +45,71 @@ public class HomeController : Controller
     public async Task<IActionResult> Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> GetMood()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var cutoff = DateTimeOffset.UtcNow.AddHours(-24);
+        var mood = await _context.MoodChecks
+            .Where(m => m.UserId == userId && m.SavedAt >= cutoff)
+            .OrderByDescending(m => m.SavedAt)
+            .Select(m => m.Mood)
+            .FirstOrDefaultAsync();
+
+        return Json(new { mood });
+    }
+
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> SaveMood([FromBody] SaveMoodRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request?.Mood)) return BadRequest();
+
+        var allowed = new HashSet<string> { "Great", "Okay", "Not great" };
+        if (!allowed.Contains(request.Mood)) return BadRequest();
+
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
+        var cutoff = DateTimeOffset.UtcNow.AddHours(-24);
+        var existing = await _context.MoodChecks
+            .Where(m => m.UserId == userId && m.SavedAt >= cutoff)
+            .OrderByDescending(m => m.SavedAt)
+            .FirstOrDefaultAsync();
+
+        if (existing != null)
+        {
+            existing.Mood = request.Mood;
+            existing.SavedAt = DateTimeOffset.UtcNow;
+        }
+        else
+        {
+            _context.MoodChecks.Add(new MoodCheck
+            {
+                UserId = userId,
+                Mood = request.Mood,
+                SavedAt = DateTimeOffset.UtcNow
+            });
+        }
+
+        await _context.SaveChangesAsync();
+        return Ok();
+    }
+
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> ResetMood()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        var cutoff = DateTimeOffset.UtcNow.AddHours(-24);
+        var recent = await _context.MoodChecks
+            .Where(m => m.UserId == userId && m.SavedAt >= cutoff)
+            .ToListAsync();
+
+        _context.MoodChecks.RemoveRange(recent);
+        await _context.SaveChangesAsync();
+        return Ok();
     }
 }
