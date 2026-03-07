@@ -28,7 +28,7 @@
 			padding: 12px 12px;
 			outline: none;
 			font-size: 1rem;
-            resize: none;
+            resize: vertical;
 		}
 		.entry-title-input:focus,
 		.entry-textarea:focus {

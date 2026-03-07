@@ -2,8 +2,6 @@
     ViewData["Title"] = "Admin - Reports";
     var sessionsByStatus = ViewBag.SessionsByStatus as Dictionary<string, int> ?? new Dictionary<string, int>();
     var sessionsPerMonth = ViewBag.SessionsPerMonth as Dictionary<string, int> ?? new Dictionary<string, int>();
-    var revenuePerMonth = ViewBag.RevenuePerMonth as Dictionary<string, decimal> ?? new Dictionary<string, decimal>();
-    var totalRevenue = (decimal)(ViewBag.TotalRevenue ?? 0m);
     var totalSessions = (int)(ViewBag.TotalSessions ?? 0);
     var newUsersThisMonth = (int)(ViewBag.NewUsersThisMonth ?? 0);
 }
@@ -22,15 +20,6 @@
         </div>
 
         <div class="stat-grid stat-grid-3">
-            <div class="stat-card">
-                <div class="stat-icon emerald">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-number">@totalRevenue.ToString("C")</span>
-                    <span class="stat-label">Total Revenue</span>
-                </div>
-            </div>
             <div class="stat-card">
                 <div class="stat-icon purple">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -106,34 +95,5 @@
             </div>
         </div>
 
-        <div class="admin-card">
-            <h2 class="card-title">Revenue per Month</h2>
-            @if (revenuePerMonth.Any())
-            {
-                <div class="table-wrapper">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Month</th>
-                                <th>Revenue</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var kv in revenuePerMonth)
-                            {
-                                <tr>
-                                    <td>@kv.Key</td>
-                                    <td><strong>@kv.Value.ToString("C")</strong></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-            else
-            {
-                <p class="text-muted">No revenue data for the selected period.</p>
-            }
-        </div>
     </div>
 </div>

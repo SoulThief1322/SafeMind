@@ -22,7 +22,6 @@ namespace SafeMind.Controllers
             ViewBag.TotalDoctors = await _adminService.GetTotalDoctorsAsync();
             ViewBag.TotalSessions = await _adminService.GetTotalSessionsAsync();
             ViewBag.TotalArticles = await _adminService.GetTotalArticlesAsync();
-            ViewBag.TotalRevenue = await _adminService.GetTotalRevenueAsync();
             ViewBag.UnreadContacts = await _adminService.GetUnreadContactCountAsync();
             ViewBag.CompletedSessions = await _adminService.GetCompletedSessionsCountAsync();
             ViewBag.RecentSessions = await _adminService.GetRecentSessionsAsync();
@@ -126,9 +125,7 @@ namespace SafeMind.Controllers
         {
             ViewBag.SessionsByStatus = await _adminService.GetSessionsByStatusAsync();
             ViewBag.SessionsPerMonth = await _adminService.GetSessionsPerMonthAsync();
-            ViewBag.RevenuePerMonth = await _adminService.GetRevenuePerMonthAsync();
             ViewBag.NewUsersThisMonth = await _adminService.GetNewUsersThisMonthAsync();
-            ViewBag.TotalRevenue = await _adminService.GetTotalRevenueAsync();
             ViewBag.TotalSessions = await _adminService.GetTotalSessionsAsync();
             ViewBag.ActiveTab = "reports";
             return View();

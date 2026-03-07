@@ -72,6 +72,7 @@
 	background: transparent;
 	color: var(--color-primary);
 	border-color: rgba(46, 111, 84, 0.22);
+	text-decoration: none;
 }
 
 .diary-btn-ghost:hover {

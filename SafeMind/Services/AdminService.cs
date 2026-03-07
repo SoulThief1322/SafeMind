@@ -31,11 +31,6 @@ namespace SafeMind.Services
         public async Task<int> GetTotalArticlesAsync()
             => await _context.Articles.CountAsync(a => !a.IsDeleted);
 
-        public async Task<decimal> GetTotalRevenueAsync()
-            => await _context.Sessions
-                .Where(s => s.PaymentStatus == PaymentStatus.Paid)
-                .SumAsync(s => s.Price);
-
         public async Task<int> GetUnreadContactCountAsync()
             => await _context.ContactMessages.CountAsync(c => !c.IsRead && !c.IsArchived);
 
@@ -174,18 +169,6 @@ namespace SafeMind.Services
             return sessions
                 .GroupBy(s => s.StartTime.ToString("MMM yyyy"))
                 .ToDictionary(g => g.Key, g => g.Count());
-        }
-
-        public async Task<Dictionary<string, decimal>> GetRevenuePerMonthAsync(int months = 6)
-        {
-            var since = DateTimeOffset.UtcNow.AddMonths(-months);
-            var sessions = await _context.Sessions
-                .Where(s => s.PaymentStatus == PaymentStatus.Paid && s.StartTime >= since)
-                .ToListAsync();
-
-            return sessions
-                .GroupBy(s => s.StartTime.ToString("MMM yyyy"))
-                .ToDictionary(g => g.Key, g => g.Sum(s => s.Price));
         }
 
         public async Task<int> GetNewUsersThisMonthAsync()
