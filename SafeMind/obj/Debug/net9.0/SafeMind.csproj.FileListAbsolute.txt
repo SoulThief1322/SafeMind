@@ -921,3 +921,4 @@ C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/gkc4wadbam
 /Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/BouncyCastle.Cryptography.dll
 /Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/MailKit.dll
 /Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/MimeKit.dll
+/Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/3z263mc1pq-{0}-yuq6w4ue4f-yuq6w4ue4f.gz

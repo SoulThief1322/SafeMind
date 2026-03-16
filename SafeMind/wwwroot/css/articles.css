@@ -100,6 +100,13 @@ body {
   padding: 140px 20px 0;
   max-width: 720px;
   color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+}
+
+.hero-cta-text {
+  align-self: flex-start;
 }
 
 .hero-notice {
