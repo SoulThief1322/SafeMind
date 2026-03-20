@@ -825,7 +825,6 @@ C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/gkc4wadbam
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/q8pywxhiij-{0}-t7v4eu4xwa-t7v4eu4xwa.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/0i8m7vmz10-{0}-mty6wopbyn-mty6wopbyn.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/k00e9nmi99-{0}-4ptkby8r1n-4ptkby8r1n.gz
-/Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/d6ssxaj5ib-{0}-4h6kicoko9-4h6kicoko9.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/g1l2xn4poa-{0}-61n19gt1b8-61n19gt1b8.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/ldpg3egzhl-{0}-5b8bltzgan-5b8bltzgan.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/ybszchqqqc-{0}-5mgl488voc-5mgl488voc.gz
@@ -910,7 +909,6 @@ C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/gkc4wadbam
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/SafeMind.genruntimeconfig.cache
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/ref/SafeMind.dll
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/ij0r7d2ad7-{0}-ihmi6ecscb-ihmi6ecscb.gz
-/Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/p3zauzmwk8-{0}-py51kh3dqj-py51kh3dqj.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/65fa8wpzp0-{0}-4u3xh3tlpn-4u3xh3tlpn.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/awcbxakkrh-{0}-1mvvrqi7my-1mvvrqi7my.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/ry7ap557as-{0}-g4jay1cz7x-g4jay1cz7x.gz
@@ -922,3 +920,5 @@ C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/gkc4wadbam
 /Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/MailKit.dll
 /Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/MimeKit.dll
 /Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/3z263mc1pq-{0}-yuq6w4ue4f-yuq6w4ue4f.gz
+/Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/p3zauzmwk8-{0}-9gvvg7jon0-9gvvg7jon0.gz
+/Users/soulthief/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/d6ssxaj5ib-{0}-pf3441jtb6-pf3441jtb6.gz

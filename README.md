@@ -12,4 +12,5 @@
 
 
 
-chat sistema mejdu potrebitel i doktor s web socket
+views per week to be added
+this week to be redesigned

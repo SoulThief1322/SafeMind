@@ -113,17 +113,17 @@
             dayElement.innerHTML = `<span class="dow">${dow}</span><span class="date">${label}</span>`;
             if (!isPast && !isKnownEmpty) dayElement.addEventListener('click', (event) => {
                 event.preventDefault();
+                event.stopPropagation();
                 currentSelectedDate = date;
                 setSelectedDateLabel(date);
                 loadSessions(isoDate);
-                buildWeekGrid();
+                
+                // Update selected state without rebuilding
+                weekGrid.querySelectorAll('.day').forEach(el => el.classList.remove('selected'));
+                dayElement.classList.add('selected');
             });
             weekGrid.appendChild(dayElement);
         }
-
-        // Keep the selected day visible in the center when scrolling horizontally
-        const selectedElement = weekGrid.querySelector('.day.selected');
-        selectedElement?.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'center' });
 
         ensureWeekAvailability(weekSnapshot);
     }
@@ -204,7 +204,11 @@
                 <small>${sessionDescriptor}</small>
                 <span class="cta">Select</span>
             `;
-            session.addEventListener('click', () => toggleSelection(dateIso, time, session));
+            session.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                toggleSelection(dateIso, time, session);
+            });
             sessionGrid.appendChild(session);
         });
     }
@@ -312,11 +316,13 @@
     // Wires up existing session elements on initial load (first render).
     prevWeek?.addEventListener('click', (event) => {
         event.preventDefault();
+        event.stopPropagation();
         shiftWeek(-7);
     });
 
     nextWeek?.addEventListener('click', (event) => {
         event.preventDefault();
+        event.stopPropagation();
         shiftWeek(7);
     });
 
