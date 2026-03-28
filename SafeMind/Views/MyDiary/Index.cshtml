@@ -24,7 +24,6 @@
 
 			<div class="diary-header-actions">
 				<button type="button" class="diary-btn diary-btn-primary" onclick="window.location.href = '/MyDiary/NewEntry'" id="newEntryBtn">New entry</button>
-				<button type="button" class="diary-btn diary-btn-secondary" id="viewWeekBtn">View week</button>
 			</div>
 		</header>
 
@@ -320,7 +319,7 @@
 					<div class="checkin-list">
 						@if (Model?.CheckIns != null && Model.CheckIns.Any())
 						{
-							@foreach (var check in Model.CheckIns.Take(10))
+							@foreach (var check in Model.CheckIns.OrderByDescending(c => c.CreatedOn).Take(3))
 							{
 								<div class="checkin-item">
 									<div>
@@ -339,6 +338,9 @@
 						{
 							<p class="muted">No check-ins yet.</p>
 						}
+						<div class="side-actions">
+						<a href="/MyDiary/AllEntries" class="diary-btn diary-btn-secondary w-100" id="seeAllEntriesBtn">See all entries</a>
+					</div>
 					</div>
 				</div>
 
@@ -353,14 +355,14 @@
 					<div class="entry-list" id="entryList">
 						@if (Model?.Journals != null && Model.Journals.Any())
 						{
-							@foreach (var entry in Model.Journals)
+							@foreach (var entry in Model.Journals.OrderByDescending(j => j.CreatedOn).Take(3))
 							{
 								<div class="entry-item">
 									<div class="entry-meta">
 										<span class="entry-date">@entry.CreatedOn.ToLocalTime().ToString("MMM dd")</span>
 										<span class="entry-tag">@entry.Category</span>
 									</div>
-									<div class="entry-title">@entry.Title</div>
+									<div class="entry-title" style="text-decoration:none;">@entry.Title</div>
 									<div class="entry-preview">@entry.Content</div>
 								</div>
 							}
@@ -372,7 +374,7 @@
 					</div>
 
 					<div class="side-actions">
-						<button type="button" class="diary-btn diary-btn-secondary w-100" id="seeAllEntriesBtn">See all entries</button>
+						<a href="/MyDiary/AllEntries" class="diary-btn diary-btn-secondary w-100" id="seeAllEntriesBtn">See all entries</a>
 					</div>
 				</div>
 

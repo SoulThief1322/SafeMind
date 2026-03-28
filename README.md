@@ -11,10 +11,22 @@
 
 
 
-filters and specialties in book session page also sorting maybe
 rating for doctors after session is completed option to be added
 recent check ins to be moved into a paging or maybe another page for all
 same with recent journals
 2 custom error pages
 unit testing
 Допълнителни тестове - Mocking/ Integration/ Pentest (SQL Injection & XSS)
+
+
+
+
+"DefaultConnection": "Server=localhost,1433;Database=SafeMindDb;User Id=sa;Password=YourStrong!Pass123;TrustServerCertificate=True;MultipleActiveResultSets=true",
+    "DoctorLicensingConnection": "Server=localhost,1433;Database=DoctorLicensing;User Id=sa;Password=YourStrong!Pass123;TrustServerCertificate=True;MultipleActiveResultSets=true" //for macbook
+
+
+
+
+
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=SafeMindDb;TrustServerCertificate=True;MultipleActiveResultSets=true",
+    "DoctorLicensingConnection": "Server=(localdb)\\MSSQLLocalDB;Database=DoctorLicensing;TrustServerCertificate=True;MultipleActiveResultSets=true" //for pc

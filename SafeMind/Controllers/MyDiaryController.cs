@@ -176,6 +176,31 @@ public class MyDiaryController : Controller
         return RedirectToAction("Index");
     }
 
+        [HttpGet]
+        public async Task<IActionResult> AllEntries()
+        {
+            var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrWhiteSpace(userId)) return Unauthorized();
+
+            var journals = await _diaryService.GetJournals(_context, userId);
+            var checks = await _diaryService.GetChecks(_context, userId);
+            var insights = DiaryMapper.ToViewModel(
+                totalJournals: journals.Count(),
+                totalCheckIns: checks.Count(),
+                totalGoals: 0,
+                averageMoodScore: 0,
+                moodDistribution: new Dictionary<string, int>(),
+                dayStreak: 0
+            );
+            var vm = new DiaryPageViewModel
+            {
+                Journals = DiaryMapper.ToViewModels(journals),
+                CheckIns = DiaryMapper.ToViewModels(checks),
+                Insights = insights
+            };
+            return View(vm);
+        }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> CompleteGoal([FromBody] CompleteGoalRequest request)
