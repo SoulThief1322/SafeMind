@@ -19,7 +19,8 @@
           "Microsoft.EntityFrameworkCore.Design": "9.0.14",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.14",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.14",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "9.0.11"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "9.0.11",
+          "coverlet.collector": "8.0.1"
         },
         "runtime": {
           "SafeMind.dll": {}
@@ -68,6 +69,7 @@
           }
         }
       },
+      "coverlet.collector/8.0.1": {},
       "Humanizer/2.14.1": {
         "dependencies": {
           "Humanizer.Core.af": "2.14.1",
@@ -2671,6 +2673,13 @@
       "sha512": "sha512-7oWOcvnntmMKNzDLsdxAYqApt+AjpRpP2CShjMfIa3umZ42UQMvH0tl1qAliYPNYO6vTdcGMqnRrCPmsfzTI1w==",
       "path": "bouncycastle.cryptography/2.6.2",
       "hashPath": "bouncycastle.cryptography.2.6.2.nupkg.sha512"
+    },
+    "coverlet.collector/8.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-heVQl5tKYnnIDYlR1QMVGueYH6iriZTcZB6AjDczQNwZzxkjDIt9C84Pt4cCiZYrbo7jkZOYGWbs6Lo9wAtVLg==",
+      "path": "coverlet.collector/8.0.1",
+      "hashPath": "coverlet.collector.8.0.1.nupkg.sha512"
     },
     "Humanizer/2.14.1": {
       "type": "package",

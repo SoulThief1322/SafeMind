@@ -21,7 +21,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.SignIn.RequireConfirmedPhoneNumber = false;
 })
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<SafeMindDbContext>();
+    .AddEntityFrameworkStores<SafeMindDbContext>()
+    .AddUserValidator<CustomUserValidator>();
 
 builder.Services.AddAuthentication()
     .AddGoogle(options =>
@@ -35,6 +36,11 @@ builder.Services.AddAuthentication()
             return Task.CompletedTask;
         };
     });
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@";
+});
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<SafeMind.Services.BookService>();
 builder.Services.AddScoped<SafeMind.Services.BookSessionService>();

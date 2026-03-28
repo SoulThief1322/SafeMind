@@ -168,17 +168,17 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"h2ksoii3zf"},{"Name":"integrity","Value":"sha256-ZytsxXREODKMFA0RR0\u002BZKiitfv\u002BOnBPNQG6PcZYDLSc="},{"Name":"label","Value":"_content/SafeMind/css/login.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7517"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022ZytsxXREODKMFA0RR0\u002BZKiitfv\u002BOnBPNQG6PcZYDLSc=\u0022"},{"Name":"Last-Modified","Value":"Sat, 28 Mar 2026 11:55:48 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/SafeMind/css/mydiary.64l0ygsjxj.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\mydiary.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"64l0ygsjxj"},{"Name":"integrity","Value":"sha256-GnMMZ9uG\u002BB3wCzlTv5WJfmLVAt\u002BwKDogFSF6rjJpFsU="},{"Name":"label","Value":"_content/SafeMind/css/mydiary.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"14046"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022GnMMZ9uG\u002BB3wCzlTv5WJfmLVAt\u002BwKDogFSF6rjJpFsU=\u0022"},{"Name":"Last-Modified","Value":"Sat, 28 Mar 2026 11:55:48 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/SafeMind/css/mydiary.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\mydiary.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-GnMMZ9uG\u002BB3wCzlTv5WJfmLVAt\u002BwKDogFSF6rjJpFsU="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"14046"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022GnMMZ9uG\u002BB3wCzlTv5WJfmLVAt\u002BwKDogFSF6rjJpFsU=\u0022"},{"Name":"Last-Modified","Value":"Sat, 28 Mar 2026 11:55:48 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-z8awCw2\u002BdPf1ziNgWddPwF2mX8dX5ImnhNU4KrYgg0g="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"14046"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022z8awCw2\u002BdPf1ziNgWddPwF2mX8dX5ImnhNU4KrYgg0g=\u0022"},{"Name":"Last-Modified","Value":"Sat, 28 Mar 2026 12:19:35 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/SafeMind/css/mydiary.tl631pxxaa.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\mydiary.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"tl631pxxaa"},{"Name":"integrity","Value":"sha256-z8awCw2\u002BdPf1ziNgWddPwF2mX8dX5ImnhNU4KrYgg0g="},{"Name":"label","Value":"_content/SafeMind/css/mydiary.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"14046"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022z8awCw2\u002BdPf1ziNgWddPwF2mX8dX5ImnhNU4KrYgg0g=\u0022"},{"Name":"Last-Modified","Value":"Sat, 28 Mar 2026 12:19:35 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/SafeMind/css/mysessions.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\mysessions.css'))</AssetFile>

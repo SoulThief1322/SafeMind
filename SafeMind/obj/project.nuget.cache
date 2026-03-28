@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "CYsdySbbP8I=",
+  "dgSpecHash": "ueXzcDDwMUA=",
   "success": true,
   "projectFilePath": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\SafeMind.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gajok\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\gajok\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\gajok\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",
+    "C:\\Users\\gajok\\.nuget\\packages\\coverlet.collector\\8.0.1\\coverlet.collector.8.0.1.nupkg.sha512",
     "C:\\Users\\gajok\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\gajok\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\gajok\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

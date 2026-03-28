@@ -264,8 +264,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>64l0ygsjxj</Fingerprint>
-      <Integrity>GnMMZ9uG+B3wCzlTv5WJfmLVAt+wKDogFSF6rjJpFsU=</Integrity>
+      <Fingerprint>tl631pxxaa</Fingerprint>
+      <Integrity>z8awCw2+dPf1ziNgWddPwF2mX8dX5ImnhNU4KrYgg0g=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\mydiary.css'))</OriginalItemSpec>
