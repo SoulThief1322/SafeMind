@@ -11,6 +11,10 @@
 
 
 
-
-views per week to be added
-this week to be redesigned
+filters and specialties in book session page also sorting maybe
+rating for doctors after session is completed option to be added
+recent check ins to be moved into a paging or maybe another page for all
+same with recent journals
+2 custom error pages
+unit testing
+Допълнителни тестове - Mocking/ Integration/ Pentest (SQL Injection & XSS)
