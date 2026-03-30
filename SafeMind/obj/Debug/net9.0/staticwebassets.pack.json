@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\SafeMind.68tz8rlebm.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\admin.css",
+      "PackagePath": "staticwebassets\\css\\admin.css"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\articles.css",
       "PackagePath": "staticwebassets\\css\\articles.css"
     },
@@ -27,6 +31,10 @@
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\chat.css",
       "PackagePath": "staticwebassets\\css\\chat.css"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\contact.css",
+      "PackagePath": "staticwebassets\\css\\contact.css"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\create-article.css",
@@ -65,6 +73,10 @@
       "PackagePath": "staticwebassets\\css\\navbar.css"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\notification-card.css",
+      "PackagePath": "staticwebassets\\css\\notification-card.css"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\register-doctor.css",
       "PackagePath": "staticwebassets\\css\\register-doctor.css"
     },
@@ -79,6 +91,10 @@
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\images\\SafeMindLogo.png",
       "PackagePath": "staticwebassets\\images\\SafeMindLogo.png"
+    },
+    {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\images\\articles\\240df85c-d0e4-42bf-9427-af232d20a503.jpeg",
+      "PackagePath": "staticwebassets\\images\\articles\\240df85c-d0e4-42bf-9427-af232d20a503.jpeg"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\images\\articles\\5d6643a1-15bc-453c-85c1-66a28ae27445.png",
@@ -109,8 +125,8 @@
       "PackagePath": "staticwebassets\\js\\createArticle.js"
     },
     {
-      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\myDiary.js",
-      "PackagePath": "staticwebassets\\js\\myDiary.js"
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\mydiary.js",
+      "PackagePath": "staticwebassets\\js\\mydiary.js"
     },
     {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\js\\mysessions.js",

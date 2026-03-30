@@ -1,0 +1,19 @@
+@page
+@model SafeMind.Areas.Identity.Pages.Account.ConfirmEmailModel
+@{
+    ViewData["Title"] = "Confirm Email";
+}
+
+<link rel="stylesheet" href="~/css/notification-card.css" asp-append-version="true" />
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh;">
+    <div class="notification-card">
+        <svg class="notification-icon" width="48" height="48" fill="none" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#b7eb8f"/><path d="M16 25l6 6 10-12" stroke="#135200" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h2 class="notification-title">@ViewData["Title"]</h2>
+        @if (Model.StatusMessage != null)
+        {
+            <div class="notification-message">
+                @Html.Raw(Model.StatusMessage)
+            </div>
+        }
+    </div>
+</div>

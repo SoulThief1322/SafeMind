@@ -6,6 +6,20 @@
 
 <link rel="stylesheet" href="~/css/login-page.css" asp-append-version="true" />
 
+@if (TempData["RegisterMessage"] != null)
+{
+	<div style="margin: 0 auto 24px auto; max-width: 400px; background: #e6f7ff; border: 1px solid #91d5ff; color: #005480; border-radius: 8px; padding: 16px 20px; font-size: 1.1em; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; align-items: center; gap: 12px;">
+		<svg style="flex-shrink:0;" width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#91d5ff"/><path d="M8 12.5l2.5 2.5 5-5" stroke="#005480" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+		<span>@TempData["RegisterMessage"]</span>
+	</div>
+}
+@if (ViewData["EmailNotConfirmed"] != null)
+{
+	<div style="margin: 0 auto 24px auto; max-width: 400px; background: #fffbe6; border: 1px solid #ffe58f; color: #ad6800; border-radius: 8px; padding: 16px 20px; font-size: 1.1em; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; align-items: center; gap: 12px;">
+		<svg style="flex-shrink:0;" width="22" height="22" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#ffe58f"/><path d="M12 8v4" stroke="#ad6800" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16" r="1" fill="#ad6800"/></svg>
+		<span>@Html.Raw(ViewData["EmailNotConfirmed"])</span>
+	</div>
+}
 <div class="page-login">
 	<div class="page-login-card">
 		<div class="page-login-logo">SM</div>

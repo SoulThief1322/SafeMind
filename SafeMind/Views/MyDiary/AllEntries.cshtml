@@ -1,0 +1,56 @@
+@model SafeMind.Models.DiaryPageViewModel
+@{
+    ViewData["Title"] = "All Diary Entries";
+}
+
+<link rel="stylesheet" href="~/css/mydiary.css" asp-append-version="true" />
+<div class="diary-page">
+    <div class="container diary-container">
+        <header class="diary-header">
+            <div class="diary-title">
+                <h1>All Diary Entries & Check-ins</h1>
+                <p class="diary-subtitle">A complete list of your journals and check-ins.</p>
+            </div>
+        </header>
+        <section class="all-entries-list">
+            <h2>Journals</h2>
+            @if (Model.Journals != null && Model.Journals.Any())
+            {
+                foreach (var entry in Model.Journals.OrderByDescending(j => j.CreatedOn))
+                {
+                    <div class="entry-item full-entry">
+                        <div class="entry-meta">
+                            <span class="entry-date">@entry.CreatedOn.ToLocalTime().ToString("MMM dd, yyyy")</span>
+                            <span class="entry-tag">@entry.Category</span>
+                        </div>
+                        <div class="entry-title">@entry.Title</div>
+                        <div class="entry-preview">@entry.Content</div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="muted">No journal entries yet.</p>
+            }
+            <h2>Check-ins</h2>
+            @if (Model.CheckIns != null && Model.CheckIns.Any())
+            {
+                foreach (var check in Model.CheckIns.OrderByDescending(c => c.CreatedOn))
+                {
+                    <div class="checkin-item full-entry">
+                        <div class="checkin-date">@check.CreatedOn.ToLocalTime().ToString("MMM dd, yyyy · h:mm tt")</div>
+                        <div class="checkin-note">Mood: @check.Mood · Energy: @check.Energy · Sleep: @check.Sleep · Stress: @check.Stress</div>
+                        @if (!string.IsNullOrWhiteSpace(check.Notes))
+                        {
+                            <div class="checkin-note">@check.Notes</div>
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="muted">No check-ins yet.</p>
+            }
+        </section>
+    </div>
+</div>

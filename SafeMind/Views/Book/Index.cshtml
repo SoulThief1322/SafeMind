@@ -47,24 +47,17 @@
                     <button class="primary-btn" type="submit">Search</button>
                 </div>
 
-                <div class="filters">
-                    <small class="muted">Quick filters</small>
-                    <div class="chip-row">
-                        <button class="chip" type="button">Insurance accepted</button>
-                        <button class="chip" type="button">Online</button>
-                        <button class="chip" type="button">In-person</button>
-                        <button class="chip" type="button">Available today</button>
-                        <button class="chip" type="button">New clients</button>
-                    </div>
-                </div>
+                
             </form>
 
             <div class="popular">
-                <small class="muted">Popular specialties</small>
+                <small class="muted">Suggested specialties</small>
                 <div class="popular-row">
-                    <button class="popular-chip" type="button" data-specialty="Addiction Medicine">Addiction Medicine</button>
-                    <button class="popular-chip" type="button" data-specialty="Behavioral Therapy">Behavioral Therapy</button>
-                    <button class="popular-chip" type="button" data-specialty="Neurology">Neurology</button>
+                    @foreach(var specialty in Model.Specialties.Take(3))
+                    {
+                        <button class="popular-chip" type="button" data-specialty="@specialty">@specialty</button>
+                    }
+                    
                 </div>
             </div>
         </section>

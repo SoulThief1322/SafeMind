@@ -11,5 +11,20 @@
 
 
 
+rating for doctors after session is completed option to be added
+2 custom error pages
+unit testing
+Допълнителни тестове - Mocking/ Integration/ Pentest (SQL Injection & XSS)
 
-chat sistema mejdu potrebitel i doktor s web socket
+
+
+
+"DefaultConnection": "Server=localhost,1433;Database=SafeMindDb;User Id=sa;Password=YourStrong!Pass123;TrustServerCertificate=True;MultipleActiveResultSets=true",
+    "DoctorLicensingConnection": "Server=localhost,1433;Database=DoctorLicensing;User Id=sa;Password=YourStrong!Pass123;TrustServerCertificate=True;MultipleActiveResultSets=true" //for macbook
+
+
+
+
+
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=SafeMindDb;TrustServerCertificate=True;MultipleActiveResultSets=true",
+    "DoctorLicensingConnection": "Server=(localdb)\\MSSQLLocalDB;Database=DoctorLicensing;TrustServerCertificate=True;MultipleActiveResultSets=true" //for pc

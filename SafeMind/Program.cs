@@ -21,7 +21,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.SignIn.RequireConfirmedPhoneNumber = false;
 })
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<SafeMindDbContext>();
+    .AddEntityFrameworkStores<SafeMindDbContext>()
+    .AddUserValidator<CustomUserValidator>();
 
 builder.Services.AddAuthentication()
     .AddGoogle(options =>
@@ -35,6 +36,11 @@ builder.Services.AddAuthentication()
             return Task.CompletedTask;
         };
     });
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@";
+});
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<SafeMind.Services.BookService>();
 builder.Services.AddScoped<SafeMind.Services.BookSessionService>();
@@ -48,6 +54,7 @@ builder.Services.AddScoped<SafeMind.Services.ChatService>();
 builder.Services.AddScoped<SafeMind.Services.GoalService>();
 builder.Services.AddScoped<SafeMind.Services.AdminService>();
 builder.Services.AddHostedService<SafeMind.Services.SessionCleanupService>();
+builder.Services.AddScoped<SafeMind.Services.EmailSender>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/";

@@ -103,10 +103,16 @@
     font-size: 1.08rem;
     line-height: 1.85;
     color: var(--color-text, #1e1e1e);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .article-body-content p {
     margin-bottom: 1.4em;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 /* ---------- Sidebar ---------- */
