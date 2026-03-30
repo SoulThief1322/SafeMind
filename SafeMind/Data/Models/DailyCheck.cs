@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Data.Enums;
 using Microsoft.AspNetCore.Identity;
-namespace Data.Models
+using SafeMind.Data.Enums;
+namespace SafeMind.Data.Models
 {
     public class DailyCheck
     {

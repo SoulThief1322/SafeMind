@@ -1,8 +1,9 @@
-using Data.Models;
-using Data.Enums;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SafeMind.Data;
+using SafeMind.Data.Enums;
+using SafeMind.Data.Models;
 
 namespace SafeMind.Services
 {

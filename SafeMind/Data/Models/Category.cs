@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Data.Constants;
+using SafeMind.Data.Constants;
 
-namespace Data.Models
+namespace SafeMind.Data.Models
 {
     public class Category
     {

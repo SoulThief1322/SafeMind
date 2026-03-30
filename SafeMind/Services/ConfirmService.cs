@@ -1,9 +1,10 @@
 using System.Linq;
-using Data.Enums;
-using Data.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SafeMind.Data;
+using SafeMind.Data.Enums;
+using SafeMind.Data.Models;
 using static SafeMind.Services.SlotsService;
 
 namespace SafeMind.Services

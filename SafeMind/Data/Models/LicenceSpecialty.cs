@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using Data.Constants;
-namespace Data.Models
+using SafeMind.Data.Constants;
+namespace SafeMind.Data.Models
 {
     public class LicenceSpecialty
     {

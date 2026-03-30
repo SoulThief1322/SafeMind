@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SafeMind.Data;
-using Data.Models;
+using SafeMind.Data.Models;
 using System.ComponentModel.DataAnnotations;
 using SafeMind.Services;
-using Data.Constants;
+using SafeMind.Data.Constants;
 
 namespace SafeMind.Areas.Identity.Pages.Account
 {

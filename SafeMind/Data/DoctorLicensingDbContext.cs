@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Data.Models;
+using SafeMind.Data.Models;
 
 namespace SafeMind.Data
 {

@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Data.Constants;
-using Data.Enums;
 using Microsoft.AspNetCore.Identity;
+using SafeMind.Data.Constants;
+using SafeMind.Data.Enums;
 
-namespace Data.Models
+namespace SafeMind.Data.Models
 {
     public class Session
     {

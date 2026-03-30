@@ -1,4 +1,4 @@
-using Data.Models;
+using SafeMind.Data.Models;
 
 namespace SafeMind.Models
 {

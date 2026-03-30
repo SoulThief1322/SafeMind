@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data.Models
+namespace SafeMind.Data.Models
 {
     public class DoctorLicense
     {

@@ -1,5 +1,5 @@
 using System.Linq;
-using Data.Models;
+using SafeMind.Data.Models;
 using SafeMind.Models;
 
 namespace SafeMind.Services;

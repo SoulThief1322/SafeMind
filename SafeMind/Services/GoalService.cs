@@ -1,6 +1,7 @@
-using Data.Models;
+
 using Microsoft.EntityFrameworkCore;
 using SafeMind.Data;
+using SafeMind.Data.Models;
 
 namespace SafeMind.Services
 {

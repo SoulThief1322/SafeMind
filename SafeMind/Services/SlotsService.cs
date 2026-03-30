@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Linq;
-using Data.Models;
 using SafeMind.Models;
+using SafeMind.Data.Models;
 
 namespace SafeMind.Services;
 

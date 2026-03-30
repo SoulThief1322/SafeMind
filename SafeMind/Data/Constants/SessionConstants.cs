@@ -1,4 +1,4 @@
-namespace Data.Constants
+namespace SafeMind.Data.Constants
 {
     public static class SessionConstants
     {

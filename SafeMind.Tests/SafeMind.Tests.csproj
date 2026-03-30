@@ -12,6 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../SafeMind.csproj" />
+    <ProjectReference Include="../SafeMind/SafeMind.csproj" />
   </ItemGroup>
 </Project>

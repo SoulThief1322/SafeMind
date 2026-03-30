@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Data.Models;
-using Data.Enums;
+using SafeMind.Data.Models;
+using SafeMind.Data.Enums;
 
 namespace SafeMind.Data
 {

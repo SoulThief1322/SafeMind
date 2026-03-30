@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.Security.Claims;
-using Data.Models;
+using SafeMind.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

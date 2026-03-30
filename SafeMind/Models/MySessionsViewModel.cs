@@ -1,4 +1,4 @@
-using Data.Enums;
+using SafeMind.Data.Enums;
 
 namespace SafeMind.Models
 {

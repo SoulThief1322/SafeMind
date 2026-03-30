@@ -1,7 +1,7 @@
-using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SafeMind.Data;
+using SafeMind.Data.Models;
 namespace SafeMind.Services
 {
     public class BookService(SafeMindDbContext context)

@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using SafeMind.Models;
-using Data.Enums;
+using SafeMind.Data.Enums;
 using Microsoft.AspNetCore.Authorization;
 using SafeMind.Services;
 namespace SafeMind.Controllers;

@@ -1,6 +1,7 @@
-using Data.Enums;
-using Data.Models;
+
 using SafeMind.Data;
+using SafeMind.Data.Enums;
+using SafeMind.Data.Models;
 
 namespace SafeMind.Services
 {

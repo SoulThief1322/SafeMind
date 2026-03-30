@@ -1,4 +1,4 @@
-using Data.Models;
+using SafeMind.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
