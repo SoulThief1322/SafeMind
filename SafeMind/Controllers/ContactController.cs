@@ -1,4 +1,4 @@
-using Data.Models;
+using SafeMind.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using SafeMind.Data;
 using SafeMind.Models;

@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Data.Constants;
 using Microsoft.AspNetCore.Identity;
+using SafeMind.Data.Constants;
 
-namespace Data.Models
+namespace SafeMind.Data.Models
 {
     public class Goal
     {

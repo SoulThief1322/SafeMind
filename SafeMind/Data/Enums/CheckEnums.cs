@@ -1,4 +1,4 @@
-namespace Data.Enums
+namespace SafeMind.Data.Enums
 {
     public enum EnergyLevel
     {

@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SafeMind.Data;
 using SafeMind.Models;
-using Data.Models;
-using Data.Enums;
+using SafeMind.Data.Models;
+using SafeMind.Data.Enums;
 using SafeMind.Services;
 namespace SafeMind.Controllers;
 

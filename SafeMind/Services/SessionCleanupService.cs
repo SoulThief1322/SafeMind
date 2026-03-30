@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SafeMind.Data;
-using Data.Enums;
+using SafeMind.Data.Enums;
 
 namespace SafeMind.Services;
 

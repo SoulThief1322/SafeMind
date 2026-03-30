@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Data.Constants
+namespace SafeMind.Data.Constants
 {
     public static class ContactsConstants
     {

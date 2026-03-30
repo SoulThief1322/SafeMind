@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Data.Models
+namespace SafeMind.Data.Models
 {
     public class DoctorLanguage
     {

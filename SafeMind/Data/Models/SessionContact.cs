@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using Data.Constants;
-using Data.Enums;
+using SafeMind.Data.Constants;
 
-namespace Data.Models
+namespace SafeMind.Data.Models
 {
     public class SessionContact
     {

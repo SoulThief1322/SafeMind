@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
-using Data.Constants;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Data.Models
+using SafeMind.Data.Constants;
+namespace SafeMind.Data.Models
 {
     public class Doctor
     {
