@@ -1,0 +1,39 @@
+## Ignore build outputs and user-specific files for .NET/Visual Studio
+# Build folders
+/bin/
+/obj/
+
+# Visual Studio files
+*.user
+*.suo
+*.userosscache
+*.VC.db
+*.VC.VC.opendb
+
+# Build artifacts
+*.dll
+*.exe
+*.pdb
+*.cache
+*.map
+*.gz
+
+# Rider / JetBrains
+.idea/
+
+# dotnet publish
+publish/
+
+# NuGet
+/*.nupkg
+packages/
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
