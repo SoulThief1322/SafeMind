@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/soulthief/SafeMind/SafeMind/SafeMind.Tests/SafeMind.Tests.csproj": {}
+    "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind.Tests\\SafeMind.Tests.csproj": {}
   },
   "projects": {
-    "/Users/soulthief/SafeMind/SafeMind/SafeMind.Tests/SafeMind.Tests.csproj": {
+    "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind.Tests\\SafeMind.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/soulthief/SafeMind/SafeMind/SafeMind.Tests/SafeMind.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind.Tests\\SafeMind.Tests.csproj",
         "projectName": "SafeMind.Tests",
-        "projectPath": "/Users/soulthief/SafeMind/SafeMind/SafeMind.Tests/SafeMind.Tests.csproj",
-        "packagesPath": "/Users/soulthief/.nuget/packages/",
-        "outputPath": "/Users/soulthief/SafeMind/SafeMind/SafeMind.Tests/obj/",
+        "projectPath": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind.Tests\\SafeMind.Tests.csproj",
+        "packagesPath": "C:\\Users\\gajok\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind.Tests\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/soulthief/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\gajok\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -42,7 +48,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -54,7 +60,7 @@
             },
             "NUnit": {
               "target": "Package",
-              "version": "[3.13.3, )"
+              "version": "[4.5.1, )"
             },
             "NUnit3TestAdapter": {
               "target": "Package",
@@ -81,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
