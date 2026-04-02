@@ -18,6 +18,9 @@
 *.map
 *.gz
 
+# Visual Studio local folder
+.vs/
+
 # Rider / JetBrains
 .idea/
 
@@ -37,3 +40,8 @@ packages/
 # OS
 .DS_Store
 Thumbs.db
+
+# SQLite database
+*.db
+*.db-shm
+*.db-wal
