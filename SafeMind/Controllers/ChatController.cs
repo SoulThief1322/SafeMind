@@ -21,8 +21,6 @@ namespace SafeMind.Controllers
         public async Task<IActionResult> GetConversations()
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (currentUserId == null)
-                return Unauthorized();
 
             // Route to doctor-specific method if in Doctor role
             if (User.IsInRole("Doctor"))
@@ -39,8 +37,6 @@ namespace SafeMind.Controllers
         public async Task<IActionResult> GetMyDoctors()
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (currentUserId == null)
-                return Unauthorized();
 
             var doctors = await _chatService.GetMyDoctorsAsync(currentUserId);
             return Json(doctors);
@@ -50,8 +46,6 @@ namespace SafeMind.Controllers
         public async Task<IActionResult> GetMessages(int doctorId)
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (currentUserId == null)
-                return Unauthorized();
 
             var messages = await _chatService.GetMessagesAsync(currentUserId, doctorId);
             return Json(messages);
@@ -64,8 +58,6 @@ namespace SafeMind.Controllers
         public async Task<IActionResult> GetMyPatients()
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (currentUserId == null)
-                return Unauthorized();
 
             var patients = await _chatService.GetMyPatientsAsync(currentUserId);
             return Json(patients);
@@ -75,8 +67,6 @@ namespace SafeMind.Controllers
         public async Task<IActionResult> GetUnreadCount()
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (currentUserId == null)
-                return Unauthorized();
 
             var count = await _chatService.GetUnreadCountAsync(currentUserId);
             return Json(new { count });
@@ -87,8 +77,6 @@ namespace SafeMind.Controllers
         public async Task<IActionResult> GetPatientMessages(string patientId)
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (currentUserId == null)
-                return Unauthorized();
 
             var messages = await _chatService.GetDoctorMessagesAsync(currentUserId, patientId);
             return Json(messages);
