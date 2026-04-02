@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using SafeMind.Services;
 namespace SafeMind.Controllers;
 
+[Authorize]
 public class MySessionsController : Controller
 {
     private readonly ILogger<MySessionsController> _logger;
@@ -22,7 +23,6 @@ public class MySessionsController : Controller
         _slotsService = slotsService;
     }
 
-    [Authorize]
     public async Task<IActionResult> Index()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -63,7 +63,6 @@ public class MySessionsController : Controller
     }
 
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> Payment(int id)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -88,7 +87,6 @@ public class MySessionsController : Controller
     }
 
     [HttpPost]
-    [Authorize]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ProcessPayment(PaymentViewModel model)
     {
@@ -144,7 +142,6 @@ public class MySessionsController : Controller
     }
 
     [HttpPost]
-    [Authorize]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Cancel(int id)
     {
@@ -156,7 +153,6 @@ public class MySessionsController : Controller
     }
 
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> Postpone(int id, DateOnly? date)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -197,7 +193,6 @@ public class MySessionsController : Controller
     }
 
     [HttpPost]
-    [Authorize]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ConfirmPostpone(int oldSessionId, int doctorId, string? selectedSlotsJson)
     {

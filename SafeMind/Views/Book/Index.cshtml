@@ -53,7 +53,7 @@
             <div class="popular">
                 <small class="muted">Suggested specialties</small>
                 <div class="popular-row">
-                    @foreach(var specialty in Model.Specialties.Take(3))
+                    @foreach(var specialty in Model.Specialties.Take(6))
                     {
                         <button class="popular-chip" type="button" data-specialty="@specialty">@specialty</button>
                     }

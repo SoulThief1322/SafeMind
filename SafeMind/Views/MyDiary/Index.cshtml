@@ -99,7 +99,11 @@
 					<div class="insight-mini">
 						<div class="mini-card">
 							<div class="mini-label">Streak preview</div>
-							<div class="mini-value" data-streak>@(streakDays.HasValue && streakDays > 0 ? $"{streakDays} days" : "—")</div>
+							<div class="mini-value" data-streak>
+							@(streakDays.HasValue && streakDays > 0
+								? $"{streakDays} {(streakDays == 1 ? "day" : "days")}"
+								: "—")
+						</div>
 							<div class="mini-sub">Keep checking in to grow your streak.</div>
 						</div>
 				</div>
