@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SafeMind.Data;
 using SafeMind.Data.Models;
+using SafeMind.Data.Enums;
 
 namespace SafeMind.Services
 {
@@ -35,6 +36,7 @@ namespace SafeMind.Services
             await SeedDoctorsAsync(mainContext, users);
             await SeedArticlesAsync(mainContext, users);
             await SeedGoalTemplatesAsync(mainContext);
+            await SeedDemoUserDataAsync(mainContext, users);
         }
 
         private static async Task EnsureRolesAsync(RoleManager<IdentityRole> roleManager, IEnumerable<string> roles)
@@ -55,15 +57,17 @@ namespace SafeMind.Services
             var seeds = new (string Email, string Password, string Role)[]
             {
                 ("lyubomira.hristova@safemind.bg", "Admin123!", "Admin"),
+                ("lyubomira.hristova@safemind.bg", "Admin123!", "Doctor"),
                 ("aleksandar.dimitrov@safemind.bg", "Password123!", "Doctor"),
                 ("borislava.ivanova@safemind.bg", "Password123!", "Doctor"),
                 ("viktor.petrov@safemind.bg", "Password123!", "Doctor"),
                 ("desislava.georgieva@safemind.bg", "Password123!", "Doctor"),
                 ("emil.nikolov@safemind.bg", "Password123!", "Doctor"),
-                ("gabriela.stoyanova@safemind.bg", "Password123!", "User"),
-                ("hristo.kolev@safemind.bg", "Password123!", "User"),
-                ("iva.marinova@safemind.bg", "Password123!", "User"),
-                ("kalin.todorov@safemind.bg", "Password123!", "User"),
+                ("gabriela.stoyanova@safemind.bg", "Password123!", "Doctor"),
+                ("hristo.kolev@safemind.bg", "Password123!", "Doctor"),
+                ("iva.marinova@safemind.bg", "Password123!", "Doctor"),
+                ("kalin.todorov@safemind.bg", "Password123!", "Doctor"),
+                ("alex@gmail.com", "Password1!", "User"),
             };
 
 
@@ -279,16 +283,16 @@ namespace SafeMind.Services
 
             var doctorSeeds = new[]
             {
-                new { Email = "aleksandar.dimitrov@safemind.bg", Name = "Aleksandar Dimitrov", License = "1000000001", Specialty = "Psychiatry", Languages = new[]{"English","Russian"}, WorkStart = new TimeOnly(8,0), WorkEnd = new TimeOnly(16,0), Duration = 50, Rating = 4.8m, Biography = "Psychiatrist focused on mood and anxiety disorders, combining medication management with CBT principles, sleep and lifestyle coaching, and measurement-based care. He designs phased care plans with clear milestones, coordinates with primary care when needed, and offers short, structured check-ins to keep gains stable. Fluent in English and Russian, he works with adults who want practical steps, transparent medication decisions, and a steady partner through recovery." },
-                new { Email = "borislava.ivanova@safemind.bg", Name = "Borislava Ivanova", License = "1000000002", Specialty = "Clinical Psychology", Languages = new[]{"English"}, WorkStart = new TimeOnly(9,0), WorkEnd = new TimeOnly(17,0), Duration = 60, Rating = 4.6m, Biography = "Clinical psychologist helping adults navigate stress, burnout, perfectionism, and relationship strain. She uses CBT, ACT, and compassion-based work to reduce rumination, build emotion regulation, and restore boundaries. Sessions include practical experiments between visits, concise progress tracking, and skills you can apply the same week. Borislava tailors pacing to each client and collaborates closely with medical teams when somatic factors matter." },
-                new { Email = "viktor.petrov@safemind.bg", Name = "Viktor Petrov", License = "1000000003", Specialty = "Counseling", Languages = new[]{"English","German"}, WorkStart = new TimeOnly(10,0), WorkEnd = new TimeOnly(18,0), Duration = 45, Rating = 4.5m, Biography = "Counselor supporting young professionals through life transitions, relocation stress, and career pivots. Viktor blends solution-focused counseling with strengths-based coaching, helping clients clarify priorities, set realistic habits, and communicate confidently at work and home. Sessions emphasize actionable steps, short feedback loops, and tools for managing pressure without losing momentum. He works in English and German and keeps plans concise and measurable." },
-                new { Email = "desislava.georgieva@safemind.bg", Name = "Desislava Georgieva", License = "1000000004", Specialty = "Neurology", Languages = new[]{"English"}, WorkStart = new TimeOnly(7,30), WorkEnd = new TimeOnly(15,30), Duration = 50, Rating = 4.1m, Biography = "Neurologist with focus on headache medicine and cognitive health. Desislava pairs thorough assessment with lifestyle and sleep guidance, teaches patients to spot triggers early, and coordinates with mental health teams when stress drives symptoms. Her style is direct and educational, using clear care plans, medication safety reviews, and practical next steps patients can implement between visits." },
-                new { Email = "emil.nikolov@safemind.bg", Name = "Emil Nikolov", License = "1000000005", Specialty = "Family Medicine", Languages = new[]{"English","Russian"}, WorkStart = new TimeOnly(8,30), WorkEnd = new TimeOnly(16,30), Duration = 55, Rating = 4.7m, Biography = "Family physician emphasizing preventive care, chronic condition stabilization, and collaborative decision-making. Emil helps patients build sustainable routines around sleep, movement, and nutrition, and he keeps care plans readable and realistic. He is comfortable coordinating with specialists, aligning medications, and making sure families understand the why behind each recommendation." },
-                new { Email = "gabriela.stoyanova@safemind.bg", Name = "Gabriela Stoyanova", License = "1000000006", Specialty = "Pediatrics", Languages = new[]{"English"}, WorkStart = new TimeOnly(11,0), WorkEnd = new TimeOnly(19,0), Duration = 50, Rating = 4.3m, Biography = "Pediatrician who partners with families to support healthy development and early intervention. Gabriela focuses on building trust with children, offering practical guidance on sleep routines, nutrition, and school readiness, and coordinating with teachers when needed. She explains care steps simply, uses play to reduce anxiety, and keeps parents equipped with clear next actions." },
-                new { Email = "hristo.kolev@safemind.bg", Name = "Hristo Kolev", License = "1000000007", Specialty = "Psychiatry", Languages = new[]{"English"}, WorkStart = new TimeOnly(8,0), WorkEnd = new TimeOnly(14,0), Duration = 40, Rating = 4.0m, Biography = "Psychiatrist focusing on depression, trauma recovery, and sleep-related issues. Hristo offers careful medication oversight, teaches grounding and pacing strategies, and works in short, focused sessions that balance symptom relief with resilience-building. He coordinates with therapists for integrated care and helps patients make informed, low-drama medication decisions." },
-                new { Email = "iva.marinova@safemind.bg", Name = "Iva Marinova", License = "1000000008", Specialty = "Geriatrics", Languages = new[]{"English","French"}, WorkStart = new TimeOnly(9,30), WorkEnd = new TimeOnly(17,30), Duration = 45, Rating = 4.4m, Biography = "Geriatric specialist supporting older adults with cognitive changes, mobility concerns, and medication complexity. Iva takes time to include families in planning, simplifies regimens, and sets practical goals that respect independence. She collaborates with physiotherapists and mental health clinicians to keep patients active, oriented, and confident." },
-                new { Email = "kalin.todorov@safemind.bg", Name = "Kalin Todorov", License = "1000000009", Specialty = "Addiction Medicine", Languages = new[]{"English"}, WorkStart = new TimeOnly(12,0), WorkEnd = new TimeOnly(20,0), Duration = 60, Rating = 4.2m, Biography = "Addiction medicine physician experienced with medication-assisted treatment, relapse prevention, and family engagement. Kalin builds transparent plans with craving management tools, routine check-ins, and clear markers of progress. He keeps sessions practical, balancing accountability with supportive coaching so patients can stabilize work, relationships, and health." },
-                new { Email = "lyubomira.hristova@safemind.bg", Name = "Lyubomira Hristova", License = "1000000010", Specialty = "Child Psychology", Languages = new[]{"English"}, WorkStart = new TimeOnly(6,0), WorkEnd = new TimeOnly(14,0), Duration = 50, Rating = 4.9m, Biography = "Child psychologist using play-based approaches and parent coaching to build emotional regulation and school readiness. Lyubomira works closely with caregivers and teachers, creates simple home routines, and tailors strategies for attention, anxiety, and social skills. She keeps feedback concrete so families know exactly what to practice between visits." }
+                new { Email = "aleksandar.dimitrov@safemind.bg", Name = "Aleksandar Dimitrov", License = "1000000001", Specialty = "Psychiatry", Languages = new[]{"English","Russian"}, WorkStart = new TimeOnly(8,0), WorkEnd = new TimeOnly(16,0), Duration = 50, Price = 120m, Biography = "Psychiatrist focused on mood and anxiety disorders, combining medication management with CBT principles, sleep and lifestyle coaching, and measurement-based care. He designs phased care plans with clear milestones, coordinates with primary care when needed, and offers short, structured check-ins to keep gains stable. Fluent in English and Russian, he works with adults who want practical steps, transparent medication decisions, and a steady partner through recovery." },
+                new { Email = "borislava.ivanova@safemind.bg", Name = "Borislava Ivanova", License = "1000000002", Specialty = "Clinical Psychology", Languages = new[]{"English"}, WorkStart = new TimeOnly(9,0), WorkEnd = new TimeOnly(17,0), Duration = 60, Price = 95m, Biography = "Clinical psychologist helping adults navigate stress, burnout, perfectionism, and relationship strain. She uses CBT, ACT, and compassion-based work to reduce rumination, build emotion regulation, and restore boundaries. Sessions include practical experiments between visits, concise progress tracking, and skills you can apply the same week. Borislava tailors pacing to each client and collaborates closely with medical teams when somatic factors matter." },
+                new { Email = "viktor.petrov@safemind.bg", Name = "Viktor Petrov", License = "1000000003", Specialty = "Counseling", Languages = new[]{"English","German"}, WorkStart = new TimeOnly(10,0), WorkEnd = new TimeOnly(18,0), Duration = 45, Price = 75m, Biography = "Counselor supporting young professionals through life transitions, relocation stress, and career pivots. Viktor blends solution-focused counseling with strengths-based coaching, helping clients clarify priorities, set realistic habits, and communicate confidently at work and home. Sessions emphasize actionable steps, short feedback loops, and tools for managing pressure without losing momentum. He works in English and German and keeps plans concise and measurable." },
+                new { Email = "desislava.georgieva@safemind.bg", Name = "Desislava Georgieva", License = "1000000004", Specialty = "Neurology", Languages = new[]{"English"}, WorkStart = new TimeOnly(7,30), WorkEnd = new TimeOnly(15,30), Duration = 50, Price = 130m, Biography = "Neurologist with focus on headache medicine and cognitive health. Desislava pairs thorough assessment with lifestyle and sleep guidance, teaches patients to spot triggers early, and coordinates with mental health teams when stress drives symptoms. Her style is direct and educational, using clear care plans, medication safety reviews, and practical next steps patients can implement between visits." },
+                new { Email = "emil.nikolov@safemind.bg", Name = "Emil Nikolov", License = "1000000005", Specialty = "Family Medicine", Languages = new[]{"English","Russian"}, WorkStart = new TimeOnly(8,30), WorkEnd = new TimeOnly(16,30), Duration = 55, Price = 80m, Biography = "Family physician emphasizing preventive care, chronic condition stabilization, and collaborative decision-making. Emil helps patients build sustainable routines around sleep, movement, and nutrition, and he keeps care plans readable and realistic. He is comfortable coordinating with specialists, aligning medications, and making sure families understand the why behind each recommendation." },
+                new { Email = "gabriela.stoyanova@safemind.bg", Name = "Gabriela Stoyanova", License = "1000000006", Specialty = "Pediatrics", Languages = new[]{"English"}, WorkStart = new TimeOnly(11,0), WorkEnd = new TimeOnly(19,0), Duration = 50, Price = 85m, Biography = "Pediatrician who partners with families to support healthy development and early intervention. Gabriela focuses on building trust with children, offering practical guidance on sleep routines, nutrition, and school readiness, and coordinating with teachers when needed. She explains care steps simply, uses play to reduce anxiety, and keeps parents equipped with clear next actions." },
+                new { Email = "hristo.kolev@safemind.bg", Name = "Hristo Kolev", License = "1000000007", Specialty = "Psychiatry", Languages = new[]{"English"}, WorkStart = new TimeOnly(8,0), WorkEnd = new TimeOnly(14,0), Duration = 40, Price = 95m, Biography = "Psychiatrist focusing on depression, trauma recovery, and sleep-related issues. Hristo offers careful medication oversight, teaches grounding and pacing strategies, and works in short, focused sessions that balance symptom relief with resilience-building. He coordinates with therapists for integrated care and helps patients make informed, low-drama medication decisions." },
+                new { Email = "iva.marinova@safemind.bg", Name = "Iva Marinova", License = "1000000008", Specialty = "Geriatrics", Languages = new[]{"English","French"}, WorkStart = new TimeOnly(9,30), WorkEnd = new TimeOnly(17,30), Duration = 45, Price = 100m, Biography = "Geriatric specialist supporting older adults with cognitive changes, mobility concerns, and medication complexity. Iva takes time to include families in planning, simplifies regimens, and sets practical goals that respect independence. She collaborates with physiotherapists and mental health clinicians to keep patients active, oriented, and confident." },
+                new { Email = "kalin.todorov@safemind.bg", Name = "Kalin Todorov", License = "1000000009", Specialty = "Addiction Medicine", Languages = new[]{"English"}, WorkStart = new TimeOnly(12,0), WorkEnd = new TimeOnly(20,0), Duration = 60, Price = 115m, Biography = "Addiction medicine physician experienced with medication-assisted treatment, relapse prevention, and family engagement. Kalin builds transparent plans with craving management tools, routine check-ins, and clear markers of progress. He keeps sessions practical, balancing accountability with supportive coaching so patients can stabilize work, relationships, and health." },
+                new { Email = "lyubomira.hristova@safemind.bg", Name = "Lyubomira Hristova", License = "1000000010", Specialty = "Child Psychology", Languages = new[]{"English"}, WorkStart = new TimeOnly(6,0), WorkEnd = new TimeOnly(14,0), Duration = 50, Price = 90m, Biography = "Child psychologist using play-based approaches and parent coaching to build emotional regulation and school readiness. Lyubomira works closely with caregivers and teachers, creates simple home routines, and tailors strategies for attention, anxiety, and social skills. She keeps feedback concrete so families know exactly what to practice between visits." }
             };
 
             foreach (var d in doctorSeeds)
@@ -304,7 +308,8 @@ namespace SafeMind.Services
                     WorkStart = d.WorkStart,
                     WorkEnd = d.WorkEnd,
                     SessionDuration = d.Duration,
-                    Rating = d.Rating
+                    Price = d.Price,
+                    Rating = 0
                 };
 
                 ctx.Doctors.Add(doctor);
@@ -447,6 +452,100 @@ namespace SafeMind.Services
             };
 
             ctx.GoalTemplates.AddRange(goals.Select(d => new GoalTemplate { Description = d }));
+            await ctx.SaveChangesAsync();
+        }
+
+        private static async Task SeedDemoUserDataAsync(SafeMindDbContext ctx, Dictionary<string, IdentityUser> users)
+        {
+            if (!users.TryGetValue("alex@gmail.com", out var alexUser)) return;
+            if (await ctx.Sessions.AnyAsync(s => s.PatientId == alexUser.Id)) return;
+
+            var doctorsList = await ctx.Doctors.Include(d => d.User).ToListAsync();
+            var doctorByEmail = doctorsList.ToDictionary(d => d.User!.Email!, d => d);
+
+            if (!doctorByEmail.TryGetValue("aleksandar.dimitrov@safemind.bg", out var dAleks) ||
+                !doctorByEmail.TryGetValue("borislava.ivanova@safemind.bg", out var dBori) ||
+                !doctorByEmail.TryGetValue("viktor.petrov@safemind.bg", out var dViktor) ||
+                !doctorByEmail.TryGetValue("emil.nikolov@safemind.bg", out var dEmil) ||
+                !doctorByEmail.TryGetValue("hristo.kolev@safemind.bg", out var dHristo)) return;
+
+            var contact = new SessionContact { FullName = "Alex Johnson", PhoneNumber = "+35988123456", Email = "alex@gmail.com" };
+            ctx.SessionContacts.Add(contact);
+            await ctx.SaveChangesAsync();
+
+            static DateTimeOffset Dt(int y, int mo, int d, int h, int mi) =>
+                new DateTimeOffset(y, mo, d, h, mi, 0, TimeSpan.Zero);
+
+            // ── Past sessions ─────────────────────────────────────────────────────
+            // s1–s3: expired rating window, rated
+            var s1  = new Session { StartTime = Dt(2026,1,15,10, 0), EndTime = Dt(2026,1,15,10,50), DoctorId = dAleks.Id, PatientId = alexUser.Id, Price = dAleks.Price, TimeOfBooking = Dt(2026,1,10, 9,0), SessionStatus = SessionStatus.Completed, PaymentStatus = PaymentStatus.Paid, ContactId = contact.Id, Notes = "Patient reported persistent low mood and disrupted sleep. Discussed CBT techniques for rumination." };
+            var s2  = new Session { StartTime = Dt(2026,1,29,14, 0), EndTime = Dt(2026,1,29,15, 0), DoctorId = dBori.Id,  PatientId = alexUser.Id, Price = dBori.Price,  TimeOfBooking = Dt(2026,1,22,10,0), SessionStatus = SessionStatus.Completed, PaymentStatus = PaymentStatus.Paid, ContactId = contact.Id, Notes = "Worked on stress response patterns and identifying emotional triggers." };
+            var s3  = new Session { StartTime = Dt(2026,2,12,10, 0), EndTime = Dt(2026,2,12,10,50), DoctorId = dAleks.Id, PatientId = alexUser.Id, Price = dAleks.Price, TimeOfBooking = Dt(2026,2, 7, 9,0), SessionStatus = SessionStatus.Completed, PaymentStatus = PaymentStatus.Paid, ContactId = contact.Id, Notes = "Follow-up on sleep improvements. Patient starting to see results with the scheduled wind-down routine." };
+            // s4: expired rating window, no rating
+            var s4  = new Session { StartTime = Dt(2026,2,26,11, 0), EndTime = Dt(2026,2,26,11,45), DoctorId = dViktor.Id, PatientId = alexUser.Id, Price = dViktor.Price, TimeOfBooking = Dt(2026,2,20,14,0), SessionStatus = SessionStatus.Completed, PaymentStatus = PaymentStatus.Paid, ContactId = contact.Id, Notes = "Focused on work-life balance strategies. Patient identified key boundaries to establish with colleagues." };
+            // s5–s6, s8: within 30-day window, already rated
+            var s5  = new Session { StartTime = Dt(2026,3, 5, 9, 0), EndTime = Dt(2026,3, 5, 9,55), DoctorId = dEmil.Id,  PatientId = alexUser.Id, Price = dEmil.Price,  TimeOfBooking = Dt(2026,3, 1,11,0), SessionStatus = SessionStatus.Completed, PaymentStatus = PaymentStatus.Paid, ContactId = contact.Id, Notes = "General health review. Discussed nutrition impact on energy and mood. Recommended vitamin D supplement." };
+            var s6  = new Session { StartTime = Dt(2026,3,12,14, 0), EndTime = Dt(2026,3,12,15, 0), DoctorId = dBori.Id,  PatientId = alexUser.Id, Price = dBori.Price,  TimeOfBooking = Dt(2026,3, 7,10,0), SessionStatus = SessionStatus.Completed, PaymentStatus = PaymentStatus.Paid, ContactId = contact.Id, Notes = "Reviewed progress on ACT exercises. Patient reporting reduced intensity of anxious thoughts." };
+            // s7: within 30-day window, CanRate = true (no rating yet)
+            var s7  = new Session { StartTime = Dt(2026,3,19,10, 0), EndTime = Dt(2026,3,19,10,40), DoctorId = dHristo.Id, PatientId = alexUser.Id, Price = dHristo.Price, TimeOfBooking = Dt(2026,3,14, 9,0), SessionStatus = SessionStatus.Completed, PaymentStatus = PaymentStatus.Paid, ContactId = contact.Id, Notes = "Reviewed sleep hygiene and discussed medication management. Patient responding well." };
+            var s8  = new Session { StartTime = Dt(2026,3,26,11, 0), EndTime = Dt(2026,3,26,11,50), DoctorId = dAleks.Id, PatientId = alexUser.Id, Price = dAleks.Price, TimeOfBooking = Dt(2026,3,20,10,0), SessionStatus = SessionStatus.Completed, PaymentStatus = PaymentStatus.Paid, ContactId = contact.Id, Notes = "Significant improvement noted. Discussed maintaining gains and preparing for reduced session frequency." };
+            // s9: within 30-day window, CanRate = true (no rating yet)
+            var s9  = new Session { StartTime = Dt(2026,4, 1, 9, 0), EndTime = Dt(2026,4, 1, 9,55), DoctorId = dEmil.Id,  PatientId = alexUser.Id, Price = dEmil.Price,  TimeOfBooking = Dt(2026,3,27,14,0), SessionStatus = SessionStatus.Completed, PaymentStatus = PaymentStatus.Paid, ContactId = contact.Id, Notes = "Check-in on physical health metrics. All looking good. Reinforced sleep and nutrition habits." };
+            // s10: past but doctor not yet marked complete
+            var s10 = new Session { StartTime = Dt(2026,4, 1,16, 0), EndTime = Dt(2026,4, 1,16,45), DoctorId = dViktor.Id, PatientId = alexUser.Id, Price = dViktor.Price, TimeOfBooking = Dt(2026,3,28,11,0), SessionStatus = SessionStatus.Confirmed, PaymentStatus = PaymentStatus.Paid, ContactId = contact.Id };
+            // ── Upcoming sessions ─────────────────────────────────────────────────
+            var s11 = new Session { StartTime = Dt(2026,4, 8,10, 0), EndTime = Dt(2026,4, 8,11, 0), DoctorId = dBori.Id,  PatientId = alexUser.Id, Price = dBori.Price,  TimeOfBooking = Dt(2026,4, 1,12,0), SessionStatus = SessionStatus.Confirmed,  PaymentStatus = PaymentStatus.Paid,    ContactId = contact.Id };
+            var s12 = new Session { StartTime = Dt(2026,4,15,14, 0), EndTime = Dt(2026,4,15,14,50), DoctorId = dAleks.Id, PatientId = alexUser.Id, Price = dAleks.Price, TimeOfBooking = Dt(2026,4, 2, 9,0), SessionStatus = SessionStatus.Scheduled,  PaymentStatus = PaymentStatus.Paid,    ContactId = contact.Id };
+            var s13 = new Session { StartTime = Dt(2026,4,22,11, 0), EndTime = Dt(2026,4,22,11,40), DoctorId = dHristo.Id, PatientId = alexUser.Id, Price = dHristo.Price, TimeOfBooking = Dt(2026,4, 2,10,0), SessionStatus = SessionStatus.Scheduled,  PaymentStatus = PaymentStatus.Pending, ContactId = contact.Id };
+
+            ctx.Sessions.AddRange(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13);
+            await ctx.SaveChangesAsync();
+
+            // ── Ratings ────────────────────────────────────────────────────────────
+            ctx.SessionRatings.AddRange(
+                new SessionRating { SessionId = s1.Id, PatientId = alexUser.Id, Stars = 5, CreatedAt = Dt(2026,1,16, 9,0) },
+                new SessionRating { SessionId = s2.Id, PatientId = alexUser.Id, Stars = 4, CreatedAt = Dt(2026,1,30,10,0) },
+                new SessionRating { SessionId = s3.Id, PatientId = alexUser.Id, Stars = 5, CreatedAt = Dt(2026,2,13, 9,0) },
+                new SessionRating { SessionId = s5.Id, PatientId = alexUser.Id, Stars = 4, CreatedAt = Dt(2026,3, 6,10,0) },
+                new SessionRating { SessionId = s6.Id, PatientId = alexUser.Id, Stars = 4, CreatedAt = Dt(2026,3,13,10,0) },
+                new SessionRating { SessionId = s8.Id, PatientId = alexUser.Id, Stars = 5, CreatedAt = Dt(2026,3,27,10,0) }
+            );
+            await ctx.SaveChangesAsync();
+
+            // ── Recalculate doctor ratings ─────────────────────────────────────────
+            foreach (var doctorId in new[] { dAleks.Id, dBori.Id, dEmil.Id })
+            {
+                var avg = await ctx.SessionRatings
+                    .Where(r => r.Session.DoctorId == doctorId)
+                    .AverageAsync(r => (double?)r.Stars);
+                if (avg.HasValue)
+                {
+                    var doc = await ctx.Doctors.FindAsync(doctorId);
+                    if (doc != null) doc.Rating = (decimal)Math.Round(avg.Value, 2);
+                }
+            }
+            await ctx.SaveChangesAsync();
+
+            // ── Journals ───────────────────────────────────────────────────────────
+            ctx.Journals.AddRange(
+                new Journal { Title = "A difficult start to the year", Content = "Woke up feeling heavy today. The anxiety has been creeping back and I am not sure why. Work deadlines feel unmanageable and I keep second-guessing decisions I made months ago. Writing this out helps a little. I have my first session with Dr. Dimitrov next week, hoping that gives some clarity.", Mood = JournalMood.Anxious, Category = JournalCategories.Personal, UserId = alexUser.Id, CreatedAt = Dt(2026,1,10,21,30) },
+                new Journal { Title = "First therapy session reflections", Content = "Came back from seeing Dr. Dimitrov today. It was more intense than I expected, in a good way. He asked questions I had not thought to ask myself. We talked about the link between sleep and mood, and he gave me a simple breathing exercise for the 3am wake-ups. I feel cautiously hopeful.", Mood = JournalMood.Calm, Category = JournalCategories.Health, UserId = alexUser.Id, CreatedAt = Dt(2026,1,15,20, 0) },
+                new Journal { Title = "Work has been overwhelming", Content = "Three back-to-back delivery deadlines this week. I have been skipping lunch and staying late every day. I know this is not sustainable but I cannot see a way out right now. Session with Dr. Ivanova on Thursday and I need to talk through the boundary stuff we touched on last time.", Mood = JournalMood.Sad, Category = JournalCategories.Work, UserId = alexUser.Id, CreatedAt = Dt(2026,2,20,22,15) },
+                new Journal { Title = "Noticing small improvements", Content = "Something shifted this week. Slept through the night twice, which has not happened in months. The wind-down routine Dr. Dimitrov suggested is working. I am less reactive in meetings too. Not fixed by any means, but for the first time in a while I feel like I am moving in the right direction.", Mood = JournalMood.Happy, Category = JournalCategories.Health, UserId = alexUser.Id, CreatedAt = Dt(2026,3, 1,20,30) },
+                new Journal { Title = "Weekend trip with friends", Content = "Went to the mountains for two nights. No laptop, limited phone. Ate real meals, walked a lot, laughed properly. I had forgotten what it felt like to fully disengage. There is something about being in nature that quiets everything down. Coming back recharged feels different from just coming back rested.", Mood = JournalMood.Excited, Category = JournalCategories.Travel, UserId = alexUser.Id, CreatedAt = Dt(2026,3,15,19, 0) },
+                new Journal { Title = "Staying consistent with check-ins", Content = "Did my daily check-in three days running this week. Noticed my stress score drops significantly on days when I exercise first thing. This app has been genuinely useful and I can now see the pattern instead of just assuming it. Want to build on this next month.", Mood = JournalMood.Calm, Category = JournalCategories.Personal, UserId = alexUser.Id, CreatedAt = Dt(2026,3,28,21, 0) },
+                new Journal { Title = "Feeling more grounded", Content = "April already. Six months ago I was not sure I would get through the next week. Today I felt genuinely okay, not pretending, not pushing through. Just okay. And that feels like a lot. Still have work to do but I know how to do it now. These sessions have been worth every minute.", Mood = JournalMood.Happy, Category = JournalCategories.Ideas, UserId = alexUser.Id, CreatedAt = Dt(2026,4, 1,21, 0) }
+            );
+
+            // ── Daily checks ───────────────────────────────────────────────────────
+            ctx.DailyChecks.AddRange(
+                new DailyCheck { CreatedOn = Dt(2026,1,20, 8, 0), Mood = JournalMood.Anxious, Energy = EnergyLevel.Low,    Stress = StressLevel.High,   Sleep = SleepQuality.Poor,      Notes = "Woke at 3am again. Mind racing about the project kickoff. Dreading the week.", UserId = alexUser.Id },
+                new DailyCheck { CreatedOn = Dt(2026,2, 5, 8,15), Mood = JournalMood.Sad,     Energy = EnergyLevel.Low,    Stress = StressLevel.High,   Sleep = SleepQuality.Fair,      Notes = "Exhausted but managed to sleep a bit more. Work pressure not letting up. Skipped breakfast.", UserId = alexUser.Id },
+                new DailyCheck { CreatedOn = Dt(2026,2,18, 7,45), Mood = JournalMood.Calm,    Energy = EnergyLevel.Medium, Stress = StressLevel.Medium, Sleep = SleepQuality.Good,      Notes = "Had a session with Dr. Dimitrov yesterday. Slept better. Tried the breathing exercise before bed and it helped.", UserId = alexUser.Id },
+                new DailyCheck { CreatedOn = Dt(2026,3, 3, 8, 0), Mood = JournalMood.Happy,   Energy = EnergyLevel.Medium, Stress = StressLevel.Low,    Sleep = SleepQuality.Good,      Notes = "Good week. Managed to keep to the wind-down routine four nights running. Work feels more manageable.", UserId = alexUser.Id },
+                new DailyCheck { CreatedOn = Dt(2026,3,20, 7,30), Mood = JournalMood.Calm,    Energy = EnergyLevel.High,   Stress = StressLevel.Low,    Sleep = SleepQuality.Excellent, Notes = "Best night I can remember. Eight solid hours. Woke up clear-headed and looking forward to the day.", UserId = alexUser.Id },
+                new DailyCheck { CreatedOn = Dt(2026,4, 1, 8, 0), Mood = JournalMood.Happy,   Energy = EnergyLevel.High,   Stress = StressLevel.Low,    Sleep = SleepQuality.Good,      Notes = "Productive morning, went for a run before work. Session with Dr. Nikolov this afternoon. Feeling good about the progress.", UserId = alexUser.Id }
+            );
             await ctx.SaveChangesAsync();
         }
     }
