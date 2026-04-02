@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/chat.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/static-pages.css" asp-append-version="true" />
     @await RenderSectionAsync("Styles", required: false)
 </head>
 
@@ -109,17 +110,16 @@
                     <div class="footer-section">
                         <h4>Support</h4>
                         <a asp-controller="Articles" asp-action="Index">Mental Health Articles</a>
-                        <a href="#">Help & FAQs</a>
+                        <a asp-controller="Home" asp-action="CrisisResources">Crisis Resources</a>
                         <a asp-controller="Contact" asp-action="Index">Contact Us</a>
-                        <a href="#">Crisis Resources</a>
                     </div>
 
                     <div class="footer-section">
                         <h4>Legal</h4>
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">About Us</a>
-                        <a href="#">HIPAA Compliance</a>
+                        <a asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                        <a asp-controller="Home" asp-action="TermsOfService">Terms of Service</a>
+                        <a asp-controller="Home" asp-action="AboutUs">About Us</a>
+                        <a asp-controller="Home" asp-action="HipaaCompliance">HIPAA Compliance</a>
                     </div>
                 </div>
 

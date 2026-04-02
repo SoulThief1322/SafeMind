@@ -240,6 +240,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"mw57dem2k0"},{"Name":"integrity","Value":"sha256-WuGsWxjj6RPOXiuAsZV7myq7cc70If6jC7gtbVY2CUc="},{"Name":"label","Value":"_content/SafeMind/css/selected-article.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6569"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022WuGsWxjj6RPOXiuAsZV7myq7cc70If6jC7gtbVY2CUc=\u0022"},{"Name":"Last-Modified","Value":"Sat, 28 Mar 2026 11:56:01 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/SafeMind/css/static-pages.5d9wtdin6j.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\static-pages.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"5d9wtdin6j"},{"Name":"integrity","Value":"sha256-l5duaM6kMRK9XUoRI51NugqWE\u002BiYxxQTAMFMjxrQTdw="},{"Name":"label","Value":"_content/SafeMind/css/static-pages.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3641"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022l5duaM6kMRK9XUoRI51NugqWE\u002BiYxxQTAMFMjxrQTdw=\u0022"},{"Name":"Last-Modified","Value":"Thu, 02 Apr 2026 16:03:11 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/SafeMind/css/static-pages.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\static-pages.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-l5duaM6kMRK9XUoRI51NugqWE\u002BiYxxQTAMFMjxrQTdw="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"3641"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022l5duaM6kMRK9XUoRI51NugqWE\u002BiYxxQTAMFMjxrQTdw=\u0022"},{"Name":"Last-Modified","Value":"Thu, 02 Apr 2026 16:03:11 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/SafeMind/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

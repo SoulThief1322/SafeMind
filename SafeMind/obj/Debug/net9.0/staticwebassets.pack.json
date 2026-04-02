@@ -85,6 +85,10 @@
       "PackagePath": "staticwebassets\\css\\selected-article.css"
     },
     {
+      "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\css\\static-pages.css",
+      "PackagePath": "staticwebassets\\css\\static-pages.css"
+    },
+    {
       "Id": "C:\\Users\\gajok\\SafeMind\\SafeMind\\SafeMind\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },

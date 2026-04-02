@@ -11,7 +11,6 @@
 
 
 
-rating for doctors after session is completed option to be added
 mydiary validation
 2 custom error pages
 unit testing
