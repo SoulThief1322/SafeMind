@@ -32,6 +32,7 @@ namespace SafeMind.Data
             public DbSet<WeeklyGoal> WeeklyGoals { get; set; }
             public DbSet<ContactMessage> ContactMessages { get; set; }
             public DbSet<MoodCheck> MoodChecks { get; set; }
+            public DbSet<SessionRating> SessionRatings { get; set; }
 
             protected override void OnModelCreating(ModelBuilder builder)
             {
@@ -49,6 +50,9 @@ namespace SafeMind.Data
 
                         entity.Property(d => d.Rating)
                         .HasColumnType("decimal(3,2)");
+
+                        entity.Property(d => d.Price)
+                        .HasColumnType("decimal(10,2)");
 
                         entity.HasOne(d => d.User)
                         .WithOne()
@@ -327,6 +331,29 @@ namespace SafeMind.Data
                         entity.Property(c => c.SubmittedOn).IsRequired();
                         entity.Property(c => c.IsRead).IsRequired().HasDefaultValue(false);
                         entity.Property(c => c.IsArchived).IsRequired().HasDefaultValue(false);
+                  });
+
+                  // -------- SessionRating --------
+                  builder.Entity<SessionRating>(entity =>
+                  {
+                        entity.ToTable("SessionRatings");
+                        entity.HasKey(r => new { r.SessionId, r.PatientId });
+
+                        entity.Property(r => r.Stars)
+                              .IsRequired();
+
+                        entity.Property(r => r.CreatedAt)
+                              .IsRequired();
+
+                        entity.HasOne(r => r.Session)
+                              .WithMany()
+                              .HasForeignKey(r => r.SessionId)
+                              .OnDelete(DeleteBehavior.Cascade);
+
+                        entity.HasOne(r => r.Patient)
+                              .WithMany()
+                              .HasForeignKey(r => r.PatientId)
+                              .OnDelete(DeleteBehavior.Restrict);
                   });
 
                   // -------- MoodCheck --------

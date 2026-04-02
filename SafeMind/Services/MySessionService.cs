@@ -38,14 +38,23 @@ namespace SafeMind.Services
                 .Select(s => new MySessionsViewModel
                 {
                     SessionId = s.Id,
+                    DoctorId = s.DoctorId,
                     DoctorName = s.Doctor != null ? s.Doctor.Name : string.Empty,
                     SessionDate = DateOnly.FromDateTime(s.StartTime.DateTime),
                     SessionTime = TimeOnly.FromDateTime(s.StartTime.DateTime),
+                    EndTime = s.EndTime,
                     SessionPrice = s.Price,
                     SessionDuration = s.Doctor != null ? s.Doctor.SessionDuration : 0,
                     ContactFullName = s.Contact != null ? s.Contact.FullName : string.Empty,
                     PaymentStatus = s.PaymentStatus,
-                    SessionStatus = s.SessionStatus
+                    SessionStatus = s.SessionStatus,
+                    ExistingRating = _context.SessionRatings
+                        .Where(r => r.SessionId == s.Id && r.PatientId == s.PatientId)
+                        .Select(r => (int?)r.Stars)
+                        .FirstOrDefault(),
+                    CanRate = s.EndTime <= DateTimeOffset.UtcNow &&
+                              DateTimeOffset.UtcNow - s.EndTime <= TimeSpan.FromDays(30) &&
+                              !_context.SessionRatings.Any(r => r.SessionId == s.Id && r.PatientId == s.PatientId)
                 })
                 .ToListAsync();
             return sessions;

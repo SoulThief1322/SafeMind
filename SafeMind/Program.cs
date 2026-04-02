@@ -53,6 +53,7 @@ builder.Services.AddScoped<SafeMind.Services.ArticleService>();
 builder.Services.AddScoped<SafeMind.Services.ChatService>();
 builder.Services.AddScoped<SafeMind.Services.GoalService>();
 builder.Services.AddScoped<SafeMind.Services.AdminService>();
+builder.Services.AddScoped<SafeMind.Services.RatingService>();
 builder.Services.AddHostedService<SafeMind.Services.SessionCleanupService>();
 builder.Services.AddScoped<SafeMind.Services.EmailSender>();
 builder.Services.ConfigureApplicationCookie(options =>

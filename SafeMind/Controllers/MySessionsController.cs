@@ -14,13 +14,15 @@ public class MySessionsController : Controller
     private readonly MySessionService _mySessionService;
     private readonly BookSessionService _bookSessionService;
     private readonly SlotsService _slotsService;
+    private readonly RatingService _ratingService;
 
-    public MySessionsController(ILogger<MySessionsController> logger, MySessionService mySessionService, BookSessionService bookSessionService, SlotsService slotsService)
+    public MySessionsController(ILogger<MySessionsController> logger, MySessionService mySessionService, BookSessionService bookSessionService, SlotsService slotsService, RatingService ratingService)
     {
         _logger = logger;
         _mySessionService = mySessionService;
         _bookSessionService = bookSessionService;
         _slotsService = slotsService;
+        _ratingService = ratingService;
     }
 
     public async Task<IActionResult> Index()
@@ -190,6 +192,17 @@ public class MySessionsController : Controller
 
         ViewBag.PostponeSessionId = id;
         return View(vm);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> RateSession([FromForm] int sessionId, [FromForm] int stars)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        var (success, error) = await _ratingService.SubmitRatingAsync(sessionId, userId, stars);
+        if (!success)
+            return Json(new { success = false, error });
+        return Json(new { success = true });
     }
 
     [HttpPost]

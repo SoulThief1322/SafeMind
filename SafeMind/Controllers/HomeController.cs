@@ -36,7 +36,27 @@ public class HomeController : Controller
         return View(viewModel);
     }
 
-    public async Task<IActionResult> Privacy()
+    public IActionResult Privacy()
+    {
+        return View();
+    }
+
+    public IActionResult TermsOfService()
+    {
+        return View();
+    }
+
+    public IActionResult AboutUs()
+    {
+        return View();
+    }
+
+    public IActionResult HipaaCompliance()
+    {
+        return View();
+    }
+
+    public IActionResult CrisisResources()
     {
         return View();
     }

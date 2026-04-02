@@ -1,0 +1,73 @@
+@{
+    ViewData["Title"] = "HIPAA Compliance";
+}
+
+<section class="sp-hero">
+    <div class="container">
+        <h1>HIPAA Compliance</h1>
+        <p>How SafeMind protects your protected health information (PHI).</p>
+    </div>
+</section>
+
+<section class="sp-body container">
+
+    <p>SafeMind is committed to complying with the Health Insurance Portability and Accountability Act (HIPAA) and its implementing regulations. As a platform that facilitates relationships between patients and licensed mental health professionals, we treat the privacy and security of your protected health information (PHI) with the highest priority.</p>
+
+    <h2>What Is HIPAA?</h2>
+    <p>HIPAA is a U.S. federal law that establishes national standards for the protection of sensitive patient health information. It applies to covered entities and their business associates that create, receive, maintain, or transmit PHI. For more information, visit the official <a href="https://www.hhs.gov/hipaa/index.html" target="_blank" rel="noopener noreferrer">HHS HIPAA resource center <i class="fas fa-external-link-alt" style="font-size:0.75rem;"></i></a>.</p>
+
+    <h2>Our Safeguards</h2>
+
+    <div class="hipaa-badges">
+        <div class="hipaa-badge"><i class="fas fa-lock"></i> Encryption in transit (TLS 1.2+)</div>
+        <div class="hipaa-badge"><i class="fas fa-database"></i> Encryption at rest</div>
+        <div class="hipaa-badge"><i class="fas fa-user-shield"></i> Role-based access controls</div>
+        <div class="hipaa-badge"><i class="fas fa-file-contract"></i> Business Associate Agreements</div>
+        <div class="hipaa-badge"><i class="fas fa-eye-slash"></i> Minimum necessary access</div>
+        <div class="hipaa-badge"><i class="fas fa-clipboard-check"></i> Regular security audits</div>
+    </div>
+
+    <h2>Administrative Safeguards</h2>
+    <ul>
+        <li>Designated Privacy Officer responsible for HIPAA policy and training.</li>
+        <li>Staff training on HIPAA rules and the handling of protected health information.</li>
+        <li>Documented policies for data access, breach notification, and incident response.</li>
+        <li>Business Associate Agreements (BAAs) in place with all third-party service providers handling PHI.</li>
+    </ul>
+
+    <h2>Physical Safeguards</h2>
+    <ul>
+        <li>Data hosted in HIPAA-eligible cloud infrastructure with physical access controls.</li>
+        <li>Workstation and device management policies for staff.</li>
+    </ul>
+
+    <h2>Technical Safeguards</h2>
+    <ul>
+        <li>All data transmitted over the network is encrypted using TLS 1.2 or higher.</li>
+        <li>Data stored in the platform is encrypted at rest.</li>
+        <li>Unique user identification and automatic log-off for inactive sessions.</li>
+        <li>Audit logs for access to PHI retained in accordance with HIPAA requirements.</li>
+    </ul>
+
+    <h2>Breach Notification</h2>
+    <p>In the event of a breach of unsecured PHI, SafeMind will notify affected individuals in accordance with the HIPAA Breach Notification Rule — within 60 days of discovery of the breach.</p>
+
+    <h2>Your Rights Under HIPAA</h2>
+    <ul>
+        <li>Right to access and receive a copy of your health information.</li>
+        <li>Right to request corrections to your health information.</li>
+        <li>Right to an accounting of disclosures of your PHI.</li>
+        <li>Right to request restrictions on certain uses and disclosures.</li>
+    </ul>
+
+    <h2>Official Resources</h2>
+    <ul>
+        <li><a href="https://www.hhs.gov/hipaa/index.html" target="_blank" rel="noopener noreferrer">HHS HIPAA Overview</a></li>
+        <li><a href="https://www.hhs.gov/hipaa/for-individuals/index.html" target="_blank" rel="noopener noreferrer">HIPAA Rights for Individuals</a></li>
+        <li><a href="https://www.hhs.gov/hipaa/filing-a-complaint/index.html" target="_blank" rel="noopener noreferrer">File a HIPAA Complaint with HHS</a></li>
+    </ul>
+
+    <h2>Questions?</h2>
+    <p>For HIPAA-related questions or to exercise your rights, please <a asp-controller="Contact" asp-action="Index">contact us</a>.</p>
+
+</section>
