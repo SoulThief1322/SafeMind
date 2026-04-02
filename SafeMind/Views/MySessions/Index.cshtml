@@ -197,7 +197,7 @@
                             {
                                 var isScheduledPast = s.SessionStatus == SessionStatus.Scheduled;
                                 var canComplete = s.SessionStatus != SessionStatus.Completed && s.SessionStatus != SessionStatus.Cancelled;
-                                <article class="session-card">
+                                <article class="session-card" data-session-id="@s.SessionId">
                                     <div class="date-bar date-primary"></div>
                                     <div class="session-content">
                                         <div class="session-main">
@@ -225,14 +225,14 @@
                                                             <button type="submit" class="btn-primary-solid">Confirm</button>
                                                         </form>
                                                     }
-                                                        @if (canComplete)
-                                                        {
-                                                            <form asp-action="Complete" asp-controller="MySessions" method="post" style="display:inline;">
-                                                                @Html.AntiForgeryToken()
-                                                                <input type="hidden" name="id" value="@s.SessionId" />
-                                                                <button type="submit" class="btn-ghost">Mark completed</button>
-                                                            </form>
-                                                        }
+                                                    @if (canComplete)
+                                                    {
+                                                        <form asp-action="Complete" asp-controller="MySessions" method="post" style="display:inline;">
+                                                            @Html.AntiForgeryToken()
+                                                            <input type="hidden" name="id" value="@s.SessionId" />
+                                                            <button type="submit" class="btn-ghost">Mark completed</button>
+                                                        </form>
+                                                    }
                                                 }
                                                 else
                                                 {
@@ -240,6 +240,41 @@
                                                 }
                                             </div>
                                         </div>
+                                        @if (!isDoctor)
+                                        {
+                                            <div class="rating-row">
+                                                @if (s.ExistingRating.HasValue)
+                                                {
+                                                    <div class="stars-display" title="Your rating: @s.ExistingRating/5">
+                                                        @for (int i = 1; i <= 5; i++)
+                                                        {
+                                                            <span class="star @(i <= s.ExistingRating.Value ? "star-filled" : "star-empty")">&#9733;</span>
+                                                        }
+                                                    </div>
+                                                    <span class="rating-label">Your rating</span>
+                                                }
+                                                else if (s.CanRate)
+                                                {
+                                                    <form class="star-form" data-session-id="@s.SessionId"
+                                                          asp-action="RateSession" asp-controller="MySessions" method="post">
+                                                        @Html.AntiForgeryToken()
+                                                        <input type="hidden" name="sessionId" value="@s.SessionId" />
+                                                        <input type="hidden" name="stars" class="stars-value" value="" />
+                                                        <div class="stars-input" role="group" aria-label="Rate this session">
+                                                            @for (int i = 1; i <= 5; i++)
+                                                            {
+                                                                <button type="button" class="star star-btn" data-value="@i" aria-label="@i star@(i > 1 ? "s" : "")">&#9733;</button>
+                                                            }
+                                                        </div>
+                                                        <button type="submit" class="rating-submit" disabled>Rate Dr. @s.DoctorName</button>
+                                                    </form>
+                                                }
+                                                else
+                                                {
+                                                    <span class="rating-expired">Rating window closed</span>
+                                                }
+                                            </div>
+                                        }
                                     </div>
                                 </article>
                             }

@@ -36,8 +36,6 @@ namespace SafeMind.Data.Models
         public decimal Price { get; set; }
         public SessionStatus SessionStatus { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
-        [Range(GeneralConstants.RatingMinNumber, GeneralConstants.RatingMaxNumber)]
-        public decimal? Rating { get; set; }
 
         [Required]
         public int ContactId { get; set; }

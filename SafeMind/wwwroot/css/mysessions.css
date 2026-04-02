@@ -186,6 +186,89 @@
   border-color: #e2e8f0;
 }
 
+/* ── Star ratings ─────────────────────────────────── */
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--sm-border);
+  flex-wrap: wrap;
+}
+
+.stars-display,
+.stars-input {
+  display: inline-flex;
+  gap: 0.1rem;
+}
+
+.star {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.star-filled {
+  color: #f59e0b;
+}
+
+.star-empty {
+  color: #d1d5db;
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #d1d5db;
+  padding: 0 0.05rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  transition: color 100ms ease, transform 100ms ease;
+}
+
+.star-btn:hover,
+.star-btn.hovered {
+  color: #f59e0b;
+  transform: scale(1.15);
+}
+
+.star-btn.selected {
+  color: #f59e0b;
+}
+
+.rating-submit {
+  background: var(--sm-primary);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.28rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 130ms ease, opacity 130ms ease;
+}
+
+.rating-submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.rating-submit:not(:disabled):hover {
+  background: var(--sm-primary-dark, #205040);
+}
+
+.rating-label {
+  font-size: 0.8rem;
+  color: var(--sm-muted);
+}
+
+.rating-expired {
+  font-size: 0.8rem;
+  color: var(--sm-muted);
+  font-style: italic;
+}
+
 .btn-primary-solid,
 .btn-primary-ghost,
 .btn-ghost {

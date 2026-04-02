@@ -417,9 +417,7 @@ C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/2z3uqclwml
 C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/ud38cju2lx-9ktneatf4s.gz
 C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/c40yqc459f-payxnwi0jx.gz
 C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/c6l2srpgns-cxlt87exgi.gz
-C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/4z6v1d2ghd-cephhgsob5.gz
 C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/g4rbyt7ei9-yykmv6xtez.gz
-C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/n9m5z7r6nx-at5ks36ojk.gz
 C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/amctd4u8gg-kz69r5wskw.gz
 C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/qurw0ype49-ooq0mx3fel.gz
 C:/Users/gajok/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/Microsoft.AspNetCore.Connections.Abstractions.dll
@@ -441,7 +439,6 @@ C:/Users/gajok/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/runtimes/browser/lib/
 C:/Users/gajok/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/runtimes/win/lib/net9.0/System.Text.Encodings.Web.dll
 C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/cojbppgrgs-2yjr6tvcrj.gz
 C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/qjynee2m8t-n1lmx759qu.gz
-C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/ab7pg0y39c-jxv3zg3hek.gz
 C:/Users/gajok/SafeMind/SafeMind/SafeMind/obj/Debug/net9.0/compressed/wihxj0565r-ixc0jqul5v.gz
 /Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/appsettings.Development.json
 /Users/soulthief/SafeMind/SafeMind/SafeMind/bin/Debug/net9.0/app.db
@@ -1268,8 +1265,6 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\v0zgfp0y55
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\yfc7ypekbg-mlv21k5csn.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\t5v8qq2o27-fjuzgxfd88.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\gkc4wadbam-btb92o9h95.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\s9pvvqg1i6-x6rjjl5u18.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\4z6v1d2ghd-cephhgsob5.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\kwi59n84hj-dn4lzftps0.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\g4rbyt7ei9-yykmv6xtez.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\cojbppgrgs-2yjr6tvcrj.gz
@@ -1280,19 +1275,16 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\q6xfvrrxeq
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\8jo2d3x03b-xzhctuir8z.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\qkyvlefo0z-5fpb7sy3k1.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\er2gbkr48h-h2ksoii3zf.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\ab7pg0y39c-jxv3zg3hek.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\wihxj0565r-ixc0jqul5v.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\6chdx88hu9-8836wzctrq.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\c40yqc459f-payxnwi0jx.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\unwcp9xde6-mw57dem2k0.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\0o5wce97uw-61n19gt1b8.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\8qw3iijb73-6t6hd017lw.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\mhy6l4v2w4-5vk4cy5244.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\94flnw9bhr-ukat8mvjue.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\qjynee2m8t-n1lmx759qu.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\qurw0ype49-ooq0mx3fel.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\b3h172iimf-vekj84f9rv.gz
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\n9m5z7r6nx-at5ks36ojk.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\95ik48ex86-9y1hkik14b.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\2z3uqclwml-ga51tmzuje.gz
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\c6l2srpgns-cxlt87exgi.gz
@@ -1373,4 +1365,9 @@ C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\refint\SafeMind.dll
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\SafeMind.pdb
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\SafeMind.genruntimeconfig.cache
 C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\ref\SafeMind.dll
-C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\yoce53a7m5-tl631pxxaa.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\s9pvvqg1i6-vvys2rybpz.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\4z6v1d2ghd-5txoi24888.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\yoce53a7m5-oyghtnwutl.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\ab7pg0y39c-opziizr4ql.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\mhy6l4v2w4-su1djfqxv1.gz
+C:\Users\gajok\SafeMind\SafeMind\SafeMind\obj\Debug\net9.0\compressed\n9m5z7r6nx-ciro74x8wv.gz
