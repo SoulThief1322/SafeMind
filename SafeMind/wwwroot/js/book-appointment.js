@@ -1,221 +1,164 @@
-// Sets up appointment date selection, slot picking, and handoff to checkout.
+// Book-session: month calendar + time-slot picker
 (() => {
-    const weekGrid = document.getElementById('weekGrid');
-    const weekTitle = document.getElementById('weekTitle');
-    const prevWeek = document.getElementById('prevWeek');
-    const nextWeek = document.getElementById('nextWeek');
-    const selectedDateLabel = document.getElementById('selectedDateLabel');
-    const sessionGrid = document.getElementById('sessionGrid');
-    const sessionEmpty = document.getElementById('sessionEmpty');
-    const continueContainer = document.getElementById('continueContainer');
-    const hiddenInput = document.getElementById('selectedSlotsJson');
-    const doctorId = document.querySelector('input[name="doctorId"]')?.value;
+    const calGrid          = document.getElementById('calGrid');
+    const monthTitle       = document.getElementById('monthTitle');
+    const prevMonthBtn     = document.getElementById('prevMonth');
+    const nextMonthBtn     = document.getElementById('nextMonth');
+    const selectedDayName  = document.getElementById('selectedDayName');
+    const sessionGrid      = document.getElementById('sessionGrid');
+    const sessionEmpty     = document.getElementById('sessionEmpty');
+    const continueContainer= document.getElementById('continueContainer');
+    const hiddenInput      = document.getElementById('selectedSlotsJson');
+    const selectedDateLabel= document.getElementById('selectedDateLabel');
+    const fmt12Btn         = document.getElementById('fmt12');
+    const fmt24Btn         = document.getElementById('fmt24');
+    const doctorId         = document.querySelector('input[name="doctorId"]')?.value;
 
-    if (!weekGrid || !selectedDateLabel || !doctorId) return;
+    if (!calGrid || !doctorId) return;
 
+    let use12h = true;
     const selectedSlotsByDate = new Map();
-    const availabilityCache = new Map(); // dateIso -> slots array
-    let rebuildLock = false;
+    const availabilityCache   = new Map();
+
     const today = normalizeDate(new Date());
-    const initialDate = parseLocalIso(selectedDateLabel.dataset?.date) || today;
+    const initialDate = parseLocalIso(selectedDateLabel?.dataset?.date) || today;
     let currentSelectedDate = initialDate < today ? today : initialDate;
-    let currentWeekStart = today;
+    let viewYear  = currentSelectedDate.getFullYear();
+    let viewMonth = currentSelectedDate.getMonth();
 
-    // Normalizes a date to midnight for consistent comparisons.
-    function normalizeDate(dateValue) {
-        const copy = new Date(dateValue);
-        copy.setHours(0, 0, 0, 0);
-        return copy;
+    // ── Helpers ────────────────────────────────────────────────
+
+    function normalizeDate(d) {
+        const c = new Date(d);
+        c.setHours(0, 0, 0, 0);
+        return c;
     }
 
-    // Parses a yyyy-MM-dd string into a Date in local time.
-    function parseLocalIso(value) {
-        if (!value) return null;
-        const [year, month, dayOfMonth] = value.split('-').map(Number);
-        const date = new Date(year, month - 1, dayOfMonth);
-        return isNaN(date) ? null : normalizeDate(date);
+    function parseLocalIso(val) {
+        if (!val) return null;
+        const [y, m, d] = val.split('-').map(Number);
+        const date = new Date(y, m - 1, d);
+        return isNaN(date.getTime()) ? null : normalizeDate(date);
     }
 
-    // Converts a Date to yyyy-MM-dd string (UTC) and local date variant.
-    function toIso(date) {
-        return date.toISOString().slice(0, 10);
-    }
-
-    function toLocalIsoDate(dateValue = new Date()) {
-        const date = new Date(dateValue);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
+    function toLocalIsoDate(d = new Date()) {
+        const year  = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day   = String(d.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     }
 
-    // Gets the Monday-starting week anchor for a given date.
-    function startOfWeek(date) {
-        const startDate = normalizeDate(date);
-        const dayIndex = (startDate.getDay() + 6) % 7; // Monday = 0
-        startDate.setDate(startDate.getDate() - dayIndex);
-        return startDate;
+    function isSameDay(a, b) {
+        return a.getFullYear() === b.getFullYear() &&
+               a.getMonth()    === b.getMonth()    &&
+               a.getDate()     === b.getDate();
     }
 
-    // Checks if two dates represent the same calendar day.
-    function isSameDay(firstDate, secondDate) {
-        return firstDate.getFullYear() === secondDate.getFullYear() &&
-            firstDate.getMonth() === secondDate.getMonth() &&
-            firstDate.getDate() === secondDate.getDate();
+    function formatDayName(date) {
+        return date.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
     }
 
-    // Checks if two dates fall in the same week.
-    function isSameWeek(firstDate, secondDate) {
-        return isSameDay(startOfWeek(firstDate), startOfWeek(secondDate));
+    function to12h(time24) {
+        const [h, m] = time24.split(':').map(Number);
+        const period = h < 12 ? 'am' : 'pm';
+        const hour   = h === 0 ? 12 : h > 12 ? h - 12 : h;
+        return `${hour}:${String(m).padStart(2, '0')}${period}`;
     }
 
-    // Builds label parts for a day tile.
-    function formatDay(date) {
-        return {
-            dow: date.toLocaleDateString(undefined, { weekday: 'short' }),
-            label: date.getDate()
-        };
+    function formatTime(time24) {
+        return use12h ? to12h(time24) : time24;
     }
 
-    // Formats the label text for the visible week range.
-    function formatWeekTitle(weekStartDate) {
-        const weekEndDate = new Date(weekStartDate);
-        weekEndDate.setDate(weekEndDate.getDate() + 6);
-        const range = `${weekStartDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} - ${weekEndDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`;
-        return isSameWeek(weekStartDate, today) ? 'This Week' : `Week of ${range}`;
-    }
+    // ── Calendar ───────────────────────────────────────────────
 
-    // Updates the header label for the current week.
-    function updateWeekTitle() {
-        if (weekTitle) weekTitle.textContent = formatWeekTitle(currentWeekStart);
-    }
+    function buildCalendar() {
+        calGrid.innerHTML = '';
 
-    // Builds the week day pills and wires click behavior.
-    function buildWeekGrid() {
-        const weekSnapshot = new Date(currentWeekStart);
-        weekGrid.innerHTML = '';
-        updateWeekTitle();
-        for (let dayOffset = 0; dayOffset < 7; dayOffset++) {
-            const date = new Date(currentWeekStart);
-            date.setDate(currentWeekStart.getDate() + dayOffset);
-            const isoDate = toLocalIsoDate(date);
-            const { dow, label } = formatDay(date);
+        const firstOfMonth    = new Date(viewYear, viewMonth, 1);
+        const daysInMonth     = new Date(viewYear, viewMonth + 1, 0).getDate();
+        const firstDow        = (firstOfMonth.getDay() + 6) % 7; // Monday = 0
+        const todayFirstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+        monthTitle.textContent = firstOfMonth.toLocaleDateString(undefined, {
+            month: 'long', year: 'numeric'
+        });
+
+        prevMonthBtn.disabled = firstOfMonth <= todayFirstOfMonth;
+
+        // Leading empty cells
+        for (let i = 0; i < firstDow; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'bs-cal-day bs-cal-empty';
+            calGrid.appendChild(empty);
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+            const date   = new Date(viewYear, viewMonth, d);
+            const iso    = toLocalIsoDate(date);
             const isPast = date < today;
-            const cached = availabilityCache.get(isoDate);
-            const hasKnownSlots = Array.isArray(cached) && cached.length > 0;
-            const isKnownEmpty = Array.isArray(cached) && cached.length === 0;
-            const dayElement = document.createElement('div');
-            dayElement.className = 'day';
-            if (isPast) dayElement.classList.add('disabled');
-            if (isKnownEmpty) dayElement.classList.add('disabled');
-            if (isSameDay(date, currentSelectedDate)) dayElement.classList.add('selected');
-            dayElement.dataset.date = isoDate;
-            dayElement.innerHTML = `<span class="dow">${dow}</span><span class="date">${label}</span>`;
-            if (!isPast && !isKnownEmpty) dayElement.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                currentSelectedDate = date;
-                setSelectedDateLabel(date);
-                loadSessions(isoDate);
-                
-                // Update selected state without rebuilding
-                weekGrid.querySelectorAll('.day').forEach(el => el.classList.remove('selected'));
-                dayElement.classList.add('selected');
-            });
-            weekGrid.appendChild(dayElement);
-        }
+            const isToday    = isSameDay(date, today);
+            const isSelected = isSameDay(date, currentSelectedDate);
+            const cached   = availabilityCache.get(iso);
+            const isEmpty  = Array.isArray(cached) && cached.length === 0;
 
-        ensureWeekAvailability(weekSnapshot);
-    }
+            const el = document.createElement('div');
+            el.className = 'bs-cal-day';
+            if (isPast || isEmpty) el.classList.add('bs-cal-past');
+            if (isToday)    el.classList.add('bs-cal-today');
+            if (isSelected) el.classList.add('bs-cal-selected');
+            el.textContent = d;
+            el.dataset.date = iso;
 
-    // Updates the visible date label for the session list.
-    function setSelectedDateLabel(date) {
-        selectedDateLabel.textContent = date.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
-        selectedDateLabel.dataset.date = toLocalIsoDate(date);
-    }
-
-    // Serializes selected slots (and doctor) into the hidden input for form submission.
-    function updateHiddenInput() {
-        const slotList = [];
-        selectedSlotsByDate.forEach((times, dateValue) => {
-            times.forEach(time => slotList.push({ date: dateValue, time }));
-        });
-
-        const payload = {
-            doctorId: Number(doctorId) || 0,
-            slots: slotList
-        };
-
-        hiddenInput.value = JSON.stringify(payload);
-    }
-
-    // Shows/hides the continue CTA and refreshes the hidden payload.
-    function updateContinueCta() {
-        const total = Array.from(selectedSlotsByDate.values()).reduce((slotCount, slotSet) => slotCount + slotSet.size, 0);
-        continueContainer.style.display = total > 0 ? 'flex' : 'none';
-        updateHiddenInput();
-    }
-
-    // Toggles a session slot selection and updates state/UI.
-    function toggleSelection(dateIso, time, sessionElement) {
-        let slotSet = selectedSlotsByDate.get(dateIso);
-        if (!slotSet) {
-            slotSet = new Set();
-            selectedSlotsByDate.set(dateIso, slotSet);
-        }
-
-        const limit = window._safeSlotLimit || 0; // 0 = unlimited
-        const alreadySelected = sessionElement.classList.contains('selected');
-
-        if (!alreadySelected && limit > 0) {
-            // Count total selected across all dates
-            const totalSelected = Array.from(selectedSlotsByDate.values())
-                .reduce((sum, s) => sum + s.size, 0);
-            if (totalSelected >= limit) {
-                // Deselect all existing selections first
-                selectedSlotsByDate.forEach((set, key) => set.clear());
-                sessionGrid.querySelectorAll('.session.selected')
-                    .forEach(el => el.classList.remove('selected'));
+            if (!isPast && !isEmpty) {
+                el.addEventListener('click', () => {
+                    currentSelectedDate = normalizeDate(date);
+                    selectedDayName.textContent = formatDayName(currentSelectedDate);
+                    buildCalendar();
+                    loadSessions(iso);
+                });
             }
+
+            calGrid.appendChild(el);
         }
 
-        const isSelected = sessionElement.classList.toggle('selected');
-        if (isSelected) slotSet.add(time); else slotSet.delete(time);
-        updateContinueCta();
+        prefetchMonth();
     }
 
-    const sessionDescriptor = document.querySelector('.sessions-head .text-muted')?.textContent?.trim() || 'Online / In-person';
+    async function prefetchMonth() {
+        const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+        const tasks = [];
 
-    // Renders available sessions for a given date.
-    function renderSessions(dateIso, slots) {
-        sessionGrid.innerHTML = '';
-        if (!slots || slots.length === 0) {
-            sessionEmpty.style.display = 'block';
-            return;
-        }
-        sessionEmpty.style.display = 'none';
-        const selectedForDay = selectedSlotsByDate.get(dateIso) || new Set();
-        slots.forEach(time => {
-            const session = document.createElement('div');
-            session.className = 'session';
-            if (selectedForDay.has(time)) session.classList.add('selected');
-            session.innerHTML = `
-                <strong>${time}</strong>
-                <small>${sessionDescriptor}</small>
-                <span class="cta">Select</span>
-            `;
-            session.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                toggleSelection(dateIso, time, session);
+        for (let d = 1; d <= daysInMonth; d++) {
+            const date = new Date(viewYear, viewMonth, d);
+            if (date < today) continue;
+            const iso = toLocalIsoDate(date);
+            if (availabilityCache.has(iso)) continue;
+
+            const task = fetchSlots(iso).then(slots => {
+                availabilityCache.set(iso, filterFutureSlots(iso, slots));
             });
-            sessionGrid.appendChild(session);
-        });
+            tasks.push(task);
+        }
+
+        if (tasks.length === 0) return;
+        await Promise.all(tasks);
+        buildCalendar();
     }
 
-    function timeToMinutes(timeValue) {
-        const [h, m] = timeValue.split(':').map(Number);
-        return (h * 60) + (m || 0);
+    // ── Slots ──────────────────────────────────────────────────
+
+    async function fetchSlots(iso) {
+        try {
+            const res  = await fetch(`/Book/AvailableSessions?id=${doctorId}&date=${iso}`);
+            if (!res.ok) return [];
+            const data = await res.json();
+            return Array.isArray(data.slots) ? data.slots : [];
+        } catch { return []; }
+    }
+
+    function timeToMinutes(t) {
+        const [h, m] = t.split(':').map(Number);
+        return h * 60 + (m || 0);
     }
 
     function currentLocalMinutes() {
@@ -223,111 +166,125 @@
         return now.getHours() * 60 + now.getMinutes();
     }
 
-    async function fetchSlots(dateIso) {
-        try {
-            const response = await fetch(`/Book/AvailableSessions?id=${doctorId}&date=${dateIso}`);
-            if (!response.ok) return [];
-            const data = await response.json();
-            return Array.isArray(data.slots) ? data.slots : [];
-        } catch {
-            return [];
-        }
-    }
-
-    function filterFutureSlots(dateIso, slots) {
-        const todayIso = toLocalIsoDate();
-        return dateIso === todayIso
+    function filterFutureSlots(iso, slots) {
+        return iso === toLocalIsoDate()
             ? slots.filter(t => timeToMinutes(t) > currentLocalMinutes())
             : slots;
     }
 
-    async function findNextAvailableDate(startDateIso, searchDays = 30) {
-        let probeDate = parseLocalIso(startDateIso);
-        if (!probeDate) return null;
+    function renderSessions(iso, slots) {
+        sessionGrid.innerHTML = '';
 
-        for (let dayOffset = 0; dayOffset < searchDays; dayOffset++) {
-            if (dayOffset > 0) {
-                probeDate.setDate(probeDate.getDate() + 1);
-            }
-
-            const probeIso = toLocalIsoDate(probeDate);
-            const slots = filterFutureSlots(probeIso, await fetchSlots(probeIso));
-            if (slots.length > 0) {
-                return { date: new Date(probeDate), dateIso: probeIso, slots };
-            }
+        if (!slots || slots.length === 0) {
+            sessionEmpty.style.display = 'block';
+            return;
         }
-        return null;
+
+        sessionEmpty.style.display = 'none';
+        const selectedForDay = selectedSlotsByDate.get(iso) || new Set();
+
+        slots.forEach(time => {
+            const el = document.createElement('button');
+            el.type = 'button';
+            el.className = 'bs-slot';
+            if (selectedForDay.has(time)) el.classList.add('bs-slot-selected');
+            el.textContent  = formatTime(time);
+            el.dataset.time = time;
+            el.addEventListener('click', () => toggleSlot(iso, time, el));
+            sessionGrid.appendChild(el);
+        });
     }
 
-    // Loads sessions from the server for a date and renders them.
-    async function loadSessions(dateIso, allowAdvance = false) {
+    function rerenderSlotLabels() {
+        sessionGrid.querySelectorAll('.bs-slot').forEach(el => {
+            el.textContent = formatTime(el.dataset.time);
+        });
+    }
+
+    function toggleSlot(iso, time, el) {
+        let set = selectedSlotsByDate.get(iso);
+        if (!set) { set = new Set(); selectedSlotsByDate.set(iso, set); }
+
+        const limit = window._safeSlotLimit || 0;
+        const alreadySelected = el.classList.contains('bs-slot-selected');
+
+        if (!alreadySelected && limit > 0) {
+            const total = Array.from(selectedSlotsByDate.values()).reduce((s, v) => s + v.size, 0);
+            if (total >= limit) {
+                selectedSlotsByDate.forEach(s => s.clear());
+                sessionGrid.querySelectorAll('.bs-slot-selected').forEach(e => e.classList.remove('bs-slot-selected'));
+            }
+        }
+
+        if (el.classList.toggle('bs-slot-selected')) {
+            set.add(time);
+        } else {
+            set.delete(time);
+        }
+
+        updateContinue();
+    }
+
+    function updateHidden() {
+        const slots = [];
+        selectedSlotsByDate.forEach((times, date) => {
+            times.forEach(time => slots.push({ date, time }));
+        });
+        hiddenInput.value = JSON.stringify({ doctorId: Number(doctorId), slots });
+    }
+
+    function updateContinue() {
+        const total = Array.from(selectedSlotsByDate.values()).reduce((s, v) => s + v.size, 0);
+        continueContainer.style.display = total > 0 ? 'flex' : 'none';
+        updateHidden();
+    }
+
+    async function loadSessions(iso) {
         sessionGrid.innerHTML = '';
         sessionEmpty.style.display = 'none';
 
-        const slots = filterFutureSlots(dateIso, await fetchSlots(dateIso));
-
-        if (slots.length === 0 && allowAdvance) {
-            const next = await findNextAvailableDate(dateIso);
-            if (next) {
-                currentSelectedDate = normalizeDate(next.date);
-                currentWeekStart = startOfWeek(currentSelectedDate);
-                setSelectedDateLabel(currentSelectedDate);
-                buildWeekGrid();
-                renderSessions(next.dateIso, next.slots);
-                return;
-            }
-        }
-
-        renderSessions(dateIso, slots);
+        const slots = filterFutureSlots(iso, await fetchSlots(iso));
+        availabilityCache.set(iso, slots);
+        renderSessions(iso, slots);
+        buildCalendar();
     }
 
-    async function ensureWeekAvailability(weekStartSnapshot) {
-        const tasks = [];
-        for (let dayOffset = 0; dayOffset < 7; dayOffset++) {
-            const date = new Date(weekStartSnapshot);
-            date.setDate(weekStartSnapshot.getDate() + dayOffset);
-            if (date < today) continue;
-            const isoDate = toLocalIsoDate(date);
-            if (availabilityCache.has(isoDate)) continue;
-            const fetchTask = fetchSlots(isoDate).then(slots => {
-                const filtered = filterFutureSlots(isoDate, slots);
-                availabilityCache.set(isoDate, filtered);
-            });
-            tasks.push(fetchTask);
-        }
+    // ── Format toggle ──────────────────────────────────────────
 
-        if (tasks.length === 0) return;
-
-        await Promise.all(tasks);
-
-        if (isSameDay(weekStartSnapshot, currentWeekStart) && !rebuildLock) {
-            rebuildLock = true;
-            buildWeekGrid();
-            rebuildLock = false;
-        }
-    }
-
-    // Move the visible week without causing form submissions or page reloads.
-    function shiftWeek(days) {
-        currentWeekStart.setDate(currentWeekStart.getDate() + days);
-        buildWeekGrid();
-    }
-
-    // Wires up existing session elements on initial load (first render).
-    prevWeek?.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        shiftWeek(-7);
+    fmt12Btn?.addEventListener('click', () => {
+        use12h = true;
+        fmt12Btn.classList.add('bs-fmt-active');
+        fmt24Btn.classList.remove('bs-fmt-active');
+        rerenderSlotLabels();
     });
 
-    nextWeek?.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        shiftWeek(7);
+    fmt24Btn?.addEventListener('click', () => {
+        use12h = false;
+        fmt24Btn.classList.add('bs-fmt-active');
+        fmt12Btn.classList.remove('bs-fmt-active');
+        rerenderSlotLabels();
     });
 
-    setSelectedDateLabel(currentSelectedDate);
-    buildWeekGrid();
-    loadSessions(toLocalIsoDate(currentSelectedDate), true);
-    updateContinueCta();
+    // ── Month navigation ───────────────────────────────────────
+
+    prevMonthBtn?.addEventListener('click', e => {
+        e.preventDefault();
+        viewMonth--;
+        if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+        buildCalendar();
+    });
+
+    nextMonthBtn?.addEventListener('click', e => {
+        e.preventDefault();
+        viewMonth++;
+        if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+        buildCalendar();
+    });
+
+    // ── Init ───────────────────────────────────────────────────
+
+    selectedDayName.textContent = formatDayName(currentSelectedDate);
+    buildCalendar();
+    loadSessions(toLocalIsoDate(currentSelectedDate));
+    updateContinue();
 })();
