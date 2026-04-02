@@ -1,7 +1,7 @@
 ## Ignore build outputs and user-specific files for .NET/Visual Studio
 # Build folders
-/bin/
-/obj/
+**/bin/
+**/obj/
 
 # Visual Studio files
 *.user
