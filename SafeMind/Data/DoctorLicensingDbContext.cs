@@ -12,6 +12,9 @@ namespace SafeMind.Data
 
         public DbSet<DoctorLicense> DoctorLicenses { get; set; } = null!;
         public DbSet<LicenceSpecialty> LicenceSpecialties { get; set; } = null!;
+
+
+        
         public DbSet<LicenceDoctorSpecialty> LicenceDoctorSpecialties { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
