@@ -19,19 +19,17 @@ namespace SafeMind.Services
             var provider = scope.ServiceProvider;
 
             var mainContext = provider.GetRequiredService<SafeMindDbContext>();
-            var licensingContext = provider.GetRequiredService<DoctorLicensingDbContext>();
             var hasher = provider.GetRequiredService<IDeterministicHasher>();
             var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = provider.GetRequiredService<UserManager<IdentityUser>>();
 
             await mainContext.Database.MigrateAsync();
-            await licensingContext.Database.MigrateAsync();
 
             await EnsureRolesAsync(roleManager, new[] { "Admin", "Doctor", "User" });
 
             var users = await EnsureUsersAsync(userManager);
 
-            await SeedDoctorLicensesAsync(licensingContext, hasher);
+            await SeedDoctorLicensesAsync(mainContext, hasher);
             await SeedCoreLookupsAsync(mainContext);
             await SeedDoctorsAsync(mainContext, users);
             await SeedArticlesAsync(mainContext, users);
@@ -107,7 +105,7 @@ namespace SafeMind.Services
             return results;
         }
 
-        private static async Task SeedDoctorLicensesAsync(DoctorLicensingDbContext ctx, IDeterministicHasher hasher)
+        private static async Task SeedDoctorLicensesAsync(SafeMindDbContext ctx, IDeterministicHasher hasher)
         {
             var existing = await ctx.DoctorLicenses.ToListAsync();
 

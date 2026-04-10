@@ -32,6 +32,9 @@ namespace SafeMind.Data
             public DbSet<WeeklyGoal> WeeklyGoals { get; set; }
             public DbSet<ContactMessage> ContactMessages { get; set; }
             public DbSet<MoodCheck> MoodChecks { get; set; }
+            public DbSet<DoctorLicense> DoctorLicenses { get; set; } = null!;
+            public DbSet<LicenceSpecialty> LicenceSpecialties { get; set; } = null!;
+            public DbSet<LicenceDoctorSpecialty> LicenceDoctorSpecialties { get; set; } = null!;
             public DbSet<SessionRating> SessionRatings { get; set; }
 
             protected override void OnModelCreating(ModelBuilder builder)
@@ -367,6 +370,34 @@ namespace SafeMind.Data
                               .WithMany()
                               .HasForeignKey(m => m.UserId)
                               .OnDelete(DeleteBehavior.Cascade);
+                  });
+
+                  // -------- DoctorLicense --------
+                  builder.Entity<DoctorLicense>(entity =>
+                  {
+                        entity.ToTable("DoctorLicenses");
+                        entity.HasIndex(d => d.LicenseNumber).IsUnique();
+                        entity.HasIndex(d => d.NationalId);
+                        entity.Property(d => d.Status).HasDefaultValue("Active");
+                  });
+
+                  // -------- LicenceSpecialty --------
+                  builder.Entity<LicenceSpecialty>(entity =>
+                  {
+                        entity.ToTable("LicenceSpecialties");
+                  });
+
+                  // -------- LicenceDoctorSpecialty --------
+                  builder.Entity<LicenceDoctorSpecialty>(entity =>
+                  {
+                        entity.ToTable("LicenceDoctorSpecialties");
+                        entity.HasKey(ld => new { ld.DoctorLicenseId, ld.SpecialtyId });
+                        entity.HasOne(ld => ld.DoctorLicense)
+                              .WithMany(d => d.DoctorLicenseSpecialties)
+                              .HasForeignKey(ld => ld.DoctorLicenseId);
+                        entity.HasOne(ld => ld.Specialty)
+                              .WithMany(s => s.DoctorLicenceSpecialties)
+                              .HasForeignKey(ld => ld.SpecialtyId);
                   });
 
             }
