@@ -6,104 +6,90 @@
     var oldSessionId = (int)ViewBag.PostponeSessionId;
 }
 
-<div class="appointment-page">
+<div class="bs-page">
 
-    <div class="flow-header">
-        <p class="eyebrow">Reschedule</p>
+    <div class="bs-flow-header">
+        <p class="bs-eyebrow">Reschedule</p>
         <h1>Pick a new time</h1>
-        <p class="subhead">Choose a new session time with Dr. @Model.Doctor.Name. Your current session will be cancelled automatically.</p>
+        <p class="bs-subhead">Choose a new session time with Dr. @Model.Doctor.Name. Your current session will be cancelled automatically.</p>
     </div>
 
+    <!-- Doctor card -->
+    <div class="bs-doctor-card">
+        <div class="bs-avatar"></div>
+        <div class="bs-doc-info">
+            <h2>Dr. @Model.Doctor.Name</h2>
+            <div class="bs-pill-row">
+                @foreach (var s in Model.Doctor.Specialties)
+                {
+                    <span class="bs-pill">@s</span>
+                }
+                @if (Model.Doctor.Languages.Any())
+                {
+                    <span class="bs-pill">@string.Join(" / ", Model.Doctor.Languages)</span>
+                }
+            </div>
+            <div class="bs-stats">
+                <span class="bs-stat">$@Model.Doctor.Price / session</span>
+                <span class="bs-stat">@Model.Doctor.SessionDuration min</span>
+                <span class="bs-stat">@Model.Doctor.AvailabilityRange</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking form -->
     <form asp-action="ConfirmPostpone" asp-controller="MySessions" method="post">
         @Html.AntiForgeryToken()
 
         <input type="hidden" name="oldSessionId" value="@oldSessionId" />
         <input type="hidden" name="doctorId" value="@Model.Doctor.Id" />
         <input type="hidden" id="selectedSlotsJson" name="selectedSlotsJson" />
+        <span id="selectedDateLabel" data-date="@Model.SelectedDate.ToString("yyyy-MM-dd")" style="display:none"></span>
 
-        <div class="header-row">
-            <div class="card">
-                <div class="doc-header">
-                    <div class="avatar"></div>
-                    <div class="doc-meta">
-                        <h1>Dr. @Model.Doctor.Name</h1>
+        <div class="bs-booking-panel">
 
-                        <div class="pill-row">
-                            @foreach (var s in Model.Doctor.Specialties)
-                            {
-                                <span class="pill">@s</span>
-                            }
-                            @if (Model.Doctor.Languages.Any())
-                            {
-                                <span class="pill">@string.Join(" / ", Model.Doctor.Languages)</span>
-                            }
-                        </div>
-
-                        <div class="stats">
-                            <span class="stat-pill">$@Model.Doctor.Price / session</span>
-                            <span class="stat-pill">@Model.Doctor.SessionDuration min</span>
-                            <span class="stat-pill">@Model.Doctor.AvailabilityRange</span>
-                        </div>
+            <!-- Left: Month calendar -->
+            <div class="bs-calendar">
+                <div class="bs-cal-header">
+                    <span class="bs-month-title" id="monthTitle"></span>
+                    <div class="bs-cal-nav">
+                        <button type="button" class="bs-nav-btn" id="prevMonth">&#8249;</button>
+                        <button type="button" class="bs-nav-btn" id="nextMonth">&#8250;</button>
                     </div>
                 </div>
+                <div class="bs-dow-row">
+                    <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+                </div>
+                <div class="bs-cal-grid" id="calGrid"></div>
             </div>
 
-            <div class="card calendar-card">
-                <div class="calendar-head">
-                    <p class="calendar-title" id="weekTitle">This Week</p>
-                    <div class="cal-nav">
-                        <button type="button" class="cal-btn" id="prevWeek">Prev</button>
-                        <button type="button" class="cal-btn" id="nextWeek">Next</button>
+            <!-- Right: Time slots -->
+            <div class="bs-times">
+                <div class="bs-times-header">
+                    <span class="bs-day-name" id="selectedDayName">Select a date</span>
+                    <div class="bs-format-toggle">
+                        <button type="button" class="bs-fmt-btn bs-fmt-active" id="fmt12">12h</button>
+                        <button type="button" class="bs-fmt-btn" id="fmt24">24h</button>
                     </div>
                 </div>
-                <div class="calendar-wrap">
-                    <div class="week-grid" id="weekGrid"></div>
-                </div>
+                <div class="bs-slot-grid" id="sessionGrid"></div>
+                <div class="bs-empty-state" id="sessionEmpty">No sessions available for this day. Try another date.</div>
             </div>
+
         </div>
 
-        <div class="card sessions">
-            <div class="sessions-head">
-                <div>
-                    <h3>Available sessions</h3>
-                    <small id="selectedDateLabel" data-date="@Model.SelectedDate.ToString("yyyy-MM-dd")">@Model.SelectedDate.ToString("dddd, MMM d")</small>
-                </div>
-                <div class="text-muted">Pick one new time slot</div>
-            </div>
-
-            <div class="session-grid" id="sessionGrid">
-                @foreach (var slot in Model.AvailableSlots)
-                {
-                    <div class="session">
-                        <strong>@slot</strong>
-                        <small>@Model.Doctor.SessionDuration min · Online / In-person</small>
-                        <span class="cta">Select</span>
-                    </div>
-                }
-            </div>
-
-            <div class="empty-state" id="sessionEmpty"
-                 style="display:@(Model.AvailableSlots.Any() ? "none" : "block")">
-                No sessions for this day. Try another date.
-            </div>
-
-            <div class="continue-actions" id="continueContainer">
-                <button type="submit" class="continue-btn" id="continueBtn">
-                    Confirm reschedule
-                </button>
-            </div>
+        <div class="bs-continue-row" id="continueContainer">
+            <button type="submit" class="bs-continue-btn" id="continueBtn">
+                Confirm reschedule &rarr;
+            </button>
         </div>
     </form>
 </div>
 
 @section Scripts {
-    <script src="~/js/book-appointment.js" asp-append-version="true"></script>
     <script>
         // Limit selection to 1 slot for postpone
-        document.addEventListener('DOMContentLoaded', () => {
-            if (window._safeSlotLimit === undefined) {
-                window._safeSlotLimit = 1;
-            }
-        });
+        window._safeSlotLimit = 1;
     </script>
+    <script src="~/js/book-appointment.js" asp-append-version="true"></script>
 }
