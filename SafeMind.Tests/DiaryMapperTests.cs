@@ -26,10 +26,10 @@ namespace SafeMind.Tests
 
             var vm = DiaryMapper.ToViewModel(journal);
 
-            Assert.AreEqual(journal.Title, vm.Title);
-            Assert.AreEqual(journal.Content, vm.Content);
-            Assert.AreEqual(journal.Mood, vm.Mood);
-            Assert.AreEqual(journal.CreatedAt, vm.CreatedOn);
+            Assert.That(vm.Title, Is.EqualTo(journal.Title));
+            Assert.That(vm.Content, Is.EqualTo(journal.Content));
+            Assert.That(vm.Mood, Is.EqualTo(journal.Mood));
+            Assert.That(vm.CreatedOn, Is.EqualTo(journal.CreatedAt));
         }
 
         [Test]
@@ -49,9 +49,9 @@ namespace SafeMind.Tests
 
             var vm = DiaryMapper.ToViewModel(check);
 
-            Assert.AreEqual(check.Notes, vm.Notes);
-            Assert.AreEqual(check.Mood, vm.Mood);
-            Assert.AreEqual(check.CreatedOn, vm.CreatedOn);
+            Assert.That(vm.Notes, Is.EqualTo(check.Notes));
+            Assert.That(vm.Mood, Is.EqualTo(check.Mood));
+            Assert.That(vm.CreatedOn, Is.EqualTo(check.CreatedOn));
         }
     }
 }
