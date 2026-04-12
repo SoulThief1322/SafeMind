@@ -56,7 +56,7 @@ jobs:
 
   deploy:
     needs: build-and-test
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
@@ -66,12 +66,11 @@ jobs:
           name: safemind-app
           path: ./publish
 
-      - name: Deploy to SmarterASP.NET via Web Deploy
-        shell: cmd
-        run: |
-          "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" ^
-            -verb:sync ^
-            -source:contentPath="%GITHUB_WORKSPACE%\publish" ^
-            -dest:contentPath="${{ secrets.SMARTERASP_SITE_NAME }}",computerName="https://${{ secrets.SMARTERASP_HOST }}:8172/msdeploy.axd",userName="${{ secrets.SMARTERASP_USERNAME }}",password="${{ secrets.SMARTERASP_PASSWORD }}",authType="Basic" ^
-            -enableRule:AppOffline ^
-            -allowUntrusted
+      - name: Deploy to SmarterASP.NET via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.SMARTERASP_HOST }}
+          username: ${{ secrets.SMARTERASP_USERNAME }}
+          password: ${{ secrets.SMARTERASP_PASSWORD }}
+          local-dir: ./publish/
+          server-dir: /
