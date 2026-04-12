@@ -77,15 +77,8 @@ jobs:
 
       - name: Deploy to SmarterASP.NET via FTPS
         run: |
-          lftp -u "${{ secrets.SMARTERASP_USERNAME }},${{ secrets.SMARTERASP_PASSWORD }}" \
-            -e "
-              set ftp:ssl-force true;
-              set ftp:ssl-protect-data true;
-              set ssl:verify-certificate false;
-              set net:timeout 60;
-              set net:max-retries 10;
-              set net:reconnect-interval-base 5;
-              set ftp:passive-mode true;
-              mirror --reverse --verbose --parallel=2 ./publish/ /;
-              quit;
-            " "ftp://${{ secrets.SMARTERASP_HOST }}"
+          lftp -u "$FTP_USER,$FTP_PASS" -e "set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate false; set net:timeout 60; set net:max-retries 10; set net:reconnect-interval-base 5; set ftp:passive-mode true; mirror --reverse --verbose --parallel=2 ./publish/ /; quit;" "ftp://$FTP_HOST"
+        env:
+          FTP_USER: ${{ secrets.SMARTERASP_USERNAME }}
+          FTP_PASS: ${{ secrets.SMARTERASP_PASSWORD }}
+          FTP_HOST: ${{ secrets.SMARTERASP_HOST }}
