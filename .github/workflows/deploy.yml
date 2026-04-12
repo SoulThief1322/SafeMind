@@ -68,41 +68,19 @@ jobs:
 
       - name: Write production appsettings
         run: |
-          cat > ./publish/appsettings.Production.json << 'APPSETTINGS_EOF'
-          {
-            "ConnectionStrings": {
-              "DefaultConnection": "CONN_STRING_PLACEHOLDER"
-            },
-            "SmtpSettings": {
-              "Host": "smtp-relay.brevo.com",
-              "Port": 587,
-              "Username": "SMTP_USER_PLACEHOLDER",
-              "Password": "SMTP_PASS_PLACEHOLDER"
-            },
-            "Hashing": {
-              "Key": "HASH_KEY_PLACEHOLDER"
-            },
-            "Authentication": {
-              "Google": {
-                "ClientId": "GOOGLE_ID_PLACEHOLDER",
-                "ClientSecret": "GOOGLE_SECRET_PLACEHOLDER"
-              }
-            },
-            "Logging": {
-              "LogLevel": {
-                "Default": "Warning",
-                "Microsoft.AspNetCore": "Warning"
-              }
-            },
-            "AllowedHosts": "*"
+          python3 -c "
+          import json, os
+          config = {
+            'ConnectionStrings': {'DefaultConnection': os.environ['DB_CONNECTION_STRING']},
+            'SmtpSettings': {'Host': 'smtp-relay.brevo.com', 'Port': 587, 'Username': os.environ['SMTP_USERNAME'], 'Password': os.environ['SMTP_PASSWORD']},
+            'Hashing': {'Key': os.environ['HASHING_KEY']},
+            'Authentication': {'Google': {'ClientId': os.environ['GOOGLE_CLIENT_ID'], 'ClientSecret': os.environ['GOOGLE_CLIENT_SECRET']}},
+            'Logging': {'LogLevel': {'Default': 'Warning', 'Microsoft.AspNetCore': 'Warning'}},
+            'AllowedHosts': '*'
           }
-          APPSETTINGS_EOF
-          sed -i "s|CONN_STRING_PLACEHOLDER|$DB_CONNECTION_STRING|" ./publish/appsettings.Production.json
-          sed -i "s|SMTP_USER_PLACEHOLDER|$SMTP_USERNAME|" ./publish/appsettings.Production.json
-          sed -i "s|SMTP_PASS_PLACEHOLDER|$SMTP_PASSWORD|" ./publish/appsettings.Production.json
-          sed -i "s|HASH_KEY_PLACEHOLDER|$HASHING_KEY|" ./publish/appsettings.Production.json
-          sed -i "s|GOOGLE_ID_PLACEHOLDER|$GOOGLE_CLIENT_ID|" ./publish/appsettings.Production.json
-          sed -i "s|GOOGLE_SECRET_PLACEHOLDER|$GOOGLE_CLIENT_SECRET|" ./publish/appsettings.Production.json
+          with open('./publish/appsettings.Production.json', 'w') as f:
+            json.dump(config, f, indent=2)
+          "
         env:
           DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
           SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
