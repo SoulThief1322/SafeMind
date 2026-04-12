@@ -74,3 +74,4 @@ jobs:
           password: ${{ secrets.SMARTERASP_PASSWORD }}
           local-dir: ./publish/
           server-dir: /
+          protocol: ftps
