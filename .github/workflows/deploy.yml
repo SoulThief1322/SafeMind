@@ -66,6 +66,20 @@ jobs:
           name: safemind-app
           path: ./publish
 
+      - name: Take site offline
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.SMARTERASP_HOST }}
+          username: ${{ secrets.SMARTERASP_USERNAME }}
+          password: ${{ secrets.SMARTERASP_PASSWORD }}
+          local-dir: ./publish/
+          server-dir: /
+          protocol: ftps
+          include: '["app_offline.htm"]'
+
+      - name: Wait for IIS to release locks
+        run: sleep 10
+
       - name: Deploy to SmarterASP.NET via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -75,3 +89,4 @@ jobs:
           local-dir: ./publish/
           server-dir: /
           protocol: ftps
+          dangerous-clean-slate: true
