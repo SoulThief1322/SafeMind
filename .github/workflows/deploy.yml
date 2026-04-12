@@ -82,12 +82,14 @@ jobs:
               set ftp:ssl-force true;
               set ftp:ssl-protect-data true;
               set ssl:verify-certificate false;
-              set net:timeout 30;
-              set net:max-retries 5;
+              set net:timeout 60;
+              set net:max-retries 10;
               set net:reconnect-interval-base 5;
+              set ftp:passive-mode true;
               put -O / app_offline.htm;
-              sleep 5;
-              mirror --reverse --delete --verbose --parallel=4 ./publish/ /;
+              sleep 10;
+              glob -a rm -r -f /*;
+              mirror --reverse --verbose --parallel=2 ./publish/ /;
               rm -f /app_offline.htm;
               quit;
             " "ftp://${{ secrets.SMARTERASP_HOST }}"
