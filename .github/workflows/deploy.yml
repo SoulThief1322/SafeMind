@@ -67,7 +67,9 @@ jobs:
           path: ./publish
 
       - name: Enable stdout logging in web.config
-        run: sed -i 's/stdoutLogEnabled="false"/stdoutLogEnabled="true"/' ./publish/web.config
+        run: |
+          sed -i 's/stdoutLogEnabled="false"/stdoutLogEnabled="true"/' ./publish/web.config
+          sed -i 's/hostingModel="inprocess"/hostingModel="outofprocess"/' ./publish/web.config
 
       - name: Write production appsettings
         run: |
