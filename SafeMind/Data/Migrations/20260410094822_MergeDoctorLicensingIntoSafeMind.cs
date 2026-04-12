@@ -1,18 +1,34 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SafeMind.Data.Migrations.DoctorLicensing
+namespace SafeMind.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class LicenceSpecialtiesAdded : Migration
+    public partial class MergeDoctorLicensingIntoSafeMind : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Specialty",
-                table: "DoctorLicenses");
+            migrationBuilder.CreateTable(
+                name: "DoctorLicenses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LicenseNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    NationalId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IssuingAuthority = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    IssuedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpiresOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false, defaultValue: "Active")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DoctorLicenses", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "LicenceSpecialties",
@@ -52,6 +68,17 @@ namespace SafeMind.Data.Migrations.DoctorLicensing
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_DoctorLicenses_LicenseNumber",
+                table: "DoctorLicenses",
+                column: "LicenseNumber",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoctorLicenses_NationalId",
+                table: "DoctorLicenses",
+                column: "NationalId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LicenceDoctorSpecialties_SpecialtyId",
                 table: "LicenceDoctorSpecialties",
                 column: "SpecialtyId");
@@ -64,15 +91,10 @@ namespace SafeMind.Data.Migrations.DoctorLicensing
                 name: "LicenceDoctorSpecialties");
 
             migrationBuilder.DropTable(
-                name: "LicenceSpecialties");
+                name: "DoctorLicenses");
 
-            migrationBuilder.AddColumn<string>(
-                name: "Specialty",
-                table: "DoctorLicenses",
-                type: "nvarchar(120)",
-                maxLength: 120,
-                nullable: false,
-                defaultValue: "");
+            migrationBuilder.DropTable(
+                name: "LicenceSpecialties");
         }
     }
 }
