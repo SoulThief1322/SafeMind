@@ -66,27 +66,28 @@ jobs:
           name: safemind-app
           path: ./publish
 
-      - name: Take site offline
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.SMARTERASP_HOST }}
-          username: ${{ secrets.SMARTERASP_USERNAME }}
-          password: ${{ secrets.SMARTERASP_PASSWORD }}
-          local-dir: ./publish/
-          server-dir: /
-          protocol: ftps
-          include: '["app_offline.htm"]'
+      - name: Remove app_offline.htm from publish
+        run: rm -f ./publish/app_offline.htm
 
-      - name: Wait for IIS to release locks
-        run: sleep 10
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
 
-      - name: Deploy to SmarterASP.NET via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.SMARTERASP_HOST }}
-          username: ${{ secrets.SMARTERASP_USERNAME }}
-          password: ${{ secrets.SMARTERASP_PASSWORD }}
-          local-dir: ./publish/
-          server-dir: /
-          protocol: ftps
-          dangerous-clean-slate: true
+      - name: Create app_offline.htm
+        run: echo '<!DOCTYPE html><html><body><h1>Updating...</h1></body></html>' > app_offline.htm
+
+      - name: Deploy to SmarterASP.NET via FTPS
+        run: |
+          lftp -u "${{ secrets.SMARTERASP_USERNAME }},${{ secrets.SMARTERASP_PASSWORD }}" \
+            -e "
+              set ftp:ssl-force true;
+              set ftp:ssl-protect-data true;
+              set ssl:verify-certificate false;
+              set net:timeout 30;
+              set net:max-retries 5;
+              set net:reconnect-interval-base 5;
+              put -O / app_offline.htm;
+              sleep 5;
+              mirror --reverse --delete --verbose --parallel=4 ./publish/ /;
+              rm -f /app_offline.htm;
+              quit;
+            " "ftp://${{ secrets.SMARTERASP_HOST }}"
