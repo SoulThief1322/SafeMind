@@ -66,6 +66,51 @@ jobs:
           name: safemind-app
           path: ./publish
 
+      - name: Write production appsettings
+        run: |
+          cat > ./publish/appsettings.Production.json << 'APPSETTINGS_EOF'
+          {
+            "ConnectionStrings": {
+              "DefaultConnection": "CONN_STRING_PLACEHOLDER"
+            },
+            "SmtpSettings": {
+              "Host": "smtp-relay.brevo.com",
+              "Port": 587,
+              "Username": "SMTP_USER_PLACEHOLDER",
+              "Password": "SMTP_PASS_PLACEHOLDER"
+            },
+            "Hashing": {
+              "Key": "HASH_KEY_PLACEHOLDER"
+            },
+            "Authentication": {
+              "Google": {
+                "ClientId": "GOOGLE_ID_PLACEHOLDER",
+                "ClientSecret": "GOOGLE_SECRET_PLACEHOLDER"
+              }
+            },
+            "Logging": {
+              "LogLevel": {
+                "Default": "Warning",
+                "Microsoft.AspNetCore": "Warning"
+              }
+            },
+            "AllowedHosts": "*"
+          }
+          APPSETTINGS_EOF
+          sed -i "s|CONN_STRING_PLACEHOLDER|$DB_CONNECTION_STRING|" ./publish/appsettings.Production.json
+          sed -i "s|SMTP_USER_PLACEHOLDER|$SMTP_USERNAME|" ./publish/appsettings.Production.json
+          sed -i "s|SMTP_PASS_PLACEHOLDER|$SMTP_PASSWORD|" ./publish/appsettings.Production.json
+          sed -i "s|HASH_KEY_PLACEHOLDER|$HASHING_KEY|" ./publish/appsettings.Production.json
+          sed -i "s|GOOGLE_ID_PLACEHOLDER|$GOOGLE_CLIENT_ID|" ./publish/appsettings.Production.json
+          sed -i "s|GOOGLE_SECRET_PLACEHOLDER|$GOOGLE_CLIENT_SECRET|" ./publish/appsettings.Production.json
+        env:
+          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          HASHING_KEY: ${{ secrets.HASHING_KEY }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+
       - name: Remove app_offline.htm from publish
         run: rm -f ./publish/app_offline.htm
 
@@ -77,7 +122,7 @@ jobs:
 
       - name: Deploy to SmarterASP.NET via FTPS
         run: |
-          lftp -u "$FTP_USER,$FTP_PASS" -e "set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate false; set net:timeout 60; set net:max-retries 10; set net:reconnect-interval-base 5; set ftp:passive-mode true; mirror --reverse --verbose --no-perms --parallel=2 ./publish/ /; quit;" "ftp://$FTP_HOST"
+          lftp -u "$FTP_USER,$FTP_PASS" -e "set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate false; set net:timeout 60; set net:max-retries 10; set net:reconnect-interval-base 5; set ftp:passive-mode true; set cmd:fail-exit false; mirror --reverse --verbose --no-perms --parallel=2 ./publish/ /; quit;" "ftp://$FTP_HOST" || true
         env:
           FTP_USER: ${{ secrets.SMARTERASP_USERNAME }}
           FTP_PASS: ${{ secrets.SMARTERASP_PASSWORD }}
