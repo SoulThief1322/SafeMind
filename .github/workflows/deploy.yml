@@ -66,13 +66,16 @@ jobs:
           name: safemind-app
           path: ./publish
 
+      - name: Enable stdout logging in web.config
+        run: sed -i 's/stdoutLogEnabled="false"/stdoutLogEnabled="true"/' ./publish/web.config
+
       - name: Write production appsettings
         run: |
           python3 -c "
           import json, os
           config = {
-            'ConnectionStrings': {'DefaultConnection': os.environ['DB_CONNECTION_STRING']},
-            'SmtpSettings': {'Host': 'smtp-relay.brevo.com', 'Port': 587, 'Username': os.environ['SMTP_USERNAME'], 'Password': os.environ['SMTP_PASSWORD']},
+            'ConnectionStrings': {'DefaultConnection': os.environ['DB_CONNECTION_STRING'].strip()},
+            'SmtpSettings': {'Host': 'smtp-relay.brevo.com', 'Port': 587, 'Username': os.environ['SMTP_USERNAME'].strip(), 'Password': os.environ['SMTP_PASSWORD'].strip()},
             'Hashing': {'Key': os.environ['HASHING_KEY']},
             'Authentication': {'Google': {'ClientId': os.environ['GOOGLE_CLIENT_ID'], 'ClientSecret': os.environ['GOOGLE_CLIENT_SECRET']}},
             'Logging': {'LogLevel': {'Default': 'Warning', 'Microsoft.AspNetCore': 'Warning'}},
