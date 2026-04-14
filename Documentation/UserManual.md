@@ -1,5 +1,5 @@
 # SafeMind User Manual
-
+# WEBSITE IS DEPLOYED AT "safe-mind.net"
 ## 1. Prerequisites
 
 - **.NET SDK 6.0 or later**
