@@ -2,7 +2,7 @@
 # WEBSITE IS DEPLOYED AT "safe-mind.net"
 ## 1. Prerequisites
 
-- **.NET SDK 6.0 or later**
+- **.NET SDK 9.0.x**
 - **SQL Server** (local or remote)
 
 ## 2. Installation Steps
@@ -39,8 +39,8 @@ dotnet run --project SafeMind/SafeMind.csproj --launch-profile https
 ## 3. Default User Accounts
 
 ### a. Regular User
-- **Email:** kalin.todorov@safemind.bg
-- **Password:** Password123!
+- **Email:** alex@gmail.com
+- **Password:** Password1!
 
 ### b. Admin User
 - **Email:** lyubomira.hristova@safemind.bg
