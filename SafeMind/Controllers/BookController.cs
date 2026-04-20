@@ -41,12 +41,12 @@ public class BookController : Controller
 
         if (!string.IsNullOrWhiteSpace(specialty))
         {
-            doctorQuery = await _bookService.DoctorsWithSpecialty(specialty);
+            doctorQuery = _bookService.FilterBySpecialty(doctorQuery, specialty);
         }
 
         if (!string.IsNullOrWhiteSpace(name))
         {
-            doctorQuery = await _bookService.DoctorsWithName(name);
+            doctorQuery = _bookService.FilterByName(doctorQuery, name);
         }
 
         var totalDoctors = await doctorQuery.CountAsync();

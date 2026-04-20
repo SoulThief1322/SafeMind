@@ -25,6 +25,15 @@ namespace SafeMind.Services
             var doctors = context.Doctors.Where(d => d.Name.Contains(name));
             return Task.FromResult(doctors);
         }
+        public IQueryable<Doctor> FilterBySpecialty(IQueryable<Doctor> query, string specialty)
+        {
+            return query.Where(d =>
+                d.DoctorSpecialties.Any(ds => ds.Specialty != null && ds.Specialty.Name == specialty));
+        }
+        public IQueryable<Doctor> FilterByName(IQueryable<Doctor> query, string name)
+        {
+            return query.Where(d => d.Name.Contains(name));
+        }
         public Task<IQueryable<Doctor>> GetPageDoctors(IQueryable<Doctor> doctorsQuery, int page, int pageSize)
         {
             var doctors = doctorsQuery.OrderBy(d => d.Name)

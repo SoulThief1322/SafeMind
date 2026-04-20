@@ -1,0 +1,614 @@
+/* ============================================================
+   GLOBAL RESPONSIVE OVERRIDES
+   Ensures no horizontal overflow and clean scaling on all devices
+   ============================================================ */
+
+/* --- Prevent horizontal overflow globally --- */
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+    min-width: 0;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+img, video, svg, canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- Ensure text doesn't cause overflow --- */
+h1, h2, h3, h4, h5, h6, p, li, td, th, a, span, label {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+pre, code {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+/* --- Tables --- */
+table {
+    max-width: 100%;
+}
+
+/* ============================================================
+   FOOTER RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    .footer {
+        padding: 40px 20px 16px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: 28px;
+        padding: 0;
+    }
+
+    .footer-section {
+        padding-left: 0;
+        border-left: none;
+    }
+
+    .footer-bottom {
+        padding: 16px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 30px 16px 12px;
+    }
+
+    .footer-container {
+        gap: 22px;
+    }
+
+    .footer-bottom {
+        font-size: 12px;
+    }
+}
+
+/* ============================================================
+   HOME PAGE – HERO RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    .hero {
+        gap: 30px;
+    }
+
+    .hero-images {
+        height: 220px;
+        width: 100%;
+    }
+
+    .image-extra-1,
+    .image-extra-2 {
+        display: none;
+    }
+
+    .image-large {
+        width: 55%;
+        height: 180px;
+    }
+
+    .image-small {
+        width: 40%;
+        height: 140px;
+    }
+
+    .features-section {
+        padding: 40px 20px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 30px 16px;
+        gap: 20px;
+    }
+
+    .hero-images {
+        height: 180px;
+    }
+
+    .image-large {
+        width: 60%;
+        height: 150px;
+    }
+
+    .image-small {
+        width: 35%;
+        height: 110px;
+    }
+
+    .features-section {
+        padding: 30px 16px;
+    }
+
+    .cta-button {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+/* ============================================================
+   HOME PAGE – SUPPORT / HOTLINES
+   ============================================================ */
+@media (max-width: 768px) {
+    .hotline-grid {
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hotline-grid {
+        padding: 0;
+    }
+}
+
+/* ============================================================
+   ARTICLES PAGE RESPONSIVE
+   ============================================================ */
+@media (max-width: 480px) {
+    .hero-editorial {
+        min-height: 240px;
+        margin-bottom: 30px;
+    }
+
+    .hero-inner {
+        padding: 20px 12px;
+        min-height: auto;
+    }
+
+    .hero-title {
+        font-size: 1.4rem !important;
+    }
+
+    .hero-notice-inner {
+        padding: 10px 14px;
+    }
+
+    .story-card img {
+        height: 160px;
+    }
+
+    .sidebar-block {
+        padding: 12px;
+    }
+
+    .social-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .social-btn .meta strong {
+        font-size: 0.85rem;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   SELECTED ARTICLE PAGE
+   ============================================================ */
+@media (max-width: 480px) {
+    .article-hero {
+        min-height: 240px;
+    }
+
+    .article-hero-title {
+        font-size: 1.4rem;
+    }
+
+    .article-hero-content {
+        padding: 30px 16px 24px;
+    }
+
+    .article-body-content {
+        font-size: 1rem;
+    }
+}
+
+/* ============================================================
+   CONTACT PAGE
+   ============================================================ */
+@media (max-width: 480px) {
+    .contact-body {
+        padding: 30px 16px 50px;
+    }
+
+    .info-card {
+        padding: 14px;
+    }
+
+    .crisis-banner {
+        padding: 14px;
+    }
+}
+
+/* ============================================================
+   CHAT RESPONSIVE
+   ============================================================ */
+@media (max-width: 480px) {
+    .chat-panel {
+        right: 8px;
+        left: 8px;
+        width: auto;
+        bottom: 76px;
+        max-height: 75vh;
+    }
+
+    .chat-fab {
+        bottom: 14px;
+        right: 14px;
+    }
+}
+
+/* ============================================================
+   MY DIARY RESPONSIVE
+   ============================================================ */
+@media (max-width: 480px) {
+    .diary-container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .diary-title h1 {
+        font-size: 1.6rem;
+    }
+
+    .diary-header-actions {
+        width: 100%;
+    }
+
+    .diary-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .day-pill {
+        padding: 6px 4px;
+    }
+
+    .day-pill .dow {
+        font-size: 0.7rem;
+    }
+
+    .day-pill .dom {
+        font-size: 0.9rem;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    .chip-row {
+        gap: 6px;
+    }
+
+    .chip {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    .insight-visual {
+        flex-direction: column;
+    }
+
+    .donut-wrap {
+        width: 120px;
+        height: 120px;
+    }
+
+    .mc-row {
+        gap: 4px;
+    }
+
+    .mc-day {
+        height: 32px;
+        font-size: 0.8rem;
+        border-radius: 8px;
+    }
+}
+
+/* ============================================================
+   DIARY ENTRY
+   ============================================================ */
+@media (max-width: 480px) {
+    .entry-page {
+        padding: 30px 12px 60px;
+    }
+
+    .entry-actions {
+        flex-direction: column;
+    }
+
+    .entry-actions > * {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ============================================================
+   MY SESSIONS
+   ============================================================ */
+@media (max-width: 480px) {
+    .my-sessions {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .sessions-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .session-list {
+        grid-template-columns: 1fr;
+    }
+
+    .session-card {
+        border-radius: 10px;
+    }
+
+    .session-actions {
+        width: 100%;
+    }
+
+    .rating-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ============================================================
+   BOOKING PAGE
+   ============================================================ */
+@media (max-width: 480px) {
+    .popular-row {
+        grid-template-columns: 1fr;
+    }
+
+    .results-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .sort-row {
+        width: 100%;
+    }
+}
+
+/* ============================================================
+   BOOK SESSION PAGE
+   ============================================================ */
+@media (max-width: 480px) {
+    .bs-page {
+        padding: 2rem 1rem 3rem;
+    }
+
+    .bs-flow-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .bs-doctor-card {
+        padding: 1.25rem;
+    }
+
+    .bs-avatar {
+        width: 56px;
+        height: 56px;
+    }
+
+    .bs-pill {
+        font-size: 0.78rem;
+        padding: 0.2rem 0.6rem;
+    }
+
+    .bs-slot-grid {
+        grid-template-columns: 1fr;
+        max-height: 200px;
+    }
+
+    .bs-continue-btn {
+        width: 100%;
+    }
+}
+
+/* ============================================================
+   BOOKING FLOW (CHECKOUT / CONFIRMATION)
+   ============================================================ */
+@media (max-width: 480px) {
+    .checkout-page {
+        padding: 0 0.75rem 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .card {
+        padding: 1.25rem;
+        border-radius: 12px;
+    }
+
+    .confirmation-card {
+        padding: 1.5rem;
+    }
+
+    .summary-row {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .slots li {
+        font-size: 0.88rem;
+        padding: 0.5rem 0.7rem;
+    }
+
+    .processing-card {
+        padding: 1.5rem;
+    }
+}
+
+/* ============================================================
+   ADMIN PANEL
+   ============================================================ */
+@media (max-width: 480px) {
+    .admin-table {
+        font-size: 0.8rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 8px 10px;
+    }
+
+    .contact-card {
+        padding: 14px;
+    }
+
+    .contact-actions {
+        width: 100%;
+    }
+
+    .contact-actions .btn-admin-sm {
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .reports-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-bars {
+        gap: 8px;
+        height: 140px;
+    }
+}
+
+/* ============================================================
+   STATIC PAGES
+   ============================================================ */
+@media (max-width: 480px) {
+    .sp-hero {
+        padding: 50px 16px 36px;
+    }
+
+    .sp-hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .sp-body {
+        padding: 30px 16px 50px;
+    }
+
+    .hipaa-badges {
+        flex-direction: column;
+    }
+
+    .crisis-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .crisis-emergency-banner {
+        flex-direction: column;
+        padding: 16px;
+    }
+}
+
+/* ============================================================
+   LOGIN / REGISTER PAGES
+   ============================================================ */
+@media (max-width: 380px) {
+    .login-modal {
+        padding: 20px 18px;
+    }
+
+    .login-socials {
+        flex-direction: column;
+    }
+
+    .page-login-card {
+        padding: 20px 16px;
+    }
+
+    .page-login-card--wide {
+        padding: 20px 16px;
+    }
+}
+
+/* ============================================================
+   CREATE ARTICLE
+   ============================================================ */
+@media (max-width: 480px) {
+    .create-article-page {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions > * {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ============================================================
+   NOTIFICATION CARD
+   ============================================================ */
+@media (max-width: 480px) {
+    .notification-card {
+        padding: 22px 18px;
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    .notification-card .notification-title {
+        font-size: 1.5em;
+    }
+
+    .notification-card .notification-message {
+        font-size: 1em;
+    }
+}
+
+/* ============================================================
+   UTILITY: ensure containers don't overflow
+   ============================================================ */
+.container,
+.container-fluid,
+.diary-container,
+.my-sessions,
+.booking-page,
+.bs-page,
+.checkout-page,
+.create-article-page,
+.sp-body,
+.contact-body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
