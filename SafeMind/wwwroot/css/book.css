@@ -300,7 +300,34 @@
 @media (max-width: 900px) {
   .booking-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .booking-title {
+    text-align: center;
+  }
+
+  .booking-left > .muted {
+    text-align: center;
+  }
+
+  .actions {
+    justify-content: center;
+  }
+
+  .results-header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .end-note {
+    text-align: center;
+  }
+
+  .pagination {
+    justify-content: center;
   }
 }
 

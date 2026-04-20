@@ -1,0 +1,30 @@
+@model SafeMind.Models.ErrorViewModel
+@{
+    ViewData["Title"] = "Something Went Wrong";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/error-pages.css" asp-append-version="true" />
+}
+
+<div class="error-page">
+    <div class="error-card">
+        <div class="error-icon error-icon--500">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="error-code">500</div>
+        <h1 class="error-title">Something Went Wrong</h1>
+        <p class="error-message">
+            An unexpected error occurred on our end. Our team has been notified.
+            Please try again in a few moments.
+        </p>
+        <div class="error-actions">
+            <a href="/" class="error-btn error-btn--primary">
+                <i class="fas fa-home"></i> Go Home
+            </a>
+            <a href="javascript:location.reload()" class="error-btn error-btn--ghost">
+                <i class="fas fa-redo"></i> Try Again
+            </a>
+        </div>
+    </div>
+</div>

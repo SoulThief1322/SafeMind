@@ -362,6 +362,12 @@
 
 /* ─── Responsive ────────────────────────────────────────────── */
 @media (max-width: 720px) {
+  .bs-page {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1rem 3rem;
+  }
+
   .bs-booking-panel {
     grid-template-columns: 1fr;
   }
@@ -377,9 +383,15 @@
 
   .bs-doctor-card {
     flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .bs-flow-header h1 {
     font-size: 1.75rem;
+  }
+
+  .bs-continue-row {
+    justify-content: center;
   }
 }

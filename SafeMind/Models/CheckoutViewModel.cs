@@ -20,7 +20,7 @@ namespace SafeMind.Models
         public List<SlotVM> Slots { get; set; } = new();
         [Required(ErrorMessage = "Full name is required.")]
         [MaxLength(100, ErrorMessage = "Use 100 characters or fewer for your name.")]
-        [RegularExpression("^[A-Za-z]+(?:[\\s'\\-]+[A-Za-z]+)+$", ErrorMessage = "Please enter a valid full name (first and last name).")]
+        [RegularExpression("^^[A-Z][a-z]+ [A-Z][a-z]+$", ErrorMessage = "Please enter a valid full name (first and last name).")]
         public string FullName { get; set; } = string.Empty;
 
         [Required]

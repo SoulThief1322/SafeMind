@@ -60,7 +60,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
     options.Events.OnRedirectToAccessDenied = ctx =>
     {
-        ctx.Response.Redirect("/Identity/Account/Login");
+        ctx.Response.Redirect("/Error/403");
         return Task.CompletedTask;
     };
 });
@@ -80,6 +80,7 @@ else
 }
 
 app.UseHttpsRedirection();
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
 app.UseRouting();
 
 app.UseAuthentication();
