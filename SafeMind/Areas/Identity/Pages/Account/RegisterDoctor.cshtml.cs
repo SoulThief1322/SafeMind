@@ -16,7 +16,6 @@ namespace SafeMind.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IUserStore<IdentityUser> _userStore;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
-        private readonly DoctorLicensingDbContext _licensingContext;
         private readonly SafeMindDbContext _context;
         private readonly ILogger<RegisterDoctorModel> _logger;
         private readonly IDeterministicHasher _hasher;
@@ -25,7 +24,6 @@ namespace SafeMind.Areas.Identity.Pages.Account
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
-            DoctorLicensingDbContext licensingContext,
             SafeMindDbContext context,
             ILogger<RegisterDoctorModel> logger,
             IDeterministicHasher hasher)
@@ -34,7 +32,6 @@ namespace SafeMind.Areas.Identity.Pages.Account
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
-            _licensingContext = licensingContext;
             _context = context;
             _logger = logger;
             _hasher = hasher;
@@ -142,7 +139,7 @@ namespace SafeMind.Areas.Identity.Pages.Account
                 var hashedNationalId = _hasher.Hash(Input.NationalId);
                 var hashedLicenseNumber = _hasher.Hash(Input.DoctorId);
 
-                var license = await _licensingContext.DoctorLicenses
+                var license = await _context.DoctorLicenses
                     .Include(dl => dl.DoctorLicenseSpecialties)
                     .ThenInclude(dls => dls.Specialty)
                     .FirstOrDefaultAsync(dl =>
@@ -153,7 +150,7 @@ namespace SafeMind.Areas.Identity.Pages.Account
                 // Backfill if legacy records were stored unhashed
                 if (license == null)
                 {
-                    license = await _licensingContext.DoctorLicenses
+                    license = await _context.DoctorLicenses
                         .Include(dl => dl.DoctorLicenseSpecialties)
                         .ThenInclude(dls => dls.Specialty)
                         .FirstOrDefaultAsync(dl =>
@@ -165,7 +162,7 @@ namespace SafeMind.Areas.Identity.Pages.Account
                     {
                         license.NationalId = hashedNationalId;
                         license.LicenseNumber = hashedLicenseNumber;
-                        await _licensingContext.SaveChangesAsync();
+                        await _context.SaveChangesAsync();
                     }
                 }
 

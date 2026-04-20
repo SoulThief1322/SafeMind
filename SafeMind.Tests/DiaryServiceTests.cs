@@ -24,7 +24,7 @@ namespace SafeMind.Tests
         {
             var checks = new List<DailyCheck>();
             var result = await _service.CalculateStreak(checks);
-            Assert.AreEqual(0, result);
+            Assert.That(result, Is.EqualTo(0));
         }
 
         [Test]
@@ -38,15 +38,15 @@ namespace SafeMind.Tests
                 new DailyCheck { CreatedOn = today }
             };
             var result = await _service.CalculateStreak(checks);
-            Assert.AreEqual(3, result);
+            Assert.That(result, Is.EqualTo(3));
         }
 
         [Test]
         public void MapMoodScore_KnownValues_ReturnsExpected()
         {
-            Assert.AreEqual(5.0, _service.MapMoodScore(JournalMood.Happy));
-            Assert.AreEqual(4.5, _service.MapMoodScore(JournalMood.Excited));
-            Assert.AreEqual(1.0, _service.MapMoodScore(JournalMood.Angry));
+            Assert.That(_service.MapMoodScore(JournalMood.Happy), Is.EqualTo(5.0));
+            Assert.That(_service.MapMoodScore(JournalMood.Excited), Is.EqualTo(4.5));
+            Assert.That(_service.MapMoodScore(JournalMood.Angry), Is.EqualTo(1.0));
         }
 
         [Test]
@@ -65,10 +65,10 @@ namespace SafeMind.Tests
             }.AsQueryable();
 
             var dist = await _service.GetMoodDistribution(journals, checks);
-            Assert.AreEqual(3, dist.Count);
-            Assert.AreEqual(2, dist[JournalMood.Happy.ToString()]);
-            Assert.IsTrue(dist.ContainsKey(JournalMood.Sad.ToString()));
-            Assert.IsTrue(dist.ContainsKey(JournalMood.Anxious.ToString()));
+            Assert.That(dist.Count, Is.EqualTo(3));
+            Assert.That(dist[JournalMood.Happy.ToString()], Is.EqualTo(2));
+            Assert.That(dist.ContainsKey(JournalMood.Sad.ToString()), Is.True);
+            Assert.That(dist.ContainsKey(JournalMood.Anxious.ToString()), Is.True);
         }
 
         [Test]
@@ -84,8 +84,8 @@ namespace SafeMind.Tests
             }.AsQueryable();
 
             var scores = await _service.GetMoodScores(journals, _service, checks);
-            Assert.IsNotNull(scores);
-            Assert.AreEqual(2, scores.Count);
+            Assert.That(scores, Is.Not.Null);
+            Assert.That(scores.Count, Is.EqualTo(2));
         }
     }
 }

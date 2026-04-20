@@ -1,0 +1,73 @@
+name: Build, Test & Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  DOTNET_VERSION: '9.0.x'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore SafeMind.sln
+
+      - name: Build solution
+        run: dotnet build SafeMind.sln --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test SafeMind.Tests/SafeMind.Tests.csproj --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+
+      - name: Publish test results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Test Results
+          path: '**/test-results.trx'
+          reporter: dotnet-trx
+
+      - name: Publish application
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: dotnet publish SafeMind/SafeMind.csproj --configuration Release --output ./publish
+
+      - name: Upload build artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: safemind-app
+          path: ./publish
+
+  deploy:
+    needs: build-and-test
+    runs-on: windows-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: safemind-app
+          path: ./publish
+
+      - name: Deploy to SmarterASP.NET via Web Deploy
+        shell: cmd
+        run: |
+          "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" ^
+            -verb:sync ^
+            -source:contentPath="%GITHUB_WORKSPACE%\publish" ^
+            -dest:contentPath="${{ secrets.SMARTERASP_SITE_NAME }}",computerName="https://${{ secrets.SMARTERASP_HOST }}:8172/msdeploy.axd",userName="${{ secrets.SMARTERASP_USERNAME }}",password="${{ secrets.SMARTERASP_PASSWORD }}",authType="Basic" ^
+            -enableRule:AppOffline ^
+            -allowUntrusted
