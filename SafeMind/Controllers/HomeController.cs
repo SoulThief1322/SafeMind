@@ -67,6 +67,24 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
+    [Route("/Error/{statusCode:int}")]
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult StatusCodeError(int statusCode)
+    {
+        var vm = new ErrorViewModel
+        {
+            StatusCode = statusCode,
+            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+        };
+
+        return statusCode switch
+        {
+            403 => View("Error403", vm),
+            404 => View("Error404", vm),
+            _ => View("Error500", vm)
+        };
+    }
+
     [HttpGet]
     [Authorize]
     public async Task<IActionResult> GetMood()
