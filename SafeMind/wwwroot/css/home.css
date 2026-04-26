@@ -780,6 +780,7 @@ main {
     .hero {
         grid-template-columns: 1fr;
         padding: 60px 40px;
+        gap: 0;
     }
 
     .hero-content h1 {
@@ -787,9 +788,10 @@ main {
     }
 
     .hero-images {
-        height: 300px;
+        display: none;
     }
 }
+
 @media (max-width: 768px) {
     .hero {
         padding: 40px 20px;
@@ -825,16 +827,6 @@ main {
     .content-card,
     .hotline-card {
         padding: 25px;
-    }
-
-    .image-large {
-        width: 200px;
-        height: 160px;
-    }
-
-    .image-small {
-        width: 120px;
-        height: 120px;
     }
 
     .articles-grid {
