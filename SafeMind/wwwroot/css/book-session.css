@@ -340,7 +340,7 @@
   background: var(--bs-bg);
 }
 
-/* ─── Continue ──────────────────────────────────────────────── */
+/* ─── Continue (in-flow, at bottom of form) ─────────────────── */
 .bs-continue-row {
   display: none;
   justify-content: flex-end;
@@ -361,6 +361,55 @@
 }
 
 .bs-continue-btn:hover {
+  background: #255b44;
+}
+
+/* ─── Sticky ghost bar (shows when real button is off-screen) ── */
+.bs-sticky-bar {
+  display: none;
+  position: fixed;
+  bottom: 1.25rem;
+  /* Sit to the left of the chat FAB (right:28px + 56px + 16px gap = ~100px) */
+  right: 6.5rem;
+  z-index: 100;
+  width: min(420px, calc(100vw - 7.5rem));
+  background: var(--bs-surface);
+  border: 1px solid var(--bs-border);
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  padding: 0.85rem 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  animation: bs-slide-up 0.2s ease;
+}
+
+@keyframes bs-slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.bs-sticky-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--bs-text);
+}
+
+.bs-sticky-btn {
+  background: var(--bs-primary);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2.5rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+  font-family: inherit;
+}
+
+.bs-sticky-btn:hover {
   background: #255b44;
 }
 
@@ -404,6 +453,13 @@
   .bs-continue-row {
     justify-content: center;
   }
+
+  .bs-sticky-bar {
+    bottom: 1rem;
+    right: 5rem;
+    width: min(380px, calc(100vw - 6rem));
+    padding: 0.75rem 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -419,8 +475,16 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  .bs-continue-btn {
-    width: 100%;
+  .bs-sticky-bar {
+    bottom: 1rem;
+    right: 5rem;
+    width: calc(100vw - 6rem);
+    flex-direction: row;
+    padding: 0.75rem 1rem;
+  }
+
+  .bs-sticky-btn {
+    flex-shrink: 0;
     text-align: center;
   }
 }

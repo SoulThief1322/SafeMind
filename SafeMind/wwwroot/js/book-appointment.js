@@ -13,12 +13,38 @@
     const fmt12Btn         = document.getElementById('fmt12');
     const fmt24Btn         = document.getElementById('fmt24');
     const doctorId         = document.querySelector('input[name="doctorId"]')?.value;
+    const stickyBar        = document.getElementById('stickyBar');
+    const stickyLabel      = document.getElementById('stickyLabel');
+    const stickyBtn        = document.getElementById('stickyBtn');
 
     if (!calGrid || !doctorId) return;
 
     let use12h = true;
     const selectedSlotsByDate = new Map();
     const availabilityCache   = new Map();
+
+    // ── Sticky bar visibility ──────────────────────────────────
+    let continueInView = true;
+
+    const continueObserver = new IntersectionObserver(entries => {
+        continueInView = entries[0].isIntersecting;
+        syncStickyBar();
+    }, { threshold: 0.1 });
+
+    if (continueContainer) continueObserver.observe(continueContainer);
+
+    stickyBtn?.addEventListener('click', () => {
+        continueContainer?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    function syncStickyBar() {
+        const total = Array.from(selectedSlotsByDate.values()).reduce((s, v) => s + v.size, 0);
+        const show  = total > 0 && !continueInView;
+        if (stickyBar) stickyBar.style.display = show ? 'flex' : 'none';
+        if (stickyLabel) {
+            stickyLabel.textContent = `${total} session${total !== 1 ? 's' : ''} selected`;
+        }
+    }
 
     const today = normalizeDate(new Date());
     const initialDate = parseLocalIso(selectedDateLabel?.dataset?.date) || today;
@@ -237,6 +263,7 @@
         const total = Array.from(selectedSlotsByDate.values()).reduce((s, v) => s + v.size, 0);
         continueContainer.style.display = total > 0 ? 'flex' : 'none';
         updateHidden();
+        syncStickyBar();
     }
 
     async function loadSessions(iso) {
