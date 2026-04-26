@@ -14,11 +14,14 @@
 /* ─── Page ─────────────────────────────────────────────────── */
 .bs-page {
   max-width: 960px;
+  width: 100%;
   margin: 0 auto;
   padding: 3rem 1.5rem 5rem;
   color: var(--bs-text);
   font-family: system-ui, sans-serif;
   background: var(--bs-bg);
+  box-sizing: border-box;
+  overflow-x: clip;
 }
 
 .bs-flow-header {
@@ -115,12 +118,13 @@
 /* ─── Booking panel ─────────────────────────────────────────── */
 .bs-booking-panel {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: minmax(260px, 320px) 1fr;
   background: var(--bs-surface);
   border: 1px solid var(--bs-border);
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  min-width: 0;
 }
 
 /* ─── Calendar ──────────────────────────────────────────────── */
@@ -361,10 +365,8 @@
 }
 
 /* ─── Responsive ────────────────────────────────────────────── */
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .bs-page {
-    max-width: 100%;
-    margin: 0 auto;
     padding: 2rem 1rem 3rem;
   }
 
@@ -387,11 +389,38 @@
     text-align: center;
   }
 
+  .bs-pill-row {
+    justify-content: center;
+  }
+
+  .bs-stats {
+    justify-content: center;
+  }
+
   .bs-flow-header h1 {
     font-size: 1.75rem;
   }
 
   .bs-continue-row {
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .bs-page {
+    padding: 1.5rem 0.75rem 2.5rem;
+  }
+
+  .bs-flow-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .bs-slot-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .bs-continue-btn {
+    width: 100%;
+    text-align: center;
   }
 }
