@@ -26,6 +26,10 @@ namespace SafeMind.Tests.Controllers
             _context = TestDbContextFactory.Create();
             var logger = new Mock<ILogger<HomeController>>();
             _controller = new HomeController(logger.Object, _context, new SafeMind.Services.DiaryService());
+            _controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext { User = new ClaimsPrincipal() }
+            };
         }
 
         [TearDown]
