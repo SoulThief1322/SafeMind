@@ -1,4 +1,16 @@
 ﻿@model SafeMind.Models.HomePageViewModel
+@{
+    string MoodEmoji(string? mood) => mood switch
+    {
+        "Happy"   => "😊",
+        "Excited" => "⚡",
+        "Calm"    => "🌿",
+        "Anxious" => "😰",
+        "Sad"     => "💙",
+        "Angry"   => "🌋",
+        _         => "📊"
+    };
+}
 <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 <!-- HERO SECTION -->
 <section class="hero">
@@ -148,6 +160,106 @@
     </div>
 </section>
 
+<!-- WELLNESS SNAPSHOT — logged-in users with diary history -->
+@if (User.Identity?.IsAuthenticated == true && Model.InsightTotalEntries > 0)
+{
+    <section class="wellness-snapshot">
+        <div class="snapshot-inner">
+            <div class="snap-stat">
+                <span class="snap-icon">🔥</span>
+                <div class="snap-body">
+                    <span class="snap-value">@Model.InsightStreak</span>
+                    <span class="snap-label">day streak</span>
+                </div>
+            </div>
+            <div class="snap-divider"></div>
+            <div class="snap-stat">
+                <span class="snap-icon">📊</span>
+                <div class="snap-body">
+                    <span class="snap-value">@Model.InsightAvgScore.ToString("F1")<span class="snap-denom">/5</span></span>
+                    <span class="snap-label">avg mood · 30 days</span>
+                </div>
+            </div>
+            <div class="snap-divider"></div>
+            <div class="snap-stat">
+                <span class="snap-icon">📝</span>
+                <div class="snap-body">
+                    <span class="snap-value">@Model.InsightTotalEntries</span>
+                    <span class="snap-label">entries this month</span>
+                </div>
+            </div>
+            <div class="snap-divider"></div>
+            <div class="snap-stat">
+                <span class="snap-icon">@MoodEmoji(Model.InsightDominantMood)</span>
+                <div class="snap-body">
+                    <span class="snap-value">@Model.InsightDominantMood</span>
+                    <span class="snap-label">top mood</span>
+                </div>
+            </div>
+        </div>
+        <a href="/MyDiary" class="snap-link">View full diary →</a>
+    </section>
+}
+
+<!-- RECOMMENDED ARTICLES -->
+<section class="recommended-section" id="recommendedSection"
+         @(User.Identity?.IsAuthenticated != true ? Html.Raw("style=\"display:none\"") : Html.Raw(""))>
+    <div class="rec-header">
+        <h2>Recommended for you</h2>
+        <p class="rec-subtitle">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                if (Model.InsightTotalEntries > 0)
+                {
+                    <text>Based on your mood over the last 30 days</text>
+                }
+                else
+                {
+                    <text>A starting point for your wellness journey</text>
+                }
+            }
+            else
+            {
+                <text>Based on today's mood</text>
+            }
+        </p>
+    </div>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="articles-grid">
+            @foreach (var article in Model.RecommendedArticles)
+            {
+                <article class="article-card">
+                    @if (!string.IsNullOrEmpty(article.ImagePath))
+                    {
+                        <div class="article-image">
+                            <img src="@article.ImagePath" alt="@article.Headline">
+                        </div>
+                    }
+                    <div class="article-content">
+                        @if (article.ArticleCategories.Any())
+                        {
+                            <span class="article-tag">@article.ArticleCategories.First().Category.Name</span>
+                        }
+                        <h3>@article.Headline</h3>
+                        <p>@(article.Content.Length > 120 ? article.Content.Substring(0, 120) + "..." : article.Content)</p>
+                        <a href="/Articles/SelectedArticle/@article.Id" class="read-more-btn">Read More →</a>
+                    </div>
+                </article>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="rec-placeholder" id="recPlaceholder">
+            <span class="rec-placeholder-icon">✨</span>
+            <p>Pick your mood above to see articles matched to how you feel right now.</p>
+        </div>
+        <div class="articles-grid" id="recGrid" style="display:none"></div>
+    }
+</section>
+
 <!-- ARTICLES SECTION -->
 <section class="articles-section">
     <h2>Mental health articles</h2>
@@ -253,6 +365,49 @@
 
         prompt.classList.add('hidden');
         dashboard.classList.remove('hidden');
+
+        if (!isAuth) loadGuestRecommendations(mood);
+    }
+
+    /* ── Guest: fetch recommended articles by today's mood ── */
+    function loadGuestRecommendations(mood) {
+        const section     = document.getElementById('recommendedSection');
+        const grid        = document.getElementById('recGrid');
+        const placeholder = document.getElementById('recPlaceholder');
+        if (!section || !grid) return;
+
+        section.style.display = '';
+
+        fetch('/Home/GetArticleRecommendations?mood=' + encodeURIComponent(mood))
+            .then(function (r) { return r.json(); })
+            .then(function (articles) {
+                if (!articles.length) return;
+                grid.innerHTML = articles.map(function (a) {
+                    var img = a.imagePath
+                        ? '<div class="article-image"><img src="' + esc(a.imagePath) + '" alt="' + esc(a.headline) + '"></div>'
+                        : '';
+                    var tag = a.category
+                        ? '<span class="article-tag">' + esc(a.category) + '</span>'
+                        : '';
+                    return '<article class="article-card">'
+                        + img
+                        + '<div class="article-content">'
+                        + tag
+                        + '<h3>' + esc(a.headline) + '</h3>'
+                        + '<p>' + esc(a.content) + '</p>'
+                        + '<a href="/Articles/SelectedArticle/' + a.id + '" class="read-more-btn">Read More \u2192</a>'
+                        + '</div></article>';
+                }).join('');
+                if (placeholder) placeholder.style.display = 'none';
+                grid.style.display = '';
+            })
+            .catch(function () {});
+    }
+
+    function esc(str) {
+        var d = document.createElement('div');
+        d.textContent = str || '';
+        return d.innerHTML;
     }
 
     /* ── Save mood (server or cookie) ── */
@@ -260,7 +415,7 @@
         if (isAuth) {
             saveMoodServer(mood);
         } else {
-            setCookie('safemindMood', mood, 24);
+            setCookie('safemindMood', mood, 168); // 7 days so it persists cross-page
         }
     }
 
@@ -282,6 +437,13 @@
                 resetMoodServer();
             } else {
                 clearCookie('safemindMood');
+                // Hide recommended section and restore placeholder for guests
+                const section     = document.getElementById('recommendedSection');
+                const grid        = document.getElementById('recGrid');
+                const placeholder = document.getElementById('recPlaceholder');
+                if (section) section.style.display = 'none';
+                if (grid) { grid.innerHTML = ''; grid.style.display = 'none'; }
+                if (placeholder) placeholder.style.display = '';
             }
             dashboard.classList.add('hidden');
             prompt.classList.remove('hidden', 'is-leaving');
