@@ -686,6 +686,141 @@ main {
     transform: translateX(4px);
 }
 
+/* ============ WELLNESS SNAPSHOT ============ */
+
+.wellness-snapshot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto 0;
+    padding: 28px 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    position: relative;
+    z-index: 1;
+    transform: translateY(-28px);
+}
+
+.snapshot-inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+}
+
+.snap-stat {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    padding: 0 20px;
+}
+
+.snap-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.snap-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.snap-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.1;
+}
+
+.snap-denom {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+.snap-label {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 2px;
+}
+
+.snap-divider {
+    width: 1px;
+    height: 40px;
+    background: #e0e7e4;
+    flex-shrink: 0;
+}
+
+.snap-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+}
+
+.snap-link:hover {
+    opacity: 0.7;
+}
+
+/* ============ RECOMMENDED ARTICLES ============ */
+
+.recommended-section {
+    padding: 60px 60px 0;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.rec-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.rec-header h2 {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+}
+
+.rec-subtitle {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.rec-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 50px 20px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    text-align: center;
+}
+
+.rec-placeholder-icon {
+    font-size: 2.4rem;
+}
+
+.rec-placeholder p {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    max-width: 340px;
+    margin: 0;
+    line-height: 1.6;
+}
+
 /* ============ SUPPORT SECTION ============ */
 
 .support-section {
@@ -804,6 +939,42 @@ main {
     .mental-health-section,
     .articles-section {
         padding: 60px 20px;
+    }
+
+    .recommended-section {
+        padding: 40px 20px 0;
+    }
+
+    .rec-header h2 {
+        font-size: 2rem;
+    }
+
+    .wellness-snapshot {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 24px;
+        transform: translateY(-20px);
+        gap: 16px;
+    }
+
+    .snapshot-inner {
+        flex-wrap: wrap;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .snap-stat {
+        padding: 0;
+        flex: unset;
+        width: calc(50% - 6px);
+    }
+
+    .snap-divider {
+        display: none;
+    }
+
+    .snap-link {
+        align-self: flex-end;
     }
 
     .section-content h2,

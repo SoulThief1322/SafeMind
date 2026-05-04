@@ -555,72 +555,103 @@ body {
   color: var(--color-primary);
 }
 
-/* Follow us — gradient pill buttons */
-.social-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+/* Daily Insight widget */
+.block-insight {
+  background: linear-gradient(145deg, #f0faf4, #e8f5ee);
+  border: 1px solid #c4e3cf;
 }
 
-.social-btn {
+.insight-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  color: #fff;
-  text-decoration: none;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
 
-.social-btn .icon {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  border-radius: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.social-btn .meta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.social-btn .meta strong {
-  font-size: 0.95rem;
-}
-
-.social-btn .meta small {
+.insight-eyebrow {
   font-size: 0.72rem;
-  opacity: 0.95;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  background: rgba(46, 111, 84, 0.1);
+  padding: 3px 10px;
+  border-radius: 999px;
 }
 
-.social-btn:hover {
-  filter: brightness(1.03);
+.insight-day {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
 }
 
-/* Platform gradients */
-.social-facebook {
-  background: linear-gradient(90deg, #2b69d9, #5aa2ff);
+.insight-text {
+  margin: 0 0 10px 0;
+  padding: 0;
+  border: none;
+  font-size: 0.97rem;
+  line-height: 1.65;
+  color: var(--color-text);
+  font-style: italic;
+  min-height: 80px;
+  transition: opacity 0.25s ease;
 }
-.social-instagram {
-  background: linear-gradient(90deg, #feda75, #f09433, #d6249f, #4c68d7);
+
+.insight-text.fading {
+  opacity: 0;
 }
-.social-youtube {
-  background: linear-gradient(90deg, #ff4b4b, #ff0000);
+
+.insight-topic {
+  margin: 0 0 16px 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
-.social-twitter {
-  background: linear-gradient(90deg, #1da1f2, #73c8ff);
+
+.insight-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.social-tiktok {
-  background: linear-gradient(90deg, #0f1724, #1f2937);
+
+.insight-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
 }
-.social-pinterest {
-  background: linear-gradient(90deg, #e74c3c, #ff7b7b);
+
+.insight-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-muted);
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.insight-dot.active {
+  background: var(--color-primary);
+  transform: scale(1.3);
+}
+
+.insight-next {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: rgba(46, 111, 84, 0.08);
+  border: 1px solid rgba(46, 111, 84, 0.2);
+  border-radius: 8px;
+  padding: 5px 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+}
+
+.insight-next:hover {
+  background: rgba(46, 111, 84, 0.15);
 }
 
 /* Categories (image tiles like ref) */
@@ -789,10 +820,6 @@ a.most-viewed-post:hover {
     order: 2;
   }
 
-  .social-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .category-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -829,10 +856,6 @@ a.most-viewed-post:hover {
   .sidebar-block {
     border-radius: 10px;
     padding: 14px;
-  }
-
-  .social-grid {
-    grid-template-columns: 1fr 1fr;
   }
 
   .category-grid {
