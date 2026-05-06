@@ -94,18 +94,62 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
-      - name: Remove app_offline.htm from publish
+      - name: Remove app_offline.htm from publish folder
         run: rm -f ./publish/app_offline.htm
 
       - name: Install lftp
         run: sudo apt-get install -y lftp
 
       - name: Create app_offline.htm
-        run: echo '<!DOCTYPE html><html><body><h1>Updating...</h1></body></html>' > app_offline.htm
+        run: echo '<!DOCTYPE html><html><body><h1>Site is updating, please wait...</h1></body></html>' > ./app_offline.htm
+
+      - name: Take app offline (upload app_offline.htm first)
+        run: |
+          lftp -u "$FTP_USER,$FTP_PASS" -e "
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate false;
+            set net:timeout 60;
+            set net:max-retries 5;
+            set net:reconnect-interval-base 5;
+            set ftp:passive-mode true;
+            put ./app_offline.htm -o /site1/app_offline.htm;
+            quit;" "ftp://$FTP_HOST"
+        env:
+          FTP_USER: ${{ secrets.SMARTERASP_USERNAME }}
+          FTP_PASS: ${{ secrets.SMARTERASP_PASSWORD }}
+          FTP_HOST: ${{ secrets.SMARTERASP_HOST }}
 
       - name: Deploy to SmarterASP.NET via FTPS
         run: |
-          lftp -u "$FTP_USER,$FTP_PASS" -e "set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate false; set net:timeout 60; set net:max-retries 10; set net:reconnect-interval-base 5; set ftp:passive-mode true; set cmd:fail-exit false; mirror --reverse --verbose --no-perms --parallel=2 ./publish/ /; quit;" "ftp://$FTP_HOST" || true
+          lftp -u "$FTP_USER,$FTP_PASS" -e "
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate false;
+            set net:timeout 120;
+            set net:max-retries 5;
+            set net:reconnect-interval-base 5;
+            set ftp:passive-mode true;
+            mirror --reverse --verbose --no-perms --delete --parallel=2 --exclude app_offline.htm ./publish/ /site1/;
+            quit;" "ftp://$FTP_HOST"
+        env:
+          FTP_USER: ${{ secrets.SMARTERASP_USERNAME }}
+          FTP_PASS: ${{ secrets.SMARTERASP_PASSWORD }}
+          FTP_HOST: ${{ secrets.SMARTERASP_HOST }}
+
+      - name: Bring app back online (remove app_offline.htm)
+        if: always()
+        run: |
+          lftp -u "$FTP_USER,$FTP_PASS" -e "
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate false;
+            set net:timeout 60;
+            set net:max-retries 5;
+            set net:reconnect-interval-base 5;
+            set ftp:passive-mode true;
+            rm -f /site1/app_offline.htm;
+            quit;" "ftp://$FTP_HOST"
         env:
           FTP_USER: ${{ secrets.SMARTERASP_USERNAME }}
           FTP_PASS: ${{ secrets.SMARTERASP_PASSWORD }}
