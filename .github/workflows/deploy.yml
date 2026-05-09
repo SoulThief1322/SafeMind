@@ -82,6 +82,7 @@ jobs:
           path: ./publish
 
       - name: Deploy to SmarterASP.NET via Web Deploy
+        shell: cmd
         run: |
           "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" ^
             -verb:sync ^
