@@ -10,6 +10,7 @@ namespace SafeMind.Services
         {
             var doctors = context.Doctors.Include(d => d.DoctorSpecialties).ThenInclude(ds => ds.Specialty)
             .Include(d => d.DoctorLanguages).ThenInclude(dl => dl.Language)
+            .AsSplitQuery()
             .AsNoTracking()
             .AsQueryable();
             return Task.FromResult(doctors);
@@ -32,13 +33,18 @@ namespace SafeMind.Services
         }
         public IQueryable<Doctor> FilterByName(IQueryable<Doctor> query, string name)
         {
-            return query.Where(d => d.Name.Contains(name));
+            return query
+                .Where(d => d.Name.Contains(name))
+                .OrderBy(d => d.Name.StartsWith(name) ? 0 : 1)
+                .ThenBy(d => d.Name);
         }
         public Task<IQueryable<Doctor>> GetPageDoctors(IQueryable<Doctor> doctorsQuery, int page, int pageSize)
         {
-            var doctors = doctorsQuery.OrderBy(d => d.Name)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize);
+            // Preserve existing ordering (e.g. starts-with priority from FilterByName) if already ordered,
+            // otherwise fall back to alphabetical.
+            var doctors = doctorsQuery
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize);
             return Task.FromResult(doctors);
         }
         public Task<IQueryable<string?>> GetSpecialties()

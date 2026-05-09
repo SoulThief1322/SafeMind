@@ -1,43 +1,43 @@
-/* _content/SafeMind/Views/Shared/_Layout.cshtml.rz.scp.css */
-a.navbar-brand[b-vtwh4v8dbg] {
+/* /Views/Shared/_Layout.cshtml.rz.scp.css */
+a.navbar-brand[b-khe98gb0ji] {
   white-space: normal;
   text-align: center;
   word-break: break-all;
 }
 
-a[b-vtwh4v8dbg] {
+a[b-khe98gb0ji] {
   color: #0077cc;
 }
 
-.btn-primary[b-vtwh4v8dbg] {
+.btn-primary[b-khe98gb0ji] {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active[b-vtwh4v8dbg], .nav-pills .show > .nav-link[b-vtwh4v8dbg] {
+.nav-pills .nav-link.active[b-khe98gb0ji], .nav-pills .show > .nav-link[b-khe98gb0ji] {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
 
-.border-top[b-vtwh4v8dbg] {
+.border-top[b-khe98gb0ji] {
   border-top: 1px solid #e5e5e5;
 }
-.border-bottom[b-vtwh4v8dbg] {
+.border-bottom[b-khe98gb0ji] {
   border-bottom: 1px solid #e5e5e5;
 }
 
-.box-shadow[b-vtwh4v8dbg] {
+.box-shadow[b-khe98gb0ji] {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-button.accept-policy[b-vtwh4v8dbg] {
+button.accept-policy[b-khe98gb0ji] {
   font-size: 1rem;
   line-height: inherit;
 }
 
-.footer[b-vtwh4v8dbg] {
+.footer[b-khe98gb0ji] {
   width: 100%;
   white-space: normal;
 }

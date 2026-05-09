@@ -76,7 +76,7 @@ namespace SafeMind.Services
                 var usersWithEmail = await userManager.Users
                     .Where(u => u.NormalizedEmail == normalizedEmail)
                     .ToListAsync();
-                IdentityUser user = null;
+                IdentityUser? user = null;
                 if (usersWithEmail.Count > 0)
                 {
                     // Use the first user found (if duplicates exist, just pick the first)

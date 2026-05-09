@@ -43,7 +43,7 @@ public class ArticlesController : Controller
         {
             return NotFound();
         }
-        _context.Articles.Where(a => a.Id == id).FirstOrDefault().ViewCount++;
+        _context.Articles.Where(a => a.Id == id).FirstOrDefault()!.ViewCount++;
         _context.SaveChanges();
         return View(article);
     }
@@ -52,7 +52,7 @@ public class ArticlesController : Controller
     [Authorize]
     public async Task<IActionResult> LikeArticle(int id)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var (hasLiked, likes) = await _articleService.ToggleLikeAsync(id, userId);
         return Json(new { hasLiked, likes });
     }

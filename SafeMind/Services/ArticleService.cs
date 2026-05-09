@@ -28,7 +28,7 @@ namespace SafeMind.Services
                     ViewCount = a.ViewCount,
                     ViewsInLastWeek = a.ViewsInLastWeek,
                     Likes = a.Likes,
-                    imagePath = a.ImagePath,
+                    imagePath = a.ImagePath ?? string.Empty,
                     Categories = a.ArticleCategories.Select(ac => ac.Category).ToList()
                 })
                 .OrderByDescending(a => a.DateOfPublish)
@@ -56,7 +56,7 @@ namespace SafeMind.Services
                     ViewCount = a.ViewCount,
                     ViewsInLastWeek = a.ViewsInLastWeek,
                     Likes = a.Likes,
-                    imagePath = a.ImagePath,
+                    imagePath = a.ImagePath ?? string.Empty,
                     Categories = a.ArticleCategories.Select(ac => ac.Category).ToList()
                 })
                 .ToListAsync();
@@ -64,7 +64,7 @@ namespace SafeMind.Services
             return (articles, totalCount);
         }
 
-        public async Task<ArticlesViewModel> GetSelectedArticleAsync(int id, string? userId = null)
+        public async Task<ArticlesViewModel?> GetSelectedArticleAsync(int id, string? userId = null)
         {
             var article = await _context.Articles
                 .Where(a => a.Id == id && !a.IsDeleted)
@@ -78,7 +78,7 @@ namespace SafeMind.Services
                     ViewCount = a.ViewCount,
                     ViewsInLastWeek = a.ViewsInLastWeek,
                     Likes = a.Likes,
-                    imagePath = a.ImagePath,
+                    imagePath = a.ImagePath ?? string.Empty,
                     HasLiked = userId != null && _context.ArticleLikes.Any(al => al.ArticleId == a.Id && al.UserId == userId),
                     Categories = a.ArticleCategories.Select(ac => ac.Category).ToList()
                 })
