@@ -1,5 +1,6 @@
-@model SafeMind.Models.DiaryPageViewModel 
+@model SafeMind.Models.DiaryPageViewModel
 @{
+#pragma warning disable CS8602
 	var insights = Model?.Insights;
 	var totalEntries = (insights?.TotalJournals ?? 0) + (insights?.TotalCheckIns ?? 0);
 	var moodDist = insights?.MoodDistribution ?? new Dictionary<string, int>();
@@ -207,7 +208,6 @@
 
 							<div class="hero-actions">
 								<button type="button" class="diary-btn diary-btn-primary" id="saveCheckinBtn">Save check-in</button>
-								<button type="button" class="diary-btn diary-btn-ghost" id="addDetailsBtn">Add details</button>
 							</div>
 						</div>
 					}
@@ -243,14 +243,14 @@
 					</div>
 				}
 
-				@{ var allDone = Model.WeeklyGoals.All(g => g.IsCompleted); }
+				@{ var allDone = Model?.WeeklyGoals.All(g => g.IsCompleted) ?? false; }
 				<div class="card wg-card">
 					<div class="card-head compact">
 						<div>
 							<h3>Weekly goals</h3>
 							<p class="muted">4 small goals for this week. New ones every Monday.</p>
 						</div>
-						<span class="wg-total" title="Total goals completed"><i class="fa-solid fa-trophy"></i> @Model.TotalGoalsCompleted</span>
+						<span class="wg-total" title="Total goals completed"><i class="fa-solid fa-trophy"></i> @Model?.TotalGoalsCompleted</span>
 					</div>
 
 					@if (allDone)

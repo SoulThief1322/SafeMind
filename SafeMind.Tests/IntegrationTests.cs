@@ -187,7 +187,7 @@ namespace SafeMind.Tests
             var result = await _service.GetSelectedArticleAsync(21);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Headline, Is.EqualTo("Visible"));
+            Assert.That(result!.Headline, Is.EqualTo("Visible"));
         }
     }
 

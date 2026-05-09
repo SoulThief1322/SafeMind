@@ -48,6 +48,10 @@ public class BookController : Controller
         {
             doctorQuery = _bookService.FilterByName(doctorQuery, name);
         }
+        else
+        {
+            doctorQuery = doctorQuery.OrderBy(d => d.Name);
+        }
 
         var totalDoctors = await doctorQuery.CountAsync();
         page = Math.Max(1, page);
@@ -59,12 +63,13 @@ public class BookController : Controller
         page = totalPages == 0 ? 1 : Math.Min(page, totalPages);
 
         var doctors = await _bookService.GetPageDoctors(doctorQuery, page, pageSize);
+        var doctorsList = await doctors.ToListAsync();
 
         var specialties = await _bookService.GetSpecialties();
 
         var vm = new BookPageViewModel
         {
-            Doctors = doctors
+            Doctors = doctorsList
         .Select(DoctorMapper.ToViewModel)
         .ToList(),
 

@@ -28,7 +28,7 @@ namespace SafeMind.Tests.Controllers
             _controller = new HomeController(logger.Object, _context, new SafeMind.Services.DiaryService());
             _controller.ControllerContext = new ControllerContext
             {
-                HttpContext = new DefaultHttpContext { User = new ClaimsPrincipal() }
+                HttpContext = new DefaultHttpContext { User = new ClaimsPrincipal(new ClaimsIdentity()) }
             };
         }
 

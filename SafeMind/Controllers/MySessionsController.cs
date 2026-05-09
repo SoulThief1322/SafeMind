@@ -27,7 +27,7 @@ public class MySessionsController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var isDoctor = User.IsInRole("Doctor");
 
         var sessions = await _mySessionService.GetSessions(userId, isDoctor);
@@ -67,7 +67,7 @@ public class MySessionsController : Controller
     [HttpGet]
     public async Task<IActionResult> Payment(int id)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var session = await _mySessionService.GetPayableSession(id, userId);
 
         if (session == null)
@@ -95,7 +95,7 @@ public class MySessionsController : Controller
         if (!ModelState.IsValid)
             return View("Payment", model);
 
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
         if (model.SessionId == null)
         {
@@ -120,7 +120,7 @@ public class MySessionsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Confirm(int id)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var (success, message) = await _mySessionService.ConfirmSessionAsync(id, userId);
         TempData[success ? "Success" : "Error"] = message;
         return RedirectToAction(nameof(Index));
@@ -131,7 +131,7 @@ public class MySessionsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Complete(int id)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var (success, message) = await _mySessionService.CompleteSessionAsync(id, userId);
         TempData[success ? "Success" : "Error"] = message;
         return RedirectToAction(nameof(Index));
@@ -147,7 +147,7 @@ public class MySessionsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Cancel(int id)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var isDoctor = User.IsInRole("Doctor");
         var (success, message) = await _mySessionService.CancelSessionAsync(id, userId, isDoctor);
         TempData[success ? "Success" : "Error"] = message;
@@ -157,7 +157,7 @@ public class MySessionsController : Controller
     [HttpGet]
     public async Task<IActionResult> Postpone(int id, DateOnly? date)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var isDoctor = User.IsInRole("Doctor");
 
         var session = await _mySessionService.GetSessionWithDoctorDetails(id, userId, isDoctor);
@@ -209,7 +209,7 @@ public class MySessionsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ConfirmPostpone(int oldSessionId, int doctorId, string? selectedSlotsJson)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var isDoctor = User.IsInRole("Doctor");
 
         var (success, message, _) = await _mySessionService.ConfirmPostponeAsync(oldSessionId, doctorId, selectedSlotsJson, userId, isDoctor);

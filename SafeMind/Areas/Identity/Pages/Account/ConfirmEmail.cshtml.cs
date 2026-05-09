@@ -9,7 +9,7 @@ namespace SafeMind.Areas.Identity.Pages.Account
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
-        public string StatusMessage { get; set; }
+        public string StatusMessage { get; set; } = null!;
 
         public ConfirmEmailModel(UserManager<IdentityUser> userManager)
         {

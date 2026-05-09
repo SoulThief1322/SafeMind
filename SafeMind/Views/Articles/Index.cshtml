@@ -106,7 +106,7 @@
 
             <!-- Daily Insight -->
             <div class="sidebar-block block-insight" role="region" aria-label="Daily Insight"
-                 data-authenticated="@User.Identity.IsAuthenticated.ToString().ToLower()">
+                 data-authenticated="@(User.Identity?.IsAuthenticated.ToString().ToLower() ?? "false")">
                 <div class="insight-header">
                     <span class="insight-eyebrow">Daily Insight</span>
                     <span class="insight-day" id="insightDay"></span>
