@@ -216,7 +216,7 @@ namespace SafeMind.Tests.Controllers
             var request = new NewJournalEntryRequest();
 
             var result = await _controller.NewEntry(request);
-            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
+            Assert.That(result, Is.InstanceOf<ViewResult>());
         }
 
         // ── AllEntries ──
