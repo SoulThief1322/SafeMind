@@ -1,3 +1,4 @@
+@model SafeMind.Models.NewJournalEntryRequest
 @{
 	ViewData["Title"] = "New Entry";
 }
@@ -16,12 +17,14 @@
 
 		<form method="post" asp-action="NewEntry" asp-controller="MyDiary" class="entry-stack">
 			@Html.AntiForgeryToken()
+			<div asp-validation-summary="ModelOnly" class="text-danger" style="margin-bottom:12px;"></div>
 			<input type="hidden" name="Mood" id="Mood" value="Happy" />
 			<input type="hidden" name="Category" id="Category" value="Personal" />
 
 			<div class="entry-block">
 				<div class="entry-label">Title</div>
-				<input class="entry-title-input" name="Title" id="Title" type="text" placeholder="Give your entry a name" />
+				<input class="entry-title-input" name="Title" id="Title" type="text" placeholder="Give your entry a name" value="@Model?.Title" />
+				<span asp-validation-for="Title" class="text-danger" style="font-size:0.85em;"></span>
 			</div>
 
 			<div class="entry-block">
@@ -50,7 +53,8 @@
 
 			<div class="entry-block">
 				<div class="entry-label">Write your story</div>
-				<textarea class="entry-textarea" name="Content" id="Content" rows="8" placeholder="What’s on your mind?"></textarea>
+				<textarea class="entry-textarea" name="Content" id="Content" rows="8" placeholder="What's on your mind?">@Model?.Content</textarea>
+				<span asp-validation-for="Content" class="text-danger" style="font-size:0.85em;"></span>
 			</div>
 
 			<div class="entry-actions">
@@ -61,4 +65,5 @@
 	</div>
 </div>
 
+<partial name="_ValidationScriptsPartial" />
 <script src="~/js/newEntry.js"></script>

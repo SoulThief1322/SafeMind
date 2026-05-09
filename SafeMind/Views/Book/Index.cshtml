@@ -1,5 +1,8 @@
 @using System.Linq
 @model SafeMind.Models.BookPageViewModel
+@{
+#pragma warning disable CS8602
+}
 
 <link rel="stylesheet" href="~/css/book.css" asp-append-version="true" />
 
@@ -117,10 +120,10 @@
                 }
             </div>
 
-            @if (Model.TotalPages > 1)
+            @if ((Model?.TotalPages ?? 0) > 1)
             {
                 <nav class="pagination" aria-label="Doctor results pagination">
-                    @if (Model.PageNumber > 1)
+                    @if (Model?.PageNumber > 1)
                     {
                         <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, specialty = Model.SelectedSpecialty, name = Model.SearchName })">Previous</a>
                     }
