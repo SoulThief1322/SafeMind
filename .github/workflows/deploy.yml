@@ -43,6 +43,21 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: dotnet publish SafeMind/SafeMind.csproj --configuration Release --output ./publish
 
+      - name: Inject production connection string
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
+        run: |
+          python3 -c "
+          import json, os
+          path = './publish/appsettings.Production.json'
+          with open(path) as f:
+              cfg = json.load(f)
+          cfg['ConnectionStrings']['DefaultConnection'] = os.environ['DB_CONNECTION_STRING']
+          with open(path, 'w') as f:
+              json.dump(cfg, f, indent=2)
+          "
+
       - name: Upload build artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
@@ -70,4 +85,8 @@ jobs:
             -source:contentPath="%GITHUB_WORKSPACE%\publish" ^
             -dest:contentPath="${{ secrets.SMARTERASP_SITE_NAME }}",computerName="https://${{ secrets.SMARTERASP_HOST }}:8172/msdeploy.axd",userName="${{ secrets.SMARTERASP_USERNAME }}",password="${{ secrets.SMARTERASP_PASSWORD }}",authType="Basic" ^
             -enableRule:AppOffline ^
+            -useCheckSum ^
+            -disableLink:AppPoolExtension ^
+            -retryAttempts:3 ^
+            -retryInterval:2000 ^
             -allowUntrusted
