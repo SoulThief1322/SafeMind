@@ -14,8 +14,8 @@ builder.Services.AddSignalR();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false;
-    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedEmail = true;
     options.SignIn.RequireConfirmedPhoneNumber = false;
 })
     .AddRoles<IdentityRole>()
