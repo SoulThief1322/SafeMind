@@ -60,7 +60,6 @@ public class ArticlesController : Controller
     public async Task<IActionResult> LikeArticle(int id)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var (hasLiked, likes) = await _articleService.ToggleLikeAsync(id, userId);
         return Json(new { hasLiked, likes });
     }
