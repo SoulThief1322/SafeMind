@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SafeMind.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c7461073902494ad63d5e297220287814fe7b9a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7745d2c74a6f87d0b6453ecc41a871a78a7e088")]
 [assembly: System.Reflection.AssemblyProductAttribute("SafeMind.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SafeMind.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace SafeMind.Models
 {
@@ -13,6 +15,7 @@ namespace SafeMind.Models
         public string Content { get; set; } = string.Empty;
 
         [Display(Name = "Article Image")]
+        [FileExtensions(Extensions = "jpg,jpeg,png,gif,webp", ErrorMessage = "Only image files (.jpg, .jpeg, .png, .gif, .webp) are allowed.")]
         public IFormFile? Image { get; set; }
 
         [Display(Name = "Categories")]
