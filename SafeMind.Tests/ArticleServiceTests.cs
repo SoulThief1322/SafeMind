@@ -142,7 +142,7 @@ namespace SafeMind.Tests
             var vm = await service.GetSelectedArticleAsync(article.Id);
 
             Assert.That(vm, Is.Not.Null);
-            Assert.That(vm.Headline, Is.EqualTo("First Article"));
+            Assert.That(vm!.Headline, Is.EqualTo("First Article"));
         }
 
         [Test]

@@ -89,7 +89,7 @@
 </section>
 
 <!-- MOOD CHECK SECTION -->
-<section class="mood-section" id="moodSection" data-authenticated="@User.Identity.IsAuthenticated.ToString().ToLower()">
+<section class="mood-section" id="moodSection" data-authenticated="@(User.Identity?.IsAuthenticated.ToString().ToLower() ?? "false")">
     <div class="mood-aurora"></div>
 
     <div class="mood-prompt" id="moodPrompt">

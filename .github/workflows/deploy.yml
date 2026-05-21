@@ -47,6 +47,28 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: dotnet publish SafeMind/SafeMind.csproj --configuration Release --output ./publish
 
+      - name: Inject production connection string
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          HASHING_KEY: ${{ secrets.HASHING_KEY }}
+        run: |
+          python3 -c "
+          import json, os
+          path = './publish/appsettings.Production.json'
+          with open(path) as f:
+              cfg = json.load(f)
+          cfg['ConnectionStrings']['DefaultConnection'] = os.environ['DB_CONNECTION_STRING']
+          cfg.setdefault('Authentication', {}).setdefault('Google', {})
+          cfg['Authentication']['Google']['ClientId'] = os.environ['GOOGLE_CLIENT_ID']
+          cfg['Authentication']['Google']['ClientSecret'] = os.environ['GOOGLE_CLIENT_SECRET']
+          cfg.setdefault('Hashing', {})['Key'] = os.environ['HASHING_KEY']
+          with open(path, 'w') as f:
+              json.dump(cfg, f, indent=2)
+          "
+
       - name: Upload build artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
@@ -56,7 +78,7 @@ jobs:
 
   deploy:
     needs: build-and-test
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
@@ -66,47 +88,28 @@ jobs:
           name: safemind-app
           path: ./publish
 
-      - name: Enable stdout logging in web.config
-        run: |
-          sed -i 's/stdoutLogEnabled="false"/stdoutLogEnabled="true"/' ./publish/web.config
-          sed -i 's/hostingModel="inprocess"/hostingModel="outofprocess"/' ./publish/web.config
+      - name: Remove app_offline.htm from publish output
+        run: Remove-Item -Path ".\publish\app_offline.htm" -ErrorAction SilentlyContinue
 
-      - name: Write production appsettings
-        run: |
-          python3 -c "
-          import json, os
-          config = {
-            'ConnectionStrings': {'DefaultConnection': os.environ['DB_CONNECTION_STRING'].strip()},
-            'SmtpSettings': {'Host': 'smtp-relay.brevo.com', 'Port': 587, 'Username': os.environ['SMTP_USERNAME'].strip(), 'Password': os.environ['SMTP_PASSWORD'].strip()},
-            'Hashing': {'Key': os.environ['HASHING_KEY']},
-            'Authentication': {'Google': {'ClientId': os.environ['GOOGLE_CLIENT_ID'], 'ClientSecret': os.environ['GOOGLE_CLIENT_SECRET']}},
-            'Logging': {'LogLevel': {'Default': 'Warning', 'Microsoft.AspNetCore': 'Warning'}},
-            'AllowedHosts': '*'
-          }
-          with open('./publish/appsettings.Production.json', 'w') as f:
-            json.dump(config, f, indent=2)
-          "
+      - name: Deploy to SmarterASP.NET via Web Deploy
+        shell: pwsh
         env:
-          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
-          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          HASHING_KEY: ${{ secrets.HASHING_KEY }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-
-      - name: Remove app_offline.htm from publish
-        run: rm -f ./publish/app_offline.htm
-
-      - name: Install lftp
-        run: sudo apt-get install -y lftp
-
-      - name: Create app_offline.htm
-        run: echo '<!DOCTYPE html><html><body><h1>Updating...</h1></body></html>' > app_offline.htm
-
-      - name: Deploy to SmarterASP.NET via FTPS
+          SMARTERASP_SITE_NAME: ${{ secrets.SMARTERASP_SITE_NAME }}
+          SMARTERASP_HOST: ${{ secrets.SMARTERASP_HOST }}
+          SMARTERASP_USERNAME: ${{ secrets.SMARTERASP_USERNAME }}
+          SMARTERASP_PASSWORD: ${{ secrets.SMARTERASP_PASSWORD }}
         run: |
-          lftp -u "$FTP_USER,$FTP_PASS" -e "set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate false; set net:timeout 60; set net:max-retries 10; set net:reconnect-interval-base 5; set ftp:passive-mode true; set cmd:fail-exit false; mirror --reverse --verbose --no-perms --parallel=2 ./publish/ /; quit;" "ftp://$FTP_HOST" || true
-        env:
-          FTP_USER: ${{ secrets.SMARTERASP_USERNAME }}
-          FTP_PASS: ${{ secrets.SMARTERASP_PASSWORD }}
-          FTP_HOST: ${{ secrets.SMARTERASP_HOST }}
+          $msdeploy = 'C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe'
+          $argString = (
+            '-verb:sync',
+            "-source:contentPath=`"$env:GITHUB_WORKSPACE\publish`"",
+            "-dest:contentPath=`"$env:SMARTERASP_SITE_NAME`",computerName=`"https://$($env:SMARTERASP_HOST):8172/MsDeploy.axd?site=$($env:SMARTERASP_SITE_NAME)`",userName=`"$env:SMARTERASP_USERNAME`",password=`"$env:SMARTERASP_PASSWORD`",authType=`"Basic`"",
+            '-enableRule:AppOffline',
+            '-useCheckSum',
+            '-disableLink:AppPoolExtension',
+            '-retryAttempts:3',
+            '-retryInterval:2000',
+            '-allowUntrusted'
+          ) -join ' '
+          $process = Start-Process -FilePath $msdeploy -ArgumentList $argString -Wait -PassThru -NoNewWindow
+          exit $process.ExitCode

@@ -79,7 +79,6 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.UseStatusCodePagesWithReExecute("/Error/{0}");
 app.UseRouting();
 
@@ -98,6 +97,14 @@ app.MapRazorPages()
 
 app.MapHub<SafeMind.Hubs.ChatHub>("/chathub");
 
-await SafeMind.Services.DbInitializer.SeedAsync(app.Services);
+try
+{
+    await SafeMind.Services.DbInitializer.SeedAsync(app.Services);
+}
+catch (Exception ex)
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "Database seeding failed. The app will still start.");
+}
 
 app.Run();

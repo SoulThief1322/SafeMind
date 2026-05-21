@@ -165,7 +165,7 @@ public class MyDiaryController : Controller
 
         if (!ModelState.IsValid)
         {
-            return BadRequest(new { success = false, error = "Invalid data" });
+            return View(request);
         }
 
         var journal = DiaryMapper.ToEntity(request, userId);
